@@ -11,9 +11,9 @@ server:
 spring:
   # 数据源配置
   datasource:
-    url: jdbc:mysql://rm-bp15iscz0t1m98qk8o.mysql.rds.aliyuncs.com:3306/db_demo?useUnicode=true&characterEncoding=utf-8&useSSL=true
-    username: cg_demo
-    password: cg_demo
+    url: jdbc:mysql://localhost:3306/db_yiwa?useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: root
+    password: 1qaz@WSX
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   # JSON返回配置
