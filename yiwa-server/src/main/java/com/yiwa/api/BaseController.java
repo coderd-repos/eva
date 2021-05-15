@@ -1,9 +1,12 @@
 package com.yiwa.api;
 
-import com.alibaba.fastjson.JSON;
 import com.yiwa.core.model.ApiResponse;
+import com.yiwa.core.model.BusinessException;
+import com.yiwa.core.model.LoginUserInfo;
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,10 +17,19 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Controller基类
  * @author Caesar Liu
- * @date 2021/05/15 18:44
+ * @date 2021/03/26 19:48
  */
 @Slf4j
 public class BaseController {
+
+    /**
+     * 获取当前登录用户
+     * @author Caesar Liu
+     * @date 2021-03-28 15:35
+     */
+    protected LoginUserInfo getLoginUser () {
+        return (LoginUserInfo)SecurityUtils.getSubject().getPrincipal();
+    }
   
     /**
      * 全局异常捕获
@@ -26,28 +38,25 @@ public class BaseController {
     public ModelAndView exceptionHandle(HttpServletRequest request, HttpServletResponse response, Exception ex){
         try {
             log.error(ex.getMessage(), ex);
-            // 如果为异步请求，返回ApiResponse对象
-            if(this.isAjax(request)){
-                response.setHeader("content-type", "text/html;charset=UTF-8");
-                response.getWriter().write(JSON.toJSONString(ApiResponse.failed(ex.getMessage())));
+            response.setHeader("content-type", "application/json;charset=UTF-8");
+            // 业务异常
+            if (ex instanceof BusinessException) {
+                BusinessException be = (BusinessException) ex;
+                response.getWriter().write(JSON.toJSONString(ApiResponse.failed(be.getCode(), be.getMessage())));
                 return null;
             }
-            // 跳转至error页面
-            ModelMap model = new ModelMap();
-            model.addAttribute("error", ex.getMessage());
-            return new ModelAndView("error/default", model);
+            // 无权限异常
+            if (ex instanceof UnauthorizedException) {
+                response.getWriter().write(JSON.toJSONString(ApiResponse.failed("没有操作权限")));
+                return null;
+            }
+            response.getWriter().write(JSON.toJSONString(ApiResponse.failed(ex.getMessage() == null ? "系统繁忙" : ex.getMessage())));
+            return null;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             ModelMap model = new ModelMap();
             model.addAttribute("error", "未知异常");
             return new ModelAndView("error/default", model);
         }
-    }
-
-    /**
-     * 判断请求是否为异步
-     */
-    private boolean isAjax(HttpServletRequest request){
-        return StringUtils.isNotBlank(request.getHeader("X-Requested-With"));
     }
 }

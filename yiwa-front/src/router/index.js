@@ -39,7 +39,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('to.name', to.name)
   const userInfo = router.app.$options.store.state.userInfo
   if (userInfo != null) {
     next()
@@ -59,7 +58,6 @@ router.beforeEach((to, from, next) => {
     })
     .catch(e => {
       // 未登录，跳转至登录页
-      console.log('未登录')
       next({ name: 'login' })
     })
 })

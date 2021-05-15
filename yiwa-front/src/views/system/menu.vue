@@ -86,16 +86,15 @@
 </template>
 
 <script>
-import icons from '../../assets/constants/icons'
-import Pagination from '../../components/common/Pagination'
+import icons from '../../utils/icons'
 import GlobalDialog from '../../components/common/GlobalDialog'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch, sort } from '../../assets/api/system/systemMenu'
+import { fetchList, create, updateById, deleteById, deleteByIdInBatch, sort } from '../../api/system/systemMenu'
 import BaseTable from '../BaseTable'
 export default {
   name: 'SystemMenu',
   extends: BaseTable,
-  components: { TableLayout, GlobalDialog, Pagination },
+  components: { TableLayout, GlobalDialog },
   data () {
     return {
       icons,

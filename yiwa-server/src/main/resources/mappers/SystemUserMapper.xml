@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.admin.dao.system.SystemUserMapper">
+<mapper namespace="com.yiwa.dao.system.SystemUserMapper">
 
   <!-- 查询用户和角色 -->
-  <resultMap id="SystemUserListVO" type="com.admin.dao.system.vo.SystemUserListVO" autoMapping="true">
+  <resultMap id="SystemUserListVO" type="com.yiwa.dao.system.vo.SystemUserListVO" autoMapping="true">
     <id column="ID" property="id"/>
-    <association property="createUserInfo" javaType="com.admin.dao.system.model.SystemUser">
+    <association property="createUserInfo" javaType="com.yiwa.dao.system.model.SystemUser">
       <result column="CREATE_USER_ID" property="id"/>
       <result column="CREATE_USER_NAME" property="username"/>
     </association>
-    <association property="updateUserInfo" javaType="com.admin.dao.system.model.SystemUser">
+    <association property="updateUserInfo" javaType="com.yiwa.dao.system.model.SystemUser">
       <result column="UPDATE_USER_ID" property="id"/>
       <result column="UPDATE_USER_NAME" property="username"/>
     </association>
   </resultMap>
-  <select id="selectList" parameterType="com.admin.dao.system.dto.QuerySystemUserDTO" resultMap="SystemUserListVO">
+  <select id="selectList" parameterType="com.yiwa.dao.system.dto.QuerySystemUserDTO" resultMap="SystemUserListVO">
     SELECT
       usr.ID, usr.BIRTHDAY, usr.EMAIL, usr.EMP_NO, usr.MOBILE, usr.AVATAR, usr.USERNAME, usr.REALNAME, usr.SEX, usr.CREATE_TIME,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,

@@ -18,7 +18,7 @@
 
 <script>
 import GlobalDialog from '../common/GlobalDialog'
-import { resetPwd } from '../../assets/api/system/systemUser'
+import { resetPwd } from '../../api/system/systemUser'
 export default {
   name: 'ResetPwdDialog',
   components: { GlobalDialog },

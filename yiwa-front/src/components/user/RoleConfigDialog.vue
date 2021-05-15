@@ -22,7 +22,7 @@
 
 <script>
 import GlobalDialog from '../common/GlobalDialog'
-import { createUserRole } from '../../assets/api/system/systemUser'
+import { createUserRole } from '../../api/system/systemUser'
 export default {
   name: 'RoleConfigDialog',
   components: { GlobalDialog },

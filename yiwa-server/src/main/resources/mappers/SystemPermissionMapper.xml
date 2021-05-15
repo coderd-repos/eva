@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.admin.dao.system.SystemPermissionMapper">
+<mapper namespace="com.yiwa.dao.system.SystemPermissionMapper">
+
+  <resultMap id="BaseResultMap" type="com.yiwa.dao.system.model.SystemPermission">
+    <id column="ID" jdbcType="INTEGER" property="id"/>
+    <result column="CODE" jdbcType="VARCHAR" property="code"/>
+    <result column="NAME" jdbcType="VARCHAR" property="name"/>
+    <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser"/>
+    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser"/>
+    <result column="DELETED" jdbcType="BIT" property="deleted"/>
+  </resultMap>
 
   <!-- 查询系统权限列表 -->
-  <resultMap id="SystemPermissionListVO" type="com.admin.dao.system.vo.SystemPermissionListVO" autoMapping="true">
+  <resultMap id="SystemPermissionListVO" type="com.yiwa.dao.system.vo.SystemPermissionListVO" autoMapping="true">
     <id column="ID" property="id"/>
-    <association property="createUserInfo" javaType="com.admin.dao.system.model.SystemUser">
+    <association property="createUserInfo" javaType="com.yiwa.dao.system.model.SystemUser">
       <id column="CREATE_USER_ID" property="id"/>
       <result column="CREATE_USER_NAME" property="username"/>
     </association>
-    <association property="updateUserInfo" javaType="com.admin.dao.system.model.SystemUser">
+    <association property="updateUserInfo" javaType="com.yiwa.dao.system.model.SystemUser">
       <id column="UPDATE_USER_ID" property="id"/>
       <result column="UPDATE_USER_NAME" property="username"/>
     </association>
   </resultMap>
-  <select id="selectList" parameterType="com.admin.dao.system.dto.QuerySystemPermissionDTO" resultMap="SystemPermissionListVO">
+  <select id="selectList" parameterType="com.yiwa.dao.system.dto.QuerySystemPermissionDTO" resultMap="SystemPermissionListVO">
     SELECT
       perm.`ID`, perm.`CODE`, perm.`NAME`, perm.`REMARK`, perm.`CREATE_TIME`, perm.`UPDATE_TIME`, perm.`CREATE_USER`, perm.`UPDATE_USER`, perm.`DELETED`,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
@@ -30,6 +42,32 @@
       <if test="code != null">
         AND perm.`NAME` LIKE CONCAT('%', #{name}, '%')
       </if>
+    </where>
+  </select>
+
+  <!-- 根据用户ID查询权限 -->
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+      perm.`ID`, perm.`CODE`, perm.`NAME`, perm.`REMARK`, perm.`CREATE_TIME`, perm.`UPDATE_TIME`, perm.`CREATE_USER`, perm.`UPDATE_USER`, perm.`DELETED`
+    FROM SYSTEM_PERMISSION perm
+    INNER JOIN SYSTEM_ROLE_PERMISSION role_perm ON role_perm.PERMISSION_ID = perm.ID AND role_perm.DELETED = 0
+    INNER JOIN SYSTEM_ROLE role ON role.ID = role_perm.ROLE_ID AND role.DELETED = 0
+    INNER JOIN SYSTEM_USER_ROLE user_role ON user_role.ROLE_ID = role.ID AND user_role.DELETED = 0
+    <where>
+      perm.DELETED = 0
+      AND user_role.USER_ID = #{userId}
+    </where>
+  </select>
+
+  <!-- 根据角色ID查询权限 -->
+  <select id="selectByRoleId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+      perm.`ID`, perm.`CODE`, perm.`NAME`, perm.`REMARK`, perm.`CREATE_TIME`, perm.`UPDATE_TIME`, perm.`CREATE_USER`, perm.`UPDATE_USER`, perm.`DELETED`
+    FROM SYSTEM_PERMISSION perm
+    INNER JOIN SYSTEM_ROLE_PERMISSION role_perm ON role_perm.PERMISSION_ID = perm.ID AND role_perm.DELETED = 0
+    <where>
+      perm.DELETED = 0
+      AND role_perm.ROLE_ID = #{roleId}
     </where>
   </select>
 

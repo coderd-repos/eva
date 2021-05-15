@@ -89,7 +89,7 @@ new Vue({
             title: route.label,
             paths: [...parents.map(p => p.label), route.label]
           },
-          component: () => import('@/pages' + route.url)
+          component: () => import('@/views' + route.url)
         })
         const parentsDump = JSON.parse(JSON.stringify(parents))
         parentsDump.push(route)

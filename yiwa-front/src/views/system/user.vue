@@ -103,10 +103,9 @@
 
 <script>
 import Pagination from '../../components/common/Pagination'
-import GlobalDialog from '../../components/common/GlobalDialog'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, deleteById, deleteByIdInBatch } from '../../assets/api/system/systemUser'
-import { fetchAll as fetchAllRoles } from '../../assets/api/system/systemRole'
+import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/systemUser'
+import { fetchAll as fetchAllRoles } from '../../api/system/systemRole'
 import BaseTable from '../BaseTable'
 import OperaTableDataDialog from '../../components/user/OperaTableDataDialog'
 import RoleConfigDialog from '../../components/user/RoleConfigDialog'
@@ -115,7 +114,7 @@ import ResetPwdDialog from '../../components/user/ResetPwdDialog'
 export default {
   name: 'SystemUser',
   extends: BaseTable,
-  components: { ResetPwdDialog, RoleConfigDialog, OperaTableDataDialog, TableLayout, GlobalDialog, Pagination },
+  components: { ResetPwdDialog, RoleConfigDialog, OperaTableDataDialog, TableLayout, Pagination },
   data () {
     return {
       // 是否展示

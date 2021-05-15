@@ -1,12 +1,17 @@
 # 项目信息配置
 project:
-  name: yiwa
+  name: admin
   version: 1.0.0
   env: development
 
 # WEB服务器配置
 server:
   port: 8080
+
+# session设置
+session:
+  # 过期时间(单位: ms)
+  timeout: 1800000
 
 spring:
   # 数据源配置
@@ -24,10 +29,14 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
 
 # MyBatis配置
-mybatis:
-  mapper-locations: classpath:/mappers/*.xml
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
+#mybatis-plus:
+#  mapper-locations: classpath:/mappers/*.xml
+#  configuration:
+#    map-underscore-to-camel-case: true
 
 # Swagger配置
 swagger:

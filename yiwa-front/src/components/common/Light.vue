@@ -25,16 +25,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@cycle-size01: 16px;
-@cycle-size02: 6px;
-@normal-color: #00CC99;
-@warn-color: #FFCC33;
-@danger-color: #FF3300;
-.light-status (@cycle-bg) {
+$cycle-size01: 16px;
+$cycle-size02: 6px;
+$normal-color: #00CC99;
+$warn-color: #FFCC33;
+$danger-color: #FF3300;
+@mixin light-status ($cycle-bg) {
   em {
-    background: @cycle-bg;
+    background: $cycle-bg;
     i {
-      background: @cycle-bg - 30;
+      background: $cycle-bg - 30;
     }
   }
 }
@@ -42,16 +42,16 @@ export default {
   display: inline-block;
   border-radius: 50%;
   em {
-    width: @cycle-size01;
-    height: @cycle-size01;
+    width: $cycle-size01;
+    height: $cycle-size01;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     i {
       display: block;
-      width: @cycle-size02;
-      height: @cycle-size02;
+      width: $cycle-size02;
+      height: $cycle-size02;
       border-radius: 50%;
     }
   }
@@ -63,60 +63,60 @@ export default {
   }
   // 正常
   &.normal {
-    .light-status(@normal-color);
+    @include light-status($normal-color);
     animation: shine-normal infinite 1s;
   }
   // 警告
   &.warn {
-    .light-status(@warn-color);
+    @include light-status($warn-color);
     animation: shine-warn infinite .8s;
   }
   // 危险
   &.danger {
-    .light-status(@danger-color);
+    @include light-status($danger-color);
     animation: shine-danger infinite .5s;
   }
 }
 @keyframes shine-normal {
   0% {
-    box-shadow: 0 0 5px @normal-color + 10;
+    box-shadow: 0 0 5px $normal-color + 10;
   }
   25% {
-    box-shadow: 0 0 10px @normal-color + 10;
+    box-shadow: 0 0 10px $normal-color + 10;
   }
   50% {
-    box-shadow: 0 0 15px @normal-color + 10;
+    box-shadow: 0 0 15px $normal-color + 10;
   }
   100% {
-    box-shadow: 0 0 20px @normal-color + 10;
+    box-shadow: 0 0 20px $normal-color + 10;
   }
 }
 @keyframes shine-warn {
   0% {
-    box-shadow: 0 0 5px @warn-color - 50;
+    box-shadow: 0 0 5px $warn-color - 50;
   }
   25% {
-    box-shadow: 0 0 10px @warn-color - 50;
+    box-shadow: 0 0 10px $warn-color - 50;
   }
   50% {
-    box-shadow: 0 0 15px @warn-color - 50;
+    box-shadow: 0 0 15px $warn-color - 50;
   }
   100% {
-    box-shadow: 0 0 20px @warn-color - 50;
+    box-shadow: 0 0 20px $warn-color - 50;
   }
 }
 @keyframes shine-danger {
   0% {
-    box-shadow: 0 0 5px @danger-color + 10;
+    box-shadow: 0 0 5px $danger-color + 10;
   }
   25% {
-    box-shadow: 0 0 10px @danger-color + 10;
+    box-shadow: 0 0 10px $danger-color + 10;
   }
   50% {
-    box-shadow: 0 0 15px @danger-color + 10;
+    box-shadow: 0 0 15px $danger-color + 10;
   }
   100% {
-    box-shadow: 0 0 20px @danger-color + 10;
+    box-shadow: 0 0 20px $danger-color + 10;
   }
 }
 </style>

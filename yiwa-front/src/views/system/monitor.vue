@@ -150,7 +150,7 @@
 </template>
 
 <script>
-import { getSystemInfo } from '../../assets/api/system/systemMonitor'
+import { getSystemInfo } from '../../api/system/systemMonitor'
 import Value from '../../components/common/Value'
 import Light from '../../components/common/Light'
 

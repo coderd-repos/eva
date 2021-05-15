@@ -17,5 +17,7 @@ export function updatePwd (data) {
 
 // 获取已登录的用户信息
 export function getUserInfo () {
-  return request.get('/system/getUserInfo')
+  return request.get('/system/getUserInfo', null, {
+    autoLogin: false
+  })
 }

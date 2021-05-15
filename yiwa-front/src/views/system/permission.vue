@@ -83,7 +83,7 @@
 import Pagination from '../../components/common/Pagination'
 import GlobalDialog from '../../components/common/GlobalDialog'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../assets/api/system/systemPermission'
+import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/systemPermission'
 import BaseTable from '../BaseTable'
 export default {
   name: 'SystemPermission',

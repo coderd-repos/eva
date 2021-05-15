@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
 })
 
 // 添加请求拦截器
-axiosInstance.interceptors.request.use(function (config) {
+axiosInstance.interceptors.request.use(config => {
   // 参数去空格
   if (config.trim === true) {
     if (config.data != null) {
@@ -25,14 +25,13 @@ axiosInstance.interceptors.request.use(function (config) {
 })
 
 // 添加响应拦截器
-axiosInstance.interceptors.response.use(response => {
-  console.log('response.data', response.data)
+axiosInstance.interceptors.response.use((response) => {
   // 请求失败
   if (response.status !== 200) {
     return Promise.reject(response.data)
   }
   // 未登录
-  if (response.data.code === 401) {
+  if (response.data.code === 401 && (response.config.autoLogin == null || response.config.autoLogin)) {
     window.location.href = '/#/login'
     return
   }

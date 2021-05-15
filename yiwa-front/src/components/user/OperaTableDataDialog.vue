@@ -46,11 +46,11 @@
 </template>
 
 <script>
-import { checkMobile, checkEmail } from '../../assets/utils/form'
+import { checkMobile, checkEmail } from '../../utils/form'
 import {
   create,
   updateById
-} from '../../assets/api/system/systemUser'
+} from '../../api/system/systemUser'
 import GlobalDialog from '../common/GlobalDialog'
 
 export default {
