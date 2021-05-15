@@ -1,25 +1,24 @@
 package com.yiwa.dao.system.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 /**
  * 角色权限关联
  * @author Caesar Liu
- * @date 2021/03/27 22:34
+ * @date 2021/05/15 19:41
  */
 @Data
 @ApiModel("角色权限关联")
 public class SystemRolePermission {
 
-    @TableId(type= IdType.AUTO)
     @ApiModelProperty(value = "主键", example = "1")
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     @ApiModelProperty(value = "角色ID", example = "1")

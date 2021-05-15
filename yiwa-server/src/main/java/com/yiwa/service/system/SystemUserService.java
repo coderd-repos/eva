@@ -2,22 +2,23 @@ package com.yiwa.service.system;
 
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
-import com.yiwa.dao.system.model.SystemMenu;
+import com.yiwa.dao.system.model.SystemRole;
+import com.yiwa.dao.system.model.SystemUser;
 import java.util.List;
 
 /**
- * 系统菜单Service定义
+ * 系统用户Service定义
  * @author Caesar Liu
  * @date 2021/05/15 19:41
  */
-public interface SystemMenuService {
+public interface SystemUserService {
 
     /**
      * 创建
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    Integer create(SystemMenu systemMenu);
+    Integer create(SystemUser systemUser);
 
     /**
      * 主键删除
@@ -38,47 +39,47 @@ public interface SystemMenuService {
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    void updateById(SystemMenu systemMenu);
+    void updateById(SystemUser systemUser);
 
     /**
      * 批量主键更新
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    void updateByIdInBatch(List<SystemMenu> systemMenus);
+    void updateByIdInBatch(List<SystemUser> systemUsers);
 
     /**
      * 主键查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    SystemMenu findById(Integer id);
+    SystemUser findById(Integer id);
 
     /**
      * 条件查询单条记录
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    SystemMenu findOne(SystemMenu systemMenu);
+    SystemUser findOne(SystemUser systemUser);
 
     /**
      * 条件查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    List<SystemMenu> findList(SystemMenu systemMenu);
+    List<SystemUser> findList(SystemUser systemUser);
   
     /**
      * 分页查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    PageData<SystemMenu> findPage(PageWrap<SystemMenu> pageWrap);
+    PageData<SystemUser> findPage(PageWrap<SystemUser> pageWrap);
 
     /**
      * 条件统计
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    long count(SystemMenu systemMenu);
+    long count(SystemUser systemUser);
 }

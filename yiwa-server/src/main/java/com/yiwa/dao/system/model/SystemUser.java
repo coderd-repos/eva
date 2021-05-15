@@ -1,25 +1,24 @@
 package com.yiwa.dao.system.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 /**
  * 系统用户
  * @author Caesar Liu
- * @date 2021/03/31 22:47
+ * @date 2021/05/15 19:41
  */
 @Data
 @ApiModel("系统用户")
 public class SystemUser {
 
-    @TableId(type= IdType.AUTO)
     @ApiModelProperty(value = "主键", example = "1")
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     @ApiModelProperty(value = "用户名")
@@ -54,9 +53,11 @@ public class SystemUser {
     private String salt;
 
     @ApiModelProperty(value = "创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updateTime;
 
     @ApiModelProperty(value = "创建者ID", example = "1")

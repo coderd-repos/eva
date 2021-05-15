@@ -1,7 +1,7 @@
 package com.yiwa.core.model;
 
-import com.admin.dao.system.model.SystemPermission;
-import com.admin.dao.system.model.SystemUser;
+import com.yiwa.dao.system.model.SystemPermission;
+import com.yiwa.dao.system.model.SystemUser;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 

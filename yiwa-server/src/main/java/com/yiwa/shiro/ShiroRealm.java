@@ -1,12 +1,12 @@
 package com.yiwa.shiro;
 
-import com.admin.core.model.LoginUserInfo;
-import com.admin.dao.system.model.SystemPermission;
-import com.admin.dao.system.model.SystemRole;
-import com.admin.dao.system.model.SystemUser;
-import com.admin.service.system.SystemPermissionService;
-import com.admin.service.system.SystemRoleService;
-import com.admin.service.system.SystemUserService;
+import com.yiwa.core.model.LoginUserInfo;
+import com.yiwa.dao.system.model.SystemPermission;
+import com.yiwa.dao.system.model.SystemRole;
+import com.yiwa.dao.system.model.SystemUser;
+import com.yiwa.service.system.SystemPermissionService;
+import com.yiwa.service.system.SystemRoleService;
+import com.yiwa.service.system.SystemUserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

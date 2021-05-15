@@ -1,8 +1,8 @@
 package com.yiwa.shiro;
 
-import com.admin.core.utils.SecureUtil;
-import com.admin.dao.system.model.SystemUser;
-import com.admin.service.system.SystemUserService;
+import com.yiwa.core.utils.SecureUtil;
+import com.yiwa.dao.system.model.SystemUser;
+import com.yiwa.service.system.SystemUserService;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;

@@ -2,22 +2,22 @@ package com.yiwa.service.system;
 
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
-import com.yiwa.dao.system.model.SystemMenu;
+import com.yiwa.dao.system.model.SystemRoleMenu;
 import java.util.List;
 
 /**
- * 系统菜单Service定义
+ * 角色菜单关联Service定义
  * @author Caesar Liu
  * @date 2021/05/15 19:41
  */
-public interface SystemMenuService {
+public interface SystemRoleMenuService {
 
     /**
      * 创建
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    Integer create(SystemMenu systemMenu);
+    Integer create(SystemRoleMenu systemRoleMenu);
 
     /**
      * 主键删除
@@ -38,47 +38,47 @@ public interface SystemMenuService {
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    void updateById(SystemMenu systemMenu);
+    void updateById(SystemRoleMenu systemRoleMenu);
 
     /**
      * 批量主键更新
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    void updateByIdInBatch(List<SystemMenu> systemMenus);
+    void updateByIdInBatch(List<SystemRoleMenu> systemRoleMenus);
 
     /**
      * 主键查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    SystemMenu findById(Integer id);
+    SystemRoleMenu findById(Integer id);
 
     /**
      * 条件查询单条记录
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    SystemMenu findOne(SystemMenu systemMenu);
+    SystemRoleMenu findOne(SystemRoleMenu systemRoleMenu);
 
     /**
      * 条件查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    List<SystemMenu> findList(SystemMenu systemMenu);
+    List<SystemRoleMenu> findList(SystemRoleMenu systemRoleMenu);
   
     /**
      * 分页查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    PageData<SystemMenu> findPage(PageWrap<SystemMenu> pageWrap);
+    PageData<SystemRoleMenu> findPage(PageWrap<SystemRoleMenu> pageWrap);
 
     /**
      * 条件统计
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    long count(SystemMenu systemMenu);
+    long count(SystemRoleMenu systemRoleMenu);
 }

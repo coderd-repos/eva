@@ -2,22 +2,22 @@ package com.yiwa.service.system;
 
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
-import com.yiwa.dao.system.model.SystemMenu;
+import com.yiwa.dao.system.model.SystemUserRole;
 import java.util.List;
 
 /**
- * 系统菜单Service定义
+ * 用户角色关联Service定义
  * @author Caesar Liu
  * @date 2021/05/15 19:41
  */
-public interface SystemMenuService {
+public interface SystemUserRoleService {
 
     /**
      * 创建
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    Integer create(SystemMenu systemMenu);
+    Integer create(SystemUserRole systemUserRole);
 
     /**
      * 主键删除
@@ -38,47 +38,47 @@ public interface SystemMenuService {
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    void updateById(SystemMenu systemMenu);
+    void updateById(SystemUserRole systemUserRole);
 
     /**
      * 批量主键更新
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    void updateByIdInBatch(List<SystemMenu> systemMenus);
+    void updateByIdInBatch(List<SystemUserRole> systemUserRoles);
 
     /**
      * 主键查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    SystemMenu findById(Integer id);
+    SystemUserRole findById(Integer id);
 
     /**
      * 条件查询单条记录
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    SystemMenu findOne(SystemMenu systemMenu);
+    SystemUserRole findOne(SystemUserRole systemUserRole);
 
     /**
      * 条件查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    List<SystemMenu> findList(SystemMenu systemMenu);
+    List<SystemUserRole> findList(SystemUserRole systemUserRole);
   
     /**
      * 分页查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    PageData<SystemMenu> findPage(PageWrap<SystemMenu> pageWrap);
+    PageData<SystemUserRole> findPage(PageWrap<SystemUserRole> pageWrap);
 
     /**
      * 条件统计
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    long count(SystemMenu systemMenu);
+    long count(SystemUserRole systemUserRole);
 }

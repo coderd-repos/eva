@@ -2,22 +2,22 @@ package com.yiwa.service.system;
 
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
-import com.yiwa.dao.system.model.SystemMenu;
+import com.yiwa.dao.system.model.SystemRolePermission;
 import java.util.List;
 
 /**
- * 系统菜单Service定义
+ * 角色权限关联Service定义
  * @author Caesar Liu
  * @date 2021/05/15 19:41
  */
-public interface SystemMenuService {
+public interface SystemRolePermissionService {
 
     /**
      * 创建
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    Integer create(SystemMenu systemMenu);
+    Integer create(SystemRolePermission systemRolePermission);
 
     /**
      * 主键删除
@@ -38,47 +38,47 @@ public interface SystemMenuService {
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    void updateById(SystemMenu systemMenu);
+    void updateById(SystemRolePermission systemRolePermission);
 
     /**
      * 批量主键更新
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    void updateByIdInBatch(List<SystemMenu> systemMenus);
+    void updateByIdInBatch(List<SystemRolePermission> systemRolePermissions);
 
     /**
      * 主键查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    SystemMenu findById(Integer id);
+    SystemRolePermission findById(Integer id);
 
     /**
      * 条件查询单条记录
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    SystemMenu findOne(SystemMenu systemMenu);
+    SystemRolePermission findOne(SystemRolePermission systemRolePermission);
 
     /**
      * 条件查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    List<SystemMenu> findList(SystemMenu systemMenu);
+    List<SystemRolePermission> findList(SystemRolePermission systemRolePermission);
   
     /**
      * 分页查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    PageData<SystemMenu> findPage(PageWrap<SystemMenu> pageWrap);
+    PageData<SystemRolePermission> findPage(PageWrap<SystemRolePermission> pageWrap);
 
     /**
      * 条件统计
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    long count(SystemMenu systemMenu);
+    long count(SystemRolePermission systemRolePermission);
 }

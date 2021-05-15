@@ -2,22 +2,22 @@ package com.yiwa.service.system;
 
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
-import com.yiwa.dao.system.model.SystemMenu;
+import com.yiwa.dao.system.model.SystemRole;
 import java.util.List;
 
 /**
- * 系统菜单Service定义
+ * 系统角色Service定义
  * @author Caesar Liu
  * @date 2021/05/15 19:41
  */
-public interface SystemMenuService {
+public interface SystemRoleService {
 
     /**
      * 创建
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    Integer create(SystemMenu systemMenu);
+    Integer create(SystemRole systemRole);
 
     /**
      * 主键删除
@@ -38,47 +38,54 @@ public interface SystemMenuService {
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    void updateById(SystemMenu systemMenu);
+    void updateById(SystemRole systemRole);
 
     /**
      * 批量主键更新
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    void updateByIdInBatch(List<SystemMenu> systemMenus);
+    void updateByIdInBatch(List<SystemRole> systemRoles);
 
     /**
      * 主键查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    SystemMenu findById(Integer id);
+    SystemRole findById(Integer id);
+
+    /**
+     * 根据用户ID查询
+     * @author Caesar Liu
+     * @date 2021-03-31 21:01
+     */
+    List<SystemRole> findByUserId(Integer userId);
 
     /**
      * 条件查询单条记录
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    SystemMenu findOne(SystemMenu systemMenu);
+    SystemRole findOne(SystemRole systemRole);
 
     /**
      * 条件查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    List<SystemMenu> findList(SystemMenu systemMenu);
+    List<SystemRole> findList(SystemRole systemRole);
   
     /**
      * 分页查询
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    PageData<SystemMenu> findPage(PageWrap<SystemMenu> pageWrap);
+    PageData<SystemRole> findPage(PageWrap<SystemRole> pageWrap);
 
     /**
      * 条件统计
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    long count(SystemMenu systemMenu);
+    long count(SystemRole systemRole);
 }
