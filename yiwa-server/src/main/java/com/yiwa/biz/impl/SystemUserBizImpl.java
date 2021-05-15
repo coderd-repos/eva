@@ -1,16 +1,16 @@
 package com.yiwa.biz.impl;
 
-import com.admin.biz.SystemUserBiz;
-import com.admin.core.model.BusinessException;
-import com.admin.core.model.ResponseStatus;
-import com.admin.core.utils.SecureUtil;
-import com.admin.dao.system.dto.CreateUserRoleDTO;
-import com.admin.dao.system.dto.ResetSystemUserPwdDTO;
-import com.admin.dao.system.dto.UpdatePwdDto;
-import com.admin.dao.system.model.SystemUser;
-import com.admin.dao.system.model.SystemUserRole;
-import com.admin.service.system.SystemUserRoleService;
-import com.admin.service.system.SystemUserService;
+import com.yiwa.biz.SystemUserBiz;
+import com.yiwa.core.model.BusinessException;
+import com.yiwa.core.model.ResponseStatus;
+import com.yiwa.core.utils.SecureUtil;
+import com.yiwa.dao.system.dto.CreateUserRoleDTO;
+import com.yiwa.dao.system.dto.ResetSystemUserPwdDTO;
+import com.yiwa.dao.system.dto.UpdatePwdDto;
+import com.yiwa.dao.system.model.SystemUser;
+import com.yiwa.dao.system.model.SystemUserRole;
+import com.yiwa.service.system.SystemUserRoleService;
+import com.yiwa.service.system.SystemUserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

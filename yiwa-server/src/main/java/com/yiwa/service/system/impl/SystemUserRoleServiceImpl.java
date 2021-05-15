@@ -1,5 +1,6 @@
 package com.yiwa.service.system.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.SystemUserRoleMapper;
@@ -35,6 +36,15 @@ public class SystemUserRoleServiceImpl implements SystemUserRoleService {
     @Override
     public void deleteById(Integer id) {
         systemUserRoleMapper.deleteById(id);
+    }
+
+    @Override
+    public void delete(SystemUserRole systemUserRole) {
+        SystemUserRole newUserRole = new SystemUserRole();
+        newUserRole.setDeleted(Boolean.TRUE);
+        UpdateWrapper<SystemUserRole> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.setEntity(systemUserRole);
+        systemUserRoleMapper.update(newUserRole, updateWrapper);
     }
 
     @Override

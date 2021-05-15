@@ -62,6 +62,11 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     }
 
     @Override
+    public List<SystemRole> findByUserId(Integer userId) {
+        return systemRoleMapper.selectByUserId(userId);
+    }
+
+    @Override
     public SystemRole findOne(SystemRole systemRole) {
         Wrapper<SystemRole> wrapper = new QueryWrapper<>(systemRole);
         return systemRoleMapper.selectOne(wrapper);

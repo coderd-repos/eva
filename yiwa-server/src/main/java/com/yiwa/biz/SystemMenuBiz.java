@@ -1,8 +1,8 @@
 package com.yiwa.biz;
 
-import com.admin.dao.system.dto.UpdateSystemMenuSortDTO;
-import com.admin.dao.system.vo.SystemMenuListVO;
-import com.admin.dao.system.vo.SystemMenuNodeVO;
+import com.yiwa.dao.system.dto.UpdateSystemMenuSortDTO;
+import com.yiwa.dao.system.vo.SystemMenuListVO;
+import com.yiwa.dao.system.vo.SystemMenuNodeVO;
 
 import java.util.List;
 

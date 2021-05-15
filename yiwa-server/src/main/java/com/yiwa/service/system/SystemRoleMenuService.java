@@ -27,6 +27,13 @@ public interface SystemRoleMenuService {
     void deleteById(Integer id);
 
     /**
+     * 删除
+     * @author Caesar Liu
+     * @date 2021-03-30 15:25
+     */
+    void delete(SystemRoleMenu systemRoleMenu);
+
+    /**
      * 批量主键删除
      * @author Caesar Liu
      * @date 2021/05/15 19:41

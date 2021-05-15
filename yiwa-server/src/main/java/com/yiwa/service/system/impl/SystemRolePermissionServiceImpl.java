@@ -1,5 +1,6 @@
 package com.yiwa.service.system.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.SystemRolePermissionMapper;
@@ -35,6 +36,15 @@ public class SystemRolePermissionServiceImpl implements SystemRolePermissionServ
     @Override
     public void deleteById(Integer id) {
         systemRolePermissionMapper.deleteById(id);
+    }
+
+    @Override
+    public void delete(SystemRolePermission systemRolePermission) {
+        SystemRolePermission newPermission = new SystemRolePermission();
+        newPermission.setDeleted(Boolean.TRUE);
+        UpdateWrapper<SystemRolePermission> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.setEntity(systemRolePermission);
+        systemRolePermissionMapper.update(newPermission, updateWrapper);
     }
 
     @Override

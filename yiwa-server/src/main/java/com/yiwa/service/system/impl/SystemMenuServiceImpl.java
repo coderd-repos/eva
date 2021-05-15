@@ -4,6 +4,7 @@ import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.SystemMenuMapper;
 import com.yiwa.dao.system.model.SystemMenu;
+import com.yiwa.dao.system.vo.SystemMenuListVO;
 import com.yiwa.service.system.SystemMenuService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -72,7 +73,26 @@ public class SystemMenuServiceImpl implements SystemMenuService {
         Wrapper<SystemMenu> wrapper = new QueryWrapper<>(systemMenu);
         return systemMenuMapper.selectList(wrapper);
     }
-  
+
+    @Override
+    public List<SystemMenuListVO> findList() {
+        return systemMenuMapper.selectList();
+    }
+
+    @Override
+    public List<SystemMenu> findRootList() {
+        QueryWrapper<SystemMenu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByAsc("SORT");
+        queryWrapper.lambda().isNull(SystemMenu::getParentId);
+        queryWrapper.lambda().eq(SystemMenu::getDeleted, Boolean.FALSE);
+        return systemMenuMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public List<SystemMenu> findByUserId(Integer userId) {
+        return systemMenuMapper.selectByUserId(userId);
+    }
+
     @Override
     public PageData<SystemMenu> findPage(PageWrap<SystemMenu> pageWrap) {
         IPage<SystemMenu> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());

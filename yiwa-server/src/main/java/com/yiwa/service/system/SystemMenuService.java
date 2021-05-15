@@ -3,6 +3,8 @@ package com.yiwa.service.system;
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.model.SystemMenu;
+import com.yiwa.dao.system.vo.SystemMenuListVO;
+
 import java.util.List;
 
 /**
@@ -67,6 +69,27 @@ public interface SystemMenuService {
      * @date 2021/05/15 19:41
      */
     List<SystemMenu> findList(SystemMenu systemMenu);
+
+    /**
+     * 查询列表
+     * @author Caesar Liu
+     * @date 2021-03-30 20:08
+     */
+    List<SystemMenuListVO> findList();
+
+    /**
+     * 查询一级菜单列表
+     * @author Caesar Liu
+     * @date 2021-03-30 21:51
+     */
+    List<SystemMenu> findRootList();
+
+    /**
+     * 查询用户ID查询
+     * @author Caesar Liu
+     * @date 2021-03-30 16:13
+     */
+    List<SystemMenu> findByUserId(Integer userId);
   
     /**
      * 分页查询

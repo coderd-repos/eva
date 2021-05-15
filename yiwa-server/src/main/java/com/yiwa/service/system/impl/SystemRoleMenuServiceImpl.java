@@ -1,5 +1,6 @@
 package com.yiwa.service.system.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.SystemRoleMenuMapper;
@@ -35,6 +36,15 @@ public class SystemRoleMenuServiceImpl implements SystemRoleMenuService {
     @Override
     public void deleteById(Integer id) {
         systemRoleMenuMapper.deleteById(id);
+    }
+
+    @Override
+    public void delete(SystemRoleMenu systemRoleMenu) {
+        SystemRoleMenu newRoleMenu = new SystemRoleMenu();
+        newRoleMenu.setDeleted(Boolean.TRUE);
+        UpdateWrapper<SystemRoleMenu> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.setEntity(systemRoleMenu);
+        systemRoleMenuMapper.update(newRoleMenu, updateWrapper);
     }
 
     @Override

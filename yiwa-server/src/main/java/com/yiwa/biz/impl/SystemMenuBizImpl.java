@@ -1,11 +1,11 @@
 package com.yiwa.biz.impl;
 
-import com.admin.biz.SystemMenuBiz;
-import com.admin.dao.system.dto.UpdateSystemMenuSortDTO;
-import com.admin.dao.system.model.SystemMenu;
-import com.admin.dao.system.vo.SystemMenuListVO;
-import com.admin.dao.system.vo.SystemMenuNodeVO;
-import com.admin.service.system.SystemMenuService;
+import com.yiwa.biz.SystemMenuBiz;
+import com.yiwa.dao.system.dto.UpdateSystemMenuSortDTO;
+import com.yiwa.dao.system.model.SystemMenu;
+import com.yiwa.dao.system.vo.SystemMenuListVO;
+import com.yiwa.dao.system.vo.SystemMenuNodeVO;
+import com.yiwa.service.system.SystemMenuService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

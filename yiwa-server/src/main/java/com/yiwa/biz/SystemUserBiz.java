@@ -1,9 +1,9 @@
 package com.yiwa.biz;
 
-import com.admin.dao.system.dto.CreateUserRoleDTO;
-import com.admin.dao.system.dto.ResetSystemUserPwdDTO;
-import com.admin.dao.system.dto.UpdatePwdDto;
-import com.admin.dao.system.model.SystemUser;
+import com.yiwa.dao.system.dto.CreateUserRoleDTO;
+import com.yiwa.dao.system.dto.ResetSystemUserPwdDTO;
+import com.yiwa.dao.system.dto.UpdatePwdDto;
+import com.yiwa.dao.system.model.SystemUser;
 
 /**
  * 系统用户业务处理

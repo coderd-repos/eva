@@ -27,6 +27,13 @@ public interface SystemUserRoleService {
     void deleteById(Integer id);
 
     /**
+     * 删除
+     * @author Caesar Liu
+     * @date 2021-03-29 22:26
+     */
+    void delete(SystemUserRole systemUserRole);
+
+    /**
      * 批量主键删除
      * @author Caesar Liu
      * @date 2021/05/15 19:41

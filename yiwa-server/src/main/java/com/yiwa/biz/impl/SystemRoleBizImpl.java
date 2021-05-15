@@ -1,12 +1,12 @@
 package com.yiwa.biz.impl;
 
-import com.admin.biz.SystemRoleBiz;
-import com.admin.dao.system.dto.CreateRoleMenuDTO;
-import com.admin.dao.system.dto.CreateRolePermissionDTO;
-import com.admin.dao.system.model.SystemRoleMenu;
-import com.admin.dao.system.model.SystemRolePermission;
-import com.admin.service.system.SystemRoleMenuService;
-import com.admin.service.system.SystemRolePermissionService;
+import com.yiwa.biz.SystemRoleBiz;
+import com.yiwa.dao.system.dto.CreateRoleMenuDTO;
+import com.yiwa.dao.system.dto.CreateRolePermissionDTO;
+import com.yiwa.dao.system.model.SystemRoleMenu;
+import com.yiwa.dao.system.model.SystemRolePermission;
+import com.yiwa.service.system.SystemRoleMenuService;
+import com.yiwa.service.system.SystemRolePermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
