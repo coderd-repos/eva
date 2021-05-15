@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../assets/style/variable";
+@import "../assets/style/variable.scss";
 .workbench {
   height: 100%;
   text-align: center;

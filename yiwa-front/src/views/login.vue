@@ -1,9 +1,9 @@
 <template>
   <div class="wrap">
     <div class="introduce">
-      <h2>基于懒猴子CG的</h2>
-      <h3>企业级数据管理系统模版</h3>
-      <p>一套企业级数据管理系统模版，结合懒猴子CG极速开发平台可快速生成页面和接口</p>
+      <h2>伊娃后台管理系统</h2>
+      <h3>基于懒猴子CG的</h3>
+      <p>一套企业级后台管理系统模版，结合懒猴子CG极速开发平台可快速生成页面和接口</p>
     </div>
     <div class="login">
       <h1>系统登录&nbsp;/&nbsp;LOGIN IN</h1>
@@ -18,7 +18,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import { loginByPassword } from '../assets/api/system/common'
+import { loginByPassword } from '@/api/system/common'
 
 export default {
   name: 'Login',
@@ -30,7 +30,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setUserInfo']),
+    // ...mapMutations(['setUserInfo']),
     // 登录
     login () {
       if (this.loading) {
@@ -74,12 +74,12 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../assets/style/variable";
+@import "../assets/style/variable.scss";
 .wrap {
   display: flex;
   width: 100%;
   height: 100vh;
-  background-image: url("../../static/login.jpg");
+  background-image: url("../assets/images/login.jpg");
   background-repeat: no-repeat;
   background-size: auto 180%;
   background-clip: content-box;
@@ -134,7 +134,7 @@ export default {
           background: #F9F9F9;
           border: 1px solid transparent;
           &:focus {
-            border: 1px solid @primary-color;
+            border: 1px solid $primary-color;
           }
         }
       }
@@ -144,7 +144,7 @@ export default {
       width: 100%;
       color: #fff;
       font-size: 16px;
-      background: linear-gradient(130deg,@primary-color + 20 0%,@primary-color - 20 100%);
+      background: linear-gradient(130deg,$primary-color + 20 0%,$primary-color - 20 100%);
     }
   }
 }

@@ -266,7 +266,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../../assets/style/variable";
+@import "../../assets/style/variable.scss";
 // 列表头像处理
 .table-column-avatar {
   img {

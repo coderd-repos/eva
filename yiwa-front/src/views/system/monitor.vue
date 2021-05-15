@@ -224,7 +224,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../../assets/style/variable";
+@import "../../assets/style/variable.scss";
 .monitor {
   padding: 20px 20px;
 }

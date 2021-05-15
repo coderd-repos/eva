@@ -435,7 +435,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../assets/style/variable";
+@import "../../assets/style/variable.scss";
 // 角色配置/菜单授权
 .permission-config-dialog,
 .menu-config-dialog {

@@ -378,7 +378,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../assets/style/variable";
+@import "../../assets/style/variable.scss";
 .menu-layout {
   /deep/ .table-content {
     margin-top: 0;
