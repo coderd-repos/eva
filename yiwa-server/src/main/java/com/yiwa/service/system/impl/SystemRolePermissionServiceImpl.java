@@ -3,6 +3,7 @@ package com.yiwa.service.system.impl;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
+import com.yiwa.core.utils.WrapperUtil;
 import com.yiwa.dao.system.SystemRolePermissionMapper;
 import com.yiwa.dao.system.model.SystemRolePermission;
 import com.yiwa.service.system.SystemRolePermissionService;
@@ -86,7 +87,7 @@ public class SystemRolePermissionServiceImpl implements SystemRolePermissionServ
     @Override
     public PageData<SystemRolePermission> findPage(PageWrap<SystemRolePermission> pageWrap) {
         IPage<SystemRolePermission> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemRolePermission> queryWrapper = new QueryWrapper<>(pageWrap.getModel());
+        QueryWrapper<SystemRolePermission> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
         for(PageWrap.SortData sortData: pageWrap.getSorts()) {
             if (sortData.getDirection().equalsIgnoreCase("DESC")) {
                 queryWrapper.orderByDesc(sortData.getProperty());

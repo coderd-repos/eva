@@ -2,6 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yiwa.dao.system.SystemRoleMapper">
 
+  <resultMap id="BaseResultMap" type="com.yiwa.dao.system.model.SystemRole">
+    <id column="ID" jdbcType="INTEGER" property="id"/>
+    <result column="CODE" jdbcType="VARCHAR" property="code"/>
+    <result column="NAME" jdbcType="VARCHAR" property="name"/>
+    <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser"/>
+    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser"/>
+    <result column="DELETED" jdbcType="BIT" property="deleted"/>
+  </resultMap>
+
   <!-- 查询角色和权限 -->
   <resultMap id="SystemRoleListVO" type="com.yiwa.dao.system.vo.SystemRoleListVO" autoMapping="true">
     <id column="ID" property="id"/>
@@ -26,6 +38,18 @@
       role.DELETED = 0
       AND role.`CODE` LIKE CONCAT('%', #{code}, '%')
       AND role.`NAME` LIKE CONCAT('%', #{name}, '%')
+    </where>
+  </select>
+
+  <!-- 根据用户ID查询 -->
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    role.ID, role.`CODE`, role.`NAME`, role.`REMARK`, role.`CREATE_TIME`, role.`UPDATE_TIME`
+    FROM SYSTEM_ROLE role
+    INNER JOIN SYSTEM_USER_ROLE user_role ON user_role.ROLE_ID = role.ID AND user_role.DELETED = 0
+    <where>
+      role.DELETED = 0
+      AND user_role.USER_ID = #{userId}
     </where>
   </select>
 

@@ -2,6 +2,7 @@ package com.yiwa.service.system.impl;
 
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
+import com.yiwa.core.utils.WrapperUtil;
 import com.yiwa.dao.system.SystemPermissionMapper;
 import com.yiwa.dao.system.model.SystemPermission;
 import com.yiwa.service.system.SystemPermissionService;
@@ -77,11 +78,11 @@ public class SystemPermissionServiceImpl implements SystemPermissionService {
         Wrapper<SystemPermission> wrapper = new QueryWrapper<>(systemPermission);
         return systemPermissionMapper.selectList(wrapper);
     }
-  
+
     @Override
     public PageData<SystemPermission> findPage(PageWrap<SystemPermission> pageWrap) {
         IPage<SystemPermission> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemPermission> queryWrapper = new QueryWrapper<>(pageWrap.getModel());
+        QueryWrapper<SystemPermission> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
         for(PageWrap.SortData sortData: pageWrap.getSorts()) {
             if (sortData.getDirection().equalsIgnoreCase("DESC")) {
                 queryWrapper.orderByDesc(sortData.getProperty());

@@ -2,6 +2,7 @@ package com.yiwa.service.system.impl;
 
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
+import com.yiwa.core.utils.WrapperUtil;
 import com.yiwa.dao.system.SystemRoleMapper;
 import com.yiwa.dao.system.model.SystemRole;
 import com.yiwa.service.system.SystemRoleService;
@@ -81,7 +82,7 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     @Override
     public PageData<SystemRole> findPage(PageWrap<SystemRole> pageWrap) {
         IPage<SystemRole> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemRole> queryWrapper = new QueryWrapper<>(pageWrap.getModel());
+        QueryWrapper<SystemRole> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
         for(PageWrap.SortData sortData: pageWrap.getSorts()) {
             if (sortData.getDirection().equalsIgnoreCase("DESC")) {
                 queryWrapper.orderByDesc(sortData.getProperty());

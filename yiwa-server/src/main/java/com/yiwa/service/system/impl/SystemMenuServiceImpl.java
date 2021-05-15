@@ -2,6 +2,7 @@ package com.yiwa.service.system.impl;
 
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
+import com.yiwa.core.utils.WrapperUtil;
 import com.yiwa.dao.system.SystemMenuMapper;
 import com.yiwa.dao.system.model.SystemMenu;
 import com.yiwa.dao.system.vo.SystemMenuListVO;
@@ -96,7 +97,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     @Override
     public PageData<SystemMenu> findPage(PageWrap<SystemMenu> pageWrap) {
         IPage<SystemMenu> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemMenu> queryWrapper = new QueryWrapper<>(pageWrap.getModel());
+        QueryWrapper<SystemMenu> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
         for(PageWrap.SortData sortData: pageWrap.getSorts()) {
             if (sortData.getDirection().equalsIgnoreCase("DESC")) {
                 queryWrapper.orderByDesc(sortData.getProperty());

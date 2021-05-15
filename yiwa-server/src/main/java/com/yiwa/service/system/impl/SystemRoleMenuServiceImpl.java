@@ -3,6 +3,7 @@ package com.yiwa.service.system.impl;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
+import com.yiwa.core.utils.WrapperUtil;
 import com.yiwa.dao.system.SystemRoleMenuMapper;
 import com.yiwa.dao.system.model.SystemRoleMenu;
 import com.yiwa.service.system.SystemRoleMenuService;
@@ -86,7 +87,7 @@ public class SystemRoleMenuServiceImpl implements SystemRoleMenuService {
     @Override
     public PageData<SystemRoleMenu> findPage(PageWrap<SystemRoleMenu> pageWrap) {
         IPage<SystemRoleMenu> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemRoleMenu> queryWrapper = new QueryWrapper<>(pageWrap.getModel());
+        QueryWrapper<SystemRoleMenu> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
         for(PageWrap.SortData sortData: pageWrap.getSorts()) {
             if (sortData.getDirection().equalsIgnoreCase("DESC")) {
                 queryWrapper.orderByDesc(sortData.getProperty());

@@ -2,6 +2,7 @@ package com.yiwa.service.system.impl;
 
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
+import com.yiwa.core.utils.WrapperUtil;
 import com.yiwa.dao.system.SystemUserMapper;
 import com.yiwa.dao.system.model.SystemUser;
 import com.yiwa.service.system.SystemUserService;
@@ -76,7 +77,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     @Override
     public PageData<SystemUser> findPage(PageWrap<SystemUser> pageWrap) {
         IPage<SystemUser> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemUser> queryWrapper = new QueryWrapper<>(pageWrap.getModel());
+        QueryWrapper<SystemUser> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
         for(PageWrap.SortData sortData: pageWrap.getSorts()) {
             if (sortData.getDirection().equalsIgnoreCase("DESC")) {
                 queryWrapper.orderByDesc(sortData.getProperty());
