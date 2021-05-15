@@ -1,0 +1,32 @@
+@import "variables.scss";
+// 样式重置
+html {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  color: $font-color;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  h1,h2,h3,h4,h5,h6,p,ul {
+    margin: 0;
+    padding: 0;
+  }
+  ul {
+    list-style: none;
+  }
+  #app {
+    height: 100%;
+    min-width: $page-min-width;
+  }
+}
+
+// 穿梭框的按钮
+.el-transfer__buttons {
+  padding: 0 16px !important;
+}
