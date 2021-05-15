@@ -1,0 +1,48 @@
+# 项目信息配置
+project:
+  name: yiwa
+  version: 1.0.0
+  env: development
+
+# WEB服务器配置
+server:
+  port: 8080
+
+spring:
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://rm-bp15iscz0t1m98qk8o.mysql.rds.aliyuncs.com:3306/db_demo?useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: cg_demo
+    password: cg_demo
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  # JSON返回配置
+  jackson:
+    # 默认时区
+    time-zone: GMT+8
+    # 默认日期格式化
+    date-format: yyyy-MM-dd HH:mm:ss
+
+# MyBatis配置
+mybatis:
+  mapper-locations: classpath:/mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+# Swagger配置
+swagger:
+  host:
+  title: ${project.name}接口文档
+  description: ${project.name}接口文档
+  enabled: true
+  # 禁用swagger时的重定向地址
+  redirect-uri: /
+
+# 日志配置
+logback:
+  level: INFO
+  appender: ${project.env}
+# dao层的日志设置为debug，方便查看sql
+logging:
+  level:
+    com.yiwa.dao: debug
