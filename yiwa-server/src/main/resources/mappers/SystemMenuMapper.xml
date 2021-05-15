@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.system.SystemMenuMapper">
+
+  <!-- 查询菜单列表 -->
+  <resultMap id="SystemMenuListVO" type="com.admin.dao.system.vo.SystemMenuListVO" autoMapping="true">
+    <id column="ID" property="id"/>
+    <association property="createUserInfo" javaType="com.admin.dao.system.model.SystemUser">
+      <result column="CREATE_USER_ID" property="id"/>
+      <result column="CREATE_USER_NAME" property="username"/>
+    </association>
+    <association property="updateUserInfo" javaType="com.admin.dao.system.model.SystemUser">
+      <result column="UPDATE_USER_ID" property="id"/>
+      <result column="UPDATE_USER_NAME" property="username"/>
+    </association>
+  </resultMap>
+  <select id="selectList" resultMap="SystemMenuListVO">
+    SELECT
+      menu.`ID`, menu.`PARENT_ID`, menu.`NAME`, menu.`PATH`, menu.`REMARK`, menu.`DISABLED`, menu.SORT, menu.`ICON`, menu.`CREATE_TIME`, menu.`UPDATE_TIME`, menu.`CREATE_USER`, menu.`UPDATE_USER`, menu.`DELETED`,
+      create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
+      update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME
+    FROM SYSTEM_MENU menu
+    LEFT JOIN `SYSTEM_USER` create_user ON create_user.ID = menu.CREATE_USER
+    LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = menu.UPDATE_USER
+    ORDER BY menu.SORT
+  </select>
+
+</mapper>

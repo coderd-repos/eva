@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.system.SystemPermissionMapper">
+
+  <!-- 查询系统权限列表 -->
+  <resultMap id="SystemPermissionListVO" type="com.admin.dao.system.vo.SystemPermissionListVO" autoMapping="true">
+    <id column="ID" property="id"/>
+    <association property="createUserInfo" javaType="com.admin.dao.system.model.SystemUser">
+      <id column="CREATE_USER_ID" property="id"/>
+      <result column="CREATE_USER_NAME" property="username"/>
+    </association>
+    <association property="updateUserInfo" javaType="com.admin.dao.system.model.SystemUser">
+      <id column="UPDATE_USER_ID" property="id"/>
+      <result column="UPDATE_USER_NAME" property="username"/>
+    </association>
+  </resultMap>
+  <select id="selectList" parameterType="com.admin.dao.system.dto.QuerySystemPermissionDTO" resultMap="SystemPermissionListVO">
+    SELECT
+      perm.`ID`, perm.`CODE`, perm.`NAME`, perm.`REMARK`, perm.`CREATE_TIME`, perm.`UPDATE_TIME`, perm.`CREATE_USER`, perm.`UPDATE_USER`, perm.`DELETED`,
+      create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
+      update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME
+    FROM SYSTEM_PERMISSION perm
+    LEFT JOIN `SYSTEM_USER` create_user ON create_user.ID = perm.CREATE_USER
+    LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = perm.UPDATE_USER
+    <where>
+      perm.DELETED = 0
+      <if test="code != null">
+        AND perm.CODE LIKE CONCAT('%', #{code}, '%')
+      </if>
+      <if test="code != null">
+        AND perm.`NAME` LIKE CONCAT('%', #{name}, '%')
+      </if>
+    </where>
+  </select>
+
+</mapper>

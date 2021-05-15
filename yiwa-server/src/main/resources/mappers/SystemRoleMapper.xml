@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.system.SystemRoleMapper">
+
+  <!-- 查询角色和权限 -->
+  <resultMap id="SystemRoleListVO" type="com.admin.dao.system.vo.SystemRoleListVO" autoMapping="true">
+    <id column="ID" property="id"/>
+    <association property="createUserInfo" javaType="com.admin.dao.system.model.SystemUser">
+      <id column="CREATE_USER_ID" property="id"/>
+      <result column="CREATE_USER_NAME" property="username"/>
+    </association>
+    <association property="updateUserInfo" javaType="com.admin.dao.system.model.SystemUser">
+      <id column="UPDATE_USER_ID" property="id"/>
+      <result column="UPDATE_USER_NAME" property="username"/>
+    </association>
+  </resultMap>
+  <select id="selectList" parameterType="com.admin.dao.system.dto.QuerySystemUserDTO" resultMap="SystemRoleListVO">
+    SELECT
+      role.ID, role.`CODE`, role.`NAME`, role.`REMARK`, role.`CREATE_TIME`, role.`UPDATE_TIME`,
+      create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
+      update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME
+    FROM SYSTEM_ROLE role
+    LEFT JOIN `SYSTEM_USER` create_user ON create_user.ID = role.CREATE_USER
+    LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = role.UPDATE_USER
+    <where>
+      role.DELETED = 0
+      AND role.`CODE` LIKE CONCAT('%', #{code}, '%')
+      AND role.`NAME` LIKE CONCAT('%', #{name}, '%')
+    </where>
+  </select>
+
+</mapper>

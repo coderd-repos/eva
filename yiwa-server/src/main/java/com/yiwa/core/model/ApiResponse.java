@@ -2,17 +2,18 @@ package com.yiwa.core.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 
 /**
  * 接口返回对象
  * @author Caesar Liu
- * @date 2021/05/15 18:44
+ * @date 2021/03/26 19:48
  */
 @Data
 @AllArgsConstructor
 public class ApiResponse<T> {
 
-    private Boolean success;
+    private Integer code;
 
     private String message;
 
@@ -21,7 +22,7 @@ public class ApiResponse<T> {
     /**
      * 请求成功
      * @author Caesar Liu
-     * @date 2021/05/15 18:44
+     * @date 2021/03/26 19:48
      */
     public static <T> ApiResponse success(T data) {
         return ApiResponse.success("请求成功", data);
@@ -30,16 +31,16 @@ public class ApiResponse<T> {
     /**
      * 请求成功
      * @author Caesar Liu
-     * @date 2021/05/15 18:44
+     * @date 2021/03/26 19:48
      */
     public static <T> ApiResponse success(String message, T data) {
-        return new ApiResponse<>(Boolean.TRUE, message, data);
+        return new ApiResponse<>(HttpStatus.OK.value(), message, data);
     }
 
     /**
      * 请求失败
      * @author Caesar Liu
-     * @date 2021/05/15 18:44
+     * @date 2021/03/26 19:48
      */
     public static ApiResponse failed() {
         return ApiResponse.failed("请求失败");
@@ -48,9 +49,18 @@ public class ApiResponse<T> {
     /**
      * 请求失败
      * @author Caesar Liu
-     * @date 2021/05/15 18:44
+     * @date 2021/03/26 19:48
      */
     public static ApiResponse failed(String message) {
-        return new ApiResponse<>(Boolean.FALSE, message, null);
+        return ApiResponse.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), message);
+    }
+
+    /**
+     * 请求失败
+     * @author Caesar Liu
+     * @date 2021/03/26 19:48
+     */
+    public static ApiResponse failed(Integer code, String message) {
+        return new ApiResponse<>(code, message, null);
     }
 }

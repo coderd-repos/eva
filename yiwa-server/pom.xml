@@ -26,6 +26,9 @@
     <fastjson.version>1.2.25</fastjson.version>
     <druid.version>1.1.0</druid.version>
     <mybatis.plus.version>3.4.2</mybatis.plus.version>
+    <apache.shiro.version>1.6.0</apache.shiro.version>
+    <oshi.version>5.7.0</oshi.version>
+    <jna.version>5.7.0</jna.version>
   </properties>
 
   <dependencies>
@@ -33,6 +36,12 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <!-- Shiro -->
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-spring</artifactId>
+      <version>${apache.shiro.version}</version>
     </dependency>
     <!-- MyBatis plus -->
     <dependency>
@@ -77,6 +86,22 @@
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
       <version>${fastjson.version}</version>
+    </dependency>
+    <!-- 获取系统信息依赖包 -->
+    <dependency>
+      <groupId>com.github.oshi</groupId>
+      <artifactId>oshi-core</artifactId>
+      <version>${oshi.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>jna</artifactId>
+      <version>${jna.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>jna-platform</artifactId>
+      <version>${jna.version}</version>
     </dependency>
   </dependencies>
 
