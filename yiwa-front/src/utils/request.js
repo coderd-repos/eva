@@ -26,6 +26,7 @@ axiosInstance.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 axiosInstance.interceptors.response.use(response => {
+  console.log('response.data', response.data)
   // 请求失败
   if (response.status !== 200) {
     return Promise.reject(response.data)
@@ -33,6 +34,7 @@ axiosInstance.interceptors.response.use(response => {
   // 未登录
   if (response.data.code === 401) {
     window.location.href = '/#/login'
+    return
   }
   // 业务失败
   if (response.data.code !== 200) {
