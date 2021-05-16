@@ -90,6 +90,13 @@ public interface SystemMenuService {
      * @date 2021-03-30 16:13
      */
     List<SystemMenu> findByUserId(Integer userId);
+
+    /**
+     * 根据角色ID查询
+     * @author Caesar Liu
+     * @date 2021-03-31 20:34
+     */
+    List<SystemMenu> findByRoleId(Integer roleId);
   
     /**
      * 分页查询

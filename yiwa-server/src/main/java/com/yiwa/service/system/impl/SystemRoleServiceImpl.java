@@ -1,15 +1,22 @@
 package com.yiwa.service.system.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.core.utils.WrapperUtil;
 import com.yiwa.dao.system.SystemRoleMapper;
+import com.yiwa.dao.system.dto.QuerySystemRoleDTO;
 import com.yiwa.dao.system.model.SystemRole;
+import com.yiwa.dao.system.vo.SystemRoleListVO;
+import com.yiwa.service.system.SystemMenuService;
+import com.yiwa.service.system.SystemPermissionService;
 import com.yiwa.service.system.SystemRoleService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -26,6 +33,12 @@ public class SystemRoleServiceImpl implements SystemRoleService {
 
     @Autowired
     private SystemRoleMapper systemRoleMapper;
+
+    @Autowired
+    private SystemMenuService systemMenuService;
+
+    @Autowired
+    private SystemPermissionService systemPermissionService;
 
     @Override
     public Integer create(SystemRole systemRole) {
@@ -80,17 +93,14 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     }
   
     @Override
-    public PageData<SystemRole> findPage(PageWrap<SystemRole> pageWrap) {
-        IPage<SystemRole> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemRole> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
-        for(PageWrap.SortData sortData: pageWrap.getSorts()) {
-            if (sortData.getDirection().equalsIgnoreCase("DESC")) {
-                queryWrapper.orderByDesc(sortData.getProperty());
-            } else {
-                queryWrapper.orderByAsc(sortData.getProperty());
-            }
+    public PageData<SystemRoleListVO> findPage(PageWrap<QuerySystemRoleDTO> pageWrap) {
+        PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
+        List<SystemRoleListVO> roleList = systemRoleMapper.selectList(pageWrap.getModel());
+        for (SystemRoleListVO role : roleList) {
+            role.setMenus(systemMenuService.findByRoleId(role.getId()));
+            role.setPermissions(systemPermissionService.findByRoleId(role.getId()));
         }
-        return PageData.from(systemRoleMapper.selectPage(page, queryWrapper));
+        return PageData.from(new PageInfo<>(roleList));
     }
 
     @Override

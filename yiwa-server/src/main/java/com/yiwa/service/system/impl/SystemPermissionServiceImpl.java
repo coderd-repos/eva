@@ -68,6 +68,11 @@ public class SystemPermissionServiceImpl implements SystemPermissionService {
     }
 
     @Override
+    public List<SystemPermission> findByRoleId(Integer roleId) {
+        return systemPermissionMapper.selectByRoleId(roleId);
+    }
+
+    @Override
     public SystemPermission findOne(SystemPermission systemPermission) {
         Wrapper<SystemPermission> wrapper = new QueryWrapper<>(systemPermission);
         return systemPermissionMapper.selectOne(wrapper);

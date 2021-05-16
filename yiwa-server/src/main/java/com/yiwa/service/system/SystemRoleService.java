@@ -2,7 +2,10 @@ package com.yiwa.service.system;
 
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
+import com.yiwa.dao.system.dto.QuerySystemRoleDTO;
 import com.yiwa.dao.system.model.SystemRole;
+import com.yiwa.dao.system.vo.SystemRoleListVO;
+
 import java.util.List;
 
 /**
@@ -80,7 +83,7 @@ public interface SystemRoleService {
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    PageData<SystemRole> findPage(PageWrap<SystemRole> pageWrap);
+    PageData<SystemRoleListVO> findPage(PageWrap<QuerySystemRoleDTO> pageWrap);
 
     /**
      * 条件统计

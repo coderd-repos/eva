@@ -1,6 +1,7 @@
 package com.yiwa.core.model;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.github.pagehelper.PageInfo;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -30,11 +31,28 @@ public class PageData<T> implements Serializable {
         this.page = page;
         this.capacity = capacity;
     }
-    
+
+    /**
+     * 根据MyBatis Plus分页对象组装
+     * @author Caesar Liu
+     * @date 2021-05-16 13:53
+     */
     public static <T> PageData<T> from(IPage<T> pageInfo) {
         PageData<T> pageData = new PageData<T>(pageInfo.getCurrent(), pageInfo.getSize());
         pageData.total = pageInfo.getTotal();
         pageData.records = pageInfo.getRecords();
+        return pageData;
+    }
+
+    /**
+     * 根据MyBatis原生分页对象组装
+     * @author Caesar Liu
+     * @date 2021-05-16 13:54
+     */
+    public static <T> PageData<T> from(PageInfo<T> pageInfo) {
+        PageData<T> pageData = new PageData<>(pageInfo.getPageNum(), pageInfo.getPageSize());
+        pageData.total = pageInfo.getTotal();
+        pageData.records = pageInfo.getList();
         return pageData;
     }
 

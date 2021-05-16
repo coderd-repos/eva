@@ -95,6 +95,11 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     }
 
     @Override
+    public List<SystemMenu> findByRoleId(Integer roleId) {
+        return systemMenuMapper.selectByRoleId(roleId);
+    }
+
+    @Override
     public PageData<SystemMenu> findPage(PageWrap<SystemMenu> pageWrap) {
         IPage<SystemMenu> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
         QueryWrapper<SystemMenu> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2021/05/16 11:59
  */
 @RestController
-@RequestMapping("/systemDepartment")
+@RequestMapping("/system/department")
 @Api(tags = "接口")
 public class SystemDepartmentController extends BaseController {
 

@@ -62,6 +62,13 @@ public interface SystemPermissionService {
     List<SystemPermission> findByUserId(Integer userId);
 
     /**
+     * 根据角色ID查询
+     * @author Caesar Liu
+     * @date 2021-03-30 23:15
+     */
+    List<SystemPermission> findByRoleId(Integer roleId);
+
+    /**
      * 条件查询单条记录
      * @author Caesar Liu
      * @date 2021/05/15 19:41

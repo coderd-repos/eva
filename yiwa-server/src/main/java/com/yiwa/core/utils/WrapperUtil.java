@@ -18,6 +18,9 @@ public class WrapperUtil {
      * @date 2021-05-16 01:37
      */
     public static <T> T blankToNull(T object) {
+        if (object == null) {
+            return null;
+        }
         try {
             Class clazz = object.getClass();
             Field[] fields = clazz.getDeclaredFields();

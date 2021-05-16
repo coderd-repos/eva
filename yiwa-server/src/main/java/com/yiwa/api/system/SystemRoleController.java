@@ -121,7 +121,7 @@ public class SystemRoleController extends BaseController {
     @RequiresPermissions("system:role:query")
     @PostMapping("/page")
     @ApiOperation("分页查询")
-    public ApiResponse findPage (@RequestBody PageWrap<SystemRole> pageWrap) {
+    public ApiResponse findPage (@RequestBody PageWrap<QuerySystemRoleDTO> pageWrap) {
         return ApiResponse.success(systemRoleService.findPage(pageWrap));
     }
 
