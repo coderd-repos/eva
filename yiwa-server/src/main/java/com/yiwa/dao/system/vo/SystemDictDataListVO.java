@@ -1,16 +1,16 @@
 package com.yiwa.dao.system.vo;
 
-import com.yiwa.dao.system.model.SystemDict;
+import com.yiwa.dao.system.model.SystemDictData;
 import com.yiwa.dao.system.model.SystemUser;
 import lombok.Data;
 
 /**
- * 字典列表视图对象
+ * 字典数据列表视图对象
  * @author Caesar Liu
- * @date 2021-05-16 20:07
+ * @date 2021-05-16 20:43
  */
 @Data
-public class SystemDictListVO extends SystemDict {
+public class SystemDictDataListVO extends SystemDictData {
 
     private SystemUser createUserInfo;
 
