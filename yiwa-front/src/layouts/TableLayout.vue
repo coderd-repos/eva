@@ -1,7 +1,7 @@
 <template>
   <div class="table-layout">
     <!-- 头部 -->
-    <div class="table-header">
+    <div v-if="withBreadcrumb" class="table-header">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item v-for="path in paths" :key="path">{{path}}</el-breadcrumb-item>
       </el-breadcrumb>
@@ -25,6 +25,13 @@
 <script>
 export default {
   name: 'TableLayout',
+  props: {
+    // 是否展示头部面包屑
+    withBreadcrumb: {
+      type: Boolean,
+      default: true
+    }
+  },
   computed: {
     paths () {
       return this.$route.meta.paths

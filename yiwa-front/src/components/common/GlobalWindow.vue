@@ -1,13 +1,14 @@
 <template>
   <el-drawer
-      class="global-window"
-      title="title"
-      :visible="visible"
-      :with-header="true"
-      :size="width"
-      :close-on-press-escape="false"
-      :wrapper-closable="false"
-      @close="close"
+    class="global-window"
+    title="title"
+    :visible="visible"
+    :with-header="true"
+    :size="width"
+    :close-on-press-escape="false"
+    :wrapper-closable="false"
+    :append-to-body="true"
+    @close="close"
   >
     <div slot="title" class="window__header">
       <span class="header__btn-back" @click="close"><i class="el-icon-arrow-left"></i></span>{{title}}
@@ -15,7 +16,7 @@
     <div class="window__body">
       <slot></slot>
     </div>
-    <div class="window__footer">
+    <div v-if="withFooter" class="window__footer">
       <el-button @click="confirm" :loading="confirmWorking" type="primary">确定</el-button>
       <el-button @click="close">取消</el-button>
     </div>
@@ -29,6 +30,11 @@ export default {
     width: {
       type: String,
       default: '36%'
+    },
+    // 是否包含底部操作
+    withFooter: {
+      type: Boolean,
+      default: true
     },
     // 确认按钮loading状态
     confirmWorking: {

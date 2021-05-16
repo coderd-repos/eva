@@ -45,6 +45,7 @@
         >
           <template slot-scope="{row}">
             <el-button type="text" @click="edit(row)" icon="el-icon-edit" v-permissions="['system:dict:update']">编辑</el-button>
+            <el-button type="text" @click="openDataManager(row)" icon="el-icon-edit" v-permissions="['system:dict:update']">数据管理</el-button>
             <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:dict:delete']">删除</el-button>
           </template>
         </el-table-column>
@@ -75,6 +76,8 @@
         </el-form-item>
       </el-form>
     </GlobalWindow>
+    <!-- 数据管理 -->
+    <SystemDictDataManager ref="dataManager" :visible.sync="visible.dataManager"/>
   </TableLayout>
 </template>
 
@@ -84,10 +87,11 @@ import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
 import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/systemDict'
 import BaseTable from '../BaseTable'
+import SystemDictDataManager from '../../components/dict/DataManager'
 export default {
   name: 'SystemDict',
   extends: BaseTable,
-  components: { TableLayout, GlobalWindow, Pagination },
+  components: { SystemDictDataManager, TableLayout, GlobalWindow, Pagination },
   data () {
     return {
       // 搜索
@@ -244,6 +248,10 @@ export default {
             this.isWorking.delete = false
           })
       })
+    },
+    // 数据管理
+    openDataManager (row) {
+      this.$refs.dataManager.open(row.id)
     },
     // 页码变更处理
     handlePageChange (pageIndex) {
