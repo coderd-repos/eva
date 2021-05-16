@@ -1,15 +1,5 @@
 <template>
   <TableLayout v-permissions="['system:department:query']">
-    <!-- 搜索表单 -->
-    <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="100px" inline>
-      <el-form-item label="部门名称" prop="name">
-        <el-input v-model="searchForm.name" placeholder="请输入部门名称" @keypress.enter.native="search"></el-input>
-      </el-form-item>
-      <section>
-        <el-button type="primary" @click="search">搜索</el-button>
-        <el-button @click="reset">重置</el-button>
-      </section>
-    </el-form>
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:department:create', 'system:department:delete']">
@@ -19,35 +9,37 @@
       <el-table
         v-loading="isWorking.search"
         :data="tableData.list"
+        :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+        row-key="id"
         stripe
+        default-expand-all
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="name" label="部门名称" min-width="100px"></el-table-column>
         <el-table-column prop="phone" label="联系电话" min-width="100px"></el-table-column>
         <el-table-column prop="email" label="部门邮箱" min-width="100px"></el-table-column>
-        <el-table-column prop="createUser" label="创建人" min-width="100px"></el-table-column>
-        <el-table-column prop="updateUser" label="更新人" min-width="100px"></el-table-column>
-        <el-table-column prop="createTime" label="创建人" min-width="100px"></el-table-column>
-        <el-table-column prop="updateTime" label="更新人" min-width="100px"></el-table-column>
+        <el-table-column prop="createUser" label="创建人" min-width="100px">
+          <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
+        </el-table-column>
+        <el-table-column prop="updateUser" label="更新人" min-width="100px">
+          <template slot-scope="{row}">{{row.updateUserInfo == null ? '' : row.updateUserInfo.username}}</template>
+        </el-table-column>
+        <el-table-column prop="createTime" label="创建时间" min-width="100px"></el-table-column>
+        <el-table-column prop="updateTime" label="更新时间" min-width="100px"></el-table-column>
         <el-table-column
-          v-if="containPermissions(['system:department:update', 'system:department:delete'])"
+          v-if="containPermissions(['system:department:update', 'system:department:create', 'system:department:delete'])"
           label="操作"
           min-width="120"
           fixed="right"
         >
           <template slot-scope="{row}">
             <el-button type="text" @click="edit(row)" icon="el-icon-edit" v-permissions="['system:department:update']">编辑</el-button>
-            <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:department:delete']">删除</el-button>
+            <el-button type="text" @click="create(row)" icon="el-icon-edit" v-permissions="['system:department:create']">添加子部门</el-button>
+            <el-button v-if="row.parentId != null" type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:department:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
-      <pagination
-        @size-change="handleSizeChange"
-        @current-change="handlePageChange"
-        :pagination="tableData.pagination"
-      >
-      </pagination>
     </template>
     <!-- 添加/修改 -->
     <GlobalWindow
@@ -57,8 +49,8 @@
       @confirm="confirm"
     >
       <el-form :model="operaTableData.form" ref="operaTableDataForm" :rules="operaTableData.rules">
-        <el-form-item label="父部门" prop="parentId">
-          <el-input v-model="operaTableData.form.parentId" placeholder="请输入父部门"></el-input>
+        <el-form-item v-if="operaTableData.form.id == null || operaTableData.form.parentId != null" label="上级部门" prop="parentId" required>
+          <TreeSelect v-model="operaTableData.form.parentId" :data="operaTableData.parentDepartmentList"/>
         </el-form-item>
         <el-form-item label="部门名称" prop="name" required>
           <el-input v-model="operaTableData.form.name" placeholder="请输入部门名称"></el-input>
@@ -75,15 +67,15 @@
 </template>
 
 <script>
-import Pagination from '../../components/common/Pagination'
 import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
 import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/systemDepartment'
 import BaseTable from '../BaseTable'
+import TreeSelect from '../../components/common/TreeSelect'
 export default {
   name: 'SystemDepartment',
   extends: BaseTable,
-  components: { TableLayout, GlobalWindow, Pagination },
+  components: { TreeSelect, TableLayout, GlobalWindow },
   data () {
     return {
       // 搜索
@@ -93,10 +85,12 @@ export default {
       // 新增/修改
       operaTableData: {
         title: '添加系统权限',
+        // 父部门数据
+        parentDepartmentList: [],
         // 表单数据
         form: {
           id: null,
-          parentId: '',
+          parentId: null,
           name: '',
           phone: '',
           email: ''
@@ -120,12 +114,18 @@ export default {
       this.confirmEdit()
     },
     // 添加
-    create () {
+    create (row = {}) {
       this.visible.operaTable = true
-      this.operaTableData.title = '添加'
+      this.operaTableData.title = '添加部门'
+      // 填充上级部门数据
+      this.operaTableData.parentDepartmentList = []
+      this.__fillParentDepartmentList(this.operaTableData.parentDepartmentList, this.tableData.list)
       this.$nextTick(() => {
-        this.operaTableData.form.id = ''
         this.$refs.operaTableDataForm.resetFields()
+        // 清空ID
+        this.operaTableData.form.id = ''
+        // 选中上级部门
+        this.operaTableData.form.parentId = row.id || this.operaTableData.parentDepartmentList[0].id
       })
     },
     // 确定添加
@@ -154,6 +154,9 @@ export default {
     edit (row) {
       this.operaTableData.title = '修改'
       this.visible.operaTable = true
+      // 填充上级部门数据
+      this.operaTableData.parentDepartmentList = []
+      this.__fillParentDepartmentList(this.operaTableData.parentDepartmentList, this.tableData.list, row.id)
       this.$nextTick(() => {
         for (const key in this.operaTableData.form) {
           this.operaTableData.form[key] = row[key]
@@ -239,18 +242,13 @@ export default {
       })
     },
     // 页码变更处理
-    handlePageChange (pageIndex) {
+    handlePageChange () {
       // 调用查询接口
-      this.tableData.pagination.pageIndex = pageIndex
+      this.tableData.list.splice(0, this.tableData.list.length)
       this.isWorking.search = true
-      fetchList({
-        page: pageIndex,
-        capacity: this.tableData.pagination.pageSize,
-        model: this.searchForm
-      })
-        .then(data => {
-          this.tableData.list = data.records
-          this.tableData.pagination.total = data.total
+      fetchList()
+        .then(records => {
+          this.tableData.list = records
         })
         .catch(e => {
           this.$message.error(e.message)
@@ -258,6 +256,23 @@ export default {
         .finally(() => {
           this.isWorking.search = false
         })
+    },
+    // 获取上级部门列表
+    __fillParentDepartmentList (list, pool, excludeId) {
+      for (const dept of pool) {
+        if (dept.id === excludeId) {
+          continue
+        }
+        const deptNode = {
+          id: dept.id,
+          label: dept.name,
+          children: []
+        }
+        list.push(deptNode)
+        if (dept.children != null && dept.children.length > 0) {
+          this.__fillParentDepartmentList(deptNode.children, dept.children, excludeId)
+        }
+      }
     }
   },
   created () {

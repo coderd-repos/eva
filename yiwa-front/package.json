@@ -1,5 +1,5 @@
 {
-  "name": "vue-cli3",
+  "name": "yiwa",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "fix": "eslint --ext .js,.vue src --fix"
   },
   "dependencies": {
+    "@riophae/vue-treeselect": "^0.4.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "element-ui": "^2.3.6",

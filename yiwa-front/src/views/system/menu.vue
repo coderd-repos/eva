@@ -62,7 +62,7 @@
       :confirm-working="isWorking.operaTable"
       @confirm="confirm"
     >
-      <p class="tip" v-if="handleTableData.form.parent != null">为 <em>{{handleTableData.form.parent.name}}</em> 添加子菜单</p>
+      <p class="tip" v-if="handleTableData.form.parent != null && handleTableData.form.id == null">为 <em>{{handleTableData.form.parent.name}}</em> 添加子菜单</p>
       <el-form :model="handleTableData.form" ref="handleTableDataForm" :rules="handleTableData.rules">
         <el-form-item label="菜单名称" prop="name" required>
           <el-input v-model="handleTableData.form.name"></el-input>
@@ -106,11 +106,6 @@ export default {
       isWorking: {
         handleChild: false,
         sort: false
-      },
-      // 搜索
-      searchForm: {
-        name: '',
-        path: ''
       },
       // 新增/修改
       handleTableData: {
@@ -257,7 +252,7 @@ export default {
       // 调用查询接口
       this.tableData.list.splice(0, this.tableData.list.length)
       this.isWorking.search = true
-      fetchList(this.searchForm)
+      fetchList()
         .then(records => {
           this.tableData.list = records
         })

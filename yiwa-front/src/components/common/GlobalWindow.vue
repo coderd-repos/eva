@@ -1,22 +1,25 @@
 <template>
-  <el-dialog
-    class="global-dialog"
-    :title="title"
-    status-icon
-    :visible="visible"
-    :width="width"
-    :close-on-click-modal="false"
-    :close-on-press-escape="false"
-    @close="close"
+  <el-drawer
+      class="global-window"
+      title="title"
+      :visible="visible"
+      :with-header="true"
+      :size="width"
+      :close-on-press-escape="false"
+      :wrapper-closable="false"
+      @close="close"
   >
-    <div class="body">
+    <div slot="title" class="window__header">
+      <span class="header__btn-back" @click="close"><i class="el-icon-arrow-left"></i></span>{{title}}
+    </div>
+    <div class="window__body">
       <slot></slot>
     </div>
-    <div slot="footer" class="dialog__footer">
-      <el-button @click="$emit('confirm')" :loading="confirmWorking" type="primary">确定</el-button>
+    <div class="window__footer">
+      <el-button @click="confirm" :loading="confirmWorking" type="primary">确定</el-button>
       <el-button @click="close">取消</el-button>
     </div>
-  </el-dialog>
+  </el-drawer>
 </template>
 
 <script>
@@ -44,9 +47,11 @@ export default {
     }
   },
   methods: {
+    confirm () {
+      this.$emit('confirm')
+    },
     close () {
       this.$emit('update:visible', false)
-      this.$emit('close')
     }
   }
 }
@@ -56,27 +61,47 @@ export default {
 @import "../../assets/style/variables.scss";
 // 输入框高度
 $input-height: 32px;
-.global-dialog {
-  // 头部
-  /deep/ .el-dialog__header {
+.global-window {
+  // 头部标题
+  /deep/ .el-drawer__header {
+    padding: 0 10px 0 0;
+    line-height: 40px;
     border-bottom: 1px solid #eee;
-  }
-  // 内容部分
-  /deep/ .el-dialog__body {
-    // 表单
-    .el-form-item {
-      margin-bottom: 18px;
-      &:last-of-type {
-        margin-bottom: 0;
-      }
+    // 返回按钮
+    .header__btn-back {
+      display: inline-block;
+      width: 30px;
+      background: $primary-color;
+      color: #fff;
+      text-align: center;
+      margin-right: 12px;
+      border-right: 1px solid #eee;
+    }
+    .el-drawer__close-btn:focus {
+      outline: none;
     }
   }
-  // 尾部按钮
-  .el-dialog__footer {
-    .el-button {
-      height: $input-height;
-      width: 76px;
-      padding: 0;
+  // 主体
+  /deep/ .el-drawer__body {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 40px;
+    bottom: 0;
+    width: 100%;
+    // 内容
+    .window__body {
+      height: 100%;
+      overflow-y: auto;
+      padding: 12px 16px;
+    }
+    // 尾部
+    .window__footer {
+      user-select: none;
+      border-top: 1px solid #eee;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
     }
   }
 }

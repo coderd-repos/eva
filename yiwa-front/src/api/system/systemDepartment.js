@@ -1,10 +1,8 @@
 import request from '../../utils/request'
 
 // 查询
-export function fetchList (data) {
-  return request.post('/system/department/page', data, {
-    trim: true
-  })
+export function fetchList () {
+  return request.post('/system/department/list')
 }
 
 // 创建
