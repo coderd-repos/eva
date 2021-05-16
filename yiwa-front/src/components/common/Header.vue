@@ -9,7 +9,7 @@
       <div class="user">
         <el-dropdown trigger="click">
           <span class="el-dropdown-link">
-            <img v-if="userInfo != null" :src="userInfo.avatar == null ? '/static/avatar/man.png' : userInfo.avatar" alt="">{{userInfo | displayName}}<i class="el-icon-arrow-down el-icon--right"></i>
+            <img v-if="userInfo != null" :src="userInfo.avatar == null ? '@/assets/images/avatar/man.png' : userInfo.avatar" alt="">{{userInfo | displayName}}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item @click.native="changePwd">修改密码</el-dropdown-item>

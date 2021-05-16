@@ -78,23 +78,23 @@
       </pagination>
     </template>
     <!-- 添加/修改 -->
-    <OperaTableDataDialog
-      ref="operaTableDataDialog"
+    <OperaUserWindow
+      ref="operaUserWindow"
       :title="operaTableData.title"
       :visible.sync="visible.operaTable"
       @create-success="search"
       @edit-success="search"
     />
     <!-- 配置角色 -->
-    <RoleConfigDialog
+    <RoleConfigWindow
       :visible.sync="visible.selectRole"
       :user="selectRoleData.user"
       :roles="selectRoleData.roles"
       @success="search"
     />
     <!-- 重置密码 -->
-    <ResetPwdDialog
-      ref="resetPwdDialog"
+    <ResetPwdWindow
+      ref="resetPwdWindow"
       :visible.sync="visible.resetPwd"
       :user="resetPwdData.user"
     />
@@ -107,14 +107,14 @@ import TableLayout from '../../layouts/TableLayout'
 import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/systemUser'
 import { fetchAll as fetchAllRoles } from '../../api/system/systemRole'
 import BaseTable from '../BaseTable'
-import OperaTableDataDialog from '../../components/user/OperaTableDataDialog'
-import RoleConfigDialog from '../../components/user/RoleConfigDialog'
-import ResetPwdDialog from '../../components/user/ResetPwdDialog'
+import OperaUserWindow from '../../components/user/OperaTableDataWindow'
+import RoleConfigWindow from '../../components/user/RoleConfigWindow'
+import ResetPwdWindow from '../../components/user/ResetPwdWindow'
 
 export default {
   name: 'SystemUser',
   extends: BaseTable,
-  components: { ResetPwdDialog, RoleConfigDialog, OperaTableDataDialog, TableLayout, Pagination },
+  components: { ResetPwdWindow, RoleConfigWindow, OperaUserWindow, TableLayout, Pagination },
   data () {
     return {
       // 是否展示
@@ -149,7 +149,7 @@ export default {
       this.operaTableData.title = '添加用户'
       this.visible.operaTable = true
       this.$nextTick(() => {
-        this.$refs.operaTableDataDialog.resetFields()
+        this.$refs.operaUserWindow.resetFields()
       })
     },
     // 编辑
@@ -157,7 +157,7 @@ export default {
       this.operaTableData.title = '修改用户'
       this.visible.operaTable = true
       this.$nextTick(() => {
-        this.$refs.operaTableDataDialog.initFields(row)
+        this.$refs.operaUserWindow.initFields(row)
       })
     },
     // 删除
@@ -254,7 +254,7 @@ export default {
       this.visible.resetPwd = true
       this.resetPwdData.user = row
       this.$nextTick(() => {
-        this.$refs.resetPwdDialog.resetFields()
+        this.$refs.resetPwdWindow.resetFields()
       })
     }
   },

@@ -25,8 +25,8 @@
       </el-form-item>
       <el-form-item label="头像" prop="avatar" required>
         <el-radio-group v-model="form.avatar" class="form-item-avatar">
-          <el-radio label="/static/avatar/man.png" border><img src="/static/avatar/man.png" alt=""></el-radio>
-          <el-radio label="/static/avatar/woman.png" border><img src="/static/avatar/woman.png" alt=""></el-radio>
+          <el-radio label="/avatar/man.png" border><img src="/avatar/man.png" alt=""></el-radio>
+          <el-radio label="/avatar/woman.png" border><img src="/avatar/woman.png" alt=""></el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item v-if="form.id == null" label="密码" prop="password" required>
@@ -54,7 +54,7 @@ import {
 import GlobalWindow from '../common/GlobalWindow'
 
 export default {
-  name: 'OperaTableDataWindow',
+  name: 'OperaUserWindow',
   components: { GlobalWindow },
   props: {
     // 标题
@@ -180,15 +180,15 @@ export default {
 
 <style lang="scss" scoped>
 .global-dialog {
-  /deep/ .el-radio-group {
+  >>> .el-radio-group {
     width: 100%;
   }
-  /deep/ .el-date-editor {
+  >>> .el-date-editor {
     width: 100%;
   }
   // 表单头像处理
   .form-item-avatar {
-    /deep/ .el-radio.is-bordered {
+    >>> .el-radio.is-bordered {
       height: auto;
       padding: 6px;
       margin: 0 10px 0 0;

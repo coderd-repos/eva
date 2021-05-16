@@ -24,7 +24,7 @@
 import GlobalWindow from '../common/GlobalWindow'
 import { createUserRole } from '../../api/system/systemUser'
 export default {
-  name: 'RoleConfigDialog',
+  name: 'RoleConfigWindow',
   components: { GlobalWindow },
   props: {
     // 是否展示Dialog

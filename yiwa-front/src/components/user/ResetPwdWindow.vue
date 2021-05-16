@@ -20,7 +20,7 @@
 import GlobalWindow from '../common/GlobalWindow'
 import { resetPwd } from '../../api/system/systemUser'
 export default {
-  name: 'ResetPwdDialog',
+  name: 'ResetPwdWindow',
   components: { GlobalWindow },
   props: {
     // 是否展示Dialog
