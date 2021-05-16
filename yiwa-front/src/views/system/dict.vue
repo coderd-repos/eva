@@ -1,9 +1,12 @@
 <template>
-  <TableLayout v-permissions="['system:position:query']">
+  <TableLayout v-permissions="['system:dict:query']">
     <!-- 搜索表单 -->
     <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="100px" inline>
-      <el-form-item label="岗位名称" prop="name">
-        <el-input v-model="searchForm.name" placeholder="请输入岗位名称" @keypress.enter.native="search"></el-input>
+      <el-form-item label="字典编码" prop="code">
+        <el-input v-model="searchForm.code" placeholder="请输入字典编码" @keypress.enter.native="search"></el-input>
+      </el-form-item>
+      <el-form-item label="字典名称" prop="name">
+        <el-input v-model="searchForm.name" placeholder="请输入字典名称" @keypress.enter.native="search"></el-input>
       </el-form-item>
       <section>
         <el-button type="primary" @click="search">搜索</el-button>
@@ -12,9 +15,9 @@
     </el-form>
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
-      <ul class="toolbar" v-permissions="['system:position:create', 'system:position:delete']">
-        <li><el-button type="primary" @click="create" icon="el-icon-plus" v-permissions="['system:position:create']">新建</el-button></li>
-        <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete" v-permissions="['system:position:delete']">删除</el-button></li>
+      <ul class="toolbar" v-permissions="['system:dict:create', 'system:dict:delete']">
+        <li><el-button type="primary" @click="create" icon="el-icon-plus" v-permissions="['system:dict:create']">新建</el-button></li>
+        <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete" v-permissions="['system:dict:delete']">删除</el-button></li>
       </ul>
       <el-table
         v-loading="isWorking.search"
@@ -23,8 +26,9 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="name" label="岗位名称" min-width="100px"></el-table-column>
-        <el-table-column prop="userCount" label="岗位人数" min-width="100px"></el-table-column>
+        <el-table-column prop="code" label="字典编码" min-width="100px"></el-table-column>
+        <el-table-column prop="name" label="字典名称" min-width="100px"></el-table-column>
+        <el-table-column prop="remark" label="备注" min-width="100px"></el-table-column>
         <el-table-column prop="createUser" label="创建人" min-width="100px">
           <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
         </el-table-column>
@@ -34,15 +38,14 @@
         <el-table-column prop="createTime" label="创建时间" min-width="100px"></el-table-column>
         <el-table-column prop="updateTime" label="更新时间" min-width="100px"></el-table-column>
         <el-table-column
-          v-if="containPermissions(['system:position:update', 'system:position:delete'])"
+          v-if="containPermissions(['system:dict:update', 'system:dict:delete'])"
           label="操作"
           min-width="120"
           fixed="right"
         >
           <template slot-scope="{row}">
-            <el-button type="text" @click="edit(row)" icon="el-icon-edit" v-permissions="['system:position:update']">编辑</el-button>
-            <el-button type="text" @click="manageUser(row)" icon="el-icon-user-solid" v-permissions="['system:position:update']">人员管理</el-button>
-            <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:position:delete']">删除</el-button>
+            <el-button type="text" @click="edit(row)" icon="el-icon-edit" v-permissions="['system:dict:update']">编辑</el-button>
+            <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:dict:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -61,13 +64,17 @@
       @confirm="confirm"
     >
       <el-form :model="operaTableData.form" ref="operaTableDataForm" :rules="operaTableData.rules">
-        <el-form-item label="岗位名称" prop="name" required>
-          <el-input v-model="operaTableData.form.name" placeholder="请输入岗位名称"></el-input>
+        <el-form-item label="字典编码" prop="code" required>
+          <el-input v-model="operaTableData.form.code" placeholder="请输入字典编码"></el-input>
+        </el-form-item>
+        <el-form-item label="字典名称" prop="name" required>
+          <el-input v-model="operaTableData.form.name" placeholder="请输入字典名称"></el-input>
+        </el-form-item>
+        <el-form-item label="备注" prop="remark">
+          <el-input v-model="operaTableData.form.remark" placeholder="请输入备注"></el-input>
         </el-form-item>
       </el-form>
     </GlobalWindow>
-    <!-- 人员管理 -->
-    <UserManager :visible="visible.userManage"/>
   </TableLayout>
 </template>
 
@@ -75,20 +82,17 @@
 import Pagination from '../../components/common/Pagination'
 import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/systemPosition'
+import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/systemDict'
 import BaseTable from '../BaseTable'
-import UserManager from '../../components/position/UserManager'
 export default {
-  name: 'SystemPosition',
+  name: 'SystemDict',
   extends: BaseTable,
-  components: { UserManager, TableLayout, GlobalWindow, Pagination },
+  components: { TableLayout, GlobalWindow, Pagination },
   data () {
     return {
-      visible: {
-        userManage: false
-      },
       // 搜索
       searchForm: {
+        code: '',
         name: ''
       },
       // 新增/修改
@@ -97,24 +101,19 @@ export default {
         // 表单数据
         form: {
           id: null,
-          name: ''
+          code: '',
+          name: '',
+          remark: ''
         },
         // 验证规则
         rules: {
+          code: [
+            { required: true, message: '请输入字典编码' }
+          ],
           name: [
-            { required: true, message: '请输入岗位名称' }
+            { required: true, message: '请输入字典名称' }
           ]
         }
-      },
-      // 人员管理
-      userManageData: {
-        searchForm: {
-          username: '',
-          realname: '',
-          mobile: ''
-        },
-        list: [],
-        pagination: {}
       }
     }
   },
@@ -130,7 +129,7 @@ export default {
     // 添加
     create () {
       this.visible.operaTable = true
-      this.operaTableData.title = '添加岗位'
+      this.operaTableData.title = '添加字典'
       this.$nextTick(() => {
         this.operaTableData.form.id = ''
         this.$refs.operaTableDataForm.resetFields()
@@ -160,7 +159,7 @@ export default {
     },
     // 编辑
     edit (row) {
-      this.operaTableData.title = '修改岗位'
+      this.operaTableData.title = '修改字典'
       this.visible.operaTable = true
       this.$nextTick(() => {
         for (const key in this.operaTableData.form) {
@@ -192,7 +191,7 @@ export default {
     },
     // 删除
     deleteById (id) {
-      this.$confirm('确认删除此岗位吗?', '提示', {
+      this.$confirm('确认删除此字典吗?', '提示', {
         confirmButtonText: '确认删除',
         cancelButtonText: '取消',
         type: 'warning'
@@ -245,10 +244,6 @@ export default {
             this.isWorking.delete = false
           })
       })
-    },
-    // 人员管理
-    manageUser (row) {
-      this.visible.userManage = true
     },
     // 页码变更处理
     handlePageChange (pageIndex) {
