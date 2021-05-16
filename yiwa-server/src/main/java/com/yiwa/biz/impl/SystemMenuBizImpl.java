@@ -28,7 +28,6 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
         } else {
             SystemMenu queryDto = new SystemMenu();
             queryDto.setParentId(currentMenu.getParentId());
-            queryDto.setDeleted(Boolean.FALSE);
             menuPool = systemMenuService.findList(queryDto);
         }
         int currentMenuIndex = menuPool.indexOf(currentMenu);

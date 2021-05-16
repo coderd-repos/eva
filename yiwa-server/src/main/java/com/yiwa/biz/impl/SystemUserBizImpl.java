@@ -43,7 +43,6 @@ public class SystemUserBizImpl implements SystemUserBiz {
         SystemUser newUser = new SystemUser();
         newUser.setId(dto.getUserId());
         newUser.setPassword(SecureUtil.encryptPassword(dto.getNewPwd(), user.getSalt()));
-        newUser.setUpdateUser(dto.getUserId());
         systemUserService.updateById(newUser);
     }
 
@@ -61,7 +60,6 @@ public class SystemUserBizImpl implements SystemUserBiz {
         SystemUser updateUserDto = new SystemUser();
         updateUserDto.setId(dto.getId());
         updateUserDto.setPassword(SecureUtil.encryptPassword(dto.getPassword(), systemUser.getSalt()));
-        updateUserDto.setUpdateUser(dto.getOperaUserId());
         systemUserService.updateById(updateUserDto);
     }
 
@@ -134,7 +132,6 @@ public class SystemUserBizImpl implements SystemUserBiz {
         for (Integer roleId : dto.getRoleIds()) {
             SystemUserRole newUserRole = new SystemUserRole();
             newUserRole.setUserId(dto.getUserId());
-            newUserRole.setCreateUser(dto.getCreateUser());
             newUserRole.setRoleId(roleId);
             systemUserRoleService.create(newUserRole);
         }

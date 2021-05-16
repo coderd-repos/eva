@@ -1,5 +1,6 @@
 package com.yiwa.interceptor;
 
+import com.yiwa.core.model.LoginUserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.executor.Executor;
@@ -8,10 +9,10 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.*;
 
 /**
@@ -32,7 +33,11 @@ public class MyBatisInterceptor implements Interceptor {
 
     private static final String CREATE_TIME = "createTime";
 
+    private static final String CREATE_USER = "createUser";
+
     private static final String UPDATE_TIME = "updateTime";
+
+    private static final String UPDATE_USER = "updateUser";
 
     private static final String DELETED = "deleted";
 
@@ -50,22 +55,17 @@ public class MyBatisInterceptor implements Interceptor {
         }
         if (target == null)
             return invocation.proceed();
-        Date now = new Date();
         // 查询语句
         if (SqlCommandType.SELECT == sqlCommandType) {
-            Field field = target.getClass().getDeclaredField(DELETED);
-            this.initDeleted(field, target);
+            this.handleQueryStatement(target);
         }
         // 创建语句
         if (SqlCommandType.INSERT == sqlCommandType) {
-            Field field = target.getClass().getDeclaredField(CREATE_TIME);
-            this.initCreateTime(field, target, now);
-
+            this.handleOperaStatement(target, CREATE_TIME, CREATE_USER);
         }
         // 更新语句
         else if (SqlCommandType.UPDATE == sqlCommandType) {
-            Field field = target.getClass().getDeclaredField(UPDATE_TIME);
-            this.initUpdateTime(field, target, now);
+            this.handleOperaStatement(target, UPDATE_TIME, UPDATE_USER);
         }
         return invocation.proceed();
     }
@@ -76,35 +76,32 @@ public class MyBatisInterceptor implements Interceptor {
     }
 
     /**
-     * 初始化创建时间
+     * 处理新增和编辑语句
      * @author Caesar Liu
      * @date 2019/3/2 11:52
      */
-    private void initCreateTime(Field field, Object target, Date date) throws Exception{
-        Object value = this.getFieldValue(field, target);
-        if(value == null) {
-            this.setFieldValue(field, target, date);
+    private void handleOperaStatement(Object target, String... fieldNames) throws Exception{
+        // 操作时间
+        Field operaTimeField = target.getClass().getDeclaredField(fieldNames[0]);
+        Object operaTime = this.getFieldValue(operaTimeField, target);
+        if(operaTime == null) {
+            this.setFieldValue(operaTimeField, target, new Date());
+        }
+        // 操作人
+        Field operaUserField = target.getClass().getDeclaredField(fieldNames[1]);
+        Object operaUser = this.getFieldValue(operaUserField, target);
+        if(operaUser == null) {
+            this.setFieldValue(operaUserField, target, this.getLoginUser().getId());
         }
     }
 
     /**
-     * 初始化更新时间
+     * 处理查询语句
      * @author Caesar Liu
      * @date 2019/3/2 11:52
      */
-    private void initUpdateTime(Field field, Object target, Date date) throws Exception{
-        Object value = this.getFieldValue(field, target);
-        if(value == null) {
-            this.setFieldValue(field, target, date);
-        }
-    }
-
-    /**
-     * 初始化删除字段条件
-     * @author Caesar Liu
-     * @date 2019/3/2 11:52
-     */
-    private void initDeleted(Field field, Object target) throws Exception{
+    private void handleQueryStatement(Object target) throws Exception{
+        Field field = target.getClass().getDeclaredField(DELETED);
         Object value = this.getFieldValue(field, target);
         if(value == null) {
             this.setFieldValue(field, target, Boolean.FALSE);
@@ -132,5 +129,14 @@ public class MyBatisInterceptor implements Interceptor {
         Object value = field.get(target);
         field.setAccessible(false);
         return value;
+    }
+
+    /**
+     * 获取登录用户信息
+     * @author Caesar Liu
+     * @date 2021-05-16 16:22
+     */
+    private LoginUserInfo getLoginUser () {
+        return (LoginUserInfo) SecurityUtils.getSubject().getPrincipal();
     }
 }

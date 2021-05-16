@@ -3,6 +3,8 @@ package com.yiwa.service.system;
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.model.SystemDepartment;
+import com.yiwa.dao.system.vo.SystemDepartmentListVO;
+
 import java.util.List;
 
 /**
@@ -66,8 +68,8 @@ public interface SystemDepartmentService {
      * @author Caesar Liu
      * @date 2021/05/16 11:59
      */
-    List<SystemDepartment> findList(SystemDepartment systemDepartment);
-  
+    List<SystemDepartmentListVO> findList();
+
     /**
      * 分页查询
      * @author Caesar Liu

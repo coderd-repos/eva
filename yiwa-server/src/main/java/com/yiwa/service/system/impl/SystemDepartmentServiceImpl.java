@@ -5,6 +5,7 @@ import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.SystemDepartmentMapper;
 import com.yiwa.dao.system.model.SystemDepartment;
+import com.yiwa.dao.system.vo.SystemDepartmentListVO;
 import com.yiwa.service.system.SystemDepartmentService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -69,9 +70,8 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
     }
 
     @Override
-    public List<SystemDepartment> findList(SystemDepartment systemDepartment) {
-        Wrapper<SystemDepartment> wrapper = new QueryWrapper<>(systemDepartment);
-        return systemDepartmentMapper.selectList(wrapper);
+    public List<SystemDepartmentListVO> findList() {
+        return systemDepartmentMapper.selectList();
     }
   
     @Override

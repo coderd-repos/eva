@@ -36,7 +36,6 @@ public class SystemPermissionController extends BaseController {
     @PostMapping("/create")
     @ApiOperation("新建")
     public ApiResponse create(@RequestBody SystemPermission systemPermission) {
-        systemPermission.setCreateUser(this.getLoginUser().getId());
         return ApiResponse.success(systemPermissionService.create(systemPermission));
     }
 
@@ -77,7 +76,6 @@ public class SystemPermissionController extends BaseController {
     @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
     public ApiResponse updateById(@RequestBody SystemPermission systemPermission) {
-        systemPermission.setUpdateUser(this.getLoginUser().getId());
         systemPermissionService.updateById(systemPermission);
         return ApiResponse.success(null);
     }

@@ -41,7 +41,6 @@ public class SystemUserController extends BaseController {
     @PostMapping("/createUserRole")
     @ApiOperation("配置用户角色")
     public ApiResponse createUserRole (@RequestBody CreateUserRoleDTO dto) {
-        dto.setCreateUser(this.getLoginUser().getId());
         systemUserBiz.createUserRole(dto);
         return ApiResponse.success(null);
     }
@@ -67,7 +66,6 @@ public class SystemUserController extends BaseController {
     @PostMapping("/create")
     @ApiOperation("新建")
     public ApiResponse create(@RequestBody SystemUser systemUser) {
-        systemUser.setCreateUser(this.getLoginUser().getId());
         systemUserBiz.create(systemUser);
         return ApiResponse.success(null);
     }
@@ -109,7 +107,6 @@ public class SystemUserController extends BaseController {
     @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
     public ApiResponse updateById(@RequestBody SystemUser systemUser) {
-        systemUser.setUpdateUser(this.getLoginUser().getId());
         systemUserBiz.updateById(systemUser);
         return ApiResponse.success(null);
     }

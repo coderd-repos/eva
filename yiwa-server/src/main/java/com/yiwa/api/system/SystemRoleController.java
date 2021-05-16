@@ -42,7 +42,6 @@ public class SystemRoleController extends BaseController {
     @PostMapping("/createRoleMenu")
     @ApiOperation("配置角色菜单")
     public ApiResponse createRoleMenu (@RequestBody CreateRoleMenuDTO dto) {
-        dto.setCreateUser(this.getLoginUser().getId());
         systemRoleBiz.createRoleMenu(dto);
         return ApiResponse.success(null);
     }
@@ -55,7 +54,6 @@ public class SystemRoleController extends BaseController {
     @PostMapping("/createRolePermission")
     @ApiOperation("配置角色权限")
     public ApiResponse createRolePermission (@RequestBody CreateRolePermissionDTO dto) {
-        dto.setCreateUser(this.getLoginUser().getId());
         systemRoleBiz.createRolePermission(dto);
         return ApiResponse.success(null);
     }
@@ -68,7 +66,6 @@ public class SystemRoleController extends BaseController {
     @PostMapping("/create")
     @ApiOperation("新建")
     public ApiResponse create(@RequestBody SystemRole systemRole) {
-        systemRole.setCreateUser(this.getLoginUser().getId());
         return ApiResponse.success(systemRoleService.create(systemRole));
     }
 
@@ -109,7 +106,6 @@ public class SystemRoleController extends BaseController {
     @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
     public ApiResponse updateById(@RequestBody SystemRole systemRole) {
-        systemRole.setUpdateUser(this.getLoginUser().getId());
         systemRoleService.updateById(systemRole);
         return ApiResponse.success(null);
     }

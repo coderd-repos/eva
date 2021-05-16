@@ -9,14 +9,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 /**
- * 
+ * 部门
  * @author Caesar Liu
  * @date 2021/05/16 11:59
  */
 @Data
-@ApiModel("")
+@ApiModel("部门")
 public class SystemDepartment {
 
+    @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "主键", example = "1")
     private Integer id;
 

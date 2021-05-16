@@ -29,7 +29,6 @@ public class SystemRoleBizImpl implements SystemRoleBiz {
         for (Integer permissionId : dto.getPermissionIds()) {
             SystemRolePermission newRolePermission = new SystemRolePermission();
             newRolePermission.setRoleId(dto.getRoleId());
-            newRolePermission.setCreateUser(dto.getCreateUser());
             newRolePermission.setPermissionId(permissionId);
             systemRolePermissionService.create(newRolePermission);
         }
@@ -45,7 +44,6 @@ public class SystemRoleBizImpl implements SystemRoleBiz {
         for (Integer menuId : dto.getMenuIds()) {
             SystemRoleMenu newRoleMenu = new SystemRoleMenu();
             newRoleMenu.setRoleId(dto.getRoleId());
-            newRoleMenu.setCreateUser(dto.getCreateUser());
             newRoleMenu.setMenuId(menuId);
             systemRoleMenuService.create(newRoleMenu);
         }

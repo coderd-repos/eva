@@ -72,7 +72,6 @@ public class SystemMenuController extends BaseController {
     @PostMapping("/create")
     @ApiOperation("新建")
     public ApiResponse create(@RequestBody SystemMenu systemMenu) {
-        systemMenu.setCreateUser(this.getLoginUser().getId());
         return ApiResponse.success(systemMenuService.create(systemMenu));
     }
 
@@ -113,7 +112,6 @@ public class SystemMenuController extends BaseController {
     @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
     public ApiResponse updateById(@RequestBody SystemMenu systemMenu) {
-        systemMenu.setUpdateUser(this.getLoginUser().getId());
         systemMenuService.updateById(systemMenu);
         return ApiResponse.success(null);
     }
