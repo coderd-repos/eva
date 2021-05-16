@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yiwa.dao.system.SystemDepartmentMapper">
+<mapper namespace="com.yiwa.dao.system.SystemPositionMapper">
 
   <!-- 查询部门列表 -->
-  <resultMap id="SystemDepartmentListVO" type="com.yiwa.dao.system.vo.SystemDepartmentListVO" autoMapping="true">
+  <resultMap id="SystemPositionListVO" type="com.yiwa.dao.system.vo.SystemPositionListVO" autoMapping="true">
     <id column="ID" property="id"/>
     <association property="createUserInfo" javaType="com.yiwa.dao.system.model.SystemUser">
       <result column="CREATE_USER_ID" property="id"/>
@@ -14,15 +14,19 @@
       <result column="UPDATE_USER_NAME" property="username"/>
     </association>
   </resultMap>
-  <select id="selectList" resultMap="SystemDepartmentListVO">
+  <select id="selectList" parameterType="com.yiwa.dao.system.dto.QuerySystemPositionDTO" resultMap="SystemPositionListVO">
     SELECT
-      dept.`ID`, dept.`PARENT_ID`, dept.`NAME`, dept.`PHONE`, dept.`EMAIL`, dept.SORT, dept.`CREATE_TIME`, dept.`UPDATE_TIME`, dept.`CREATE_USER`, dept.`UPDATE_USER`, dept.`DELETED`,
+      posi.`ID`, posi.`NAME`, posi.`CREATE_TIME`, posi.`UPDATE_TIME`, posi.`CREATE_USER`, posi.`UPDATE_USER`,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
       update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME
-    FROM SYSTEM_DEPARTMENT dept
-    LEFT JOIN `SYSTEM_USER` create_user ON create_user.ID = dept.CREATE_USER
-    LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = dept.UPDATE_USER
-    ORDER BY dept.SORT
+    FROM SYSTEM_POSITION posi
+    LEFT JOIN `SYSTEM_USER` create_user ON create_user.ID = posi.CREATE_USER
+    LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = posi.UPDATE_USER
+    <where>
+      <if test="name != null and name != ''">
+        AND posi.`NAME` LIKE concat('%', #{name}, '%')
+      </if>
+    </where>
   </select>
 
 </mapper>

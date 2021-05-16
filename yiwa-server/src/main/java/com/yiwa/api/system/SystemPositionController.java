@@ -1,59 +1,55 @@
 package com.yiwa.api.system;
 
 import com.yiwa.api.BaseController;
-import com.yiwa.biz.SystemDepartmentBiz;
 import com.yiwa.core.model.ApiResponse;
 import com.yiwa.core.model.PageWrap;
-import com.yiwa.dao.system.model.SystemDepartment;
-import com.yiwa.service.system.SystemDepartmentService;
+import com.yiwa.dao.system.dto.QuerySystemPositionDTO;
+import com.yiwa.dao.system.model.SystemPosition;
+import com.yiwa.service.system.SystemPositionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 接口
+ * 岗位接口
  * @author Caesar Liu
- * @date 2021/05/16 11:59
+ * @date 2021/05/16 17:03
  */
 @RestController
-@RequestMapping("/system/department")
-@Api(tags = "接口")
-public class SystemDepartmentController extends BaseController {
+@RequestMapping("/system/position")
+@Api(tags = "岗位接口")
+public class SystemPositionController extends BaseController {
 
     @Autowired
-    private SystemDepartmentService systemDepartmentService;
-
-    @Autowired
-    private SystemDepartmentBiz systemDepartmentBiz;
+    private SystemPositionService systemPositionService;
 
     /**
      * 创建
      * @author Caesar Liu
-     * @date 2021/05/16 11:59
+     * @date 2021/05/16 17:03
      */
-    @RequiresPermissions("system:department:create")
+    @RequiresPermissions("system:position:create")
     @PostMapping("/create")
     @ApiOperation("新建")
-    public ApiResponse create(@RequestBody SystemDepartment systemDepartment) {
-        return ApiResponse.success(systemDepartmentBiz.create(systemDepartment));
+    public ApiResponse create(@RequestBody SystemPosition systemPosition) {
+        return ApiResponse.success(systemPositionService.create(systemPosition));
     }
 
     /**
-     * 用户删除
+     * 删除
      * @author Caesar Liu
-     * @date 2021/05/16 11:59
+     * @date 2021/05/16 17:03
      */
-    @RequiresPermissions("system:department:delete")
+    @RequiresPermissions("system:position:delete")
     @GetMapping("/delete/{id}")
     @ApiOperation("根据ID删除")
     public ApiResponse deleteById(@PathVariable Integer id) {
-        systemDepartmentService.deleteById(id);
+        systemPositionService.deleteById(id);
         return ApiResponse.success(null);
     }
 
@@ -61,7 +57,7 @@ public class SystemDepartmentController extends BaseController {
      * @author Caesar Liu
      * @date 2021/03/28 09:30
      */
-    @RequiresPermissions("system:department:delete")
+    @RequiresPermissions("system:position:delete")
     @GetMapping("/delete/batch")
     @ApiOperation("批量删除")
     public ApiResponse deleteById(@RequestParam String ids) {
@@ -70,44 +66,44 @@ public class SystemDepartmentController extends BaseController {
         for (String id : idArray) {
             idList.add(Integer.valueOf(id));
         }
-        systemDepartmentService.deleteByIdInBatch(idList);
+        systemPositionService.deleteByIdInBatch(idList);
         return ApiResponse.success(null);
     }
 
     /**
-     * 修改部门
+     * 根据ID修改
      * @author Caesar Liu
-     * @date 2021/05/16 11:59
+     * @date 2021/05/16 17:03
      */
-    @RequiresPermissions("system:department:update")
+    @RequiresPermissions("system:position:update")
     @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
-    public ApiResponse updateById(@RequestBody SystemDepartment systemDepartment) {
-        systemDepartmentService.updateById(systemDepartment);
+    public ApiResponse updateById(@RequestBody SystemPosition systemPosition) {
+        systemPositionService.updateById(systemPosition);
         return ApiResponse.success(null);
     }
 
     /**
-     * 查询部门列表
+     * 分页查询
      * @author Caesar Liu
-     * @date 2021/05/16 11:59
+     * @date 2021/05/16 17:03
      */
-    @RequiresPermissions("system:department:query")
-    @PostMapping("/list")
-    @ApiOperation("查询部门列表")
-    public ApiResponse findList () {
-        return ApiResponse.success(systemDepartmentBiz.findList());
+    @RequiresPermissions("system:position:query")
+    @PostMapping("/page")
+    @ApiOperation("分页查询")
+    public ApiResponse findPage (@RequestBody PageWrap<QuerySystemPositionDTO> pageWrap) {
+        return ApiResponse.success(systemPositionService.findPage(pageWrap));
     }
 
     /**
      * 通过ID查询
      * @author Caesar Liu
-     * @date 2021/05/16 11:59
+     * @date 2021/05/16 17:03
      */
-    @RequiresPermissions("system:department:query")
+    @RequiresPermissions("system:position:query")
     @GetMapping("/{id}")
     @ApiOperation("根据ID查询")
     public ApiResponse finById(@PathVariable Integer id) {
-        return ApiResponse.success(systemDepartmentService.findById(id));
+        return ApiResponse.success(systemPositionService.findById(id));
     }
 }
