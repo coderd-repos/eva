@@ -19,7 +19,7 @@
       </div>
     </div>
     <!-- 修改密码 -->
-    <GlobalDialog
+    <GlobalWindow
       title="修改密码"
       :visible.sync="visible.changePwd"
       @confirm="confirmChangePwd"
@@ -36,17 +36,17 @@
           <el-input v-model="changePwdData.form.confirmPwd" type="password" placeholder="请再次输入新密码"></el-input>
         </el-form-item>
       </el-form>
-    </GlobalDialog>
+    </GlobalWindow>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import GlobalDialog from './GlobalDialog'
+import GlobalWindow from './GlobalWindow'
 import { logout, updatePwd } from '../../api/system/common'
 export default {
   name: 'Header',
-  components: { GlobalDialog },
+  components: { GlobalWindow },
   data () {
     return {
       visible: {

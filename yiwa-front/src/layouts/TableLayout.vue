@@ -87,6 +87,7 @@ export default {
       padding-bottom: 10px;
       li {
         display: inline-block;
+        margin-right: 6px;
       }
     }
     // 表格

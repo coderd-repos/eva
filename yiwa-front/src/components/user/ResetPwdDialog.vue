@@ -1,5 +1,5 @@
 <template>
-  <GlobalDialog
+  <GlobalWindow
     :visible="visible"
     :confirm-working="isWorking"
     width="576px"
@@ -13,15 +13,15 @@
         <el-input v-model="form.password" type="password" placeholder="请输入新密码"></el-input>
       </el-form-item>
     </el-form>
-  </GlobalDialog>
+  </GlobalWindow>
 </template>
 
 <script>
-import GlobalDialog from '../common/GlobalDialog'
+import GlobalWindow from '../common/GlobalWindow'
 import { resetPwd } from '../../api/system/systemUser'
 export default {
   name: 'ResetPwdDialog',
-  components: { GlobalDialog },
+  components: { GlobalWindow },
   props: {
     // 是否展示Dialog
     visible: {

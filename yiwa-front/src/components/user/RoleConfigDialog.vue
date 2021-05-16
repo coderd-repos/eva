@@ -1,5 +1,5 @@
 <template>
-  <GlobalDialog
+  <GlobalWindow
     :visible="visible"
     :confirm-working="isWorking"
     width="576px"
@@ -17,15 +17,15 @@
       }"
       :data="roles">
     </el-transfer>
-  </GlobalDialog>
+  </GlobalWindow>
 </template>
 
 <script>
-import GlobalDialog from '../common/GlobalDialog'
+import GlobalWindow from '../common/GlobalWindow'
 import { createUserRole } from '../../api/system/systemUser'
 export default {
   name: 'RoleConfigDialog',
-  components: { GlobalDialog },
+  components: { GlobalWindow },
   props: {
     // 是否展示Dialog
     visible: {

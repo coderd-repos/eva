@@ -1,12 +1,9 @@
 <template>
-  <TableLayout v-permissions="['system:permission:query']">
+  <TableLayout v-permissions="['system:department:query']">
     <!-- 搜索表单 -->
     <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="100px" inline>
-      <el-form-item label="权限CODE" prop="code">
-        <el-input v-model="searchForm.code" placeholder="请输入权限CODE" @keypress.enter.native="search"></el-input>
-      </el-form-item>
-      <el-form-item label="权限名称" prop="name">
-        <el-input v-model="searchForm.name" placeholder="请输入权限名称" @keypress.enter.native="search"></el-input>
+      <el-form-item label="部门名称" prop="name">
+        <el-input v-model="searchForm.name" placeholder="请输入部门名称" @keypress.enter.native="search"></el-input>
       </el-form-item>
       <section>
         <el-button type="primary" @click="search">搜索</el-button>
@@ -15,38 +12,33 @@
     </el-form>
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
-      <ul class="toolbar" v-permissions="['system:permission:create', 'system:permission:delete']">
-        <li><el-button type="primary" @click="create" icon="el-icon-plus" v-permissions="['system:permission:create']">新建</el-button></li>
-        <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete" v-permissions="['system:permission:delete']">删除</el-button></li>
+      <ul class="toolbar" v-permissions="['system:department:create', 'system:department:delete']">
+        <li><el-button type="primary" @click="create" icon="el-icon-plus" v-permissions="['system:department:create']">新建</el-button></li>
+        <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete" v-permissions="['system:department:delete']">删除</el-button></li>
       </ul>
       <el-table
         v-loading="isWorking.search"
         :data="tableData.list"
-        :default-sort = "{prop: 'date', order: 'descending'}"
         stripe
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="code" label="权限CODE" min-width="200px"></el-table-column>
-        <el-table-column prop="name" label="权限名称" min-width="120px"></el-table-column>
-        <el-table-column prop="remark" label="权限备注" min-width="120px"></el-table-column>
-        <el-table-column prop="createTime" label="创建时间" min-width="140px"></el-table-column>
-        <el-table-column prop="createUser" label="创建者" min-width="100px">
-          <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
-        </el-table-column>
-        <el-table-column prop="updateTime" label="更新时间" min-width="140px"></el-table-column>
-        <el-table-column prop="updateUser" label="更新者" min-width="100px">
-          <template slot-scope="{row}">{{row.updateUserInfo == null ? '' : row.updateUserInfo.username}}</template>
-        </el-table-column>
+        <el-table-column prop="name" label="部门名称" min-width="100px"></el-table-column>
+        <el-table-column prop="phone" label="联系电话" min-width="100px"></el-table-column>
+        <el-table-column prop="email" label="部门邮箱" min-width="100px"></el-table-column>
+        <el-table-column prop="createUser" label="创建人" min-width="100px"></el-table-column>
+        <el-table-column prop="updateUser" label="更新人" min-width="100px"></el-table-column>
+        <el-table-column prop="createTime" label="创建人" min-width="100px"></el-table-column>
+        <el-table-column prop="updateTime" label="更新人" min-width="100px"></el-table-column>
         <el-table-column
-          v-if="containPermissions(['system:permission:update', 'system:permission:delete'])"
+          v-if="containPermissions(['system:department:update', 'system:department:delete'])"
           label="操作"
           min-width="120"
           fixed="right"
         >
           <template slot-scope="{row}">
-            <el-button type="text" @click="edit(row)" icon="el-icon-edit" v-permissions="['system:permission:update']">编辑</el-button>
-            <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:permission:delete']">删除</el-button>
+            <el-button type="text" @click="edit(row)" icon="el-icon-edit" v-permissions="['system:department:update']">编辑</el-button>
+            <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:department:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -65,14 +57,17 @@
       @confirm="confirm"
     >
       <el-form :model="operaTableData.form" ref="operaTableDataForm" :rules="operaTableData.rules">
-        <el-form-item label="权限CODE" prop="code" required>
-          <el-input v-model="operaTableData.form.code"></el-input>
+        <el-form-item label="父部门" prop="parentId">
+          <el-input v-model="operaTableData.form.parentId" placeholder="请输入父部门"></el-input>
         </el-form-item>
-        <el-form-item label="权限名称" prop="name" required>
-          <el-input v-model="operaTableData.form.name"></el-input>
+        <el-form-item label="部门名称" prop="name" required>
+          <el-input v-model="operaTableData.form.name" placeholder="请输入部门名称"></el-input>
         </el-form-item>
-        <el-form-item label="权限备注" prop="remark">
-          <el-input v-model="operaTableData.form.remark"></el-input>
+        <el-form-item label="联系电话" prop="phone">
+          <el-input v-model="operaTableData.form.phone" placeholder="请输入联系电话"></el-input>
+        </el-form-item>
+        <el-form-item label="部门邮箱" prop="email">
+          <el-input v-model="operaTableData.form.email" placeholder="请输入部门邮箱"></el-input>
         </el-form-item>
       </el-form>
     </GlobalWindow>
@@ -83,19 +78,17 @@
 import Pagination from '../../components/common/Pagination'
 import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/systemPermission'
+import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/systemDepartment'
 import BaseTable from '../BaseTable'
 export default {
-  name: 'SystemPermission',
+  name: 'SystemDepartment',
   extends: BaseTable,
   components: { TableLayout, GlobalWindow, Pagination },
   data () {
     return {
       // 搜索
       searchForm: {
-        code: '',
-        name: '',
-        remark: ''
+        name: ''
       },
       // 新增/修改
       operaTableData: {
@@ -103,17 +96,15 @@ export default {
         // 表单数据
         form: {
           id: null,
-          code: '',
+          parentId: '',
           name: '',
-          remark: ''
+          phone: '',
+          email: ''
         },
         // 验证规则
         rules: {
-          code: [
-            { required: true, message: '请输入权限CODE', trigger: 'blur' }
-          ],
           name: [
-            { required: true, message: '请输入权限名称', trigger: 'blur' }
+            { required: true, message: '请输入部门名称' }
           ]
         }
       }
@@ -122,7 +113,7 @@ export default {
   methods: {
     // 确认创建/修改
     confirm () {
-      if (this.operaTableData.form.id == null) {
+      if (this.operaTableData.form.id == null || this.operaTableData.form.id === '') {
         this.confirmCreate()
         return
       }
@@ -131,8 +122,9 @@ export default {
     // 添加
     create () {
       this.visible.operaTable = true
-      this.operaTableData.title = '添加权限'
+      this.operaTableData.title = '添加'
       this.$nextTick(() => {
+        this.operaTableData.form.id = ''
         this.$refs.operaTableDataForm.resetFields()
       })
     },
@@ -160,10 +152,12 @@ export default {
     },
     // 编辑
     edit (row) {
-      this.operaTableData.title = '修改权限'
+      this.operaTableData.title = '修改'
       this.visible.operaTable = true
       this.$nextTick(() => {
-        Object.assign(this.operaTableData.form, row)
+        for (const key in this.operaTableData.form) {
+          this.operaTableData.form[key] = row[key]
+        }
       })
     },
     // 确认修改
@@ -190,7 +184,7 @@ export default {
     },
     // 删除
     deleteById (id) {
-      this.$confirm('确认删除此权限吗?', '提示', {
+      this.$confirm('确认删除此吗?', '提示', {
         confirmButtonText: '确认删除',
         cancelButtonText: '取消',
         type: 'warning'

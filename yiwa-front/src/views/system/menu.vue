@@ -55,7 +55,7 @@
       </el-table>
     </template>
     <!-- 添加/修改 -->
-    <GlobalDialog
+    <GlobalWindow
       class="handle-table-dialog"
       :title="handleTableData.title"
       :visible.sync="visible.operaTable"
@@ -81,20 +81,20 @@
           <el-input type="textarea" v-model="handleTableData.form.remark"></el-input>
         </el-form-item>
       </el-form>
-    </GlobalDialog>
+    </GlobalWindow>
   </TableLayout>
 </template>
 
 <script>
 import icons from '../../utils/icons'
-import GlobalDialog from '../../components/common/GlobalDialog'
+import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
 import { fetchList, create, updateById, deleteById, deleteByIdInBatch, sort } from '../../api/system/systemMenu'
 import BaseTable from '../BaseTable'
 export default {
   name: 'SystemMenu',
   extends: BaseTable,
-  components: { TableLayout, GlobalDialog },
+  components: { TableLayout, GlobalWindow },
   data () {
     return {
       icons,

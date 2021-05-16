@@ -1,6 +1,6 @@
 <template>
   <!-- 添加/修改 -->
-  <GlobalDialog
+  <GlobalWindow
     :title="title"
     :visible="visible"
     :confirm-working="isWorking"
@@ -42,7 +42,7 @@
         <el-date-picker v-model="form.birthday"/>
       </el-form-item>
     </el-form>
-  </GlobalDialog>
+  </GlobalWindow>
 </template>
 
 <script>
@@ -51,11 +51,11 @@ import {
   create,
   updateById
 } from '../../api/system/systemUser'
-import GlobalDialog from '../common/GlobalDialog'
+import GlobalWindow from '../common/GlobalWindow'
 
 export default {
   name: 'OperaTableDataWindow',
-  components: { GlobalDialog },
+  components: { GlobalWindow },
   props: {
     // 标题
     title: {

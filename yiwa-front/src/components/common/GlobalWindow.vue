@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'GlobalDialog',
+  name: 'GlobalWindow',
   props: {
     width: {
       type: String,

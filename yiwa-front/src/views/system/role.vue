@@ -60,7 +60,7 @@
       </pagination>
     </template>
     <!-- 添加/修改 -->
-    <GlobalDialog
+    <GlobalWindow
       :title="operaTableData.title"
       :visible.sync="visible.operaTable"
       :confirm-working="isWorking.create"
@@ -77,9 +77,9 @@
           <el-input v-model="operaTableData.form.remark"></el-input>
         </el-form-item>
       </el-form>
-    </GlobalDialog>
+    </GlobalWindow>
     <!-- 配置权限 -->
-    <GlobalDialog
+    <GlobalWindow
       class="permission-config-dialog"
       :visible.sync="visible.selectPermission"
       :confirm-working="isWorking.selectPermission"
@@ -101,9 +101,9 @@
         }"
         :data="selectPermissionData.permissions">
       </el-transfer>
-    </GlobalDialog>
+    </GlobalWindow>
     <!-- 授权菜单 -->
-    <GlobalDialog
+    <GlobalWindow
       class="menu-config-dialog"
       :visible.sync="visible.selectMenu"
       :confirm-working="isWorking.selectMenu"
@@ -124,13 +124,13 @@
         :check-on-click-node="true"
         :props="{children: 'children',label: 'name'}">
       </el-tree>
-    </GlobalDialog>
+    </GlobalWindow>
   </TableLayout>
 </template>
 
 <script>
 import Pagination from '../../components/common/Pagination'
-import GlobalDialog from '../../components/common/GlobalDialog'
+import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
 import { fetchList, create, updateById, deleteById, deleteByIdInBatch, createRolePermission, createRoleMenu } from '../../api/system/systemRole'
 import { fetchList as fetchPermissionList } from '../../api/system/systemPermission'
@@ -139,7 +139,7 @@ import BaseTable from '../BaseTable'
 export default {
   name: 'SystemRole',
   extends: BaseTable,
-  components: { TableLayout, GlobalDialog, Pagination },
+  components: { TableLayout, GlobalWindow, Pagination },
   data () {
     return {
       // 是否展示
