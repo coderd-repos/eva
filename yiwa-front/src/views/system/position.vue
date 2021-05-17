@@ -34,14 +34,14 @@
         <el-table-column prop="createTime" label="创建时间" min-width="100px"></el-table-column>
         <el-table-column prop="updateTime" label="更新时间" min-width="100px"></el-table-column>
         <el-table-column
-          v-if="containPermissions(['system:position:update', 'system:position:delete'])"
+          v-if="containPermissions(['system:position:update', 'system:position:query', 'system:position:delete'])"
           label="操作"
           min-width="120"
           fixed="right"
         >
           <template slot-scope="{row}">
             <el-button type="text" @click="edit(row)" icon="el-icon-edit" v-permissions="['system:position:update']">编辑</el-button>
-            <el-button type="text" @click="manageUser(row)" icon="el-icon-user-solid" v-permissions="['system:position:update']">人员管理</el-button>
+            <el-button type="text" @click="openUserManager(row)" icon="el-icon-user-solid" v-permissions="['system:position:query']">人员管理</el-button>
             <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:position:delete']">删除</el-button>
           </template>
         </el-table-column>
@@ -67,7 +67,7 @@
       </el-form>
     </GlobalWindow>
     <!-- 人员管理 -->
-    <UserManager :visible="visible.userManage"/>
+    <UserManagerWindow ref="userManagerWindow"/>
   </TableLayout>
 </template>
 
@@ -77,16 +77,13 @@ import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
 import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/systemPosition'
 import BaseTable from '../BaseTable'
-import UserManager from '../../components/position/UserManager'
+import UserManagerWindow from '../../components/position/UserManagerWindow'
 export default {
   name: 'SystemPosition',
   extends: BaseTable,
-  components: { UserManager, TableLayout, GlobalWindow, Pagination },
+  components: { UserManagerWindow, TableLayout, GlobalWindow, Pagination },
   data () {
     return {
-      visible: {
-        userManage: false
-      },
       // 搜索
       searchForm: {
         name: ''
@@ -247,8 +244,8 @@ export default {
       })
     },
     // 人员管理
-    manageUser (row) {
-      this.visible.userManage = true
+    openUserManager (row) {
+      this.$refs.userManagerWindow.open(row.id, row.name)
     },
     // 页码变更处理
     handlePageChange (pageIndex) {

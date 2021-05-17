@@ -79,6 +79,7 @@ export default {
   }
   section {
     display: inline-block;
+    margin-left: 16px;
   }
 }
 // 列表和分页

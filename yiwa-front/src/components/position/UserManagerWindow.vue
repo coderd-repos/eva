@@ -1,12 +1,13 @@
 <template>
   <GlobalWindow
+    class="position-user-manager-window"
     width="80%"
-    title="岗位人员管理"
-    :visible.sync="visible.userManage"
-    :confirm-working="isWorking.userManage"
-    @confirm="confirm"
+    :title="positionName + '人员管理'"
+    :visible.sync="visible.userManager"
+    :confirm-working="isWorking.userManager"
+    :with-footer="false"
   >
-    <TableLayout>
+    <TableLayout :with-breadcrumb="false">
       <!-- 搜索表单 -->
       <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="80px" inline>
         <el-form-item label="用户名" prop="username">
@@ -25,10 +26,10 @@
       </el-form>
       <template v-slot:table-wrap>
         <el-table
-            v-loading="isWorking.userSearch"
-            :data="userManageData.list"
-            stripe
-            @selection-change="handleSelectionChange"
+          v-loading="isWorking.search"
+          :data="tableData.list"
+          stripe
+          @selection-change="handleSelectionChange"
         >
           <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column prop="avatar" label="头像" width="80px" class-name="table-column-avatar" fixed="left">
@@ -68,12 +69,91 @@
 
 <script>
 import TableLayout from '../../layouts/TableLayout'
+import BaseTable from '../../views/BaseTable'
+import GlobalWindow from '../common/GlobalWindow'
+import { fetchList } from '../../api/system/systemUser'
 export default {
-  name: 'UserManager',
-  components: { TableLayout }
+  name: 'UserManagerWindow',
+  extends: BaseTable,
+  components: { GlobalWindow, TableLayout },
+  data () {
+    return {
+      positionId: null,
+      positionName: '',
+      visible: {
+        userManager: false
+      },
+      // 搜索表单
+      searchForm: {
+        positionId: null,
+        username: '',
+        realname: '',
+        mobile: ''
+      }
+    }
+  },
+  methods: {
+    // 打开查看人员窗口
+    open (positionId, positionName) {
+      this.positionId = positionId
+      this.positionName = positionName
+      this.searchForm.positionId = positionId
+      this.visible.userManager = true
+      this.search()
+    },
+    // 处理分页
+    handlePageChange (pageIndex) {
+      fetchList({
+        page: pageIndex,
+        capacity: this.tableData.pagination.pageSize,
+        model: this.searchForm
+      })
+        .then(data => {
+          this.tableData.list = data.records
+          this.tableData.pagination.total = data.total
+        })
+        .catch(e => {
+          this.$message.error(e.message)
+        })
+        .finally(() => {
+          this.isWorking.search = false
+        })
+    }
+  }
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.position-user-manager-window {
+  /deep/ .table-search-form {
+    padding: 0;
+    .form-wrap {
+      padding: 0;
+    }
+  }
+  /deep/ .table-content {
+    padding: 0;
+    .table-wrap {
+      padding: 0;
+    }
+  }
+  // 列表头像处理
+  .table-column-avatar {
+    img {
+      width: 48px;
+    }
+  }
+  // 列表角色处理
+  .table-column-role {
+    ul {
+      li {
+        display: inline-block;
+        background: #eee;
+        border-radius: 3px;
+        padding: 0 3px;
+        margin-right: 3px;
+      }
+    }
+  }
+}
 </style>
