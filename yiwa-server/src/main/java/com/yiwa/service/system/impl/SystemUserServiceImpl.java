@@ -82,7 +82,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     @Override
     public PageData<SystemUserListVO> findPage(PageWrap<QuerySystemUserDTO> pageWrap) {
         PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
-        List<SystemUserListVO> userList = systemUserMapper.selectList(pageWrap.getModel());
+        List<SystemUserListVO> userList = systemUserMapper.selectManageList(pageWrap.getModel());
         for (SystemUserListVO user : userList) {
             user.setRoles(systemRoleService.findByUserId(user.getId()));
         }

@@ -72,7 +72,7 @@ public class SystemMenuController extends BaseController {
     @PostMapping("/create")
     @ApiOperation("新建")
     public ApiResponse create(@RequestBody SystemMenu systemMenu) {
-        return ApiResponse.success(systemMenuService.create(systemMenu));
+        return ApiResponse.success(systemMenuBiz.create(systemMenu));
     }
 
     /**

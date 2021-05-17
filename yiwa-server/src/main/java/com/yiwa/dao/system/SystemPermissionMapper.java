@@ -28,6 +28,6 @@ public interface SystemPermissionMapper extends BaseMapper<SystemPermission> {
      * @author Caesar Liu
      * @date 2021-03-31 15:15
      */
-    List<SystemPermissionListVO> selectList(QuerySystemPermissionDTO dto);
+    List<SystemPermissionListVO> selectManageList(QuerySystemPermissionDTO dto);
 
 }

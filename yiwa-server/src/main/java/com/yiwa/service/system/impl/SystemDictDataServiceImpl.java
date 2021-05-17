@@ -81,7 +81,7 @@ public class SystemDictDataServiceImpl implements SystemDictDataService {
     @Override
     public PageData<SystemDictDataListVO> findPage(PageWrap<QuerySystemDictDataDTO> pageWrap) {
         PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
-        return PageData.from(new PageInfo<>(systemDictDataMapper.selectList(pageWrap.getModel())));
+        return PageData.from(new PageInfo<>(systemDictDataMapper.selectManageList(pageWrap.getModel())));
     }
 
     @Override

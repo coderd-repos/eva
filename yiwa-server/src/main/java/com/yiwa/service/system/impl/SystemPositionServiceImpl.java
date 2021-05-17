@@ -79,7 +79,7 @@ public class SystemPositionServiceImpl implements SystemPositionService {
   
     @Override
     public PageData<SystemPositionListVO> findPage(PageWrap<QuerySystemPositionDTO> pageWrap) {
-        return PageData.from(new PageInfo<>(systemPositionMapper.selectList(pageWrap.getModel())));
+        return PageData.from(new PageInfo<>(systemPositionMapper.selectManageList(pageWrap.getModel())));
     }
 
     @Override

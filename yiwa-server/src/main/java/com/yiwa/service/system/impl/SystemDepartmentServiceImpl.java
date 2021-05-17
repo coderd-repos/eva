@@ -71,7 +71,7 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
 
     @Override
     public List<SystemDepartmentListVO> findList() {
-        return systemDepartmentMapper.selectList();
+        return systemDepartmentMapper.selectManageList();
     }
   
     @Override

@@ -79,7 +79,7 @@ public class SystemDictServiceImpl implements SystemDictService {
   
     @Override
     public PageData<SystemDictListVO> findPage(PageWrap<QuerySystemDictDTO> pageWrap) {
-        return PageData.from(new PageInfo<>(systemDictMapper.selectList(pageWrap.getModel())));
+        return PageData.from(new PageInfo<>(systemDictMapper.selectManageList(pageWrap.getModel())));
     }
 
     @Override

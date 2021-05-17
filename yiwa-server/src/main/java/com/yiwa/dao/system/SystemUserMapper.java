@@ -14,6 +14,6 @@ public interface SystemUserMapper extends BaseMapper<SystemUser> {
      * @author Caesar Liu
      * @date 2021-03-29 22:52
      */
-    List<SystemUserListVO> selectList(QuerySystemUserDTO dto);
+    List<SystemUserListVO> selectManageList(QuerySystemUserDTO dto);
 
 }

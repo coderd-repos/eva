@@ -13,5 +13,5 @@ public interface SystemDepartmentMapper extends BaseMapper<SystemDepartment> {
      * @author Caesar Liu
      * @date 2021-05-16 15:40
      */
-    List<SystemDepartmentListVO> selectList();
+    List<SystemDepartmentListVO> selectManageList();
 }

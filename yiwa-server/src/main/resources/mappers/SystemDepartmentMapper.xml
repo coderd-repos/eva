@@ -14,7 +14,7 @@
       <result column="UPDATE_USER_NAME" property="username"/>
     </association>
   </resultMap>
-  <select id="selectList" resultMap="SystemDepartmentListVO">
+  <select id="selectManageList" resultMap="SystemDepartmentListVO">
     SELECT
       dept.`ID`, dept.`PARENT_ID`, dept.`NAME`, dept.`PHONE`, dept.`EMAIL`, dept.SORT, dept.`CREATE_TIME`, dept.`UPDATE_TIME`, dept.`CREATE_USER`, dept.`UPDATE_USER`, dept.`DELETED`,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,

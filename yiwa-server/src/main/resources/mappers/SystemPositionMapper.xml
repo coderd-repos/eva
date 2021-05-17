@@ -14,7 +14,7 @@
       <result column="UPDATE_USER_NAME" property="username"/>
     </association>
   </resultMap>
-  <select id="selectList" parameterType="com.yiwa.dao.system.dto.QuerySystemPositionDTO" resultMap="SystemPositionListVO">
+  <select id="selectManageList" parameterType="com.yiwa.dao.system.dto.QuerySystemPositionDTO" resultMap="SystemPositionListVO">
     SELECT
       posi.`ID`, posi.`NAME`, posi.`CREATE_TIME`, posi.`UPDATE_TIME`, posi.`CREATE_USER`, posi.`UPDATE_USER`,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,

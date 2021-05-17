@@ -13,5 +13,5 @@ public interface SystemPositionMapper extends BaseMapper<SystemPosition> {
      * @author Caesar Liu
      * @date 2021-05-16 17:18
      */
-    List<SystemPositionListVO> selectList(QuerySystemPositionDTO dto);
+    List<SystemPositionListVO> selectManageList(QuerySystemPositionDTO dto);
 }

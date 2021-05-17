@@ -14,7 +14,7 @@ public interface SystemRoleMapper extends BaseMapper<SystemRole> {
      * @author Caesar Liu
      * @date 2021-03-30 11:56
      */
-    List<SystemRoleListVO> selectList(QuerySystemRoleDTO dto);
+    List<SystemRoleListVO> selectManageList(QuerySystemRoleDTO dto);
 
     /**
      * 根据用户ID查询

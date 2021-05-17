@@ -14,7 +14,7 @@
       <result column="UPDATE_USER_NAME" property="username"/>
     </association>
   </resultMap>
-  <select id="selectList" parameterType="com.yiwa.dao.system.dto.QuerySystemDictDTO" resultMap="SystemDictListVO">
+  <select id="selectManageList" parameterType="com.yiwa.dao.system.dto.QuerySystemDictDTO" resultMap="SystemDictListVO">
     SELECT
       dict.`ID`, dict.`CODE`, dict.`NAME`, dict.`REMARK`, dict.`CREATE_TIME`, dict.`UPDATE_TIME`, dict.`CREATE_USER`, dict.`UPDATE_USER`,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,

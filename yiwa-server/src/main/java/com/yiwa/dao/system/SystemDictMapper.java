@@ -14,5 +14,5 @@ public interface SystemDictMapper extends BaseMapper<SystemDict> {
      * @author Caesar Liu
      * @date 2021-05-16 20:10
      */
-    List<SystemDictListVO> selectList(QuerySystemDictDTO dto);
+    List<SystemDictListVO> selectManageList(QuerySystemDictDTO dto);
 }

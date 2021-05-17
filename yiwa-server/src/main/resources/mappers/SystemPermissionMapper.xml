@@ -26,7 +26,7 @@
       <result column="UPDATE_USER_NAME" property="username"/>
     </association>
   </resultMap>
-  <select id="selectList" parameterType="com.yiwa.dao.system.dto.QuerySystemPermissionDTO" resultMap="SystemPermissionListVO">
+  <select id="selectManageList" parameterType="com.yiwa.dao.system.dto.QuerySystemPermissionDTO" resultMap="SystemPermissionListVO">
     SELECT
       perm.`ID`, perm.`CODE`, perm.`NAME`, perm.`REMARK`, perm.`CREATE_TIME`, perm.`UPDATE_TIME`, perm.`CREATE_USER`, perm.`UPDATE_USER`, perm.`DELETED`,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,

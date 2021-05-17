@@ -26,7 +26,7 @@
       <result column="UPDATE_USER_NAME" property="username"/>
     </association>
   </resultMap>
-  <select id="selectList" parameterType="com.yiwa.dao.system.dto.QuerySystemUserDTO" resultMap="SystemRoleListVO">
+  <select id="selectManageList" parameterType="com.yiwa.dao.system.dto.QuerySystemUserDTO" resultMap="SystemRoleListVO">
     SELECT
       role.ID, role.`CODE`, role.`NAME`, role.`REMARK`, role.`CREATE_TIME`, role.`UPDATE_TIME`,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
