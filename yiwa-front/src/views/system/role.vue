@@ -46,7 +46,7 @@
         >
           <template slot-scope="{row}">
             <el-button type="text" @click="$refs.operaRoleWindow.open('编辑角色', row)" icon="el-icon-edit" v-permissions="['system:role:update']">编辑</el-button>
-            <el-button type="text" @click="selectPermission(row)" v-permissions="['system:role:createRolePermission']">配置权限</el-button>
+            <el-button type="text" @click="$refs.permissionConfigWindow.open(row)" v-permissions="['system:role:createRolePermission']">配置权限</el-button>
             <el-button type="text" @click="selectMenu(row)" icon="el-icon-menu" v-permissions="['system:role:createRoleMenu']">授权菜单</el-button>
             <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:role:delete']">删除</el-button>
           </template>
@@ -62,29 +62,7 @@
     <!-- 新建/修改 -->
     <OperaRoleWindow ref="operaRoleWindow" @create-success="search" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 配置权限 -->
-    <GlobalWindow
-      class="permission-config-dialog"
-      :visible.sync="visible.selectPermission"
-      :confirm-working="isWorking.selectPermission"
-      width="576px"
-      title="配置角色权限"
-      @confirm="confirmSelectPermission"
-      @close="visible.selectPermission = false"
-    >
-      <p class="tip" v-if="selectPermissionData.role != null">为角色 <em>{{selectPermissionData.role.name}}</em> 配置权限</p>
-      <el-transfer
-        ref="permissionTransfer"
-        v-model="selectPermissionData.selectedIds"
-        filterable
-        :filter-method="filterPermissions"
-        :titles="['未授权权限', '已授权权限']"
-        :props="{
-          key: 'id',
-          label: 'name'
-        }"
-        :data="selectPermissionData.permissions">
-      </el-transfer>
-    </GlobalWindow>
+    <PermissionConfigWindow ref="permissionConfigWindow"/>
     <!-- 授权菜单 -->
     <GlobalWindow
       class="menu-config-dialog"
@@ -115,15 +93,15 @@
 import Pagination from '../../components/common/Pagination'
 import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, deleteById, deleteByIdInBatch, createRolePermission, createRoleMenu } from '../../api/system/role'
-import { fetchList as fetchPermissionList } from '../../api/system/permission'
+import { fetchList, deleteById, deleteByIdInBatch, createRoleMenu } from '../../api/system/role'
 import { fetchList as fetchMenuList } from '../../api/system/menu'
 import BaseTable from '../BaseTable'
 import OperaRoleWindow from '../../components/role/OperaRoleWindow'
+import PermissionConfigWindow from '../../components/role/PermissionConfigWindow'
 export default {
   name: 'SystemRole',
   extends: BaseTable,
-  components: { OperaRoleWindow, TableLayout, GlobalWindow, Pagination },
+  components: { PermissionConfigWindow, OperaRoleWindow, TableLayout, GlobalWindow, Pagination },
   data () {
     return {
       // 是否展示
@@ -141,12 +119,6 @@ export default {
         code: '',
         name: '',
         remark: ''
-      },
-      // 配置权限数据
-      selectPermissionData: {
-        role: null,
-        permissions: [],
-        selectedIds: []
       },
       // 授权菜单数据
       selectMenuData: {
@@ -234,48 +206,6 @@ export default {
           this.isWorking.search = false
         })
     },
-    // 选择权限
-    selectPermission (row) {
-      if (this.$refs.permissionTransfer) {
-        this.$refs.permissionTransfer.clearQuery('left')
-        this.$refs.permissionTransfer.clearQuery('right')
-      }
-      fetchPermissionList({
-        page: 1,
-        capacity: 100000
-      })
-        .then(data => {
-          this.selectPermissionData.role = row
-          this.selectPermissionData.permissions = data.records
-          this.selectPermissionData.selectedIds = row.permissions.map(r => r.id)
-          this.visible.selectPermission = true
-        })
-        .catch(e => {
-          this.$message.error(e.message)
-        })
-    },
-    // 确认选择权限
-    confirmSelectPermission () {
-      if (this.isWorking.selectPermission) {
-        return
-      }
-      this.isWorking.selectPermission = true
-      createRolePermission({
-        roleId: this.selectPermissionData.role.id,
-        permissionIds: this.selectPermissionData.selectedIds
-      })
-        .then(() => {
-          this.$message.success('权限配置成功，用户重新登录后生效')
-          this.visible.selectPermission = false
-          this.handlePageChange(1)
-        })
-        .catch(e => {
-          this.$message.error(e.message)
-        })
-        .finally(() => {
-          this.isWorking.selectPermission = false
-        })
-    },
     // 搜索权限
     filterPermissions (query, item) {
       const lowerCaseQuery = query.toLowerCase()
@@ -329,19 +259,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import "../../assets/style/variables.scss";
-// 角色配置/菜单授权
-.permission-config-dialog,
-.menu-config-dialog {
-  .tip {
-    margin-bottom: 12px;
-    em {
-      font-style: normal;
-      color: $primary-color;
-      font-weight: bold;
-    }
-  }
-}
-</style>

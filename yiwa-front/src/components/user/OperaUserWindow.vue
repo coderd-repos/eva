@@ -108,6 +108,7 @@ export default {
       if (target == null) {
         this.$nextTick(() => {
           this.$refs.form.resetFields()
+          this.form.id = null
         })
         return
       }

@@ -1,0 +1,102 @@
+<template>
+  <GlobalWindow
+    :visible.sync="visible"
+    :confirm-working="isWorking"
+    width="576px"
+    title="配置角色权限"
+    @confirm="confirm"
+  >
+    <p class="tip" v-if="role != null">为角色 <em>{{role.name}}</em> 配置权限</p>
+    <el-transfer
+      ref="permissionTransfer"
+      v-model="selectedIds"
+      filterable
+      :filter-method="filterPermissions"
+      :titles="['未授权权限', '已授权权限']"
+      :props="{
+        key: 'id',
+        label: 'name'
+      }"
+      :data="permissions">
+    </el-transfer>
+  </GlobalWindow>
+</template>
+
+<script>
+import GlobalWindow from '../common/GlobalWindow'
+import { createRolePermission } from '../../api/system/role'
+import { fetchList as fetchPermissionList } from '../../api/system/permission'
+export default {
+  name: 'PermissionConfigWindow',
+  components: { GlobalWindow },
+  data () {
+    return {
+      visible: false,
+      isWorking: false,
+      // 角色对象
+      role: null,
+      // 权限列表
+      permissions: [],
+      // 已选中的权限ID
+      selectedIds: []
+    }
+  },
+  methods: {
+    /**
+     * @role 角色对象
+     */
+    open (role) {
+      if (this.$refs.permissionTransfer) {
+        this.$refs.permissionTransfer.clearQuery('left')
+        this.$refs.permissionTransfer.clearQuery('right')
+      }
+      fetchPermissionList({
+        page: 1,
+        capacity: 100000
+      })
+        .then(data => {
+          this.role = role
+          this.permissions = data.records
+          this.selectedIds = role.permissions.map(r => r.id)
+          this.visible = true
+        })
+        .catch(e => {
+          this.$message.error(e.message)
+        })
+    },
+    // 确认选择权限
+    confirm () {
+      this.isWorking = true
+      createRolePermission({
+        roleId: this.role.id,
+        permissionIds: this.selectedIds
+      })
+        .then(() => {
+          this.$message.success('权限配置成功，用户重新登录后生效')
+          this.visible = false
+          this.$emit('success')
+        })
+        .catch(e => {
+          this.$message.error(e.message)
+        })
+        .finally(() => {
+          this.isWorking = false
+        })
+    }
+  }
+}
+</script>
+
+<style scoped lang="scss">
+@import "../../assets/style/variables.scss";
+.global-window {
+  .tip {
+    margin-bottom: 12px;
+    em {
+      font-style: normal;
+      color: $primary-color;
+      font-weight: bold;
+    }
+  }
+}
+</style>
