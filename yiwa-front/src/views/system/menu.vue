@@ -3,7 +3,7 @@
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:menu:create', 'system:menu:delete', 'system:menu:sort']">
-        <li><el-button type="primary" @click="create(null)" icon="el-icon-plus" v-permissions="['system:menu:create']">新建</el-button></li>
+        <li><el-button type="primary" @click="$refs.operaMenuWindow.open('添加一级菜单')" icon="el-icon-plus" v-permissions="['system:menu:create']">新建</el-button></li>
         <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete" v-permissions="['system:menu:delete']">删除</el-button></li>
         <li><el-button @click="sort('top')" :loading="isWorking.sort" icon="el-icon-sort-up" v-permissions="['system:menu:sort']">上移</el-button></li>
         <li><el-button @click="sort('bottom')" :loading="isWorking.sort" icon="el-icon-sort-down" v-permissions="['system:menu:sort']">下移</el-button></li>
@@ -47,160 +47,36 @@
           fixed="right"
         >
           <template slot-scope="{row}">
-            <el-button type="text" icon="el-icon-edit" @click="edit(row)" v-permissions="['system:menu:update']">编辑</el-button>
-            <el-button type="text" icon="el-icon-plus" @click="create(row)" v-permissions="['system:menu:create']">添加子菜单</el-button>
+            <el-button type="text" icon="el-icon-edit" @click="$refs.operaMenuWindow.open('编辑菜单', row)" v-permissions="['system:menu:update']">编辑</el-button>
+            <el-button type="text" icon="el-icon-plus" @click="$refs.operaMenuWindow.open('添加子菜单', null, row)" v-permissions="['system:menu:create']">添加子菜单</el-button>
             <el-button type="text" icon="el-icon-delete" @click="deleteById(row)" v-permissions="['system:menu:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </template>
     <!-- 添加/修改 -->
-    <GlobalWindow
-      class="handle-table-dialog"
-      :title="handleTableData.title"
-      :visible.sync="visible.operaTable"
-      :confirm-working="isWorking.operaTable"
-      @confirm="confirm"
-    >
-      <p class="tip" v-if="handleTableData.form.parent != null && handleTableData.form.id == null">为 <em>{{handleTableData.form.parent.name}}</em> 添加子菜单</p>
-      <el-form :model="handleTableData.form" ref="handleTableDataForm" :rules="handleTableData.rules">
-        <el-form-item label="菜单名称" prop="name" required>
-          <el-input v-model="handleTableData.form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="访问路径" prop="path">
-          <el-input v-model="handleTableData.form.path"></el-input>
-        </el-form-item>
-        <el-form-item label="图标" prop="icon" class="form-item-icon">
-          <el-radio-group v-model="handleTableData.form.icon">
-            <el-radio :label="icon" border v-for="icon in icons" :key="icon">
-              <i :class="{[icon]: true}"></i>
-            </el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="备注" prop="remark">
-          <el-input type="textarea" v-model="handleTableData.form.remark"></el-input>
-        </el-form-item>
-      </el-form>
-    </GlobalWindow>
+    <OperaMenuWindow ref="operaMenuWindow" @success="search"/>
   </TableLayout>
 </template>
 
 <script>
-import icons from '../../utils/icons'
-import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch, sort } from '../../api/system/systemMenu'
+import { fetchList, updateById, deleteById, deleteByIdInBatch, sort } from '../../api/system/systemMenu'
 import BaseTable from '../BaseTable'
+import OperaMenuWindow from '../../components/menu/OperaMenuWindow'
 export default {
   name: 'SystemMenu',
   extends: BaseTable,
-  components: { TableLayout, GlobalWindow },
+  components: { OperaMenuWindow, TableLayout },
   data () {
     return {
-      icons,
-      // 是否展示
-      visible: {
-        handleChild: false
-      },
       // 是否正在处理中
       isWorking: {
-        handleChild: false,
         sort: false
-      },
-      // 新增/修改
-      handleTableData: {
-        title: '添加系统菜单',
-        // 表单数据
-        form: {
-          id: null,
-          parent: null,
-          name: '',
-          path: '',
-          icon: '',
-          remark: ''
-        },
-        // 验证规则
-        rules: {
-          name: [
-            { required: true, message: '请输入菜单名称' }
-          ]
-        }
       }
     }
   },
   methods: {
-    // 确认创建/修改
-    confirm () {
-      if (this.handleTableData.form.id == null) {
-        this.confirmCreate()
-        return
-      }
-      this.confirmEdit()
-    },
-    // 添加
-    create (parent) {
-      this.handleTableData.title = parent == null ? '添加菜单' : '添加子菜单'
-      this.handleTableData.form.parent = parent
-      this.visible.operaTable = true
-      this.$nextTick(() => {
-        this.$refs.handleTableDataForm && this.$refs.handleTableDataForm.resetFields()
-      })
-    },
-    // 确定添加
-    confirmCreate () {
-      this.$refs.handleTableDataForm.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用添加接口
-        this.isWorking.operaTable = true
-        create({
-          ...this.handleTableData.form,
-          parentId: this.handleTableData.form.parent == null ? null : this.handleTableData.form.parent.id
-        })
-          .then(() => {
-            this.visible.operaTable = false
-            this.handlePageChange()
-            this.$message.success('创建成功')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.operaTable = false
-          })
-      })
-    },
-    // 编辑
-    edit (row) {
-      this.handleTableData.title = '修改菜单'
-      this.visible.operaTable = true
-      this.$nextTick(() => {
-        Object.assign(this.handleTableData.form, row)
-      })
-    },
-    // 确认修改
-    confirmEdit () {
-      this.$refs.handleTableDataForm.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用添加接口
-        this.isWorking.operaTable = true
-        updateById(this.handleTableData.form)
-          .then(() => {
-            this.visible.operaTable = false
-            this.search()
-            this.$message.success('修改成功')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.operaTable = false
-          })
-      })
-    },
     // 删除
     deleteById (row) {
       this.$confirm(`确认删除 ${row.name} 菜单吗?`, '提示', {
@@ -382,46 +258,6 @@ export default {
 .table-column-icon {
   i {
     font-size: 20px;
-  }
-}
-// 新建/修改
-.handle-table-dialog {
-  .tip {
-    margin-bottom: 12px;
-    em {
-      font-style: normal;
-      color: $primary-color;
-      font-weight: bold;
-    }
-  }
-  // 图标
-  /deep/ .form-item-icon {
-    .el-form-item__content {
-      height: 193px;
-      overflow-y: auto;
-    }
-    .el-radio-group {
-      .el-radio {
-        margin-right: 0;
-      }
-      .el-radio__input {
-        display: none;
-      }
-      .el-radio__label {
-        padding-left: 0;
-        i {
-          font-size: 30px;
-        }
-        &:hover i{
-          color: $primary-color;
-        }
-      }
-      .el-radio--small.is-bordered {
-        height: auto;
-        padding: 8px;
-        margin-left: 0;
-      }
-    }
   }
 }
 </style>

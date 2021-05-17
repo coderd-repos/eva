@@ -100,6 +100,10 @@ $input-height: 32px;
       height: 100%;
       overflow-y: auto;
       padding: 12px 16px;
+      // 标签
+      .el-form-item__label {
+        float: none;
+      }
     }
     // 尾部
     .window__footer {
