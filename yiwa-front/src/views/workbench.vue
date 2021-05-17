@@ -3,7 +3,7 @@
     <div class="wrap">
       <h2>欢迎使用伊娃后台管理系统</h2>
       <p>您使用的此套开源项目模版没有任何版权问题，可学习可商用，请放心使用！</p>
-      <img src="/static/images/qq.jpeg">
+      <img src="@/assets/images/qq.jpeg">
       <p>你可以扫码加入群聊以获得技术支持</p>
     </div>
   </div>

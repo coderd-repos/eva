@@ -31,9 +31,9 @@ axiosInstance.interceptors.response.use((response) => {
     return Promise.reject(response.data)
   }
   // 未登录
-  if (response.data.code === 401 && (response.config.autoLogin == null || response.config.autoLogin)) {
+  if (response.data.code === 401) {
     window.location.href = '/#/login'
-    return
+    return Promise.reject(response.data)
   }
   // 业务失败
   if (response.data.code !== 200) {
