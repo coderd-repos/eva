@@ -89,7 +89,7 @@ export default {
     },
     // 确定添加
     confirmCreate () {
-      this.$refs.handleTableDataForm.validate((valid) => {
+      this.$refs.form.validate((valid) => {
         if (!valid) {
           return
         }
@@ -114,7 +114,7 @@ export default {
     },
     // 确认修改
     confirmEdit () {
-      this.$refs.handleTableDataForm.validate((valid) => {
+      this.$refs.form.validate((valid) => {
         if (!valid) {
           return
         }
