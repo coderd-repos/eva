@@ -22,11 +22,25 @@
     FROM `SYSTEM_USER` usr
     LEFT JOIN `SYSTEM_USER` create_user ON create_user.ID = usr.CREATE_USER
     LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = usr.UPDATE_USER
+    LEFT JOIN `SYSTEM_POSITION_USER` spu ON spu.USER_ID = usr.ID
+    LEFT JOIN `SYSTEM_DEPARTMENT_USER` sdu ON sdu.USER_ID = usr.ID
     <where>
       usr.DELETED = 0
-      AND usr.`USERNAME` LIKE CONCAT('%', #{username}, '%')
-      AND usr.`REALNAME` LIKE CONCAT('%', #{realname}, '%')
-      AND usr.`MOBILE` LIKE CONCAT('%', #{mobile}, '%')
+      <if test="positionId != null">
+        AND spu.POSITION_ID = #{positionId}
+      </if>
+      <if test="departmentId != null">
+        AND sdu.DEPARTMENT_ID = #{departmentId}
+      </if>
+      <if test="username != null and username != ''">
+        AND usr.`USERNAME` LIKE CONCAT('%', #{username}, '%')
+      </if>
+      <if test="realname != null and realname != ''">
+        AND usr.`REALNAME` LIKE CONCAT('%', #{realname}, '%')
+      </if>
+      <if test="mobile != null and mobile != ''">
+        AND usr.`MOBILE` LIKE CONCAT('%', #{mobile}, '%')
+      </if>
     </where>
   </select>
 

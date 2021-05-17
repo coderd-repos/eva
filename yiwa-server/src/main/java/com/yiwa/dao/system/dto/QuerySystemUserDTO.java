@@ -10,6 +10,10 @@ import lombok.Data;
 @Data
 public class QuerySystemUserDTO {
 
+    private Integer departmentId;
+
+    private Integer positionId;
+
     private String username;
 
     private String realname;

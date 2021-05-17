@@ -5,6 +5,7 @@ import com.yiwa.biz.SystemUserBiz;
 import com.yiwa.core.model.ApiResponse;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.dto.CreateUserRoleDTO;
+import com.yiwa.dao.system.dto.QuerySystemUserDTO;
 import com.yiwa.dao.system.dto.ResetSystemUserPwdDTO;
 import com.yiwa.dao.system.model.SystemUser;
 import com.yiwa.service.system.SystemUserService;
@@ -118,7 +119,7 @@ public class SystemUserController extends BaseController {
     @RequiresPermissions("system:user:query")
     @PostMapping("/page")
     @ApiOperation("分页查询")
-    public ApiResponse findPage (@RequestBody PageWrap<SystemUser> pageWrap) {
+    public ApiResponse findPage (@RequestBody PageWrap<QuerySystemUserDTO> pageWrap) {
         return ApiResponse.success(systemUserService.findPage(pageWrap));
     }
 }

@@ -6,7 +6,7 @@ project:
 
 # WEB服务器配置
 server:
-  port: 8080
+  port: 8082
 
 # session设置
 session:

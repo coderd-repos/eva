@@ -1,15 +1,17 @@
 package com.yiwa.service.system.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
-import com.yiwa.core.utils.WrapperUtil;
 import com.yiwa.dao.system.SystemUserMapper;
+import com.yiwa.dao.system.dto.QuerySystemUserDTO;
 import com.yiwa.dao.system.model.SystemUser;
+import com.yiwa.dao.system.vo.SystemUserListVO;
+import com.yiwa.service.system.SystemRoleService;
 import com.yiwa.service.system.SystemUserService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -26,6 +28,9 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Autowired
     private SystemUserMapper systemUserMapper;
+
+    @Autowired
+    private SystemRoleService systemRoleService;
 
     @Override
     public Integer create(SystemUser systemUser) {
@@ -75,17 +80,13 @@ public class SystemUserServiceImpl implements SystemUserService {
     }
   
     @Override
-    public PageData<SystemUser> findPage(PageWrap<SystemUser> pageWrap) {
-        IPage<SystemUser> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemUser> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
-        for(PageWrap.SortData sortData: pageWrap.getSorts()) {
-            if (sortData.getDirection().equalsIgnoreCase("DESC")) {
-                queryWrapper.orderByDesc(sortData.getProperty());
-            } else {
-                queryWrapper.orderByAsc(sortData.getProperty());
-            }
+    public PageData<SystemUserListVO> findPage(PageWrap<QuerySystemUserDTO> pageWrap) {
+        PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
+        List<SystemUserListVO> userList = systemUserMapper.selectList(pageWrap.getModel());
+        for (SystemUserListVO user : userList) {
+            user.setRoles(systemRoleService.findByUserId(user.getId()));
         }
-        return PageData.from(systemUserMapper.selectPage(page, queryWrapper));
+        return PageData.from(new PageInfo<>(userList));
     }
 
     @Override

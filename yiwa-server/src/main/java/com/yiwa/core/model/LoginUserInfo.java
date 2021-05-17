@@ -23,7 +23,7 @@ public class LoginUserInfo {
 
     private String realname;
 
-    private String portrait;
+    private String avatar;
 
     private Date birthday;
 

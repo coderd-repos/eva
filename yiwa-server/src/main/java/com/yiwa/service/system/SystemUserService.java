@@ -2,8 +2,11 @@ package com.yiwa.service.system;
 
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
+import com.yiwa.dao.system.dto.QuerySystemUserDTO;
 import com.yiwa.dao.system.model.SystemRole;
 import com.yiwa.dao.system.model.SystemUser;
+import com.yiwa.dao.system.vo.SystemUserListVO;
+
 import java.util.List;
 
 /**
@@ -74,7 +77,7 @@ public interface SystemUserService {
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    PageData<SystemUser> findPage(PageWrap<SystemUser> pageWrap);
+    PageData<SystemUserListVO> findPage(PageWrap<QuerySystemUserDTO> pageWrap);
 
     /**
      * 条件统计
