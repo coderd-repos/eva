@@ -1,11 +1,10 @@
 <template>
   <GlobalWindow
-    :visible="visible"
+    :visible.sync="visible"
     :confirm-working="isWorking"
     width="576px"
     title="重置密码"
     @confirm="confirm"
-    @close="close"
   >
     <p class="tip" v-if="user != null">为用户 <em>{{user.realname}}</em> 重置密码</p>
     <el-form :model="form" ref="form" :rules="rules">
@@ -22,20 +21,11 @@ import { resetPwd } from '../../api/system/systemUser'
 export default {
   name: 'ResetPwdWindow',
   components: { GlobalWindow },
-  props: {
-    // 是否展示Dialog
-    visible: {
-      type: Boolean,
-      required: true
-    },
-    // 用户
-    user: {
-      type: Object
-    }
-  },
   data () {
     return {
       isWorking: false,
+      visible: false,
+      user: null,
       form: {
         password: ''
       },
@@ -47,9 +37,12 @@ export default {
     }
   },
   methods: {
-    // 重置字段
-    resetFields () {
-      this.$refs.form.resetFields()
+    open (user) {
+      this.user = user
+      this.visible = true
+      this.$nextTick(() => {
+        this.$refs.form.resetFields()
+      })
     },
     // 确认重置密码
     confirm () {
@@ -76,10 +69,6 @@ export default {
             this.isWorking = false
           })
       })
-    },
-    // 关闭
-    close () {
-      this.$emit('update:visible', false)
     }
   }
 }
@@ -88,7 +77,7 @@ export default {
 <style scoped lang="scss">
 @import "../../assets/style/variables.scss";
 // 角色配置
-.global-dialog {
+.global-window {
   .tip {
     margin-bottom: 12px;
     em {

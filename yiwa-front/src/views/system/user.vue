@@ -64,8 +64,8 @@
         <el-table-column label="操作" width="280" fixed="right">
           <template slot-scope="{row}">
             <el-button type="text" icon="el-icon-edit" @click="edit(row)" v-permissions="['system:user:update']">编辑</el-button>
-            <el-button type="text" icon="el-icon-s-custom" @click="selectRole(row)" v-permissions="['system:user:createUserRole']">配置角色</el-button>
-            <el-button type="text" @click="resetPwd(row)" >重置密码</el-button>
+            <el-button type="text" icon="el-icon-s-custom" @click="$refs.roleConfigWindow.open(row)" v-permissions="['system:user:createUserRole']">配置角色</el-button>
+            <el-button type="text" @click="$refs.resetPwdWindow.open(row)">重置密码</el-button>
             <el-button type="text" icon="el-icon-delete" @click="deleteById(row.id)" v-permissions="['system:user:delete']">删除</el-button>
           </template>
         </el-table-column>
@@ -87,9 +87,7 @@
     />
     <!-- 配置角色 -->
     <RoleConfigWindow
-      :visible.sync="visible.selectRole"
-      :user="selectRoleData.user"
-      :roles="selectRoleData.roles"
+      ref="roleConfigWindow"
       @success="search"
     />
     <!-- 重置密码 -->
@@ -105,7 +103,6 @@
 import Pagination from '../../components/common/Pagination'
 import TableLayout from '../../layouts/TableLayout'
 import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/systemUser'
-import { fetchAll as fetchAllRoles } from '../../api/system/systemRole'
 import BaseTable from '../BaseTable'
 import OperaUserWindow from '../../components/user/OperaTableDataWindow'
 import RoleConfigWindow from '../../components/user/RoleConfigWindow'
@@ -117,11 +114,6 @@ export default {
   components: { ResetPwdWindow, RoleConfigWindow, OperaUserWindow, TableLayout, Pagination },
   data () {
     return {
-      // 是否展示
-      visible: {
-        selectRole: false,
-        resetPwd: false
-      },
       // 搜索
       searchForm: {
         username: '', // 名字
@@ -236,26 +228,6 @@ export default {
         .finally(() => {
           this.isWorking.search = false
         })
-    },
-    // 选择角色
-    selectRole (row) {
-      fetchAllRoles()
-        .then(records => {
-          this.selectRoleData.user = row
-          this.selectRoleData.roles = records
-          this.visible.selectRole = true
-        })
-        .catch(e => {
-          this.$message.error(e.message)
-        })
-    },
-    // 重置密码
-    resetPwd (row) {
-      this.visible.resetPwd = true
-      this.resetPwdData.user = row
-      this.$nextTick(() => {
-        this.$refs.resetPwdWindow.resetFields()
-      })
     }
   },
   created () {
@@ -281,18 +253,6 @@ export default {
       border-radius: 3px;
       padding: 0 3px;
       margin-right: 3px;
-    }
-  }
-}
-// 角色配置/重置密码
-.role-config-dialog,
-.resetpwd-config-dialog {
-  .tip {
-    margin-bottom: 12px;
-    em {
-      font-style: normal;
-      color: $primary-color;
-      font-weight: bold;
     }
   }
 }

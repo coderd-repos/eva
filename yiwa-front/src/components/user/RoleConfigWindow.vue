@@ -1,11 +1,10 @@
 <template>
   <GlobalWindow
-    :visible="visible"
+    :visible.sync="visible"
     :confirm-working="isWorking"
     width="576px"
     title="配置用户角色"
     @confirm="confirm"
-    @close="close"
   >
     <p class="tip" v-if="user != null">为用户 <em>{{user.realname}}</em> 配置角色</p>
     <el-transfer
@@ -23,27 +22,19 @@
 <script>
 import GlobalWindow from '../common/GlobalWindow'
 import { createUserRole } from '../../api/system/systemUser'
+import { fetchAll as fetchAllRoles } from '../../api/system/systemRole'
 export default {
   name: 'RoleConfigWindow',
   components: { GlobalWindow },
-  props: {
-    // 是否展示Dialog
-    visible: {
-      type: Boolean,
-      required: true
-    },
-    // 用户
-    user: {
-      type: Object
-    },
-    // 角色列表
-    roles: {
-      type: Array
-    }
-  },
   data () {
     return {
+      visible: false,
       isWorking: false,
+      // 用户
+      user: null,
+      // 角色列表
+      roles: null,
+      // 已选中的角色ID
       selectedIds: []
     }
   },
@@ -53,6 +44,17 @@ export default {
     }
   },
   methods: {
+    open (user) {
+      fetchAllRoles()
+        .then(records => {
+          this.roles = records
+          this.user = user
+          this.visible = true
+        })
+        .catch(e => {
+          this.$message.error(e.message)
+        })
+    },
     // 确认选择角色
     confirm () {
       if (this.isWorking) {
@@ -86,7 +88,7 @@ export default {
 <style scoped lang="scss">
 @import "../../assets/style/variables.scss";
 // 角色配置
-.global-dialog {
+.global-window {
   .tip {
     margin-bottom: 12px;
     em {
