@@ -31,7 +31,7 @@
 <script>
 import icons from '../../utils/icons'
 import GlobalWindow from '../common/GlobalWindow'
-import { create, updateById } from '../../api/system/systemMenu'
+import { create, updateById } from '../../api/system/menu'
 export default {
   name: 'OperaMenuWindow',
   components: { GlobalWindow },

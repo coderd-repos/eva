@@ -17,7 +17,7 @@
 
 <script>
 import GlobalWindow from '../common/GlobalWindow'
-import { resetPwd } from '../../api/system/systemUser'
+import { resetPwd } from '../../api/system/user'
 export default {
   name: 'ResetPwdWindow',
   components: { GlobalWindow },

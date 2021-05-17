@@ -71,7 +71,7 @@
 import TableLayout from '../../layouts/TableLayout'
 import BaseTable from '../../views/BaseTable'
 import GlobalWindow from '../common/GlobalWindow'
-import { fetchList } from '../../api/system/systemUser'
+import { fetchList } from '../../api/system/user'
 export default {
   name: 'UserManagerWindow',
   extends: BaseTable,

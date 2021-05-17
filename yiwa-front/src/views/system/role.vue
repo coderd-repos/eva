@@ -132,9 +132,9 @@
 import Pagination from '../../components/common/Pagination'
 import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch, createRolePermission, createRoleMenu } from '../../api/system/systemRole'
-import { fetchList as fetchPermissionList } from '../../api/system/systemPermission'
-import { fetchList as fetchMenuList } from '../../api/system/systemMenu'
+import { fetchList, create, updateById, deleteById, deleteByIdInBatch, createRolePermission, createRoleMenu } from '../../api/system/role'
+import { fetchList as fetchPermissionList } from '../../api/system/permission'
+import { fetchList as fetchMenuList } from '../../api/system/menu'
 import BaseTable from '../BaseTable'
 export default {
   name: 'SystemRole',

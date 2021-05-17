@@ -47,10 +47,7 @@
 
 <script>
 import { checkMobile, checkEmail } from '../../utils/form'
-import {
-  create,
-  updateById
-} from '../../api/system/systemUser'
+import { create, updateById } from '../../api/system/user'
 import GlobalWindow from '../common/GlobalWindow'
 
 export default {

@@ -85,7 +85,7 @@
 import Pagination from '../../components/common/Pagination'
 import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/systemDict'
+import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/dict'
 import BaseTable from '../BaseTable'
 import DictDataManager from '../../components/dict/DictDataManager'
 export default {

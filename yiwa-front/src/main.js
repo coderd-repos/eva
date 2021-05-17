@@ -6,7 +6,7 @@ import ElementUI from 'element-ui'
 import directives from './directives'
 import filters from './filters'
 import './assets/style/element-variables.scss'
-import { fetchMenuTree } from './api/system/systemMenu'
+import { fetchMenuTree } from './api/system/menu'
 import { mapState, mapMutations } from 'vuex'
 
 Vue.use(ElementUI, {

@@ -75,7 +75,7 @@
 import Pagination from '../../components/common/Pagination'
 import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/systemPosition'
+import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/org/position'
 import BaseTable from '../BaseTable'
 import UserManagerWindow from '../../components/position/UserManagerWindow'
 export default {

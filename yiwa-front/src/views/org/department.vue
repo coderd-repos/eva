@@ -69,7 +69,7 @@
 <script>
 import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/systemDepartment'
+import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/org/department'
 import BaseTable from '../BaseTable'
 import TreeSelect from '../../components/common/TreeSelect'
 export default {

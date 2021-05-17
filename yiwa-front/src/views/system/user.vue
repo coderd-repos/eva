@@ -102,7 +102,7 @@
 <script>
 import Pagination from '../../components/common/Pagination'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/systemUser'
+import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/user'
 import BaseTable from '../BaseTable'
 import OperaUserWindow from '../../components/user/OperaTableDataWindow'
 import RoleConfigWindow from '../../components/user/RoleConfigWindow'

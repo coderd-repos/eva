@@ -61,7 +61,7 @@
 
 <script>
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, updateById, deleteById, deleteByIdInBatch, sort } from '../../api/system/systemMenu'
+import { fetchList, updateById, deleteById, deleteByIdInBatch, sort } from '../../api/system/menu'
 import BaseTable from '../BaseTable'
 import OperaMenuWindow from '../../components/menu/OperaMenuWindow'
 export default {

@@ -21,8 +21,8 @@
 
 <script>
 import GlobalWindow from '../common/GlobalWindow'
-import { createUserRole } from '../../api/system/systemUser'
-import { fetchAll as fetchAllRoles } from '../../api/system/systemRole'
+import { createUserRole } from '../../api/system/user'
+import { fetchAll as fetchAllRoles } from '../../api/system/role'
 export default {
   name: 'RoleConfigWindow',
   components: { GlobalWindow },
