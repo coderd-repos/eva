@@ -76,8 +76,12 @@ export default {
         })
         return
       }
-      // 编辑
-      Object.assign(this.form, menu)
+      this.$nextTick(() => {
+        // 编辑
+        for (const key in this.form) {
+          this.form[key] = menu[key]
+        }
+      })
     },
     // 确认创建/修改
     confirm () {
