@@ -5,7 +5,7 @@ export function fetchList () {
   return request.post('/system/department/list')
 }
 
-// 创建
+// 新建
 export function create (data) {
   return request.post('/system/department/create', data)
 }

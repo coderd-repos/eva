@@ -7,7 +7,7 @@ const axiosInstance = axios.create({
   timeout: 300000
 })
 
-// 添加请求拦截器
+// 新建请求拦截器
 axiosInstance.interceptors.request.use(config => {
   // 参数去空格
   if (config.trim === true) {
@@ -24,7 +24,7 @@ axiosInstance.interceptors.request.use(config => {
   return Promise.reject(error)
 })
 
-// 添加响应拦截器
+// 新建响应拦截器
 axiosInstance.interceptors.response.use((response) => {
   // 请求失败
   if (response.status !== 200) {

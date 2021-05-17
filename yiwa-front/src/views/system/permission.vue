@@ -31,7 +31,7 @@
         <el-table-column prop="name" label="权限名称" min-width="120px"></el-table-column>
         <el-table-column prop="remark" label="权限备注" min-width="120px"></el-table-column>
         <el-table-column prop="createTime" label="创建时间" min-width="140px"></el-table-column>
-        <el-table-column prop="createUser" label="创建者" min-width="100px">
+        <el-table-column prop="createUser" label="创建人" min-width="100px">
           <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
         </el-table-column>
         <el-table-column prop="updateTime" label="更新时间" min-width="140px"></el-table-column>
@@ -57,7 +57,7 @@
       >
       </pagination>
     </template>
-    <!-- 添加/修改 -->
+    <!-- 新建/修改 -->
     <GlobalWindow
       :title="operaTableData.title"
       :visible.sync="visible.operaTable"
@@ -99,7 +99,7 @@ export default {
       },
       // 新增/修改
       operaTableData: {
-        title: '添加系统权限',
+        title: '新建系统权限',
         // 表单数据
         form: {
           id: null,
@@ -120,7 +120,7 @@ export default {
     }
   },
   methods: {
-    // 确认创建/修改
+    // 确认新建/修改
     confirm () {
       if (this.operaTableData.form.id == null) {
         this.confirmCreate()
@@ -128,27 +128,27 @@ export default {
       }
       this.confirmEdit()
     },
-    // 添加
+    // 新建
     create () {
       this.visible.operaTable = true
-      this.operaTableData.title = '添加权限'
+      this.operaTableData.title = '新建权限'
       this.$nextTick(() => {
         this.$refs.operaTableDataForm.resetFields()
       })
     },
-    // 确定添加
+    // 确定新建
     confirmCreate () {
       this.$refs.operaTableDataForm.validate((valid) => {
         if (!valid) {
           return
         }
-        // 调用添加接口
+        // 调用新建接口
         this.isWorking.operaTable = true
         create(this.operaTableData.form)
           .then(() => {
             this.visible.operaTable = false
             this.handlePageChange(1)
-            this.$message.success('创建成功')
+            this.$message.success('新建成功')
           })
           .catch(e => {
             this.$message.error(e.message)
@@ -172,7 +172,7 @@ export default {
         if (!valid) {
           return
         }
-        // 调用添加接口
+        // 调用新建接口
         this.isWorking.operaTable = true
         updateById(this.operaTableData.form)
           .then(() => {

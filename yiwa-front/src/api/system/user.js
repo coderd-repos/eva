@@ -7,7 +7,7 @@ export function fetchList (data) {
   })
 }
 
-// 创建
+// 新建
 export function create (data) {
   return request.post('/system/user/create', data, {
     trim: true

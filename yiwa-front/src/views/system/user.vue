@@ -19,7 +19,7 @@
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:user:create', 'system:user:delete']">
-        <li v-permissions="['system:user:create']"><el-button icon="el-icon-plus" type="primary" @click="create">新建</el-button></li>
+        <li v-permissions="['system:user:create']"><el-button icon="el-icon-plus" type="primary" @click="$refs.operaUserWindow.open('新建用户')">新建</el-button></li>
         <li v-permissions="['system:user:delete']"><el-button icon="el-icon-delete" @click="deleteByIdInBatch">删除</el-button></li>
       </ul>
       <el-table
@@ -63,7 +63,7 @@
         </el-table-column>
         <el-table-column label="操作" width="280" fixed="right">
           <template slot-scope="{row}">
-            <el-button type="text" icon="el-icon-edit" @click="edit(row)" v-permissions="['system:user:update']">编辑</el-button>
+            <el-button type="text" icon="el-icon-edit" @click="$refs.operaUserWindow.open('编辑用户', row)" v-permissions="['system:user:update']">编辑</el-button>
             <el-button type="text" icon="el-icon-s-custom" @click="$refs.roleConfigWindow.open(row)" v-permissions="['system:user:createUserRole']">配置角色</el-button>
             <el-button type="text" @click="$refs.resetPwdWindow.open(row)">重置密码</el-button>
             <el-button type="text" icon="el-icon-delete" @click="deleteById(row.id)" v-permissions="['system:user:delete']">删除</el-button>
@@ -77,11 +77,9 @@
       >
       </pagination>
     </template>
-    <!-- 添加/修改 -->
+    <!-- 新建/修改 -->
     <OperaUserWindow
       ref="operaUserWindow"
-      :title="operaTableData.title"
-      :visible.sync="visible.operaTable"
       @create-success="search"
       @edit-success="search"
     />
@@ -104,7 +102,7 @@ import Pagination from '../../components/common/Pagination'
 import TableLayout from '../../layouts/TableLayout'
 import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/user'
 import BaseTable from '../BaseTable'
-import OperaUserWindow from '../../components/user/OperaTableDataWindow'
+import OperaUserWindow from '../../components/user/OperaUserWindow'
 import RoleConfigWindow from '../../components/user/RoleConfigWindow'
 import ResetPwdWindow from '../../components/user/ResetPwdWindow'
 
@@ -120,10 +118,6 @@ export default {
         realname: '', // 姓名
         mobile: '' // 手机号码
       },
-      // 添加/修改数据
-      operaTableData: {
-        title: '添加用户'
-      },
       // 配置角色数据
       selectRoleData: {
         user: null,
@@ -136,22 +130,6 @@ export default {
     }
   },
   methods: {
-    // 添加
-    create () {
-      this.operaTableData.title = '添加用户'
-      this.visible.operaTable = true
-      this.$nextTick(() => {
-        this.$refs.operaUserWindow.resetFields()
-      })
-    },
-    // 编辑
-    edit (row) {
-      this.operaTableData.title = '修改用户'
-      this.visible.operaTable = true
-      this.$nextTick(() => {
-        this.$refs.operaUserWindow.initFields(row)
-      })
-    },
     // 删除
     deleteById (id) {
       this.$confirm('确认删除此用户吗?', '提示', {

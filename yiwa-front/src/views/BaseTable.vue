@@ -8,12 +8,12 @@ export default {
     return {
       // 是否展示
       visible: {
-        // 添加/修改数据窗口
+        // 新建/修改数据窗口
         operaTable: false
       },
       // 是否正在执行
       isWorking: {
-        // 添加/修改中
+        // 新建/修改中
         operaTable: false,
         // 搜索中
         search: false,

@@ -35,13 +35,13 @@
         >
           <template slot-scope="{row}">
             <el-button type="text" @click="edit(row)" icon="el-icon-edit" v-permissions="['system:department:update']">编辑</el-button>
-            <el-button type="text" @click="create(row)" icon="el-icon-edit" v-permissions="['system:department:create']">添加子部门</el-button>
+            <el-button type="text" @click="create(row)" icon="el-icon-edit" v-permissions="['system:department:create']">新建子部门</el-button>
             <el-button v-if="row.parentId != null" type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:department:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </template>
-    <!-- 添加/修改 -->
+    <!-- 新建/修改 -->
     <GlobalWindow
       :title="operaTableData.title"
       :visible.sync="visible.operaTable"
@@ -84,7 +84,7 @@ export default {
       },
       // 新增/修改
       operaTableData: {
-        title: '添加系统权限',
+        title: '新建系统权限',
         // 父部门数据
         parentDepartmentList: [],
         // 表单数据
@@ -105,7 +105,7 @@ export default {
     }
   },
   methods: {
-    // 确认创建/修改
+    // 确认新建/修改
     confirm () {
       if (this.operaTableData.form.id == null || this.operaTableData.form.id === '') {
         this.confirmCreate()
@@ -113,10 +113,10 @@ export default {
       }
       this.confirmEdit()
     },
-    // 添加
+    // 新建
     create (row = {}) {
       this.visible.operaTable = true
-      this.operaTableData.title = '添加部门'
+      this.operaTableData.title = '新建部门'
       // 填充上级部门数据
       this.operaTableData.parentDepartmentList = []
       this.__fillParentDepartmentList(this.operaTableData.parentDepartmentList, this.tableData.list)
@@ -128,19 +128,19 @@ export default {
         this.operaTableData.form.parentId = row.id || this.operaTableData.parentDepartmentList[0].id
       })
     },
-    // 确定添加
+    // 确定新建
     confirmCreate () {
       this.$refs.operaTableDataForm.validate((valid) => {
         if (!valid) {
           return
         }
-        // 调用添加接口
+        // 调用新建接口
         this.isWorking.operaTable = true
         create(this.operaTableData.form)
           .then(() => {
             this.visible.operaTable = false
             this.handlePageChange(1)
-            this.$message.success('创建成功')
+            this.$message.success('新建成功')
           })
           .catch(e => {
             this.$message.error(e.message)
@@ -169,7 +169,7 @@ export default {
         if (!valid) {
           return
         }
-        // 调用添加接口
+        // 调用新建接口
         this.isWorking.operaTable = true
         updateById(this.operaTableData.form)
           .then(() => {

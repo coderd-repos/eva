@@ -5,7 +5,7 @@ export function fetchList (data) {
   return request.post('/system/menu/list', data)
 }
 
-// 创建
+// 新建
 export function create (data) {
   return request.post('/system/menu/create', data)
 }

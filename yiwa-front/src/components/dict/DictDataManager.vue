@@ -50,7 +50,7 @@
         >
         </pagination>
       </template>
-      <!-- 添加/修改 -->
+      <!-- 新建/修改 -->
       <GlobalWindow
         :title="operaTableData.title"
         :visible.sync="visible.operaTable"
@@ -92,7 +92,7 @@ export default {
       },
       // 新增/修改
       operaTableData: {
-        title: '添加系统权限',
+        title: '新建系统权限',
         // 表单数据
         form: {
           id: null,
@@ -124,7 +124,7 @@ export default {
       this.visible.dataManager = true
       this.search()
     },
-    // 确认创建/修改
+    // 确认新建/修改
     confirm () {
       if (this.operaTableData.form.id == null || this.operaTableData.form.id === '') {
         this.confirmCreate()
@@ -132,29 +132,29 @@ export default {
       }
       this.confirmEdit()
     },
-    // 添加
+    // 新建
     create () {
       this.visible.operaTable = true
-      this.operaTableData.title = '添加字典数据'
+      this.operaTableData.title = '新建字典数据'
       this.$nextTick(() => {
         this.$refs.operaTableDataForm.resetFields()
         this.operaTableData.form.id = null
         this.operaTableData.form.dictId = this.dictId
       })
     },
-    // 确定添加
+    // 确定新建
     confirmCreate () {
       this.$refs.operaTableDataForm.validate((valid) => {
         if (!valid) {
           return
         }
-        // 调用添加接口
+        // 调用新建接口
         this.isWorking.operaTable = true
         create(this.operaTableData.form)
           .then(() => {
             this.visible.operaTable = false
             this.handlePageChange(1)
-            this.$message.success('创建成功')
+            this.$message.success('新建成功')
           })
           .catch(e => {
             this.$message.error(e.message)
@@ -180,7 +180,7 @@ export default {
         if (!valid) {
           return
         }
-        // 调用添加接口
+        // 调用新建接口
         this.isWorking.operaTable = true
         updateById(this.operaTableData.form)
           .then(() => {

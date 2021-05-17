@@ -12,7 +12,7 @@ export function fetchAll () {
   return request.get('/system/role/all')
 }
 
-// 创建
+// 新建
 export function create (data) {
   return request.post('/system/role/create', data, {
     trim: true

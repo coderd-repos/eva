@@ -3,7 +3,7 @@
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:menu:create', 'system:menu:delete', 'system:menu:sort']">
-        <li><el-button type="primary" @click="$refs.operaMenuWindow.open('添加一级菜单')" icon="el-icon-plus" v-permissions="['system:menu:create']">新建</el-button></li>
+        <li><el-button type="primary" @click="$refs.operaMenuWindow.open('新建一级菜单')" icon="el-icon-plus" v-permissions="['system:menu:create']">新建</el-button></li>
         <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete" v-permissions="['system:menu:delete']">删除</el-button></li>
         <li><el-button @click="sort('top')" :loading="isWorking.sort" icon="el-icon-sort-up" v-permissions="['system:menu:sort']">上移</el-button></li>
         <li><el-button @click="sort('bottom')" :loading="isWorking.sort" icon="el-icon-sort-down" v-permissions="['system:menu:sort']">下移</el-button></li>
@@ -48,13 +48,13 @@
         >
           <template slot-scope="{row}">
             <el-button type="text" icon="el-icon-edit" @click="$refs.operaMenuWindow.open('编辑菜单', row)" v-permissions="['system:menu:update']">编辑</el-button>
-            <el-button type="text" icon="el-icon-plus" @click="$refs.operaMenuWindow.open('添加子菜单', null, row)" v-permissions="['system:menu:create']">添加子菜单</el-button>
+            <el-button type="text" icon="el-icon-plus" @click="$refs.operaMenuWindow.open('新建子菜单', null, row)" v-permissions="['system:menu:create']">新建子菜单</el-button>
             <el-button type="text" icon="el-icon-delete" @click="deleteById(row)" v-permissions="['system:menu:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </template>
-    <!-- 添加/修改 -->
+    <!-- 新建/修改 -->
     <OperaMenuWindow ref="operaMenuWindow" @success="search"/>
   </TableLayout>
 </template>

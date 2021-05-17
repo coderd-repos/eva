@@ -1,11 +1,10 @@
 <template>
-  <!-- 添加/修改 -->
+  <!-- 新建/修改 -->
   <GlobalWindow
     :title="title"
-    :visible="visible"
+    :visible.sync="visible"
     :confirm-working="isWorking"
     @confirm="confirm"
-    @close="close"
   >
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="用户名" prop="username" required>
@@ -29,14 +28,14 @@
           <el-radio label="/avatar/woman.png" border><img src="/avatar/woman.png" alt=""></el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item v-if="form.id == null" label="密码" prop="password" required>
+      <el-form-item v-if="form.id == null" label="初始密码" prop="password" required>
         <el-input type="password" v-model="form.password"></el-input>
-      </el-form-item>
-      <el-form-item label="邮箱" prop="email">
-        <el-input v-model="form.email"></el-input>
       </el-form-item>
       <el-form-item label="手机号码" prop="mobile">
         <el-input v-model="form.mobile" maxlength="11"></el-input>
+      </el-form-item>
+      <el-form-item label="邮箱" prop="email">
+        <el-input v-model="form.email"></el-input>
       </el-form-item>
       <el-form-item label="生日" prop="birthday">
         <el-date-picker v-model="form.birthday"/>
@@ -53,20 +52,10 @@ import GlobalWindow from '../common/GlobalWindow'
 export default {
   name: 'OperaUserWindow',
   components: { GlobalWindow },
-  props: {
-    // 标题
-    title: {
-      type: String,
-      default: ''
-    },
-    // 是否展示Dialog
-    visible: {
-      type: Boolean,
-      required: true
-    }
-  },
   data () {
     return {
+      title: '新建用户',
+      visible: false,
       isWorking: false,
       // 表单数据
       form: {
@@ -74,7 +63,7 @@ export default {
         username: '', // 用户名
         realname: '', // 姓名
         empNo: '', // 工号
-        avatar: '/static/avatar/man.png', // 头像
+        avatar: '/avatar/man.png', // 头像
         password: '', // 密码
         mobile: '', // 手机号码
         email: '', // 邮箱
@@ -108,15 +97,28 @@ export default {
     }
   },
   methods: {
-    // 重置字段
-    resetFields () {
-      this.$refs.form.resetFields()
+    /**
+     * @title 窗口标题
+     * @user 编辑的用户对象
+     */
+    open (title, user) {
+      this.title = title
+      this.visible = true
+      // 新建用户
+      if (user == null) {
+        this.$nextTick(() => {
+          this.$refs.form.resetFields()
+        })
+        return
+      }
+      // 编辑用户
+      this.$nextTick(() => {
+        for (const key in this.form) {
+          this.form[key] = user[key]
+        }
+      })
     },
-    // 初始化字段值
-    initFields (row) {
-      Object.assign(this.form, row)
-    },
-    // 确认创建/修改
+    // 确认新建/修改
     confirm () {
       if (this.form.id == null) {
         this.__confirmCreate()
@@ -124,21 +126,18 @@ export default {
       }
       this.__confirmEdit()
     },
-    close () {
-      this.$emit('update:visible', false)
-    },
-    // 确认添加
+    // 确认新建
     __confirmCreate () {
       this.$refs.form.validate((valid) => {
         if (!valid) {
           return
         }
-        // 调用添加接口
+        // 调用新建接口
         this.isWorking = true
         create(this.form)
           .then(() => {
             this.close()
-            this.$message.success('创建成功')
+            this.$message.success('新建成功')
             this.$emit('edit-success')
           })
           .catch(e => {
@@ -155,7 +154,7 @@ export default {
         if (!valid) {
           return
         }
-        // 调用添加接口
+        // 调用新建接口
         this.isWorking = true
         updateById(this.form)
           .then(() => {
@@ -176,16 +175,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.global-dialog {
-  >>> .el-radio-group {
-    width: 100%;
-  }
-  >>> .el-date-editor {
+.global-window {
+  /deep/ .el-date-editor {
     width: 100%;
   }
   // 表单头像处理
-  .form-item-avatar {
-    >>> .el-radio.is-bordered {
+  /deep/ .form-item-avatar {
+    .el-radio.is-bordered {
       height: auto;
       padding: 6px;
       margin: 0 10px 0 0;

@@ -6,7 +6,7 @@
     :confirm-working="isWorking"
     @confirm="confirm"
   >
-    <p class="tip" v-if="form.parent != null && form.id == null">为 <em>{{form.parent.name}}</em> 添加子菜单</p>
+    <p class="tip" v-if="form.parent != null && form.id == null">为 <em>{{form.parent.name}}</em> 新建子菜单</p>
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="菜单名称" prop="name" required>
         <el-input v-model="form.name"></el-input>
@@ -38,7 +38,7 @@ export default {
   data () {
     return {
       icons,
-      title: '添加菜单',
+      title: '新建菜单',
       visible: false,
       isWorking: false,
       // 表单数据
@@ -83,21 +83,21 @@ export default {
         }
       })
     },
-    // 确认创建/修改
+    // 确认新建/修改
     confirm () {
       if (this.form.id == null) {
-        this.confirmCreate()
+        this.__confirmCreate()
         return
       }
-      this.confirmEdit()
+      this.__confirmEdit()
     },
-    // 确定添加
-    confirmCreate () {
+    // 确定新建
+    __confirmCreate () {
       this.$refs.form.validate((valid) => {
         if (!valid) {
           return
         }
-        // 调用添加接口
+        // 调用新建接口
         this.isWorking = true
         create({
           ...this.form,
@@ -105,8 +105,8 @@ export default {
         })
           .then(() => {
             this.visible = false
-            this.$message.success('创建成功')
-            this.$emit('success')
+            this.$message.success('新建成功')
+            this.$emit('create-success')
           })
           .catch(e => {
             this.$message.error(e.message)
@@ -117,12 +117,12 @@ export default {
       })
     },
     // 确认修改
-    confirmEdit () {
+    __confirmEdit () {
       this.$refs.form.validate((valid) => {
         if (!valid) {
           return
         }
-        // 调用添加接口
+        // 调用新建接口
         this.isWorking = true
         updateById(this.form)
           .then(() => {
