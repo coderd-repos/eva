@@ -82,6 +82,11 @@ export default {
         .finally(() => {
           this.isWorking = false
         })
+    },
+    // 搜索权限
+    filterPermissions (query, item) {
+      const lowerCaseQuery = query.toLowerCase()
+      return item.code.toLowerCase().indexOf(lowerCaseQuery) > -1 || item.name.toLowerCase().indexOf(lowerCaseQuery) > -1
     }
   }
 }

@@ -47,7 +47,7 @@
           <template slot-scope="{row}">
             <el-button type="text" @click="$refs.operaRoleWindow.open('编辑角色', row)" icon="el-icon-edit" v-permissions="['system:role:update']">编辑</el-button>
             <el-button type="text" @click="$refs.permissionConfigWindow.open(row)" v-permissions="['system:role:createRolePermission']">配置权限</el-button>
-            <el-button type="text" @click="selectMenu(row)" icon="el-icon-menu" v-permissions="['system:role:createRoleMenu']">授权菜单</el-button>
+            <el-button type="text" @click="$refs.menuConfigWindow.open(row)" icon="el-icon-menu" v-permissions="['system:role:createRoleMenu']">授权菜单</el-button>
             <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:role:delete']">删除</el-button>
           </template>
         </el-table-column>
@@ -64,67 +64,29 @@
     <!-- 配置权限 -->
     <PermissionConfigWindow ref="permissionConfigWindow"/>
     <!-- 授权菜单 -->
-    <GlobalWindow
-      class="menu-config-dialog"
-      :visible.sync="visible.selectMenu"
-      :confirm-working="isWorking.selectMenu"
-      width="576px"
-      title="授权菜单"
-      @confirm="confirmSelectMenu"
-      @close="visible.selectMenu = false"
-    >
-      <p class="tip" v-if="selectMenuData.role != null">为角色 <em>{{selectMenuData.role.name}}</em> 配置可访问的菜单</p>
-      <el-tree
-        ref="menuTree"
-        :data="selectMenuData.menus"
-        show-checkbox
-        node-key="id"
-        default-expand-all
-        :default-checked-keys="selectMenuData.selectedIds"
-        :expand-on-click-node="false"
-        :check-on-click-node="true"
-        :props="{children: 'children',label: 'name'}">
-      </el-tree>
-    </GlobalWindow>
+    <MenuConfigWindow ref="menuConfigWindow"/>
   </TableLayout>
 </template>
 
 <script>
 import Pagination from '../../components/common/Pagination'
-import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, deleteById, deleteByIdInBatch, createRoleMenu } from '../../api/system/role'
-import { fetchList as fetchMenuList } from '../../api/system/menu'
 import BaseTable from '../BaseTable'
 import OperaRoleWindow from '../../components/role/OperaRoleWindow'
 import PermissionConfigWindow from '../../components/role/PermissionConfigWindow'
+import MenuConfigWindow from '../../components/role/MenuConfigWindow'
+import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/role'
 export default {
   name: 'SystemRole',
   extends: BaseTable,
-  components: { PermissionConfigWindow, OperaRoleWindow, TableLayout, GlobalWindow, Pagination },
+  components: { MenuConfigWindow, PermissionConfigWindow, OperaRoleWindow, TableLayout, Pagination },
   data () {
     return {
-      // 是否展示
-      visible: {
-        selectPermission: false,
-        selectMenu: false
-      },
-      // 是否正在处理
-      isWorking: {
-        selectPermission: false,
-        selectMenu: false
-      },
       // 搜索
       searchForm: {
         code: '',
         name: '',
         remark: ''
-      },
-      // 授权菜单数据
-      selectMenuData: {
-        role: null,
-        menus: [],
-        selectedIds: []
       }
     }
   },
@@ -204,53 +166,6 @@ export default {
         })
         .finally(() => {
           this.isWorking.search = false
-        })
-    },
-    // 搜索权限
-    filterPermissions (query, item) {
-      const lowerCaseQuery = query.toLowerCase()
-      return item.code.toLowerCase().indexOf(lowerCaseQuery) > -1 || item.name.toLowerCase().indexOf(lowerCaseQuery) > -1
-    },
-    // 选择菜单
-    selectMenu (row) {
-      fetchMenuList({})
-        .then(records => {
-          // 重置disabled为false，避免无法选中
-          records.map(r => {
-            r.disabled = false
-          })
-          this.selectMenuData.role = row
-          this.selectMenuData.menus = records
-          // 找出叶节点
-          row.menus = row.menus.filter(menu => row.menus.findIndex(m => m.parentId === menu.id) === -1)
-          this.selectMenuData.selectedIds = row.menus.map(r => r.id)
-          this.visible.selectMenu = true
-        })
-        .catch(e => {
-          this.$message.error(e.message)
-        })
-    },
-    // 确认选择权限
-    confirmSelectMenu () {
-      if (this.isWorking.selectMenu) {
-        return
-      }
-      const selectedMenus = this.$refs.menuTree.getCheckedNodes(false, true)
-      this.isWorking.selectMenu = true
-      createRoleMenu({
-        roleId: this.selectMenuData.role.id,
-        menuIds: selectedMenus.map(menu => menu.id)
-      })
-        .then(() => {
-          this.$message.success('菜单授权成功')
-          this.visible.selectMenu = false
-          this.handlePageChange(1)
-        })
-        .catch(e => {
-          this.$message.error(e.message)
-        })
-        .finally(() => {
-          this.isWorking.selectMenu = false
         })
     }
   },
