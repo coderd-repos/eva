@@ -38,7 +38,7 @@ export default {
   data () {
     return {
       icons,
-      title: '新建菜单',
+      title: '',
       visible: false,
       isWorking: false,
       // 表单数据
@@ -61,25 +61,25 @@ export default {
   methods: {
     /**
      * @title: 窗口标题
-     * @menu: 编辑的菜单对象
-     * @parentMenu: 新建时的上级菜单
+     * @target: 编辑的菜单对象
+     * @parent: 新建时的上级菜单
      */
-    open (title, menu, parentMenu) {
+    open (title, target, parent) {
       this.title = title
       this.visible = true
       // 新建，menu为空时表示新建菜单
-      if (menu == null) {
+      if (target == null) {
         this.$nextTick(() => {
           this.$refs.form.resetFields()
           this.form.id = null
-          this.form.parent = parentMenu
+          this.form.parent = parent
         })
         return
       }
+      // 编辑
       this.$nextTick(() => {
-        // 编辑
         for (const key in this.form) {
-          this.form[key] = menu[key]
+          this.form[key] = target[key]
         }
       })
     },
@@ -128,7 +128,7 @@ export default {
           .then(() => {
             this.visible = false
             this.$message.success('修改成功')
-            this.$emit('success')
+            this.$emit('edit-success')
           })
           .catch(e => {
             this.$message.error(e.message)

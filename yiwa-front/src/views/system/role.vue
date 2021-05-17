@@ -16,7 +16,7 @@
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:role:create', 'system:role:delete']">
-        <li v-permissions="['system:role:create']"><el-button type="primary" @click="create" icon="el-icon-plus">新建</el-button></li>
+        <li v-permissions="['system:role:create']"><el-button type="primary" @click="$refs.operaRoleWindow.open('新建角色')" icon="el-icon-plus">新建</el-button></li>
         <li v-permissions="['system:role:delete']"><el-button @click="deleteByIdInBatch" icon="el-icon-delete">删除</el-button></li>
       </ul>
       <el-table
@@ -45,7 +45,7 @@
           fixed="right"
         >
           <template slot-scope="{row}">
-            <el-button type="text" @click="edit(row)" icon="el-icon-edit" v-permissions="['system:role:update']">编辑</el-button>
+            <el-button type="text" @click="$refs.operaRoleWindow.open('编辑角色', row)" icon="el-icon-edit" v-permissions="['system:role:update']">编辑</el-button>
             <el-button type="text" @click="selectPermission(row)" v-permissions="['system:role:createRolePermission']">配置权限</el-button>
             <el-button type="text" @click="selectMenu(row)" icon="el-icon-menu" v-permissions="['system:role:createRoleMenu']">授权菜单</el-button>
             <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:role:delete']">删除</el-button>
@@ -60,24 +60,7 @@
       </pagination>
     </template>
     <!-- 新建/修改 -->
-    <GlobalWindow
-      :title="operaTableData.title"
-      :visible.sync="visible.operaTable"
-      :confirm-working="isWorking.create"
-      @confirm="confirm"
-    >
-      <el-form :model="operaTableData.form" ref="operaTableDataForm" :rules="operaTableData.rules">
-        <el-form-item label="角色CODE" prop="code" required>
-          <el-input v-model="operaTableData.form.code"></el-input>
-        </el-form-item>
-        <el-form-item label="角色名称" prop="name" required>
-          <el-input v-model="operaTableData.form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="角色备注" prop="remark">
-          <el-input v-model="operaTableData.form.remark"></el-input>
-        </el-form-item>
-      </el-form>
-    </GlobalWindow>
+    <OperaRoleWindow ref="operaRoleWindow" @create-success="search" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 配置权限 -->
     <GlobalWindow
       class="permission-config-dialog"
@@ -132,14 +115,15 @@
 import Pagination from '../../components/common/Pagination'
 import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch, createRolePermission, createRoleMenu } from '../../api/system/role'
+import { fetchList, deleteById, deleteByIdInBatch, createRolePermission, createRoleMenu } from '../../api/system/role'
 import { fetchList as fetchPermissionList } from '../../api/system/permission'
 import { fetchList as fetchMenuList } from '../../api/system/menu'
 import BaseTable from '../BaseTable'
+import OperaRoleWindow from '../../components/role/OperaRoleWindow'
 export default {
   name: 'SystemRole',
   extends: BaseTable,
-  components: { TableLayout, GlobalWindow, Pagination },
+  components: { OperaRoleWindow, TableLayout, GlobalWindow, Pagination },
   data () {
     return {
       // 是否展示
@@ -158,26 +142,6 @@ export default {
         name: '',
         remark: ''
       },
-      // 新增/修改
-      operaTableData: {
-        title: '新建系统角色',
-        // 表单数据
-        form: {
-          id: null,
-          code: '',
-          name: '',
-          remark: ''
-        },
-        // 验证规则
-        rules: {
-          code: [
-            { required: true, message: '请输入角色CODE', trigger: 'blur' }
-          ],
-          name: [
-            { required: true, message: '请输入角色名称', trigger: 'blur' }
-          ]
-        }
-      },
       // 配置权限数据
       selectPermissionData: {
         role: null,
@@ -193,74 +157,6 @@ export default {
     }
   },
   methods: {
-    // 确认新建/修改
-    confirm () {
-      if (this.operaTableData.form.id == null) {
-        this.confirmCreate()
-        return
-      }
-      this.confirmEdit()
-    },
-    // 新建
-    create () {
-      this.visible.operaTable = true
-      this.operaTableData.title = '新建角色'
-      this.$nextTick(() => {
-        this.$refs.operaTableDataForm.resetFields()
-      })
-    },
-    // 确定新建
-    confirmCreate () {
-      this.$refs.operaTableDataForm.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking.operaTable = true
-        create(this.operaTableData.form)
-          .then(() => {
-            this.visible.operaTable = false
-            this.handlePageChange(1)
-            this.$message.success('新建成功')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.operaTable = false
-          })
-      })
-    },
-    // 编辑
-    edit (row) {
-      this.operaTableData.title = '修改角色'
-      this.visible.operaTable = true
-      this.$nextTick(() => {
-        Object.assign(this.operaTableData.form, row)
-      })
-    },
-    // 确认修改
-    confirmEdit () {
-      this.$refs.operaTableDataForm.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking.operaTable = true
-        updateById(this.operaTableData.form)
-          .then(() => {
-            this.visible.operaTable = false
-            this.search()
-            this.$message.success('修改成功')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.operaTable = false
-          })
-      })
-    },
     // 删除
     deleteById (id) {
       this.$confirm('确认删除此角色吗?', '提示', {

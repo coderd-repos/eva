@@ -1,0 +1,127 @@
+<template>
+  <GlobalWindow
+    :title="title"
+    :visible.sync="visible"
+    :confirm-working="isWorking"
+    @confirm="confirm"
+  >
+    <el-form :model="form" ref="operaTableDataForm" :rules="rules">
+      <el-form-item label="角色编码" prop="code" required>
+        <el-input v-model="form.code"></el-input>
+      </el-form-item>
+      <el-form-item label="角色名称" prop="name" required>
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="角色备注" prop="remark">
+        <el-input v-model="form.remark"></el-input>
+      </el-form-item>
+    </el-form>
+  </GlobalWindow>
+</template>
+
+<script>
+import GlobalWindow from '../common/GlobalWindow'
+import { create, updateById } from '../../api/system/role'
+export default {
+  name: 'OperaRoleWindow',
+  components: { GlobalWindow },
+  data () {
+    return {
+      title: '',
+      visible: false,
+      isWorking: false,
+      // 表单数据
+      form: {
+        id: null,
+        code: '',
+        name: '',
+        remark: ''
+      },
+      // 验证规则
+      rules: {
+        code: [
+          { required: true, message: '请输入角色编码' }
+        ],
+        name: [
+          { required: true, message: '请输入角色名称' }
+        ]
+      }
+    }
+  },
+  methods: {
+    /**
+     * @title 窗口标题
+     * @target 编辑的角色对象
+     */
+    open (title, target) {
+      this.title = title
+      this.visible = true
+      // 新建
+      if (target == null) {
+        this.$nextTick(() => {
+          this.$refs.form.resetFields()
+        })
+        return
+      }
+      // 编辑
+      this.$nextTick(() => {
+        for (const key in this.form) {
+          this.form[key] = target[key]
+        }
+      })
+    },
+    // 确认新建/修改
+    confirm () {
+      if (this.form.id == null) {
+        this.__confirmCreate()
+        return
+      }
+      this.__confirmEdit()
+    },
+    // 确定新建
+    __confirmCreate () {
+      this.$refs.operaTableDataForm.validate((valid) => {
+        if (!valid) {
+          return
+        }
+        // 调用新建接口
+        this.isWorking.operaTable = true
+        create(this.form)
+          .then(() => {
+            this.visible = false
+            this.$message.success('新建成功')
+            this.$emit('create-success')
+          })
+          .catch(e => {
+            this.$message.error(e.message)
+          })
+          .finally(() => {
+            this.isWorking.operaTable = false
+          })
+      })
+    },
+    // 确认修改
+    __confirmEdit () {
+      this.$refs.operaTableDataForm.validate((valid) => {
+        if (!valid) {
+          return
+        }
+        // 调用新建接口
+        this.isWorking.operaTable = true
+        updateById(this.form)
+          .then(() => {
+            this.visible = false
+            this.$message.success('修改成功')
+            this.$emit('edit-success')
+          })
+          .catch(e => {
+            this.$message.error(e.message)
+          })
+          .finally(() => {
+            this.isWorking.operaTable = false
+          })
+      })
+    }
+  }
+}
+</script>

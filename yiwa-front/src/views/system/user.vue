@@ -78,22 +78,11 @@
       </pagination>
     </template>
     <!-- 新建/修改 -->
-    <OperaUserWindow
-      ref="operaUserWindow"
-      @create-success="search"
-      @edit-success="search"
-    />
+    <OperaUserWindow ref="operaUserWindow" @create-success="search" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 配置角色 -->
-    <RoleConfigWindow
-      ref="roleConfigWindow"
-      @success="search"
-    />
+    <RoleConfigWindow ref="roleConfigWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 重置密码 -->
-    <ResetPwdWindow
-      ref="resetPwdWindow"
-      :visible.sync="visible.resetPwd"
-      :user="resetPwdData.user"
-    />
+    <ResetPwdWindow ref="resetPwdWindow"/>
   </TableLayout>
 </template>
 

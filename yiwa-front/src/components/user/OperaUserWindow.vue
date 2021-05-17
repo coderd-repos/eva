@@ -54,7 +54,7 @@ export default {
   components: { GlobalWindow },
   data () {
     return {
-      title: '新建用户',
+      title: '',
       visible: false,
       isWorking: false,
       // 表单数据
@@ -99,22 +99,22 @@ export default {
   methods: {
     /**
      * @title 窗口标题
-     * @user 编辑的用户对象
+     * @target 编辑的用户对象
      */
-    open (title, user) {
+    open (title, target) {
       this.title = title
       this.visible = true
-      // 新建用户
-      if (user == null) {
+      // 新建
+      if (target == null) {
         this.$nextTick(() => {
           this.$refs.form.resetFields()
         })
         return
       }
-      // 编辑用户
+      // 编辑
       this.$nextTick(() => {
         for (const key in this.form) {
-          this.form[key] = user[key]
+          this.form[key] = target[key]
         }
       })
     },
