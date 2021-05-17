@@ -30,7 +30,7 @@
       <result column="UPDATE_USER_NAME" property="username"/>
     </association>
   </resultMap>
-  <select id="selectList" resultMap="SystemMenuListVO">
+  <select id="selectManageList" resultMap="SystemMenuListVO">
     SELECT
       menu.`ID`, menu.`PARENT_ID`, menu.`NAME`, menu.`PATH`, menu.`REMARK`, menu.`DISABLED`, menu.SORT, menu.`ICON`, menu.`CREATE_TIME`, menu.`UPDATE_TIME`, menu.`CREATE_USER`, menu.`UPDATE_USER`, menu.`DELETED`,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,

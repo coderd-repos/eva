@@ -2,6 +2,7 @@ package com.yiwa.biz.impl;
 
 import com.yiwa.biz.SystemMenuBiz;
 import com.yiwa.dao.system.dto.UpdateSystemMenuSortDTO;
+import com.yiwa.dao.system.model.SystemDepartment;
 import com.yiwa.dao.system.model.SystemMenu;
 import com.yiwa.dao.system.vo.SystemMenuListVO;
 import com.yiwa.dao.system.vo.SystemMenuNodeVO;
@@ -20,6 +21,17 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
     private SystemMenuService systemMenuService;
 
     @Override
+    public Integer create(SystemMenu systemMenu) {
+        // 统计上级菜单下子菜单数量
+        SystemMenu countDto = new SystemMenu();
+        countDto.setParentId(systemMenu.getParentId());
+        long subMenuCount = systemMenuService.count(countDto);
+        // 设置新建部门的顺序
+        systemMenu.setSort(Integer.valueOf("" + subMenuCount));
+        return systemMenuService.create(systemMenu);
+    }
+
+    @Override
     public void updateSort(UpdateSystemMenuSortDTO dto) {
         SystemMenu currentMenu = systemMenuService.findById(dto.getId());
         List<SystemMenu> menuPool;
@@ -30,7 +42,13 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
             queryDto.setParentId(currentMenu.getParentId());
             menuPool = systemMenuService.findList(queryDto);
         }
-        int currentMenuIndex = menuPool.indexOf(currentMenu);
+        int currentMenuIndex = 0;
+        for (int i = 0; i < menuPool.size(); i++) {
+            if (menuPool.get(i).getId().equals(dto.getId())) {
+                currentMenuIndex = i;
+                break;
+            }
+        }
         // 上移
         if ("top".equals(dto.getDirection())) {
             if (currentMenuIndex - 1 < 0) {

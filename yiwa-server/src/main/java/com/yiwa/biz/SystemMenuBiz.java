@@ -1,6 +1,7 @@
 package com.yiwa.biz;
 
 import com.yiwa.dao.system.dto.UpdateSystemMenuSortDTO;
+import com.yiwa.dao.system.model.SystemMenu;
 import com.yiwa.dao.system.vo.SystemMenuListVO;
 import com.yiwa.dao.system.vo.SystemMenuNodeVO;
 
@@ -12,6 +13,13 @@ import java.util.List;
  * @date 2021-03-30 10:51
  */
 public interface SystemMenuBiz {
+
+    /**
+     * 创建
+     * @author Caesar Liu
+     * @date 2021-05-17 11:51
+     */
+    Integer create(SystemMenu systemMenu);
 
     /**
      * 菜单排序

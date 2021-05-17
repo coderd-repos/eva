@@ -19,7 +19,7 @@ public class SystemDepartmentBizImpl implements SystemDepartmentBiz {
 
     @Override
     public Integer create(SystemDepartment department) {
-        // 统计上级部门下部门数量
+        // 统计上级部门下子部门数量
         SystemDepartment countDto = new SystemDepartment();
         countDto.setParentId(department.getParentId());
         long subDeptCount = systemDepartmentService.count(countDto);

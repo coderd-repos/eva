@@ -13,7 +13,7 @@ public interface SystemMenuMapper extends BaseMapper<SystemMenu> {
      * @author Caesar Liu
      * @date 2021-03-30 20:16
      */
-    List<SystemMenuListVO> selectList();
+    List<SystemMenuListVO> selectManageList();
 
     /**
      * 根据用户ID查询

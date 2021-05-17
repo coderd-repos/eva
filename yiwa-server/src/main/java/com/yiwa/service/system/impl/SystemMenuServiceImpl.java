@@ -77,7 +77,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
     @Override
     public List<SystemMenuListVO> findList() {
-        return systemMenuMapper.selectList();
+        return systemMenuMapper.selectManageList();
     }
 
     @Override

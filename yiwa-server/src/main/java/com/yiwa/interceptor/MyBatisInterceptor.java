@@ -82,16 +82,22 @@ public class MyBatisInterceptor implements Interceptor {
      */
     private void handleOperaStatement(Object target, String... fieldNames) throws Exception{
         // 操作时间
-        Field operaTimeField = target.getClass().getDeclaredField(fieldNames[0]);
-        Object operaTime = this.getFieldValue(operaTimeField, target);
-        if(operaTime == null) {
-            this.setFieldValue(operaTimeField, target, new Date());
+        try {
+            Field operaTimeField = target.getClass().getDeclaredField(fieldNames[0]);
+            Object operaTime = this.getFieldValue(operaTimeField, target);
+            if(operaTime == null) {
+                this.setFieldValue(operaTimeField, target, new Date());
+            }
+        } catch (NoSuchFieldException e) {
         }
         // 操作人
-        Field operaUserField = target.getClass().getDeclaredField(fieldNames[1]);
-        Object operaUser = this.getFieldValue(operaUserField, target);
-        if(operaUser == null) {
-            this.setFieldValue(operaUserField, target, this.getLoginUser().getId());
+        try {
+            Field operaUserField = target.getClass().getDeclaredField(fieldNames[1]);
+            Object operaUser = this.getFieldValue(operaUserField, target);
+            if(operaUser == null) {
+                this.setFieldValue(operaUserField, target, this.getLoginUser().getId());
+            }
+        } catch (NoSuchFieldException e) {
         }
     }
 
