@@ -1,6 +1,6 @@
 <template>
   <GlobalWindow
-    title="字典数据管理"
+    :title="dictName + '数据管理'"
     width="78%"
     :visible.sync="visible.dataManager"
     :with-footer="false"
@@ -80,12 +80,13 @@ import TableLayout from '../../layouts/TableLayout'
 import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/systemDictData'
 import BaseTable from '../../views/BaseTable'
 export default {
-  name: 'SystemDictDataManager',
+  name: 'DictDataManager',
   extends: BaseTable,
   components: { TableLayout, GlobalWindow, Pagination },
   data () {
     return {
       dictId: null,
+      dictName: '',
       visible: {
         dataManager: false
       },
@@ -117,8 +118,9 @@ export default {
   },
   methods: {
     // 打开数据管理
-    open (dictId) {
+    open (dictId, dictName) {
       this.dictId = dictId
+      this.dictName = dictName
       this.visible.dataManager = true
       this.search()
     },

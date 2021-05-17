@@ -77,7 +77,7 @@
       </el-form>
     </GlobalWindow>
     <!-- 数据管理 -->
-    <SystemDictDataManager ref="dataManager" :visible.sync="visible.dataManager"/>
+    <DictDataManager ref="dataManager" :visible.sync="visible.dataManager"/>
   </TableLayout>
 </template>
 
@@ -87,11 +87,11 @@ import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
 import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/systemDict'
 import BaseTable from '../BaseTable'
-import SystemDictDataManager from '../../components/dict/DataManager'
+import DictDataManager from '../../components/dict/DictDataManager'
 export default {
   name: 'SystemDict',
   extends: BaseTable,
-  components: { SystemDictDataManager, TableLayout, GlobalWindow, Pagination },
+  components: { DictDataManager, TableLayout, GlobalWindow, Pagination },
   data () {
     return {
       // 搜索
@@ -251,7 +251,7 @@ export default {
     },
     // 数据管理
     openDataManager (row) {
-      this.$refs.dataManager.open(row.id)
+      this.$refs.dataManager.open(row.id, row.name)
     },
     // 页码变更处理
     handlePageChange (pageIndex) {
