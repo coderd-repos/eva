@@ -45,7 +45,7 @@
         >
           <template slot-scope="{row}">
             <el-button type="text" @click="$refs.operaDictWindow.open('编辑字典', row)" icon="el-icon-edit" v-permissions="['system:dict:update']">编辑</el-button>
-            <el-button type="text" @click="$refs.dataManager.open(row.id, row.name)" icon="el-icon-edit" v-permissions="['system:dict:update']">数据管理</el-button>
+            <el-button type="text" @click="$refs.dictDataManagerWindow.open(row.id, row.name)" icon="el-icon-edit" v-permissions="['system:dict:update']">数据管理</el-button>
             <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:dict:delete']">删除</el-button>
           </template>
         </el-table-column>
@@ -60,7 +60,7 @@
     <!-- 新建/修改 -->
     <OperaDictWindow ref="operaDictWindow" @create-success="search" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 数据管理 -->
-    <DictDataManager ref="dataManager"/>
+    <DictDataManagerWindow ref="dictDataManagerWindow"/>
   </TableLayout>
 </template>
 
@@ -69,12 +69,12 @@ import Pagination from '../../components/common/Pagination'
 import TableLayout from '../../layouts/TableLayout'
 import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/dict'
 import BaseTable from '../BaseTable'
-import DictDataManager from '../../components/dict/DictDataManager'
 import OperaDictWindow from '../../components/dict/OperaDictWindow'
+import DictDataManagerWindow from '../../components/dict/DictDataManagerWindow'
 export default {
   name: 'SystemDict',
   extends: BaseTable,
-  components: { OperaDictWindow, DictDataManager, TableLayout, Pagination },
+  components: { DictDataManagerWindow, OperaDictWindow, TableLayout, Pagination },
   data () {
     return {
       // 搜索

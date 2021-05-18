@@ -6,14 +6,8 @@
     @confirm="confirm"
   >
     <el-form :model="form" ref="form" :rules="rules">
-      <el-form-item label="权限CODE" prop="code" required>
-        <el-input v-model="form.code"></el-input>
-      </el-form-item>
-      <el-form-item label="权限名称" prop="name" required>
-        <el-input v-model="form.name"></el-input>
-      </el-form-item>
-      <el-form-item label="权限备注" prop="remark">
-        <el-input v-model="form.remark"></el-input>
+      <el-form-item label="岗位名称" prop="name" required>
+        <el-input v-model="form.name" placeholder="请输入岗位名称"/>
       </el-form-item>
     </el-form>
   </GlobalWindow>
@@ -21,9 +15,9 @@
 
 <script>
 import GlobalWindow from '../common/GlobalWindow'
-import { create, updateById } from '../../api/system/permission'
+import { create, updateById } from '../../api/system/position'
 export default {
-  name: 'OperaPermissionWindow',
+  name: 'OperaPositionWindow',
   components: { GlobalWindow },
   data () {
     return {
@@ -33,17 +27,12 @@ export default {
       // 表单数据
       form: {
         id: null,
-        code: '',
-        name: '',
-        remark: ''
+        name: ''
       },
       // 验证规则
       rules: {
-        code: [
-          { required: true, message: '请输入权限编码' }
-        ],
         name: [
-          { required: true, message: '请输入权限名称' }
+          { required: true, message: '请输入岗位名称' }
         ]
       }
     }
@@ -51,7 +40,7 @@ export default {
   methods: {
     /**
      * @title 窗口标题
-     * @target 编辑的权限对象
+     * @target 编辑的岗位对象
      */
     open (title, target) {
       this.title = title
@@ -73,7 +62,7 @@ export default {
     },
     // 确认新建/修改
     confirm () {
-      if (this.form.id == null) {
+      if (this.form.id == null || this.form.id === '') {
         this.__confirmCreate()
         return
       }

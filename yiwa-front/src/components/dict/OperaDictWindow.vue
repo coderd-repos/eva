@@ -81,7 +81,7 @@ export default {
     },
     // 确定新建
     __confirmCreate () {
-      this.$refs.operaTableDataForm.validate((valid) => {
+      this.$refs.form.validate((valid) => {
         if (!valid) {
           return
         }
@@ -103,7 +103,7 @@ export default {
     },
     // 确认修改
     __confirmEdit () {
-      this.$refs.operaTableDataForm.validate((valid) => {
+      this.$refs.form.validate((valid) => {
         if (!valid) {
           return
         }

@@ -13,7 +13,7 @@
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:position:create', 'system:position:delete']">
-        <li><el-button type="primary" @click="create" icon="el-icon-plus" v-permissions="['system:position:create']">新建</el-button></li>
+        <li><el-button type="primary" @click="$refs.operaPositionWindow.open('新建岗位')" icon="el-icon-plus" v-permissions="['system:position:create']">新建</el-button></li>
         <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete" v-permissions="['system:position:delete']">删除</el-button></li>
       </ul>
       <el-table
@@ -40,8 +40,8 @@
           fixed="right"
         >
           <template slot-scope="{row}">
-            <el-button type="text" @click="edit(row)" icon="el-icon-edit" v-permissions="['system:position:update']">编辑</el-button>
-            <el-button type="text" @click="openUserManager(row)" icon="el-icon-user-solid" v-permissions="['system:position:query']">人员管理</el-button>
+            <el-button type="text" @click="$refs.operaPositionWindow.open('编辑岗位', row)" icon="el-icon-edit" v-permissions="['system:position:update']">编辑</el-button>
+            <el-button type="text" @click="$refs.userManagerWindow.open(row.id, row.name)" icon="el-icon-user-solid" v-permissions="['system:position:query']">人员管理</el-button>
             <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:position:delete']">删除</el-button>
           </template>
         </el-table-column>
@@ -54,18 +54,7 @@
       </pagination>
     </template>
     <!-- 新建/修改 -->
-    <GlobalWindow
-      :title="operaTableData.title"
-      :visible.sync="visible.operaTable"
-      :confirm-working="isWorking.create"
-      @confirm="confirm"
-    >
-      <el-form :model="operaTableData.form" ref="operaTableDataForm" :rules="operaTableData.rules">
-        <el-form-item label="岗位名称" prop="name" required>
-          <el-input v-model="operaTableData.form.name" placeholder="请输入岗位名称"></el-input>
-        </el-form-item>
-      </el-form>
-    </GlobalWindow>
+    <OperaPositionWindow ref="operaPositionWindow" @create-success="search" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 人员管理 -->
     <UserManagerWindow ref="userManagerWindow"/>
   </TableLayout>
@@ -73,120 +62,24 @@
 
 <script>
 import Pagination from '../../components/common/Pagination'
-import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/position'
+import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/position'
 import BaseTable from '../BaseTable'
 import UserManagerWindow from '../../components/position/UserManagerWindow'
+import OperaPositionWindow from '../../components/position/OperaPositionWindow'
 export default {
   name: 'SystemPosition',
   extends: BaseTable,
-  components: { UserManagerWindow, TableLayout, GlobalWindow, Pagination },
+  components: { OperaPositionWindow, UserManagerWindow, TableLayout, Pagination },
   data () {
     return {
       // 搜索
       searchForm: {
         name: ''
-      },
-      // 新增/修改
-      operaTableData: {
-        title: '新建系统权限',
-        // 表单数据
-        form: {
-          id: null,
-          name: ''
-        },
-        // 验证规则
-        rules: {
-          name: [
-            { required: true, message: '请输入岗位名称' }
-          ]
-        }
-      },
-      // 人员管理
-      userManageData: {
-        searchForm: {
-          username: '',
-          realname: '',
-          mobile: ''
-        },
-        list: [],
-        pagination: {}
       }
     }
   },
   methods: {
-    // 确认新建/修改
-    confirm () {
-      if (this.operaTableData.form.id == null || this.operaTableData.form.id === '') {
-        this.confirmCreate()
-        return
-      }
-      this.confirmEdit()
-    },
-    // 新建
-    create () {
-      this.visible.operaTable = true
-      this.operaTableData.title = '新建岗位'
-      this.$nextTick(() => {
-        this.operaTableData.form.id = ''
-        this.$refs.operaTableDataForm.resetFields()
-      })
-    },
-    // 确定新建
-    confirmCreate () {
-      this.$refs.operaTableDataForm.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking.operaTable = true
-        create(this.operaTableData.form)
-          .then(() => {
-            this.visible.operaTable = false
-            this.handlePageChange(1)
-            this.$message.success('新建成功')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.operaTable = false
-          })
-      })
-    },
-    // 编辑
-    edit (row) {
-      this.operaTableData.title = '修改岗位'
-      this.visible.operaTable = true
-      this.$nextTick(() => {
-        for (const key in this.operaTableData.form) {
-          this.operaTableData.form[key] = row[key]
-        }
-      })
-    },
-    // 确认修改
-    confirmEdit () {
-      this.$refs.operaTableDataForm.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking.operaTable = true
-        updateById(this.operaTableData.form)
-          .then(() => {
-            this.visible.operaTable = false
-            this.search()
-            this.$message.success('修改成功')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.operaTable = false
-          })
-      })
-    },
     // 删除
     deleteById (id) {
       this.$confirm('确认删除此岗位吗?', '提示', {
@@ -242,10 +135,6 @@ export default {
             this.isWorking.delete = false
           })
       })
-    },
-    // 人员管理
-    openUserManager (row) {
-      this.$refs.userManagerWindow.open(row.id, row.name)
     },
     // 页码变更处理
     handlePageChange (pageIndex) {

@@ -80,7 +80,7 @@ import TableLayout from '../../layouts/TableLayout'
 import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/dictData'
 import BaseTable from '../../views/BaseTable'
 export default {
-  name: 'DictDataManager',
+  name: 'DictDataManagerWindow',
   extends: BaseTable,
   components: { TableLayout, GlobalWindow, Pagination },
   data () {
@@ -144,7 +144,7 @@ export default {
     },
     // 确定新建
     confirmCreate () {
-      this.$refs.operaTableDataForm.validate((valid) => {
+      this.$refs.form.validate((valid) => {
         if (!valid) {
           return
         }
@@ -176,7 +176,7 @@ export default {
     },
     // 确认修改
     confirmEdit () {
-      this.$refs.operaTableDataForm.validate((valid) => {
+      this.$refs.form.validate((valid) => {
         if (!valid) {
           return
         }
