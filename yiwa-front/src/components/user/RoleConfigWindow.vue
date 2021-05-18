@@ -66,9 +66,9 @@ export default {
         roleIds: this.selectedIds
       })
         .then(() => {
-          this.$emit('success')
           this.$message.success('角色配置成功')
-          this.close()
+          this.visible = false
+          this.$emit('success')
         })
         .catch(e => {
           this.$message.error(e.message)

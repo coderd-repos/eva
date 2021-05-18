@@ -137,7 +137,7 @@ export default {
         this.isWorking = true
         create(this.form)
           .then(() => {
-            this.close()
+            this.visible = false
             this.$message.success('新建成功')
             this.$emit('edit-success')
           })
@@ -159,7 +159,7 @@ export default {
         this.isWorking = true
         updateById(this.form)
           .then(() => {
-            this.close()
+            this.visible = false
             this.$message.success('修改成功')
             this.$emit('create-success')
           })

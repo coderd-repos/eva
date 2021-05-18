@@ -86,7 +86,7 @@ export default {
           return
         }
         // 调用新建接口
-        this.isWorking.operaTable = true
+        this.isWorking = true
         create(this.form)
           .then(() => {
             this.visible = false
@@ -97,7 +97,7 @@ export default {
             this.$message.error(e.message)
           })
           .finally(() => {
-            this.isWorking.operaTable = false
+            this.isWorking = false
           })
       })
     },
@@ -108,7 +108,7 @@ export default {
           return
         }
         // 调用新建接口
-        this.isWorking.operaTable = true
+        this.isWorking = true
         updateById(this.form)
           .then(() => {
             this.visible = false
@@ -119,7 +119,7 @@ export default {
             this.$message.error(e.message)
           })
           .finally(() => {
-            this.isWorking.operaTable = false
+            this.isWorking = false
           })
       })
     }

@@ -60,7 +60,8 @@ export default {
         })
           .then(() => {
             this.$message.success('密码重置成功')
-            this.close()
+            this.visible = false
+            this.$emit('success')
           })
           .catch(e => {
             this.$message.error(e.message)
