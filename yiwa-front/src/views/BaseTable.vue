@@ -6,15 +6,8 @@ export default {
   extends: BasePage,
   data () {
     return {
-      // 是否展示
-      visible: {
-        // 新建/修改数据窗口
-        operaTable: false
-      },
       // 是否正在执行
       isWorking: {
-        // 新建/修改中
-        operaTable: false,
         // 搜索中
         search: false,
         // 删除中

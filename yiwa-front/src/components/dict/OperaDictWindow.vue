@@ -1,0 +1,132 @@
+<template>
+  <GlobalWindow
+    :title="title"
+    :visible.sync="visible"
+    :confirm-working="isWorking"
+    @confirm="confirm"
+  >
+    <el-form :model="form" ref="form" :rules="rules">
+      <el-form-item label="字典编码" prop="code" required>
+        <el-input v-model="form.code" placeholder="请输入字典编码"></el-input>
+      </el-form-item>
+      <el-form-item label="字典名称" prop="name" required>
+        <el-input v-model="form.name" placeholder="请输入字典名称"></el-input>
+      </el-form-item>
+      <el-form-item label="备注" prop="remark">
+        <el-input v-model="form.remark" placeholder="请输入备注"></el-input>
+      </el-form-item>
+    </el-form>
+  </GlobalWindow>
+</template>
+
+<script>
+import { create, updateById } from '../../api/system/dict'
+import GlobalWindow from '../common/GlobalWindow'
+export default {
+  name: 'OperaDictWindow',
+  components: { GlobalWindow },
+  data () {
+    return {
+      title: '',
+      visible: false,
+      isWorking: false,
+      // 表单数据
+      form: {
+        id: null,
+        code: '',
+        name: '',
+        remark: ''
+      },
+      // 验证规则
+      rules: {
+        code: [
+          { required: true, message: '请输入字典编码' }
+        ],
+        name: [
+          { required: true, message: '请输入字典名称' }
+        ]
+      }
+    }
+  },
+  methods: {
+    /**
+     * @title 窗口标题
+     * @target 编辑的字典对象
+     */
+    open (title, target) {
+      this.title = title
+      this.visible = true
+      // 新建
+      if (target == null) {
+        this.$nextTick(() => {
+          this.$refs.form.resetFields()
+          this.form.id = null
+        })
+        return
+      }
+      // 编辑
+      this.$nextTick(() => {
+        for (const key in this.form) {
+          this.form[key] = target[key]
+        }
+      })
+    },
+    // 确认新建/修改
+    confirm () {
+      if (this.form.id == null || this.form.id === '') {
+        this.__confirmCreate()
+        return
+      }
+      this.__confirmEdit()
+    },
+    // 确定新建
+    __confirmCreate () {
+      this.$refs.operaTableDataForm.validate((valid) => {
+        if (!valid) {
+          return
+        }
+        // 调用新建接口
+        this.isWorking = true
+        create(this.form)
+          .then(() => {
+            this.visible = false
+            this.handlePageChange(1)
+            this.$message.success('新建成功')
+          })
+          .catch(e => {
+            this.$message.error(e.message)
+          })
+          .finally(() => {
+            this.isWorking = false
+          })
+      })
+    },
+    // 确认修改
+    __confirmEdit () {
+      this.$refs.operaTableDataForm.validate((valid) => {
+        if (!valid) {
+          return
+        }
+        // 调用新建接口
+        this.isWorking = true
+        updateById(this.form)
+          .then(() => {
+            this.visible = false
+            this.search()
+            this.$message.success('修改成功')
+          })
+          .catch(e => {
+            this.$message.error(e.message)
+          })
+          .finally(() => {
+            this.isWorking = false
+          })
+      })
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>
