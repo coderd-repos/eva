@@ -58,7 +58,7 @@
       </pagination>
     </template>
     <!-- 新建/修改 -->
-    <OperaDictWindow ref="operaDictWindow"/>
+    <OperaDictWindow ref="operaDictWindow" @create-success="search" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 数据管理 -->
     <DictDataManager ref="dataManager"/>
   </TableLayout>

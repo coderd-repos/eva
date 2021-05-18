@@ -3,7 +3,7 @@
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:department:create', 'system:department:delete']">
-        <li><el-button type="primary" @click="create" icon="el-icon-plus" v-permissions="['system:department:create']">新建</el-button></li>
+        <li><el-button type="primary" @click="$refs.operaDepartmentWindow.open('新建部门', null, null, tableData.list)" icon="el-icon-plus" v-permissions="['system:department:create']">新建</el-button></li>
         <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete" v-permissions="['system:department:delete']">删除</el-button></li>
       </ul>
       <el-table
@@ -34,157 +34,36 @@
           fixed="right"
         >
           <template slot-scope="{row}">
-            <el-button type="text" @click="edit(row)" icon="el-icon-edit" v-permissions="['system:department:update']">编辑</el-button>
-            <el-button type="text" @click="create(row)" icon="el-icon-edit" v-permissions="['system:department:create']">新建子部门</el-button>
+            <el-button type="text" @click="$refs.operaDepartmentWindow.open('编辑部门', row, null, tableData.list)" icon="el-icon-edit" v-permissions="['system:department:update']">编辑</el-button>
+            <el-button type="text" @click="$refs.operaDepartmentWindow.open('新建下级部门', null, row, tableData.list)" icon="el-icon-edit" v-permissions="['system:department:create']">新建下级部门</el-button>
             <el-button v-if="row.parentId != null" type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:department:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </template>
     <!-- 新建/修改 -->
-    <GlobalWindow
-      :title="operaTableData.title"
-      :visible.sync="visible.operaTable"
-      :confirm-working="isWorking.create"
-      @confirm="confirm"
-    >
-      <el-form :model="operaTableData.form" ref="operaTableDataForm" :rules="operaTableData.rules">
-        <el-form-item v-if="operaTableData.form.id == null || operaTableData.form.parentId != null" label="上级部门" prop="parentId" required>
-          <TreeSelect v-model="operaTableData.form.parentId" :data="operaTableData.parentDepartmentList"/>
-        </el-form-item>
-        <el-form-item label="部门名称" prop="name" required>
-          <el-input v-model="operaTableData.form.name" placeholder="请输入部门名称"></el-input>
-        </el-form-item>
-        <el-form-item label="联系电话" prop="phone">
-          <el-input v-model="operaTableData.form.phone" placeholder="请输入联系电话"></el-input>
-        </el-form-item>
-        <el-form-item label="部门邮箱" prop="email">
-          <el-input v-model="operaTableData.form.email" placeholder="请输入部门邮箱"></el-input>
-        </el-form-item>
-      </el-form>
-    </GlobalWindow>
+    <OperaDepartmentWindow ref="operaDepartmentWindow"/>
   </TableLayout>
 </template>
 
 <script>
-import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/department'
+import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/department'
 import BaseTable from '../BaseTable'
-import TreeSelect from '../../components/common/TreeSelect'
+import OperaDepartmentWindow from '../../components/department/OperaDepartmentWindow'
 export default {
   name: 'SystemDepartment',
   extends: BaseTable,
-  components: { TreeSelect, TableLayout, GlobalWindow },
+  components: { OperaDepartmentWindow, TableLayout },
   data () {
     return {
       // 搜索
       searchForm: {
         name: ''
-      },
-      // 新增/修改
-      operaTableData: {
-        title: '新建系统权限',
-        // 父部门数据
-        parentDepartmentList: [],
-        // 表单数据
-        form: {
-          id: null,
-          parentId: null,
-          name: '',
-          phone: '',
-          email: ''
-        },
-        // 验证规则
-        rules: {
-          name: [
-            { required: true, message: '请输入部门名称' }
-          ]
-        }
       }
     }
   },
   methods: {
-    // 确认新建/修改
-    confirm () {
-      if (this.operaTableData.form.id == null || this.operaTableData.form.id === '') {
-        this.confirmCreate()
-        return
-      }
-      this.confirmEdit()
-    },
-    // 新建
-    create (row = {}) {
-      this.visible.operaTable = true
-      this.operaTableData.title = '新建部门'
-      // 填充上级部门数据
-      this.operaTableData.parentDepartmentList = []
-      this.__fillParentDepartmentList(this.operaTableData.parentDepartmentList, this.tableData.list)
-      this.$nextTick(() => {
-        this.$refs.operaTableDataForm.resetFields()
-        // 清空ID
-        this.operaTableData.form.id = ''
-        // 选中上级部门
-        this.operaTableData.form.parentId = row.id || this.operaTableData.parentDepartmentList[0].id
-      })
-    },
-    // 确定新建
-    confirmCreate () {
-      this.$refs.operaTableDataForm.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking.operaTable = true
-        create(this.operaTableData.form)
-          .then(() => {
-            this.visible.operaTable = false
-            this.handlePageChange(1)
-            this.$message.success('新建成功')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.operaTable = false
-          })
-      })
-    },
-    // 编辑
-    edit (row) {
-      this.operaTableData.title = '修改'
-      this.visible.operaTable = true
-      // 填充上级部门数据
-      this.operaTableData.parentDepartmentList = []
-      this.__fillParentDepartmentList(this.operaTableData.parentDepartmentList, this.tableData.list, row.id)
-      this.$nextTick(() => {
-        for (const key in this.operaTableData.form) {
-          this.operaTableData.form[key] = row[key]
-        }
-      })
-    },
-    // 确认修改
-    confirmEdit () {
-      this.$refs.operaTableDataForm.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking.operaTable = true
-        updateById(this.operaTableData.form)
-          .then(() => {
-            this.visible.operaTable = false
-            this.search()
-            this.$message.success('修改成功')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.operaTable = false
-          })
-      })
-    },
     // 删除
     deleteById (id) {
       this.$confirm('确认删除此吗?', '提示', {
@@ -256,23 +135,6 @@ export default {
         .finally(() => {
           this.isWorking.search = false
         })
-    },
-    // 获取上级部门列表
-    __fillParentDepartmentList (list, pool, excludeId) {
-      for (const dept of pool) {
-        if (dept.id === excludeId) {
-          continue
-        }
-        const deptNode = {
-          id: dept.id,
-          label: dept.name,
-          children: []
-        }
-        list.push(deptNode)
-        if (dept.children != null && dept.children.length > 0) {
-          this.__fillParentDepartmentList(deptNode.children, dept.children, excludeId)
-        }
-      }
     }
   },
   created () {

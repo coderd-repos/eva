@@ -58,7 +58,7 @@
       </pagination>
     </template>
     <!-- 新建/修改 -->
-    <OperaPermissionWindow ref="operaPermissionWindow"/>
+    <OperaPermissionWindow ref="operaPermissionWindow" @create-success="search" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
   </TableLayout>
 </template>
 
