@@ -3,7 +3,7 @@
     <!-- 搜索表单 -->
     <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="100px" inline>
       <el-form-item label="岗位名称" prop="name">
-        <el-input v-model="searchForm.name" placeholder="请输入岗位名称" @keypress.enter.native="search"></el-input>
+        <el-input v-model="searchForm.name" v-trim placeholder="请输入岗位名称" @keypress.enter.native="search"/>
       </el-form-item>
       <section>
         <el-button type="primary" @click="search">搜索</el-button>

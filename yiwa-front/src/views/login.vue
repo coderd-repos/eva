@@ -8,8 +8,8 @@
     <div class="login">
       <h1>系统登录&nbsp;/&nbsp;LOGIN IN</h1>
       <div class="info-input">
-        <el-input placeholder="请输入您的账号" v-model="username"></el-input>
-        <el-input placeholder="请输入您的密码" v-model="password" @keypress.enter.native="login" type="password" show-password></el-input>
+        <el-input placeholder="请输入您的账号" v-model="username" v-trim/>
+        <el-input placeholder="请输入您的密码" v-model="password" @keypress.enter.native="login" type="password" show-password/>
       </div>
       <el-button :loading="loading" @click="login">登&nbsp;&nbsp;录</el-button>
     </div>

@@ -2,9 +2,7 @@ import request from '../../utils/request'
 
 // 查询
 export function fetchList (data) {
-  return request.post('/system/permission/page', data, {
-    trim: true
-  })
+  return request.post('/system/permission/page', data)
 }
 
 // 新建

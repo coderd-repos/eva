@@ -2,9 +2,7 @@ import request from '../../utils/request'
 
 // 查询
 export function fetchList (data) {
-  return request.post('/system/role/page', data, {
-    trim: true
-  })
+  return request.post('/system/role/page', data)
 }
 
 // 查询所有

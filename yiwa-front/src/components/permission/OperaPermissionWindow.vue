@@ -7,13 +7,13 @@
   >
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="权限CODE" prop="code" required>
-        <el-input v-model="form.code"></el-input>
+        <el-input v-model="form.code" v-trim/>
       </el-form-item>
       <el-form-item label="权限名称" prop="name" required>
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.name" v-trim/>
       </el-form-item>
       <el-form-item label="权限备注" prop="remark">
-        <el-input v-model="form.remark"></el-input>
+        <el-input v-model="form.remark" v-trim/>
       </el-form-item>
     </el-form>
   </GlobalWindow>

@@ -3,10 +3,10 @@
     <!-- 搜索表单 -->
     <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="100px" inline>
       <el-form-item label="权限编码" prop="code">
-        <el-input v-model="searchForm.code" placeholder="请输入权限编码" @keypress.enter.native="search"></el-input>
+        <el-input v-model="searchForm.code" v-trim placeholder="请输入权限编码" @keypress.enter.native="search"/>
       </el-form-item>
       <el-form-item label="权限名称" prop="name">
-        <el-input v-model="searchForm.name" placeholder="请输入权限名称" @keypress.enter.native="search"></el-input>
+        <el-input v-model="searchForm.name" v-trim placeholder="请输入权限名称" @keypress.enter.native="search"/>
       </el-form-item>
       <section>
         <el-button type="primary" @click="search">搜索</el-button>

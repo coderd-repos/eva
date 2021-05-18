@@ -9,10 +9,10 @@
     <p class="tip" v-if="form.parent != null && form.id == null">为 <em>{{form.parent.name}}</em> 新建子菜单</p>
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="菜单名称" prop="name" required>
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.name" v-trim/>
       </el-form-item>
       <el-form-item label="访问路径" prop="path">
-        <el-input v-model="form.path"></el-input>
+        <el-input v-model="form.path" v-trim/>
       </el-form-item>
       <el-form-item label="图标" prop="icon" class="form-item-icon">
         <el-radio-group v-model="form.icon">
@@ -22,7 +22,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="备注" prop="remark">
-        <el-input type="textarea" v-model="form.remark"></el-input>
+        <el-input type="textarea" v-model="form.remark" v-trim :rows="3"/>
       </el-form-item>
     </el-form>
   </GlobalWindow>

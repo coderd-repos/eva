@@ -3,13 +3,13 @@
     <!-- 搜索表单 -->
     <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="80px" inline>
       <el-form-item label="用户名" prop="username">
-        <el-input v-model="searchForm.username" placeholder="请输入用户名" @keypress.enter.native="search"></el-input>
+        <el-input v-model="searchForm.username" v-trim placeholder="请输入用户名" @keypress.enter.native="search"/>
       </el-form-item>
       <el-form-item label="姓名" prop="realname">
-        <el-input v-model="searchForm.realname" placeholder="请输入姓名" @keypress.enter.native="search"></el-input>
+        <el-input v-model="searchForm.realname" v-trim placeholder="请输入姓名" @keypress.enter.native="search"/>
       </el-form-item>
       <el-form-item label="手机号码" prop="mobile">
-        <el-input v-model="searchForm.mobile" placeholder="请输入手机号码" @keypress.enter.native="search"></el-input>
+        <el-input v-model="searchForm.mobile" v-trim placeholder="请输入手机号码" @keypress.enter.native="search"/>
       </el-form-item>
       <section>
         <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
