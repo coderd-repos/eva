@@ -2,8 +2,8 @@
   <TableLayout v-permissions="['system:permission:query']">
     <!-- 搜索表单 -->
     <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="100px" inline>
-      <el-form-item label="权限CODE" prop="code">
-        <el-input v-model="searchForm.code" placeholder="请输入权限CODE" @keypress.enter.native="search"></el-input>
+      <el-form-item label="权限编码" prop="code">
+        <el-input v-model="searchForm.code" placeholder="请输入权限编码" @keypress.enter.native="search"></el-input>
       </el-form-item>
       <el-form-item label="权限名称" prop="name">
         <el-input v-model="searchForm.name" placeholder="请输入权限名称" @keypress.enter.native="search"></el-input>
@@ -16,7 +16,7 @@
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:permission:create', 'system:permission:delete']">
-        <li><el-button type="primary" @click="create" icon="el-icon-plus" v-permissions="['system:permission:create']">新建</el-button></li>
+        <li><el-button type="primary" @click="$refs.operaPermissionWindow.open('新建系统权限')" icon="el-icon-plus" v-permissions="['system:permission:create']">新建</el-button></li>
         <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete" v-permissions="['system:permission:delete']">删除</el-button></li>
       </ul>
       <el-table
@@ -45,7 +45,7 @@
           fixed="right"
         >
           <template slot-scope="{row}">
-            <el-button type="text" @click="edit(row)" icon="el-icon-edit" v-permissions="['system:permission:update']">编辑</el-button>
+            <el-button type="text" @click="$refs.operaPermissionWindow.open('编辑系统权限', row)" icon="el-icon-edit" v-permissions="['system:permission:update']">编辑</el-button>
             <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:permission:delete']">删除</el-button>
           </template>
         </el-table-column>
@@ -58,37 +58,20 @@
       </pagination>
     </template>
     <!-- 新建/修改 -->
-    <GlobalWindow
-      :title="operaTableData.title"
-      :visible.sync="visible.operaTable"
-      :confirm-working="isWorking.create"
-      @confirm="confirm"
-    >
-      <el-form :model="operaTableData.form" ref="operaTableDataForm" :rules="operaTableData.rules">
-        <el-form-item label="权限CODE" prop="code" required>
-          <el-input v-model="operaTableData.form.code"></el-input>
-        </el-form-item>
-        <el-form-item label="权限名称" prop="name" required>
-          <el-input v-model="operaTableData.form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="权限备注" prop="remark">
-          <el-input v-model="operaTableData.form.remark"></el-input>
-        </el-form-item>
-      </el-form>
-    </GlobalWindow>
+    <OperaPermissionWindow ref="operaPermissionWindow"/>
   </TableLayout>
 </template>
 
 <script>
 import Pagination from '../../components/common/Pagination'
-import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/permission'
+import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/permission'
 import BaseTable from '../BaseTable'
+import OperaPermissionWindow from '../../components/permission/OperaPermissionWindow'
 export default {
   name: 'SystemPermission',
   extends: BaseTable,
-  components: { TableLayout, GlobalWindow, Pagination },
+  components: { OperaPermissionWindow, TableLayout, Pagination },
   data () {
     return {
       // 搜索
@@ -96,98 +79,10 @@ export default {
         code: '',
         name: '',
         remark: ''
-      },
-      // 新增/修改
-      operaTableData: {
-        title: '新建系统权限',
-        // 表单数据
-        form: {
-          id: null,
-          code: '',
-          name: '',
-          remark: ''
-        },
-        // 验证规则
-        rules: {
-          code: [
-            { required: true, message: '请输入权限CODE', trigger: 'blur' }
-          ],
-          name: [
-            { required: true, message: '请输入权限名称', trigger: 'blur' }
-          ]
-        }
       }
     }
   },
   methods: {
-    // 确认新建/修改
-    confirm () {
-      if (this.operaTableData.form.id == null) {
-        this.confirmCreate()
-        return
-      }
-      this.confirmEdit()
-    },
-    // 新建
-    create () {
-      this.visible.operaTable = true
-      this.operaTableData.title = '新建权限'
-      this.$nextTick(() => {
-        this.$refs.operaTableDataForm.resetFields()
-      })
-    },
-    // 确定新建
-    confirmCreate () {
-      this.$refs.operaTableDataForm.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking.operaTable = true
-        create(this.operaTableData.form)
-          .then(() => {
-            this.visible.operaTable = false
-            this.handlePageChange(1)
-            this.$message.success('新建成功')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.operaTable = false
-          })
-      })
-    },
-    // 编辑
-    edit (row) {
-      this.operaTableData.title = '修改权限'
-      this.visible.operaTable = true
-      this.$nextTick(() => {
-        Object.assign(this.operaTableData.form, row)
-      })
-    },
-    // 确认修改
-    confirmEdit () {
-      this.$refs.operaTableDataForm.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking.operaTable = true
-        updateById(this.operaTableData.form)
-          .then(() => {
-            this.visible.operaTable = false
-            this.search()
-            this.$message.success('修改成功')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.operaTable = false
-          })
-      })
-    },
     // 删除
     deleteById (id) {
       this.$confirm('确认删除此权限吗?', '提示', {

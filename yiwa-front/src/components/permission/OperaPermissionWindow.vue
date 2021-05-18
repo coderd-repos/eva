@@ -6,13 +6,13 @@
     @confirm="confirm"
   >
     <el-form :model="form" ref="form" :rules="rules">
-      <el-form-item label="角色编码" prop="code" required>
+      <el-form-item label="权限CODE" prop="code" required>
         <el-input v-model="form.code"></el-input>
       </el-form-item>
-      <el-form-item label="角色名称" prop="name" required>
+      <el-form-item label="权限名称" prop="name" required>
         <el-input v-model="form.name"></el-input>
       </el-form-item>
-      <el-form-item label="角色备注" prop="remark">
+      <el-form-item label="权限备注" prop="remark">
         <el-input v-model="form.remark"></el-input>
       </el-form-item>
     </el-form>
@@ -21,9 +21,9 @@
 
 <script>
 import GlobalWindow from '../common/GlobalWindow'
-import { create, updateById } from '../../api/system/role'
+import { create, updateById } from '../../api/system/permission'
 export default {
-  name: 'OperaRoleWindow',
+  name: 'OperaPermissionWindow',
   components: { GlobalWindow },
   data () {
     return {
@@ -40,10 +40,10 @@ export default {
       // 验证规则
       rules: {
         code: [
-          { required: true, message: '请输入角色编码' }
+          { required: true, message: '请输入权限编码' }
         ],
         name: [
-          { required: true, message: '请输入角色名称' }
+          { required: true, message: '请输入权限名称' }
         ]
       }
     }
@@ -51,7 +51,7 @@ export default {
   methods: {
     /**
      * @title 窗口标题
-     * @target 编辑的角色对象
+     * @target 编辑的权限对象
      */
     open (title, target) {
       this.title = title
@@ -86,7 +86,7 @@ export default {
           return
         }
         // 调用新建接口
-        this.isWorking.operaTable = true
+        this.isWorking = true
         create(this.form)
           .then(() => {
             this.visible = false
@@ -97,7 +97,7 @@ export default {
             this.$message.error(e.message)
           })
           .finally(() => {
-            this.isWorking.operaTable = false
+            this.isWorking = false
           })
       })
     },
@@ -108,7 +108,7 @@ export default {
           return
         }
         // 调用新建接口
-        this.isWorking.operaTable = true
+        this.isWorking = true
         updateById(this.form)
           .then(() => {
             this.visible = false
@@ -119,7 +119,7 @@ export default {
             this.$message.error(e.message)
           })
           .finally(() => {
-            this.isWorking.operaTable = false
+            this.isWorking = false
           })
       })
     }
