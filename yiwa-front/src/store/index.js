@@ -7,7 +7,9 @@ const state = {
   userInfo: null,
   // 菜单
   menuData: {
+    // 菜单列表
     list: [],
+    // 是否收起
     collapse: false
   }
 }
