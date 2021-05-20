@@ -7,16 +7,6 @@
       <header>
         <AppHeader/>
       </header>
-      <nav v-if="routeCache.length > 0">
-        <Scrollbar>
-          <ul>
-            <li v-for="route of routeCache" :key="route.path">
-              <router-link :to="route.path">{{route.name}}</router-link>
-              <i class="el-icon-close"></i>
-            </li>
-          </ul>
-        </Scrollbar>
-      </nav>
       <main>
         <transition name="fade">
           <router-view></router-view>
@@ -27,18 +17,14 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 import Header from '../components/common/Header'
 import Menu from '../components/common/Menu'
-import Scrollbar from '../components/common/Scrollbar'
 export default {
   name: 'DefaultLayout',
-  components: { Scrollbar, AppHeader: Header, Menu },
+  components: { AppHeader: Header, Menu },
   computed: {
-    ...mapState(['menuData', 'routeCache'])
-  },
-  methods: {
-    ...mapMutations(['addRouteCache'])
+    ...mapState(['menuData'])
   }
 }
 </script>
