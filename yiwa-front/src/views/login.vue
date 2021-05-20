@@ -10,6 +10,10 @@
       <div class="info-input">
         <el-input placeholder="请输入您的账号" v-model="username" v-trim/>
         <el-input placeholder="请输入您的密码" v-model="password" @keypress.enter.native="login" type="password" show-password/>
+        <div class="captcha-input">
+          <el-input v-model="captcha" placeholder="图片验证码" maxlength="4"/>
+          <img :src="captchaUri" @click="refreshCaptcha">
+        </div>
       </div>
       <el-button :loading="loading" @click="login">登&nbsp;&nbsp;录</el-button>
     </div>
@@ -26,6 +30,8 @@ export default {
     return {
       username: '', // 账号输入框
       password: '', // 密码
+      captcha: '', // 验证码
+      captchaUri: '', // 验证码地址
       loading: false // 登录加载中
     }
   },
@@ -42,7 +48,8 @@ export default {
       this.loading = true
       loginByPassword({
         username: this.username,
-        password: this.password
+        password: this.password,
+        code: this.captcha
       })
         .then(data => {
           this.setUserInfo(data)
@@ -51,11 +58,18 @@ export default {
           })
         })
         .catch(e => {
+          if (e.code === 4004) {
+            this.refreshCaptcha()
+          }
           this.$message.error(e.message)
         })
         .finally(() => {
           this.loading = false
         })
+    },
+    // 刷新验证码
+    refreshCaptcha () {
+      this.captchaUri = `${process.env.VUE_APP_API}/common/captcha?t=${new Date().getTime()}`
     },
     // 登录前验证
     __check () {
@@ -69,6 +83,9 @@ export default {
       }
       return true
     }
+  },
+  created () {
+    this.refreshCaptcha()
   }
 }
 </script>
@@ -137,6 +154,22 @@ export default {
             border: 1px solid $primary-color;
           }
         }
+      }
+    }
+    // 验证码输入
+    .captcha-input {
+      display: flex;
+      margin-top: 38px;
+      height: 50px;
+      .el-input {
+        width: 100%;
+        margin-top: 0;
+      }
+      img {
+        width: 45%;
+        height: 100%;
+        flex-shrink: 0;
+        margin-left: 16px;
       }
     }
     .el-button {
