@@ -5,6 +5,7 @@ import com.yiwa.biz.SystemUserBiz;
 import com.yiwa.core.model.ApiResponse;
 import com.yiwa.dao.system.dto.LoginDTO;
 import com.yiwa.dao.system.dto.UpdatePwdDto;
+import com.yiwa.service.common.CaptchaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,8 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Api(tags = "系统接口")
 @Slf4j
@@ -28,13 +31,19 @@ public class SystemController extends BaseController {
     @Autowired
     private SystemUserBiz systemUserBiz;
 
+    @Autowired
+    private CaptchaService captchaService;
+
     /**
      * @author Caesar Liu
      * @date 2021-03-27 21:36
      */
     @ApiOperation("登录")
     @PostMapping("/login")
-    public ApiResponse login (@RequestBody LoginDTO dto) {
+    public ApiResponse login (@RequestBody LoginDTO dto, HttpServletRequest request) {
+        // 校验验证码
+        captchaService.check(dto.getCode(), request);
+        // 校验用户名和密码
         Subject subject = SecurityUtils.getSubject();
         subject.getSession().setTimeout(sessionTimeout);
         UsernamePasswordToken token = new UsernamePasswordToken(dto.getUsername(), dto.getPassword());

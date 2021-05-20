@@ -56,6 +56,7 @@ public class ShiroConfig {
         // 路径拦截配置
         map.put("/system/login", "anon");
         map.put("/system/logout", "anon");
+        map.put("/common/captcha", "anon");
         // - 放行swagger
         map.put("/doc.html", "anon");
         map.put("/webjars/**", "anon");
