@@ -60,7 +60,7 @@
       </pagination>
     </template>
     <!-- 新建/修改 -->
-    <OperaRoleWindow ref="operaRoleWindow" @create-success="search" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
+    <OperaRoleWindow ref="operaRoleWindow" @create-success="handlePageChange(tableData.pagination.pageIndex)" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 配置权限 -->
     <PermissionConfigWindow ref="permissionConfigWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 授权菜单 -->

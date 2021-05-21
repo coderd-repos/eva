@@ -42,7 +42,7 @@
       </el-table>
     </template>
     <!-- 新建/修改 -->
-    <OperaDepartmentWindow ref="operaDepartmentWindow" @create-success="search" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
+    <OperaDepartmentWindow ref="operaDepartmentWindow" @create-success="handlePageChange(tableData.pagination.pageIndex)" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
   </TableLayout>
 </template>
 
