@@ -36,13 +36,18 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
     @Override
     public void deleteById(Integer id) {
-        systemMenuMapper.deleteById(id);
+        SystemMenu systemMenu = new SystemMenu();
+        systemMenu.setId(id);
+        systemMenu.setDeleted(Boolean.TRUE);
+        this.updateById(systemMenu);
     }
 
     @Override
     public void deleteByIdInBatch(List<Integer> ids) {
         if (CollectionUtils.isEmpty(ids)) return;
-        systemMenuMapper.deleteBatchIds(ids);
+        for (Integer id : ids) {
+            this.deleteById(id);
+        }
     }
 
     @Override

@@ -37,11 +37,9 @@ public class SystemDict {
     private Integer updateUser;
 
     @ApiModelProperty(value = "创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updateTime;
 
     @ApiModelProperty(value = "是否删除")

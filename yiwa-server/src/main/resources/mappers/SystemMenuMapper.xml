@@ -38,6 +38,9 @@
     FROM SYSTEM_MENU menu
     LEFT JOIN `SYSTEM_USER` create_user ON create_user.ID = menu.CREATE_USER
     LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = menu.UPDATE_USER
+    <where>
+      menu.DELETED = 0
+    </where>
     ORDER BY menu.SORT
   </select>
 

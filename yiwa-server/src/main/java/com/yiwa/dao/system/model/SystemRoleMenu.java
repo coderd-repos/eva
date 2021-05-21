@@ -28,11 +28,9 @@ public class SystemRoleMenu {
     private Integer menuId;
 
     @ApiModelProperty(value = "创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
     @ApiModelProperty(value = "")
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updateTime;
 
     @ApiModelProperty(value = "创建者ID", example = "1")
