@@ -33,11 +33,11 @@ public class SystemUserBizImpl implements SystemUserBiz {
         Assert.notNull(dto.getNewPwd(), "缺少参数");
         SystemUser user = systemUserService.findById(dto.getUserId());
         if (user.getDeleted()) {
-            throw new BusinessException(ResponseStatus.DATA_EMPTY.getCode(), "用户已经删除");
+            throw new BusinessException(ResponseStatus.DATA_EMPTY.getCode(), "用户不存在或已被删除");
         }
-        // 验证旧密码
+        // 验证原始密码
         if (!user.getPassword().equals(SecureUtil.encryptPassword(dto.getOldPwd(), user.getSalt()))) {
-            throw new BusinessException(ResponseStatus.PWD_INCORRECT.getCode(), "旧密码不正确");
+            throw new BusinessException(ResponseStatus.PWD_INCORRECT.getCode(), "原始密码不正确");
         }
         // 修改密码
         SystemUser newUser = new SystemUser();
