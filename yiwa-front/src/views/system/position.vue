@@ -15,8 +15,8 @@
         default-expand-all
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="name" label="岗位名称" min-width="200px"></el-table-column>
+        <el-table-column type="selection" width="55" fixed="left"></el-table-column>
+        <el-table-column prop="name" label="岗位名称" fixed="left" min-width="200px"></el-table-column>
         <el-table-column prop="userCount" label="岗位人数" min-width="100px"></el-table-column>
         <el-table-column prop="createUser" label="创建人" min-width="100px">
           <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
@@ -40,12 +40,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <pagination
-        @size-change="handleSizeChange"
-        @current-change="handlePageChange"
-        :pagination="tableData.pagination"
-      >
-      </pagination>
     </template>
     <!-- 新建/修改 -->
     <OperaPositionWindow ref="operaPositionWindow" @success="handlePageChange"/>

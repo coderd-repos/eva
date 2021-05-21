@@ -25,9 +25,9 @@
         stripe
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="code" label="字典编码" min-width="100px"></el-table-column>
-        <el-table-column prop="name" label="字典名称" min-width="100px"></el-table-column>
+        <el-table-column type="selection" fixed="left" width="55"></el-table-column>
+        <el-table-column prop="code" label="字典编码" fixed="left" min-width="100px"></el-table-column>
+        <el-table-column prop="name" label="字典名称" fixed="left" min-width="100px"></el-table-column>
         <el-table-column prop="remark" label="备注" min-width="100px"></el-table-column>
         <el-table-column prop="createUser" label="创建人" min-width="100px">
           <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>

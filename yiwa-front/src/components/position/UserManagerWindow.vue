@@ -2,7 +2,7 @@
   <GlobalWindow
     class="position-user-manager-window"
     width="80%"
-    :title="positionName + '人员管理'"
+    :title="positionName + '管理'"
     :visible.sync="visible.userManager"
     :confirm-working="isWorking.userManager"
     :with-footer="false"
