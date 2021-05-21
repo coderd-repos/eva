@@ -29,7 +29,7 @@
         <el-form-item label="原始密码" prop="oldPwd" required>
           <el-input v-model="changePwdData.form.oldPwd" type="password" placeholder="请输入原始密码"></el-input>
         </el-form-item>
-        <el-form-item label="确认密码" prop="newPwd" required>
+        <el-form-item label="新密码" prop="newPwd" required>
           <el-input v-model="changePwdData.form.newPwd" type="password" placeholder="请输入新密码"></el-input>
         </el-form-item>
         <el-form-item label="确认新密码" prop="confirmPwd" required>
@@ -67,13 +67,13 @@ export default {
         },
         rules: {
           oldPwd: [
-            { required: true, message: '旧密码不能为空' }
+            { required: true, message: '请输入原始密码' }
           ],
           newPwd: [
             { required: true, message: '请输入新密码' }
           ],
           confirmPwd: [
-            { required: true, message: '请确认密码' }
+            { required: true, message: '请再次输入新密码' }
           ]
         }
       }

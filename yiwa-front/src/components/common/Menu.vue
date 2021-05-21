@@ -76,7 +76,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "../../assets/style/variables.scss";
 .menu {
   height: 100%;
@@ -89,7 +89,7 @@ export default {
     line-height: 60px;
     overflow: hidden;
     display: flex;
-    background: $primary-color - 12;
+    background: $primary-color - 20;
     padding: 0 16px;
     & > div {
       width: 32px;
@@ -113,44 +113,50 @@ export default {
       }
     }
   }
-  // 菜单
-  .el-menu {
-    border-right: 0;
-    user-select: none;
-    // 已选中菜单
-    /deep/ .el-menu-item.is-active {
-      background-color: $primary-color - 30;
+}
+</style>
+<style lang="scss">
+@import "../../assets/style/variables.scss";
+// 菜单样式
+.el-menu {
+  border-right: 0;
+  user-select: none;
+  background: $primary-color !important;
+  .el-menu-item {
+    background: $primary-color;
+    // 选中状态
+    &.is-active {
+      background: $primary-color - 40 !important;
     }
-    // 子菜单
-    /deep/ .el-submenu {
-      .el-submenu__title{
-        background-color: $primary-color;
-      }
-      &.is-active {
-        .el-submenu__title{
-          background-color: $primary-color - 20;
-        }
-        .el-menu .el-menu-item{
-          background-color: $primary-color - 20;
-          &.is-active {
-            background-color: $primary-color - 40;
-          }
-        }
-      }
-      // 菜单上下箭头
-      .el-submenu__title i {
-        color: #f7f7f7;
-      }
+    // 菜单图标
+    i {
+      color: #f7f7f7;
     }
-    /deep/ .el-menu-item {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    // 悬浮
+    &:hover {
+      background-color: $primary-color - 12;
+    }
+  }
+  // 子菜单
+  .el-submenu {
+    .el-submenu__title{
       background-color: $primary-color;
-      // 菜单图标
-      i {
-        color: #f7f7f7;
+    }
+    &.is-active {
+      .el-submenu__title{
+        background-color: $primary-color - 20;
       }
+      .el-menu .el-menu-item{
+        background-color: $primary-color - 20;
+        // 悬浮
+        &:hover {
+          background-color: $primary-color - 30;
+        }
+      }
+    }
+    // 菜单上下箭头
+    .el-submenu__title i {
+      color: #f7f7f7;
     }
   }
 }
