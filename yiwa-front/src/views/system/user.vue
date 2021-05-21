@@ -53,15 +53,15 @@
             </ul>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间" min-width="140px"></el-table-column>
         <el-table-column prop="createUser" label="创建人" min-width="100px">
           <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
         </el-table-column>
-        <el-table-column prop="updateTime" label="更新时间" min-width="140px"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" min-width="140px"></el-table-column>
         <el-table-column prop="updateUser" label="更新人" min-width="100px">
           <template slot-scope="{row}">{{row.updateUserInfo == null ? '' : row.updateUserInfo.username}}</template>
         </el-table-column>
-        <el-table-column label="操作" width="280" fixed="right">
+        <el-table-column prop="updateTime" label="更新时间" min-width="140px"></el-table-column>
+        <el-table-column label="操作" width="270" fixed="right">
           <template slot-scope="{row}">
             <el-button type="text" icon="el-icon-edit" @click="$refs.operaUserWindow.open('编辑用户', row)" v-permissions="['system:user:update']">编辑</el-button>
             <el-button type="text" icon="el-icon-s-custom" @click="$refs.roleConfigWindow.open(row)" v-permissions="['system:user:createUserRole']">配置角色</el-button>

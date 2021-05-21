@@ -30,18 +30,18 @@
         <el-table-column prop="code" label="角色CODE" min-width="100px"></el-table-column>
         <el-table-column prop="name" label="角色名称" min-width="100px"></el-table-column>
         <el-table-column prop="remark" label="角色备注" min-width="120px"></el-table-column>
-        <el-table-column prop="createTime" label="创建时间" min-width="140px"></el-table-column>
         <el-table-column prop="createUser" label="创建人" min-width="100px">
           <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
         </el-table-column>
-        <el-table-column prop="updateTime" label="更新时间" min-width="140px"></el-table-column>
-        <el-table-column prop="updateUser" label="更新者" min-width="100px">
+        <el-table-column prop="createTime" label="创建时间" min-width="140px"></el-table-column>
+        <el-table-column prop="updateUser" label="更新人" min-width="100px">
           <template slot-scope="{row}">{{row.updateUserInfo == null ? '' : row.updateUserInfo.username}}</template>
         </el-table-column>
+        <el-table-column prop="updateTime" label="更新时间" min-width="140px"></el-table-column>
         <el-table-column
           v-if="containPermissions(['system:role:update', 'system:role:createRolePermission', 'system:role:createRoleMenu', 'system:role:delete'])"
           label="操作"
-          min-width="280"
+          min-width="270"
           fixed="right"
         >
           <template slot-scope="{row}">

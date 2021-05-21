@@ -17,8 +17,8 @@
         default-expand-all
         @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="name" label="菜单名称" min-width="160px"></el-table-column>
+        <el-table-column type="selection" width="55" fixed="left"></el-table-column>
+        <el-table-column prop="name" label="菜单名称"  fixed="left" min-width="160px"></el-table-column>
         <el-table-column prop="icon" label="图标" min-width="80px" class-name="table-column-icon">
           <template slot-scope="{row}">
             <i v-if="row.icon != null" :class="{[row.icon]: true}"></i>
@@ -27,14 +27,14 @@
         </el-table-column>
         <el-table-column prop="path" label="访问路径" min-width="140px"></el-table-column>
         <el-table-column prop="remark" label="备注" min-width="120px"></el-table-column>
-        <el-table-column prop="createTime" label="创建时间" min-width="140px"></el-table-column>
         <el-table-column prop="createUser" label="创建人" min-width="100px">
           <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
         </el-table-column>
-        <el-table-column prop="updateTime" label="更新时间" min-width="140px"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" min-width="140px"></el-table-column>
         <el-table-column prop="updateUser" label="更新人" min-width="100px">
           <template slot-scope="{row}">{{row.updateUserInfo == null ? '' : row.updateUserInfo.username}}</template>
         </el-table-column>
+        <el-table-column prop="updateTime" label="更新时间" min-width="140px"></el-table-column>
         <el-table-column prop="disabled" label="是否启用" min-width="80px">
           <template slot-scope="{row}">
             <el-switch v-model="row.disabled" :active-value="false" :inactive-value="true" @change="switchDisabled(row)"/>
