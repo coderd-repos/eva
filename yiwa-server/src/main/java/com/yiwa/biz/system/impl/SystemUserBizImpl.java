@@ -100,8 +100,8 @@ public class SystemUserBizImpl implements SystemUserBiz {
         Assert.notNull(systemUser.getRealname(), "缺少参数");
         // 验证用户名
         SystemUser queryUserDto = new SystemUser();
-        queryUserDto.setDeleted(Boolean.FALSE);
         queryUserDto.setUsername(systemUser.getUsername());
+        queryUserDto.setDeleted(Boolean.FALSE);
         SystemUser user = systemUserService.findOne(queryUserDto);
         if (user != null && !user.getId().equals(systemUser.getId())) {
             throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "用户名已被占用");
@@ -109,8 +109,8 @@ public class SystemUserBizImpl implements SystemUserBiz {
         // 验证工号
         if (StringUtils.isNotBlank(systemUser.getEmpNo())) {
             queryUserDto = new SystemUser();
-            queryUserDto.setDeleted(Boolean.FALSE);
             queryUserDto.setEmpNo(systemUser.getEmpNo());
+            queryUserDto.setDeleted(Boolean.FALSE);
             user = systemUserService.findOne(queryUserDto);
             if (user != null && !user.getId().equals(systemUser.getId())) {
                 throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "工号已被占用");

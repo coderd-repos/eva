@@ -18,6 +18,7 @@ public class SystemDictBizImpl implements SystemDictBiz {
     public Integer create(SystemDict systemDict) {
         SystemDict queryDto = new SystemDict();
         queryDto.setCode(systemDict.getCode());
+        queryDto.setDeleted(Boolean.FALSE);
         SystemDict dict = systemDictService.findOne(queryDto);
         if (dict != null) {
             throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "字典编码已存在");
@@ -29,9 +30,11 @@ public class SystemDictBizImpl implements SystemDictBiz {
     public void updateById(SystemDict systemDict) {
         SystemDict queryDto = new SystemDict();
         queryDto.setCode(systemDict.getCode());
+        queryDto.setDeleted(Boolean.TRUE);
         SystemDict dict = systemDictService.findOne(queryDto);
         if (dict != null && !dict.getId().equals(systemDict.getId())) {
             throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "字典编码已存在");
         }
+        systemDictService.updateById(systemDict);
     }
 }

@@ -1,5 +1,6 @@
 package com.yiwa.service.system.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yiwa.core.utils.WrapperUtil;
 import com.yiwa.core.model.PageData;
@@ -86,6 +87,7 @@ public class SystemDictServiceImpl implements SystemDictService {
   
     @Override
     public PageData<SystemDictListVO> findPage(PageWrap<QuerySystemDictDTO> pageWrap) {
+        PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
         return PageData.from(new PageInfo<>(systemDictMapper.selectManageList(pageWrap.getModel())));
     }
 

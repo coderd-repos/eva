@@ -22,6 +22,7 @@ public class SystemDepartmentBizImpl implements SystemDepartmentBiz {
         // 统计上级部门下子部门数量
         SystemDepartment countDto = new SystemDepartment();
         countDto.setParentId(department.getParentId());
+        countDto.setDeleted(Boolean.FALSE);
         long subDeptCount = systemDepartmentService.count(countDto);
         // 设置新建部门的顺序
         department.setSort(Integer.valueOf("" + subDeptCount));
