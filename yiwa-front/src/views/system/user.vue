@@ -43,8 +43,8 @@
             {{row.sex | sex}}
           </template>
         </el-table-column>
-        <el-table-column prop="email" label="邮箱" min-width="160px"></el-table-column>
         <el-table-column prop="mobile" label="手机号码" min-width="100px"></el-table-column>
+        <el-table-column prop="email" label="邮箱" min-width="160px"></el-table-column>
         <el-table-column prop="birthday" label="生日" min-width="100px"></el-table-column>
         <el-table-column prop="birthday" label="角色" min-width="160px" class-name="table-column-role">
           <template slot-scope="{row}">

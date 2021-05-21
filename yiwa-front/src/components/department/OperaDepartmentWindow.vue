@@ -13,7 +13,7 @@
         <el-input v-model="form.name" v-trim maxlength="50" placeholder="请输入部门名称"/>
       </el-form-item>
       <el-form-item label="联系电话" prop="phone">
-        <el-input v-model="form.phone" v-trim maxlength="20" placeholder="请输入联系电话"/>
+        <el-input v-model="form.phone" v-trim maxlength="11" placeholder="请输入联系电话"/>
       </el-form-item>
       <el-form-item label="部门邮箱" prop="email">
         <el-input v-model="form.email" v-trim maxlength="200" placeholder="请输入部门邮箱"/>
@@ -25,6 +25,7 @@
 <script>
 import GlobalWindow from '../common/GlobalWindow'
 import TreeSelect from '../common/TreeSelect'
+import { checkMobile, checkEmail } from '../../utils/form'
 import { create, updateById } from '../../api/system/department'
 export default {
   name: 'OperaDepartmentWindow',
@@ -48,6 +49,12 @@ export default {
       rules: {
         name: [
           { required: true, message: '请输入部门名称' }
+        ],
+        phone: [
+          { validator: checkMobile }
+        ],
+        email: [
+          { validator: checkEmail }
         ]
       }
     }
@@ -147,6 +154,9 @@ export default {
         if (dept.children != null && dept.children.length > 0) {
           deptNode.children = []
           this.__fillParentDepartmentList(deptNode.children, dept.children, excludeId)
+          if (deptNode.children.length === 0) {
+            deptNode.children = null
+          }
         }
       }
     }
