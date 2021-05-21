@@ -2,8 +2,8 @@
   <TableLayout v-permissions="['system:role:query']">
     <!-- 搜索表单 -->
     <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="100px" inline>
-      <el-form-item label="角色CODE" prop="code">
-        <el-input v-model="searchForm.code" v-trim placeholder="请输入角色CODE" @keypress.enter.native="search"/>
+      <el-form-item label="角色编码" prop="code">
+        <el-input v-model="searchForm.code" v-trim placeholder="请输入角色编码" @keypress.enter.native="search"/>
       </el-form-item>
       <el-form-item label="角色名称" prop="name">
         <el-input v-model="searchForm.name" v-trim placeholder="请输入角色名称" @keypress.enter.native="search"/>
@@ -62,9 +62,9 @@
     <!-- 新建/修改 -->
     <OperaRoleWindow ref="operaRoleWindow" @create-success="search" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 配置权限 -->
-    <PermissionConfigWindow ref="permissionConfigWindow"/>
+    <PermissionConfigWindow ref="permissionConfigWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 授权菜单 -->
-    <MenuConfigWindow ref="menuConfigWindow"/>
+    <MenuConfigWindow ref="menuConfigWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>
   </TableLayout>
 </template>
 

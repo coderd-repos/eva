@@ -88,6 +88,16 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+  @import "../../assets/style/variables.scss";
+  .global-window {
+    .tip {
+      margin-bottom: 12px;
+      em {
+        font-style: normal;
+        color: $primary-color;
+        font-weight: bold;
+      }
+    }
+  }
 </style>

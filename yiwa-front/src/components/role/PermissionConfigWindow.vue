@@ -7,6 +7,7 @@
     @confirm="confirm"
   >
     <p class="tip" v-if="role != null">为角色 <em>{{role.name}}</em> 配置权限</p>
+    <p class="tip-warn"><i class="el-icon-warning"></i>提醒：权限配置后需重新登录后生效</p>
     <el-transfer
       ref="permissionTransfer"
       v-model="selectedIds"
@@ -96,11 +97,22 @@ export default {
 @import "../../assets/style/variables.scss";
 .global-window {
   .tip {
-    margin-bottom: 12px;
     em {
       font-style: normal;
       color: $primary-color;
       font-weight: bold;
+    }
+  }
+  .tip-warn {
+    margin: 4px 0 12px 0;
+    font-size: 12px;
+    color: #999;
+    i {
+      color: orange;
+      margin-right: 4px;
+      font-size: 14px;
+      position: relative;
+      top: 1px;
     }
   }
 }
