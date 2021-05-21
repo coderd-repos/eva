@@ -9,7 +9,7 @@
     <p class="tip" v-if="user != null">为用户 <em>{{user.realname}}</em> 重置密码</p>
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="新密码" prop="password" required>
-        <el-input v-model="form.password" type="password" placeholder="请输入新密码"></el-input>
+        <el-input v-model="form.password" type="password" maxlength="30" placeholder="请输入新密码"></el-input>
       </el-form-item>
     </el-form>
   </GlobalWindow>

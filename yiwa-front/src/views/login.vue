@@ -58,9 +58,7 @@ export default {
           })
         })
         .catch(e => {
-          if (e.code === 4004) {
-            this.refreshCaptcha()
-          }
+          this.refreshCaptcha()
           this.$message.error(e.message)
         })
         .finally(() => {
