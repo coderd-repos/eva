@@ -22,6 +22,9 @@
     FROM SYSTEM_DEPARTMENT dept
     LEFT JOIN `SYSTEM_USER` create_user ON create_user.ID = dept.CREATE_USER
     LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = dept.UPDATE_USER
+    <where>
+      dept.DELETED = 0
+    </where>
     ORDER BY dept.SORT
   </select>
 
