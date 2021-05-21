@@ -144,9 +144,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .table-layout {
-    /deep/ .table-content {
-      margin-top: 0;
-    }
+.table-layout {
+  /deep/ .table-content {
+    margin-top: 0;
   }
+}
 </style>
