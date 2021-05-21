@@ -20,16 +20,15 @@ import java.util.List;
  * @author Yiwa
  * @date 2021/05/16 17:03
  */
+@Api(tags = "岗位接口")
 @RestController
 @RequestMapping("/system/position")
-@Api(tags = "岗位接口")
 public class SystemPositionController extends BaseController {
 
     @Autowired
     private SystemPositionService systemPositionService;
 
     /**
-     * 创建
      * @author Yiwa
      * @date 2021/05/16 17:03
      */
@@ -41,7 +40,6 @@ public class SystemPositionController extends BaseController {
     }
 
     /**
-     * 删除
      * @author Yiwa
      * @date 2021/05/16 17:03
      */
@@ -71,7 +69,6 @@ public class SystemPositionController extends BaseController {
     }
 
     /**
-     * 根据ID修改
      * @author Yiwa
      * @date 2021/05/16 17:03
      */
@@ -84,7 +81,6 @@ public class SystemPositionController extends BaseController {
     }
 
     /**
-     * 分页查询
      * @author Yiwa
      * @date 2021/05/16 17:03
      */
@@ -96,7 +92,6 @@ public class SystemPositionController extends BaseController {
     }
 
     /**
-     * 通过ID查询
      * @author Yiwa
      * @date 2021/05/16 17:03
      */

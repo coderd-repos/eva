@@ -16,13 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 系统菜单接口
  * @author Yiwa
  * @date 2021/03/27 22:36
  */
+@Api(tags = "系统菜单接口")
 @RestController
 @RequestMapping("/system/menu")
-@Api(tags = "系统菜单接口")
 public class SystemMenuController extends BaseController {
 
     @Autowired

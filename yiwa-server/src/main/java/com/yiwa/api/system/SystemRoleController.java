@@ -19,13 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 系统角色接口
  * @author Yiwa
  * @date 2021/03/27 22:36
  */
+@Api(tags = "系统角色接口")
 @RestController
 @RequestMapping("/system/role")
-@Api(tags = "系统角色接口")
 public class SystemRoleController extends BaseController {
 
     @Autowired

@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021-04-13 23:25
  */
 @Api(tags = "系统监听接口")
-@Slf4j
-@RequestMapping("/system/monitor")
 @RestController
+@RequestMapping("/system/monitor")
 public class SystemMonitorController extends BaseController {
 
     /**

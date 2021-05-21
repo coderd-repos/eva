@@ -15,13 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 接口
  * @author Yiwa
  * @date 2021/05/16 11:59
  */
+@Api(tags = "部门接口")
 @RestController
 @RequestMapping("/system/department")
-@Api(tags = "接口")
 public class SystemDepartmentController extends BaseController {
 
     @Autowired
@@ -31,7 +30,6 @@ public class SystemDepartmentController extends BaseController {
     private SystemDepartmentBiz systemDepartmentBiz;
 
     /**
-     * 创建
      * @author Yiwa
      * @date 2021/05/16 11:59
      */
@@ -43,7 +41,6 @@ public class SystemDepartmentController extends BaseController {
     }
 
     /**
-     * 用户删除
      * @author Yiwa
      * @date 2021/05/16 11:59
      */
@@ -73,7 +70,6 @@ public class SystemDepartmentController extends BaseController {
     }
 
     /**
-     * 修改部门
      * @author Yiwa
      * @date 2021/05/16 11:59
      */
@@ -86,7 +82,6 @@ public class SystemDepartmentController extends BaseController {
     }
 
     /**
-     * 查询部门列表
      * @author Yiwa
      * @date 2021/05/16 11:59
      */
@@ -98,7 +93,6 @@ public class SystemDepartmentController extends BaseController {
     }
 
     /**
-     * 通过ID查询
      * @author Yiwa
      * @date 2021/05/16 11:59
      */

@@ -16,13 +16,14 @@
   </resultMap>
   <select id="selectManageList" parameterType="com.yiwa.dao.system.dto.QuerySystemDictDataDTO" resultMap="SystemDictDataListVO">
     SELECT
-      dict_data.`ID`, dict_data.`CODE`, dict_data.`LABEL`, dict_data.`SORT`, dict_data.`DISABLED`, dict_data.`CREATE_TIME`, dict_data.`UPDATE_TIME`, dict_data.`CREATE_USER`, dict_data.`UPDATE_USER`,
+      dict_data.`ID`, dict_data.`DICT_ID`, dict_data.`CODE`, dict_data.`LABEL`, dict_data.`SORT`, dict_data.`DISABLED`, dict_data.`CREATE_TIME`, dict_data.`UPDATE_TIME`, dict_data.`CREATE_USER`, dict_data.`UPDATE_USER`,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
       update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME
     FROM SYSTEM_DICT_DATA dict_data
     LEFT JOIN `SYSTEM_USER` create_user ON create_user.ID = dict_data.CREATE_USER
     LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = dict_data.UPDATE_USER
     <where>
+      dict_data.DELETED = 0
       <if test="dictId != null">
         AND dict_data.`DICT_ID` = #{dictId}
       </if>

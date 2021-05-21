@@ -1,6 +1,7 @@
 package com.yiwa.api.system;
 
 import com.yiwa.api.BaseController;
+import com.yiwa.biz.system.SystemDictDataBiz;
 import com.yiwa.core.model.ApiResponse;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.dto.QuerySystemDictDataDTO;
@@ -12,21 +13,25 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * 字典数据接口
  * @author Yiwa
  * @date 2021/05/16 20:18
  */
+@Api(tags = "字典数据接口")
 @RestController
 @RequestMapping("/system/dictData")
-@Api(tags = "字典数据接口")
 public class SystemDictDataController extends BaseController {
 
     @Autowired
     private SystemDictDataService systemDictDataService;
 
+    @Autowired
+    private SystemDictDataBiz systemDictDataBiz;
+
     /**
-     * 创建
      * @author Yiwa
      * @date 2021/05/16 20:18
      */
@@ -34,11 +39,10 @@ public class SystemDictDataController extends BaseController {
     @PostMapping("/create")
     @ApiOperation("新建")
     public ApiResponse create(@RequestBody SystemDictData systemDictData) {
-        return ApiResponse.success(systemDictDataService.create(systemDictData));
+        return ApiResponse.success(systemDictDataBiz.create(systemDictData));
     }
 
     /**
-     * 删除
      * @author Yiwa
      * @date 2021/05/16 20:18
      */
@@ -51,7 +55,23 @@ public class SystemDictDataController extends BaseController {
     }
 
     /**
-     * 根据ID修改
+     * @author Yiwa
+     * @date 2021/03/28 09:30
+     */
+    @RequiresPermissions("system:dict:delete")
+    @GetMapping("/delete/batch")
+    @ApiOperation("批量删除")
+    public ApiResponse deleteById(@RequestParam String ids) {
+        String [] idArray = ids.split(",");
+        List<Integer> idList = new ArrayList<>();
+        for (String id : idArray) {
+            idList.add(Integer.valueOf(id));
+        }
+        systemDictDataService.deleteByIdInBatch(idList);
+        return ApiResponse.success(null);
+    }
+
+    /**
      * @author Yiwa
      * @date 2021/05/16 20:18
      */
@@ -59,12 +79,11 @@ public class SystemDictDataController extends BaseController {
     @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
     public ApiResponse updateById(@RequestBody SystemDictData systemDictData) {
-        systemDictDataService.updateById(systemDictData);
+        systemDictDataBiz.updateById(systemDictData);
         return ApiResponse.success(null);
     }
 
     /**
-     * 分页查询
      * @author Yiwa
      * @date 2021/05/16 20:18
      */
@@ -76,7 +95,6 @@ public class SystemDictDataController extends BaseController {
     }
 
     /**
-     * 通过ID查询
      * @author Yiwa
      * @date 2021/05/16 20:18
      */

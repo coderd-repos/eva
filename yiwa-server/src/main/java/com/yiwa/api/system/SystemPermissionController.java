@@ -17,13 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 系统权限接口
  * @author Yiwa
  * @date 2021/03/27 22:36
  */
+@Api(tags = "系统权限接口")
 @RestController
 @RequestMapping("/system/permission")
-@Api(tags = "系统权限接口")
 public class SystemPermissionController extends BaseController {
 
     @Autowired

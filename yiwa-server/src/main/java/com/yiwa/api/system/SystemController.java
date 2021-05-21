@@ -19,10 +19,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author Yiwa
+ * @date 2021-05-21 22:10
+ */
 @Api(tags = "系统接口")
 @Slf4j
-@RequestMapping("/system")
 @RestController
+@RequestMapping("/system")
 public class SystemController extends BaseController {
 
     @Value("${session.timeout}")
@@ -90,3 +94,5 @@ public class SystemController extends BaseController {
         return ApiResponse.success(this.getLoginUser());
     }
 }
+
+

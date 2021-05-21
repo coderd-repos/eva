@@ -19,13 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 系统用户接口
  * @author Yiwa
  * @date 2021/03/28 09:30
  */
+@Api(tags = "系统用户接口")
 @RestController
 @RequestMapping("/system/user")
-@Api(tags = "系统用户接口")
 public class SystemUserController extends BaseController {
 
     @Autowired

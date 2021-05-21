@@ -17,13 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 字典接口
  * @author Yiwa
  * @date 2021/05/16 17:40
  */
+@Api(tags = "字典接口")
 @RestController
 @RequestMapping("/system/dict")
-@Api(tags = "字典接口")
 public class SystemDictController extends BaseController {
 
     @Autowired
@@ -33,7 +32,6 @@ public class SystemDictController extends BaseController {
     private SystemDictBiz systemDictBiz;
 
     /**
-     * 创建
      * @author Yiwa
      * @date 2021/05/16 17:40
      */
@@ -45,7 +43,6 @@ public class SystemDictController extends BaseController {
     }
 
     /**
-     * 删除
      * @author Yiwa
      * @date 2021/05/16 17:40
      */
@@ -75,7 +72,6 @@ public class SystemDictController extends BaseController {
     }
 
     /**
-     * 根据ID修改
      * @author Yiwa
      * @date 2021/05/16 17:40
      */
@@ -88,7 +84,6 @@ public class SystemDictController extends BaseController {
     }
 
     /**
-     * 分页查询
      * @author Yiwa
      * @date 2021/05/16 17:40
      */
@@ -100,7 +95,6 @@ public class SystemDictController extends BaseController {
     }
 
     /**
-     * 通过ID查询
      * @author Yiwa
      * @date 2021/05/16 17:40
      */
