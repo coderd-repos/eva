@@ -1,6 +1,7 @@
 package com.yiwa.api.system;
 
 import com.yiwa.api.BaseController;
+import com.yiwa.biz.SystemPermissionBiz;
 import com.yiwa.core.model.ApiResponse;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.dto.QuerySystemPermissionDTO;
@@ -28,6 +29,9 @@ public class SystemPermissionController extends BaseController {
     @Autowired
     private SystemPermissionService systemPermissionService;
 
+    @Autowired
+    private SystemPermissionBiz systemPermissionBiz;
+
     /**
      * @author Caesar Liu
      * @date 2021/03/27 22:36
@@ -36,7 +40,7 @@ public class SystemPermissionController extends BaseController {
     @PostMapping("/create")
     @ApiOperation("新建")
     public ApiResponse create(@RequestBody SystemPermission systemPermission) {
-        return ApiResponse.success(systemPermissionService.create(systemPermission));
+        return ApiResponse.success(systemPermissionBiz.create(systemPermission));
     }
 
     /**
@@ -76,7 +80,7 @@ public class SystemPermissionController extends BaseController {
     @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
     public ApiResponse updateById(@RequestBody SystemPermission systemPermission) {
-        systemPermissionService.updateById(systemPermission);
+        systemPermissionBiz.updateById(systemPermission);
         return ApiResponse.success(null);
     }
 
@@ -87,7 +91,7 @@ public class SystemPermissionController extends BaseController {
     @RequiresPermissions("system:permission:query")
     @PostMapping("/page")
     @ApiOperation("分页查询")
-    public ApiResponse findPage (@RequestBody PageWrap<SystemPermission> pageWrap) {
+    public ApiResponse findPage (@RequestBody PageWrap<QuerySystemPermissionDTO> pageWrap) {
         return ApiResponse.success(systemPermissionService.findPage(pageWrap));
     }
 }

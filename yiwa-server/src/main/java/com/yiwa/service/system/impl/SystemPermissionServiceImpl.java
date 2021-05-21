@@ -1,10 +1,14 @@
 package com.yiwa.service.system.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.core.utils.WrapperUtil;
 import com.yiwa.dao.system.SystemPermissionMapper;
+import com.yiwa.dao.system.dto.QuerySystemPermissionDTO;
 import com.yiwa.dao.system.model.SystemPermission;
+import com.yiwa.dao.system.vo.SystemPermissionListVO;
 import com.yiwa.service.system.SystemPermissionService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -92,17 +96,9 @@ public class SystemPermissionServiceImpl implements SystemPermissionService {
     }
 
     @Override
-    public PageData<SystemPermission> findPage(PageWrap<SystemPermission> pageWrap) {
-        IPage<SystemPermission> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemPermission> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
-        for(PageWrap.SortData sortData: pageWrap.getSorts()) {
-            if (sortData.getDirection().equalsIgnoreCase("DESC")) {
-                queryWrapper.orderByDesc(sortData.getProperty());
-            } else {
-                queryWrapper.orderByAsc(sortData.getProperty());
-            }
-        }
-        return PageData.from(systemPermissionMapper.selectPage(page, queryWrapper));
+    public PageData<SystemPermissionListVO> findPage(PageWrap<QuerySystemPermissionDTO> pageWrap) {
+        PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
+        return PageData.from(new PageInfo<>(systemPermissionMapper.selectManageList(pageWrap.getModel())));
     }
 
     @Override

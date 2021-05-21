@@ -2,7 +2,10 @@ package com.yiwa.service.system;
 
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
+import com.yiwa.dao.system.dto.QuerySystemPermissionDTO;
 import com.yiwa.dao.system.model.SystemPermission;
+import com.yiwa.dao.system.vo.SystemPermissionListVO;
+
 import java.util.List;
 
 /**
@@ -87,7 +90,7 @@ public interface SystemPermissionService {
      * @author Caesar Liu
      * @date 2021/05/15 19:41
      */
-    PageData<SystemPermission> findPage(PageWrap<SystemPermission> pageWrap);
+    PageData<SystemPermissionListVO> findPage(PageWrap<QuerySystemPermissionDTO> pageWrap);
 
     /**
      * 条件统计
