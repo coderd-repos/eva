@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -38,13 +39,19 @@ public class SystemPositionServiceImpl implements SystemPositionService {
 
     @Override
     public void deleteById(Integer id) {
-        systemPositionMapper.deleteById(id);
+        SystemPosition systemPosition = new SystemPosition();
+        systemPosition.setId(id);
+        systemPosition.setDeleted(Boolean.TRUE);
+        this.updateById(systemPosition);
     }
 
     @Override
+    @Transactional
     public void deleteByIdInBatch(List<Integer> ids) {
         if (CollectionUtils.isEmpty(ids)) return;
-        systemPositionMapper.deleteBatchIds(ids);
+        for (Integer id : ids) {
+            this.deleteById(id);
+        }
     }
 
     @Override

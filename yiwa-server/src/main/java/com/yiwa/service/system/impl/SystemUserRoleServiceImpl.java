@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -36,7 +37,10 @@ public class SystemUserRoleServiceImpl implements SystemUserRoleService {
 
     @Override
     public void deleteById(Integer id) {
-        systemUserRoleMapper.deleteById(id);
+        SystemUserRole systemUserRole = new SystemUserRole();
+        systemUserRole.setId(id);
+        systemUserRole.setDeleted(Boolean.TRUE);
+        this.updateById(systemUserRole);
     }
 
     @Override
@@ -49,9 +53,12 @@ public class SystemUserRoleServiceImpl implements SystemUserRoleService {
     }
 
     @Override
+    @Transactional
     public void deleteByIdInBatch(List<Integer> ids) {
         if (CollectionUtils.isEmpty(ids)) return;
-        systemUserRoleMapper.deleteBatchIds(ids);
+        for (Integer id : ids) {
+            this.deleteById(id);
+        }
     }
 
     @Override

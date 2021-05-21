@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -38,13 +39,19 @@ public class SystemDictServiceImpl implements SystemDictService {
 
     @Override
     public void deleteById(Integer id) {
-        systemDictMapper.deleteById(id);
+        SystemDict systemDict = new SystemDict();
+        systemDict.setId(id);
+        systemDict.setDeleted(Boolean.TRUE);
+        this.updateById(systemDict);
     }
 
     @Override
+    @Transactional
     public void deleteByIdInBatch(List<Integer> ids) {
         if (CollectionUtils.isEmpty(ids)) return;
-        systemDictMapper.deleteBatchIds(ids);
+        for (Integer id : ids) {
+            this.deleteById(id);
+        }
     }
 
     @Override
