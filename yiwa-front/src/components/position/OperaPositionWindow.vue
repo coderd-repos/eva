@@ -7,7 +7,7 @@
   >
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="岗位名称" prop="name" required>
-        <el-input v-model="form.name" v-trim placeholder="请输入岗位名称"/>
+        <el-input v-model="form.name" v-trim maxlength="50" placeholder="请输入岗位名称"/>
       </el-form-item>
     </el-form>
   </GlobalWindow>

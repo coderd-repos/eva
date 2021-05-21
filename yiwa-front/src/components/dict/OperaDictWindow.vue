@@ -7,13 +7,13 @@
   >
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="字典编码" prop="code" required>
-        <el-input v-model="form.code" v-trim placeholder="请输入字典编码"/>
+        <el-input v-model="form.code" v-trim placeholder="请输入字典编码" maxlength="50"/>
       </el-form-item>
       <el-form-item label="字典名称" prop="name" required>
-        <el-input v-model="form.name" v-trim placeholder="请输入字典名称"/>
+        <el-input v-model="form.name" v-trim placeholder="请输入字典名称" maxlength="50"/>
       </el-form-item>
       <el-form-item label="备注" prop="remark">
-        <el-input v-model="form.remark" v-trim placeholder="请输入备注"/>
+        <el-input v-model="form.remark" v-trim placeholder="请输入备注" maxlength="500"/>
       </el-form-item>
     </el-form>
   </GlobalWindow>

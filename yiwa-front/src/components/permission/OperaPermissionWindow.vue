@@ -6,14 +6,14 @@
     @confirm="confirm"
   >
     <el-form :model="form" ref="form" :rules="rules">
-      <el-form-item label="权限CODE" prop="code" required>
-        <el-input v-model="form.code" v-trim/>
+      <el-form-item label="权限编码" prop="code" required>
+        <el-input v-model="form.code" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="权限名称" prop="name" required>
-        <el-input v-model="form.name" v-trim/>
+        <el-input v-model="form.name" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="权限备注" prop="remark">
-        <el-input v-model="form.remark" v-trim/>
+        <el-input v-model="form.remark" v-trim maxlength="500"/>
       </el-form-item>
     </el-form>
   </GlobalWindow>

@@ -59,10 +59,10 @@
       >
         <el-form :model="operaTableData.form" ref="operaTableDataForm" :rules="operaTableData.rules">
           <el-form-item label="数据标签" prop="label" required>
-            <el-input v-model="operaTableData.form.label" v-trim placeholder="请输入数据标签"/>
+            <el-input v-model="operaTableData.form.label" v-trim maxlength="50" placeholder="请输入数据标签"/>
           </el-form-item>
           <el-form-item label="数据值" prop="code" required>
-            <el-input v-model="operaTableData.form.code" v-trim placeholder="请输入数据值"/>
+            <el-input v-model="operaTableData.form.code" v-trim maxlength="50" placeholder="请输入数据值"/>
           </el-form-item>
           <el-form-item label="状态" prop="code" required>
             <el-switch v-model="operaTableData.form.disabled" :active-value="false" :inactive-value="true"/>

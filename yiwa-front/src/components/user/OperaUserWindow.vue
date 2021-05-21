@@ -8,13 +8,13 @@
   >
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="用户名" prop="username" required>
-        <el-input v-model="form.username" v-trim/>
+        <el-input v-model="form.username" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="姓名" prop="realname" required>
-        <el-input v-model="form.realname" v-trim/>
+        <el-input v-model="form.realname" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="工号" prop="empNo">
-        <el-input v-model="form.empNo" v-trim/>
+        <el-input v-model="form.empNo" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="性别" prop="sex" required>
         <el-radio-group v-model="form.sex">
@@ -29,13 +29,13 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item v-if="form.id == null" label="初始密码" prop="password" required>
-        <el-input type="password" v-model="form.password"></el-input>
+        <el-input type="password" v-model="form.password" maxlength="30"></el-input>
       </el-form-item>
       <el-form-item label="手机号码" prop="mobile">
         <el-input v-model="form.mobile" v-trim maxlength="11"/>
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
-        <el-input v-model="form.email" v-trim/>
+        <el-input v-model="form.email" v-trim maxlength="200"/>
       </el-form-item>
       <el-form-item label="生日" prop="birthday">
         <el-date-picker v-model="form.birthday"/>
