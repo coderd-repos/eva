@@ -1,9 +1,13 @@
 package com.yiwa.interceptor;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yiwa.core.model.LoginUserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.binding.MapperMethod;
+import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.executor.statement.StatementHandler;
+import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
@@ -13,20 +17,22 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
+import java.sql.Connection;
 import java.util.*;
 
 /**
  * MyBatis 拦截器
- * - INSERT语句默认填充创建时间字段
- * - UPDATE语句默认填充更新时间字段
+ * - INSERT语句默认填充创建人和创建时间字段
+ * - UPDATE语句默认填充更新人和更新时间字段
  * - SELECT语句默认填充DELETED字段
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2019/3/2 11:00
  */
 @Slf4j
 @Component
 @Intercepts({
         @Signature(type= Executor.class, method = "update", args={MappedStatement.class, Object.class}),
+        @Signature(type= Executor.class, method = "query", args={MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         @Signature(type= Executor.class, method = "query", args={MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})
 })
 public class MyBatisInterceptor implements Interceptor {
@@ -48,10 +54,13 @@ public class MyBatisInterceptor implements Interceptor {
         Object target = invocation.getArgs()[1];
         if(target instanceof MapperMethod.ParamMap) {
             try {
-                // 可能不包含record
                 target = ((MapperMethod.ParamMap) target).get("param1");
             } catch (Exception e) {
             }
+        }
+        // MyBatis Plus查询
+        if (target instanceof QueryWrapper) {
+            target = ((QueryWrapper)target).getEntity();
         }
         if (target == null)
             return invocation.proceed();
@@ -60,7 +69,7 @@ public class MyBatisInterceptor implements Interceptor {
             this.handleQueryStatement(target);
         }
         // 创建语句
-        if (SqlCommandType.INSERT == sqlCommandType) {
+        else if (SqlCommandType.INSERT == sqlCommandType) {
             this.handleOperaStatement(target, CREATE_TIME, CREATE_USER);
         }
         // 更新语句
@@ -77,7 +86,7 @@ public class MyBatisInterceptor implements Interceptor {
 
     /**
      * 处理新增和编辑语句
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2019/3/2 11:52
      */
     private void handleOperaStatement(Object target, String... fieldNames) throws Exception{
@@ -103,20 +112,23 @@ public class MyBatisInterceptor implements Interceptor {
 
     /**
      * 处理查询语句
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2019/3/2 11:52
      */
     private void handleQueryStatement(Object target) throws Exception{
-        Field field = target.getClass().getDeclaredField(DELETED);
-        Object value = this.getFieldValue(field, target);
-        if(value == null) {
-            this.setFieldValue(field, target, Boolean.FALSE);
+        try {
+            Field field = target.getClass().getDeclaredField(DELETED);
+            Object value = this.getFieldValue(field, target);
+            if(value == null) {
+                this.setFieldValue(field, target, Boolean.FALSE);
+            }
+        } catch (NoSuchFieldException e) {
         }
     }
 
     /**
      * 给属性赋值
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2019/3/2 11:36
      */
     private void setFieldValue(Field field, Object target, Object value) throws Exception {
@@ -127,7 +139,7 @@ public class MyBatisInterceptor implements Interceptor {
 
     /**
      * 获取属性值
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2019/3/2 11:40
      */
     private Object getFieldValue(Field field, Object target) throws Exception {
@@ -139,7 +151,7 @@ public class MyBatisInterceptor implements Interceptor {
 
     /**
      * 获取登录用户信息
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-05-16 16:22
      */
     private LoginUserInfo getLoginUser () {

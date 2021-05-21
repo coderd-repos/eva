@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * 修改密码参数对象
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021-03-31 14:12
  */
 @Data

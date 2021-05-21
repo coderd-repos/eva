@@ -1,8 +1,7 @@
-package com.yiwa.biz.impl;
+package com.yiwa.biz.system.impl;
 
-import com.yiwa.biz.SystemMenuBiz;
+import com.yiwa.biz.system.SystemMenuBiz;
 import com.yiwa.dao.system.dto.UpdateSystemMenuSortDTO;
-import com.yiwa.dao.system.model.SystemDepartment;
 import com.yiwa.dao.system.model.SystemMenu;
 import com.yiwa.dao.system.vo.SystemMenuListVO;
 import com.yiwa.dao.system.vo.SystemMenuNodeVO;
@@ -120,7 +119,7 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
 
     /**
      * 填充子菜单
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-03-29 16:09
      */
     private void fillChildren(SystemMenuListVO parentMenu, List<SystemMenuListVO> menus) {
@@ -149,7 +148,7 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
 
     /**
      * 填充子菜单
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-03-29 16:09
      */
     private void fillChildren(SystemMenuNodeVO parentNode, List<SystemMenu> menus) {

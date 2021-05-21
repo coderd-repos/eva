@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 系统信息
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021-04-13 20:34
  */
 @Data
@@ -80,7 +80,7 @@ public class SystemInfo {
 
     /**
      * 设置内存信息
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-04-13 22:34
      */
     private void setMemory(GlobalMemory memory) {
@@ -91,7 +91,7 @@ public class SystemInfo {
 
     /**
      * 设置CPU信息
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-04-13 22:34
      * 技术参考：https://blog.csdn.net/u012796085/article/details/104068769
      */
@@ -122,7 +122,7 @@ public class SystemInfo {
 
     /**
      * 设置JVM信息
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-04-13 22:34
      */
     private void setJvm() {
@@ -138,7 +138,7 @@ public class SystemInfo {
 
     /**
      * 设置磁盘信息
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-04-13 22:02
      */
     private void setDisks(OperatingSystem os) {
@@ -162,7 +162,7 @@ public class SystemInfo {
 
     /**
      * 获取InetAddress对象
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-04-14 20:45
      * 技术参考：https://blog.csdn.net/weixin_37738830/article/details/100108266
      */
@@ -197,7 +197,7 @@ public class SystemInfo {
 
     /**
      * 获取IP地址
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-04-13 21:14
      */
     private String getIpAddress() {
@@ -211,7 +211,7 @@ public class SystemInfo {
 
     /**
      * 获取MAC地址
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-04-13 21:17
      */
     private String getMacAddress() {
@@ -244,7 +244,7 @@ public class SystemInfo {
 
     /**
      * 转为兆
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-04-13 21:50
      */
     private double toM(long value) {

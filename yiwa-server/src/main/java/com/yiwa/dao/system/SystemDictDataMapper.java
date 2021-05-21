@@ -11,7 +11,7 @@ public interface SystemDictDataMapper extends BaseMapper<SystemDictData> {
 
     /**
      * 查询字典数据管理列表
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-05-16 20:48
      */
     List<SystemDictDataListVO> selectManageList(QuerySystemDictDataDTO dto);

@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * 自定义Realm，处理认证和权限
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021-03-28 14:58
  */
 @Component
@@ -40,7 +40,7 @@ public class ShiroRealm extends AuthorizingRealm {
 
     /**
      * 权限处理
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-03-27 18:56
      */
     @Override
@@ -67,7 +67,7 @@ public class ShiroRealm extends AuthorizingRealm {
 
     /**
      * 认证处理
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-03-27 18:57
      */
     @Override

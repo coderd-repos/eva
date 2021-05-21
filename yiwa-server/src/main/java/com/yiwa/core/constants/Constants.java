@@ -2,7 +2,7 @@ package com.yiwa.core.constants;
 
 /**
  * 常量
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021-05-20 17:46
  */
 public final class Constants {

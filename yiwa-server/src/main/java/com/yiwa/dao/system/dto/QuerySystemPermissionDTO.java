@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * 查询系统权限参数对象
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021-03-31 15:07
  */
 @Data

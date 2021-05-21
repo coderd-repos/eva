@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * 分页对象
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021/05/15 18:44
  */
 @Data
@@ -34,7 +34,7 @@ public class PageData<T> implements Serializable {
 
     /**
      * 根据MyBatis Plus分页对象组装
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-05-16 13:53
      */
     public static <T> PageData<T> from(IPage<T> pageInfo) {
@@ -46,7 +46,7 @@ public class PageData<T> implements Serializable {
 
     /**
      * 根据MyBatis原生分页对象组装
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-05-16 13:54
      */
     public static <T> PageData<T> from(PageInfo<T> pageInfo) {
@@ -58,7 +58,7 @@ public class PageData<T> implements Serializable {
 
     /**
      * 处理异常页容量
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/15 18:44
      */
     public long getCapacity () {
@@ -67,7 +67,7 @@ public class PageData<T> implements Serializable {
 
     /**
      * 计算总页码
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/15 18:44
      */
     public long getPageCount(){

@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * 登录参数
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021-03-27 22:52
  */
 @ApiModel("登录参数")

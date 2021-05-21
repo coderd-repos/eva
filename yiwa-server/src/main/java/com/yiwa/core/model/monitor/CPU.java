@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * CPU信息
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021-04-13 19:59
  */
 @Data
@@ -27,7 +27,7 @@ public class CPU {
 
     /**
      * 空闲率
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-04-13 20:17
      */
     public double getFreeRatio () {

@@ -1,6 +1,7 @@
 package com.yiwa.api.system;
 
 import com.yiwa.api.BaseController;
+import com.yiwa.biz.system.SystemDictBiz;
 import com.yiwa.core.model.ApiResponse;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.dto.QuerySystemDictDTO;
@@ -17,7 +18,7 @@ import java.util.List;
 
 /**
  * 字典接口
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021/05/16 17:40
  */
 @RestController
@@ -28,21 +29,24 @@ public class SystemDictController extends BaseController {
     @Autowired
     private SystemDictService systemDictService;
 
+    @Autowired
+    private SystemDictBiz systemDictBiz;
+
     /**
      * 创建
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 17:40
      */
     @RequiresPermissions("system:dict:create")
     @PostMapping("/create")
     @ApiOperation("新建")
     public ApiResponse create(@RequestBody SystemDict systemDict) {
-        return ApiResponse.success(systemDictService.create(systemDict));
+        return ApiResponse.success(systemDictBiz.create(systemDict));
     }
 
     /**
      * 删除
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 17:40
      */
     @RequiresPermissions("system:dict:delete")
@@ -54,7 +58,7 @@ public class SystemDictController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/03/28 09:30
      */
     @RequiresPermissions("system:dict:delete")
@@ -72,20 +76,20 @@ public class SystemDictController extends BaseController {
 
     /**
      * 根据ID修改
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 17:40
      */
     @RequiresPermissions("system:dict:update")
     @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
     public ApiResponse updateById(@RequestBody SystemDict systemDict) {
-        systemDictService.updateById(systemDict);
+        systemDictBiz.updateById(systemDict);
         return ApiResponse.success(null);
     }
 
     /**
      * 分页查询
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 17:40
      */
     @RequiresPermissions("system:dict:query")
@@ -97,7 +101,7 @@ public class SystemDictController extends BaseController {
 
     /**
      * 通过ID查询
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 17:40
      */
     @RequiresPermissions("system:dict:query")

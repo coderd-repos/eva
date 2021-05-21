@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Controller基类
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021/03/26 19:48
  */
 @Slf4j
@@ -24,7 +24,7 @@ public class BaseController {
 
     /**
      * 获取当前登录用户
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-03-28 15:35
      */
     protected LoginUserInfo getLoginUser () {

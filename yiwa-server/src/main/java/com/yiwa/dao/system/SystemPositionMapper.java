@@ -10,7 +10,7 @@ import java.util.List;
 public interface SystemPositionMapper extends BaseMapper<SystemPosition> {
 
     /**
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-05-16 17:18
      */
     List<SystemPositionListVO> selectManageList(QuerySystemPositionDTO dto);

@@ -23,6 +23,7 @@
     LEFT JOIN `SYSTEM_USER` create_user ON create_user.ID = dict.CREATE_USER
     LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = dict.UPDATE_USER
     <where>
+      dict.DELETED = 0
       <if test="code != null and code != ''">
         AND dict.`CODE` LIKE concat('%', #{code}, '%')
       </if>

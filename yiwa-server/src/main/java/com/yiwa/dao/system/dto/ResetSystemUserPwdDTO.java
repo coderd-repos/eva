@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * 重置用户密码参数对象
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021-03-31 20:00
  */
 @Data

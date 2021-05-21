@@ -1,6 +1,6 @@
-package com.yiwa.biz.impl;
+package com.yiwa.biz.system.impl;
 
-import com.yiwa.biz.SystemRoleBiz;
+import com.yiwa.biz.system.SystemRoleBiz;
 import com.yiwa.dao.system.dto.CreateRoleMenuDTO;
 import com.yiwa.dao.system.dto.CreateRolePermissionDTO;
 import com.yiwa.dao.system.model.SystemRoleMenu;

@@ -1,9 +1,8 @@
 package com.yiwa.api.system;
 
 import com.yiwa.api.BaseController;
-import com.yiwa.biz.SystemDepartmentBiz;
+import com.yiwa.biz.system.SystemDepartmentBiz;
 import com.yiwa.core.model.ApiResponse;
-import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.model.SystemDepartment;
 import com.yiwa.service.system.SystemDepartmentService;
 import io.swagger.annotations.Api;
@@ -12,13 +11,12 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 接口
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021/05/16 11:59
  */
 @RestController
@@ -34,7 +32,7 @@ public class SystemDepartmentController extends BaseController {
 
     /**
      * 创建
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 11:59
      */
     @RequiresPermissions("system:department:create")
@@ -46,7 +44,7 @@ public class SystemDepartmentController extends BaseController {
 
     /**
      * 用户删除
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 11:59
      */
     @RequiresPermissions("system:department:delete")
@@ -58,7 +56,7 @@ public class SystemDepartmentController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/03/28 09:30
      */
     @RequiresPermissions("system:department:delete")
@@ -76,7 +74,7 @@ public class SystemDepartmentController extends BaseController {
 
     /**
      * 修改部门
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 11:59
      */
     @RequiresPermissions("system:department:update")
@@ -89,7 +87,7 @@ public class SystemDepartmentController extends BaseController {
 
     /**
      * 查询部门列表
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 11:59
      */
     @RequiresPermissions("system:department:query")
@@ -101,7 +99,7 @@ public class SystemDepartmentController extends BaseController {
 
     /**
      * 通过ID查询
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 11:59
      */
     @RequiresPermissions("system:department:query")

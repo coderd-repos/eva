@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 字典数据接口
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021/05/16 20:18
  */
 @RestController
@@ -27,7 +27,7 @@ public class SystemDictDataController extends BaseController {
 
     /**
      * 创建
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 20:18
      */
     @RequiresPermissions("system:dict:update")
@@ -39,7 +39,7 @@ public class SystemDictDataController extends BaseController {
 
     /**
      * 删除
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 20:18
      */
     @RequiresPermissions("system:dict:update")
@@ -52,7 +52,7 @@ public class SystemDictDataController extends BaseController {
 
     /**
      * 根据ID修改
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 20:18
      */
     @RequiresPermissions("system:dict:update")
@@ -65,7 +65,7 @@ public class SystemDictDataController extends BaseController {
 
     /**
      * 分页查询
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 20:18
      */
     @RequiresPermissions("system:dict:update")
@@ -77,7 +77,7 @@ public class SystemDictDataController extends BaseController {
 
     /**
      * 通过ID查询
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 20:18
      */
     @RequiresPermissions("system:dict:update")

@@ -1,6 +1,6 @@
-package com.yiwa.biz.impl;
+package com.yiwa.biz.system.impl;
 
-import com.yiwa.biz.SystemUserBiz;
+import com.yiwa.biz.system.SystemUserBiz;
 import com.yiwa.core.model.BusinessException;
 import com.yiwa.core.model.ResponseStatus;
 import com.yiwa.core.utils.SecureUtil;

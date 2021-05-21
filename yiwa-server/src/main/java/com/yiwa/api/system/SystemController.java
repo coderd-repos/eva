@@ -1,7 +1,7 @@
 package com.yiwa.api.system;
 
 import com.yiwa.api.BaseController;
-import com.yiwa.biz.SystemUserBiz;
+import com.yiwa.biz.system.SystemUserBiz;
 import com.yiwa.core.model.ApiResponse;
 import com.yiwa.dao.system.dto.LoginDTO;
 import com.yiwa.dao.system.dto.UpdatePwdDto;
@@ -35,7 +35,7 @@ public class SystemController extends BaseController {
     private CaptchaService captchaService;
 
     /**
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-03-27 21:36
      */
     @ApiOperation("登录")
@@ -57,7 +57,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-03-27 21:36
      */
     @ApiOperation("退出登录")
@@ -69,7 +69,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-03-31 14:16
      */
     @ApiOperation("修改密码")
@@ -81,7 +81,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-03-28 17:04
      */
     @ApiOperation("获取当前登录的用户信息")

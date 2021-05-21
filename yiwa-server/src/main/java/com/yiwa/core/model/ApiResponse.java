@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 /**
  * 接口返回对象
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021/03/26 19:48
  */
 @Data
@@ -21,7 +21,7 @@ public class ApiResponse<T> {
 
     /**
      * 请求成功
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/03/26 19:48
      */
     public static <T> ApiResponse success(T data) {
@@ -30,7 +30,7 @@ public class ApiResponse<T> {
 
     /**
      * 请求成功
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/03/26 19:48
      */
     public static <T> ApiResponse success(String message, T data) {
@@ -39,7 +39,7 @@ public class ApiResponse<T> {
 
     /**
      * 请求失败
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/03/26 19:48
      */
     public static ApiResponse failed() {
@@ -48,7 +48,7 @@ public class ApiResponse<T> {
 
     /**
      * 请求失败
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/03/26 19:48
      */
     public static ApiResponse failed(String message) {
@@ -57,7 +57,7 @@ public class ApiResponse<T> {
 
     /**
      * 请求失败
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/03/26 19:48
      */
     public static ApiResponse failed(Integer code, String message) {

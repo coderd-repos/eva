@@ -1,6 +1,6 @@
-package com.yiwa.biz.impl;
+package com.yiwa.biz.system.impl;
 
-import com.yiwa.biz.SystemPermissionBiz;
+import com.yiwa.biz.system.SystemPermissionBiz;
 import com.yiwa.core.model.BusinessException;
 import com.yiwa.core.model.ResponseStatus;
 import com.yiwa.dao.system.model.SystemPermission;

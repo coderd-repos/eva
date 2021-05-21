@@ -1,6 +1,6 @@
-package com.yiwa.biz.impl;
+package com.yiwa.biz.system.impl;
 
-import com.yiwa.biz.SystemDepartmentBiz;
+import com.yiwa.biz.system.SystemDepartmentBiz;
 import com.yiwa.dao.system.model.SystemDepartment;
 import com.yiwa.dao.system.vo.SystemDepartmentListVO;
 import com.yiwa.service.system.SystemDepartmentService;
@@ -50,7 +50,7 @@ public class SystemDepartmentBizImpl implements SystemDepartmentBiz {
 
     /**
      * 填充子部门
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-03-29 16:09
      */
     private void fillChildren(SystemDepartmentListVO parentMenu, List<SystemDepartmentListVO> departments) {

@@ -1,7 +1,7 @@
 package com.yiwa.api.system;
 
 import com.yiwa.api.BaseController;
-import com.yiwa.biz.SystemPermissionBiz;
+import com.yiwa.biz.system.SystemPermissionBiz;
 import com.yiwa.core.model.ApiResponse;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.dto.QuerySystemPermissionDTO;
@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * 系统权限接口
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021/03/27 22:36
  */
 @RestController
@@ -33,7 +33,7 @@ public class SystemPermissionController extends BaseController {
     private SystemPermissionBiz systemPermissionBiz;
 
     /**
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/03/27 22:36
      */
     @RequiresPermissions("system:permission:create")
@@ -44,7 +44,7 @@ public class SystemPermissionController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/03/27 22:36
      */
     @RequiresPermissions("system:permission:delete")
@@ -56,7 +56,7 @@ public class SystemPermissionController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/03/28 09:30
      */
     @RequiresPermissions("system:permission:delete")
@@ -73,7 +73,7 @@ public class SystemPermissionController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/03/27 22:36
      */
     @RequiresPermissions("system:permission:update")
@@ -85,7 +85,7 @@ public class SystemPermissionController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/03/27 22:36
      */
     @RequiresPermissions("system:permission:query")

@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * 岗位接口
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021/05/16 17:03
  */
 @RestController
@@ -30,7 +30,7 @@ public class SystemPositionController extends BaseController {
 
     /**
      * 创建
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 17:03
      */
     @RequiresPermissions("system:position:create")
@@ -42,7 +42,7 @@ public class SystemPositionController extends BaseController {
 
     /**
      * 删除
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 17:03
      */
     @RequiresPermissions("system:position:delete")
@@ -54,7 +54,7 @@ public class SystemPositionController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/03/28 09:30
      */
     @RequiresPermissions("system:position:delete")
@@ -72,7 +72,7 @@ public class SystemPositionController extends BaseController {
 
     /**
      * 根据ID修改
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 17:03
      */
     @RequiresPermissions("system:position:update")
@@ -85,7 +85,7 @@ public class SystemPositionController extends BaseController {
 
     /**
      * 分页查询
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 17:03
      */
     @RequiresPermissions("system:position:query")
@@ -97,7 +97,7 @@ public class SystemPositionController extends BaseController {
 
     /**
      * 通过ID查询
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021/05/16 17:03
      */
     @RequiresPermissions("system:position:query")

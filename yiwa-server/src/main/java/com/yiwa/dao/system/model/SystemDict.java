@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * 字典
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021/05/16 17:40
  */
 @Data

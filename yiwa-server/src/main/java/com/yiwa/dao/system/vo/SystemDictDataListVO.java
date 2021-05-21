@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * 字典数据列表视图对象
- * @author Caesar Liu
+ * @author Yiwa
  * @date 2021-05-16 20:43
  */
 @Data
