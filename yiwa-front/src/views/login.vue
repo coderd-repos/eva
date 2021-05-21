@@ -8,10 +8,10 @@
     <div class="login">
       <h1>系统登录&nbsp;/&nbsp;LOGIN IN</h1>
       <div class="info-input">
-        <el-input placeholder="请输入您的账号" v-model="username" v-trim/>
-        <el-input placeholder="请输入您的密码" v-model="password" @keypress.enter.native="login" type="password" show-password/>
+        <el-input placeholder="请输入用户名" v-model="username" v-trim/>
+        <el-input placeholder="请输入密码" v-model="password" type="password" show-password/>
         <div class="captcha-input">
-          <el-input v-model="captcha" placeholder="图片验证码" maxlength="4"/>
+          <el-input v-model="captcha" placeholder="图片验证码" maxlength="4" @keypress.enter.native="login"/>
           <img :src="captchaUri" @click="refreshCaptcha">
         </div>
       </div>
@@ -47,9 +47,9 @@ export default {
       }
       this.loading = true
       loginByPassword({
-        username: this.username,
+        username: this.username.trim(),
         password: this.password,
-        code: this.captcha
+        code: this.captcha.trim()
       })
         .then(data => {
           this.setUserInfo(data)
@@ -74,11 +74,15 @@ export default {
     // 登录前验证
     __check () {
       if (this.username.trim() === '') {
-        this.$message.error('账号不能为空')
+        this.$message.error('请输入用户名')
         return false
       }
-      if (this.password.trim() === '') {
-        this.$message.error('密码不能为空')
+      if (this.password === '') {
+        this.$message.error('请输入密码')
+        return false
+      }
+      if (this.captcha.trim() === '') {
+        this.$message.error('请输入图片验证码')
         return false
       }
       return true

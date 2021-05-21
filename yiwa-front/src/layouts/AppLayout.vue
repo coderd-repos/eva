@@ -45,7 +45,6 @@ export default {
     background: $primary-color;
     color: #fff;
     transition: width ease .3s;
-    box-shadow: 3px 0 10px -2px #ccc;
     &.collapse {
       width: 64px !important;
     }
