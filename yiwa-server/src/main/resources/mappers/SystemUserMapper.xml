@@ -16,7 +16,7 @@
   </resultMap>
   <select id="selectManageList" parameterType="com.yiwa.dao.system.dto.QuerySystemUserDTO" resultMap="SystemUserListVO">
     SELECT
-      usr.ID, usr.BIRTHDAY, usr.EMAIL, usr.EMP_NO, usr.MOBILE, usr.AVATAR, usr.USERNAME, usr.REALNAME, usr.SEX, usr.CREATE_TIME,
+      usr.ID, usr.BIRTHDAY, usr.EMAIL, usr.EMP_NO, usr.MOBILE, usr.AVATAR, usr.USERNAME, usr.REALNAME, usr.SEX, usr.CREATE_TIME, usr.UPDATE_TIME,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
       update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME
     FROM `SYSTEM_USER` usr

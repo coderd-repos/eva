@@ -52,7 +52,7 @@ public class SystemController extends BaseController {
             return ApiResponse.success(this.getLoginUser());
         } catch (AuthenticationException e) {
             log.error("登录失败", e);
-            return ApiResponse.failed("账号或密码错误");
+            return ApiResponse.failed("用户名或密码错误");
         }
     }
 

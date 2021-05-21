@@ -98,7 +98,6 @@ public class SystemUserBizImpl implements SystemUserBiz {
     public void updateById(SystemUser systemUser) {
         Assert.notNull(systemUser.getUsername(), "缺少参数");
         Assert.notNull(systemUser.getRealname(), "缺少参数");
-        Assert.notNull(systemUser.getUpdateUser(), "缺少参数");
         // 验证用户名
         SystemUser queryUserDto = new SystemUser();
         queryUserDto.setDeleted(Boolean.FALSE);
