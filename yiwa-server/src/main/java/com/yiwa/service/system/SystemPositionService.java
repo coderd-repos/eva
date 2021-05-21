@@ -1,8 +1,5 @@
 package com.yiwa.service.system;
 
-import com.yiwa.core.model.PageData;
-import com.yiwa.core.model.PageWrap;
-import com.yiwa.dao.system.dto.QuerySystemPositionDTO;
 import com.yiwa.dao.system.model.SystemPosition;
 import com.yiwa.dao.system.vo.SystemPositionListVO;
 
@@ -69,14 +66,7 @@ public interface SystemPositionService {
      * @author Yiwa
      * @date 2021/05/16 17:03
      */
-    List<SystemPosition> findList(SystemPosition systemPosition);
-  
-    /**
-     * 分页查询
-     * @author Yiwa
-     * @date 2021/05/16 17:03
-     */
-    PageData<SystemPositionListVO> findPage(PageWrap<QuerySystemPositionDTO> pageWrap);
+    List<SystemPositionListVO> findList();
 
     /**
      * 条件统计

@@ -21,6 +21,9 @@ public class SystemPosition {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
+    @ApiModelProperty(value = "上级岗位")
+    private Integer parentId;
+
     @ApiModelProperty(value = "岗位名称")
     private String name;
 

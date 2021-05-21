@@ -1,9 +1,8 @@
 package com.yiwa.api.system;
 
 import com.yiwa.api.BaseController;
+import com.yiwa.biz.system.SystemPositionBiz;
 import com.yiwa.core.model.ApiResponse;
-import com.yiwa.core.model.PageWrap;
-import com.yiwa.dao.system.dto.QuerySystemPositionDTO;
 import com.yiwa.dao.system.model.SystemPosition;
 import com.yiwa.service.system.SystemPositionService;
 import io.swagger.annotations.Api;
@@ -27,6 +26,9 @@ public class SystemPositionController extends BaseController {
 
     @Autowired
     private SystemPositionService systemPositionService;
+
+    @Autowired
+    private SystemPositionBiz systemPositionBiz;
 
     /**
      * @author Yiwa
@@ -85,10 +87,10 @@ public class SystemPositionController extends BaseController {
      * @date 2021/05/16 17:03
      */
     @RequiresPermissions("system:position:query")
-    @PostMapping("/page")
-    @ApiOperation("分页查询")
-    public ApiResponse findPage (@RequestBody PageWrap<QuerySystemPositionDTO> pageWrap) {
-        return ApiResponse.success(systemPositionService.findPage(pageWrap));
+    @PostMapping("/list")
+    @ApiOperation("查询岗位列表")
+    public ApiResponse findList () {
+        return ApiResponse.success(systemPositionBiz.findList());
     }
 
     /**
