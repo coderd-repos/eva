@@ -55,7 +55,7 @@
       </el-table>
     </template>
     <!-- 新建/修改 -->
-    <OperaMenuWindow ref="operaMenuWindow" @create-success="handlePageChange(tableData.pagination.pageIndex)" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
+    <OperaMenuWindow ref="operaMenuWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>
   </TableLayout>
 </template>
 

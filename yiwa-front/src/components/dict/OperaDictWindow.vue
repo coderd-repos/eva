@@ -91,7 +91,7 @@ export default {
           .then(() => {
             this.visible = false
             this.$message.success('新建成功')
-            this.$emit('create-success')
+            this.$emit('success')
           })
           .catch(e => {
             this.$message.error(e.message)
@@ -113,7 +113,7 @@ export default {
           .then(() => {
             this.visible = false
             this.$message.success('修改成功')
-            this.$emit('edit-success')
+            this.$emit('success')
           })
           .catch(e => {
             this.$message.error(e.message)

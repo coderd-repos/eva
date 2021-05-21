@@ -54,7 +54,7 @@
       </pagination>
     </template>
     <!-- 新建/修改 -->
-    <OperaPositionWindow ref="operaPositionWindow" @create-success="handlePageChange(tableData.pagination.pageIndex)" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
+    <OperaPositionWindow ref="operaPositionWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 人员管理 -->
     <UserManagerWindow ref="userManagerWindow"/>
   </TableLayout>

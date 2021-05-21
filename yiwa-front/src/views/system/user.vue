@@ -78,7 +78,7 @@
       </pagination>
     </template>
     <!-- 新建/修改 -->
-    <OperaUserWindow ref="operaUserWindow" @create-success="handlePageChange(tableData.pagination.pageIndex)" @edit-success="handlePageChange(tableData.pagination.pageIndex)"/>
+    <OperaUserWindow ref="operaUserWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 配置角色 -->
     <RoleConfigWindow ref="roleConfigWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>
     <!-- 重置密码 -->

@@ -2,18 +2,18 @@
   <GlobalWindow
     :title="title"
     :visible.sync="visible"
-    :confirm-working="isWorking"
+    :confirm-working="isWorking.create"
     @confirm="confirm"
   >
     <el-form :model="form" ref="form" :rules="rules">
-      <el-form-item label="角色编码" prop="code" required>
-        <el-input placeholder="请输入角色编码" v-model="form.code" v-trim maxlength="50"/>
+      <el-form-item label="数据标签" prop="label" required>
+        <el-input v-model="form.label" v-trim maxlength="50" placeholder="请输入数据标签"/>
       </el-form-item>
-      <el-form-item label="角色名称" prop="name" required>
-        <el-input placeholder="请输入角色名称" v-model="form.name" v-trim maxlength="50"/>
+      <el-form-item label="数据值" prop="code" required>
+        <el-input v-model="form.code" v-trim maxlength="50" placeholder="请输入数据值"/>
       </el-form-item>
-      <el-form-item label="角色备注" prop="remark">
-        <el-input type="textarea" placeholder="请输入角色备注" v-model="form.remark" :rows="3" v-trim maxlength="500"/>
+      <el-form-item label="状态" prop="code" required>
+        <el-switch v-model="form.disabled" :active-value="false" :inactive-value="true"/>
       </el-form-item>
     </el-form>
   </GlobalWindow>
@@ -21,29 +21,30 @@
 
 <script>
 import GlobalWindow from '../common/GlobalWindow'
-import { create, updateById } from '../../api/system/role'
+import { create, updateById } from '../../api/system/dictData'
 export default {
-  name: 'OperaRoleWindow',
+  name: 'OperaDictDataWindow',
   components: { GlobalWindow },
   data () {
     return {
-      title: '',
       visible: false,
       isWorking: false,
+      title: '',
       // 表单数据
       form: {
         id: null,
+        dictId: null,
         code: '',
-        name: '',
-        remark: ''
+        label: '',
+        disabled: false
       },
       // 验证规则
       rules: {
-        code: [
-          { required: true, message: '请输入角色编码' }
+        label: [
+          { required: true, message: '请输入数据标签' }
         ],
-        name: [
-          { required: true, message: '请输入角色名称' }
+        code: [
+          { required: true, message: '请输入数据值' }
         ]
       }
     }
@@ -51,15 +52,17 @@ export default {
   methods: {
     /**
      * @title 窗口标题
-     * @target 编辑的角色对象
+     * @dict 所属字典ID
+     * @target 编辑的字典数据对象
      */
-    open (title, target) {
+    open (title, dictId, target) {
       this.title = title
       this.visible = true
       // 新建
       if (target == null) {
         this.$nextTick(() => {
           this.$refs.form.resetFields()
+          this.form.dictId = dictId
           this.form.id = null
         })
         return
@@ -73,7 +76,7 @@ export default {
     },
     // 确认新建/修改
     confirm () {
-      if (this.form.id == null) {
+      if (this.form.id == null || this.form.id === '') {
         this.__confirmCreate()
         return
       }
@@ -126,3 +129,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

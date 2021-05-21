@@ -2,14 +2,14 @@
   <GlobalWindow
     :title="dictName + '数据管理'"
     width="78%"
-    :visible.sync="visible.dataManager"
+    :visible.sync="visible"
     :with-footer="false"
   >
     <TableLayout :with-breadcrumb="false">
       <!-- 表格和分页 -->
       <template v-slot:table-wrap>
         <ul class="toolbar">
-          <li><el-button type="primary" @click="create" icon="el-icon-plus">新建</el-button></li>
+          <li><el-button type="primary" @click="$refs.operaDictDataWindow.open('新建字典数据', dictId)" icon="el-icon-plus">新建</el-button></li>
           <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete">删除</el-button></li>
         </ul>
         <el-table
@@ -19,8 +19,8 @@
           @selection-change="handleSelectionChange"
         >
           <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="code" label="数据值" min-width="100px"></el-table-column>
           <el-table-column prop="label" label="数据标签" min-width="100px"></el-table-column>
+          <el-table-column prop="code" label="数据值" min-width="100px"></el-table-column>
           <el-table-column prop="disabled" label="状态" min-width="100px">
             <template slot-scope="{row}">{{row.disabled | disabledText}}</template>
           </el-table-column>
@@ -38,7 +38,7 @@
             fixed="right"
           >
             <template slot-scope="{row}">
-              <el-button type="text" @click="edit(row)" icon="el-icon-edit">编辑</el-button>
+              <el-button type="text" @click="$refs.operaDictDataWindow.open('编辑字典数据', dictId, row)" icon="el-icon-edit">编辑</el-button>
               <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete">删除</el-button>
             </template>
           </el-table-column>
@@ -51,24 +51,7 @@
         </pagination>
       </template>
       <!-- 新建/修改 -->
-      <GlobalWindow
-        :title="operaTableData.title"
-        :visible.sync="visible.operaTable"
-        :confirm-working="isWorking.create"
-        @confirm="confirm"
-      >
-        <el-form :model="operaTableData.form" ref="operaTableDataForm" :rules="operaTableData.rules">
-          <el-form-item label="数据标签" prop="label" required>
-            <el-input v-model="operaTableData.form.label" v-trim maxlength="50" placeholder="请输入数据标签"/>
-          </el-form-item>
-          <el-form-item label="数据值" prop="code" required>
-            <el-input v-model="operaTableData.form.code" v-trim maxlength="50" placeholder="请输入数据值"/>
-          </el-form-item>
-          <el-form-item label="状态" prop="code" required>
-            <el-switch v-model="operaTableData.form.disabled" :active-value="false" :inactive-value="true"/>
-          </el-form-item>
-        </el-form>
-      </GlobalWindow>
+      <OperaDictDataWindow ref="operaDictDataWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>
     </TableLayout>
   </GlobalWindow>
 </template>
@@ -77,43 +60,20 @@
 import Pagination from '../../components/common/Pagination'
 import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, create, updateById, deleteById, deleteByIdInBatch } from '../../api/system/dictData'
+import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/dictData'
 import BaseTable from '../../views/BaseTable'
+import OperaDictDataWindow from './OperaDictDataWindow'
 export default {
   name: 'DictDataManagerWindow',
   extends: BaseTable,
-  components: { TableLayout, GlobalWindow, Pagination },
+  components: { OperaDictDataWindow, TableLayout, GlobalWindow, Pagination },
   data () {
     return {
+      visible: false,
+      // 字典ID
       dictId: null,
-      dictName: '',
-      visible: {
-        dataManager: false
-      },
-      // 新增/修改
-      operaTableData: {
-        title: '新建系统权限',
-        // 表单数据
-        form: {
-          id: null,
-          dictId: null,
-          code: '',
-          label: '',
-          disabled: false
-        },
-        // 验证规则
-        rules: {
-          dictId: [
-            { required: true, message: '请输入所属字典' }
-          ],
-          code: [
-            { required: true, message: '请输入数据值' }
-          ],
-          label: [
-            { required: true, message: '请输入数据标签' }
-          ]
-        }
-      }
+      // 字典名称
+      dictName: ''
     }
   },
   methods: {
@@ -121,80 +81,8 @@ export default {
     open (dictId, dictName) {
       this.dictId = dictId
       this.dictName = dictName
-      this.visible.dataManager = true
+      this.visible = true
       this.search()
-    },
-    // 确认新建/修改
-    confirm () {
-      if (this.operaTableData.form.id == null || this.operaTableData.form.id === '') {
-        this.confirmCreate()
-        return
-      }
-      this.confirmEdit()
-    },
-    // 新建
-    create () {
-      this.visible.operaTable = true
-      this.operaTableData.title = '新建字典数据'
-      this.$nextTick(() => {
-        this.$refs.operaTableDataForm.resetFields()
-        this.operaTableData.form.id = null
-        this.operaTableData.form.dictId = this.dictId
-      })
-    },
-    // 确定新建
-    confirmCreate () {
-      this.$refs.form.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking.operaTable = true
-        create(this.operaTableData.form)
-          .then(() => {
-            this.visible.operaTable = false
-            this.handlePageChange(1)
-            this.$message.success('新建成功')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.operaTable = false
-          })
-      })
-    },
-    // 编辑
-    edit (row) {
-      this.operaTableData.title = '修改字典数据'
-      this.visible.operaTable = true
-      this.$nextTick(() => {
-        for (const key in this.operaTableData.form) {
-          this.operaTableData.form[key] = row[key]
-        }
-      })
-    },
-    // 确认修改
-    confirmEdit () {
-      this.$refs.form.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking.operaTable = true
-        updateById(this.operaTableData.form)
-          .then(() => {
-            this.visible.operaTable = false
-            this.search()
-            this.$message.success('修改成功')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.operaTable = false
-          })
-      })
     },
     // 删除
     deleteById (id) {
