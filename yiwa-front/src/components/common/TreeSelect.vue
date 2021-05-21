@@ -1,5 +1,5 @@
 <template>
-  <vue-tree-select :value="value" :options="data" @input="$emit('input', $event)"/>
+  <vue-tree-select :placeholder="placeholder" :value="value" :options="data" @input="$emit('input', $event)"/>
 </template>
 
 <script>
@@ -9,6 +9,9 @@ export default {
   name: 'TreeSelect',
   props: {
     value: {},
+    placeholder: {
+      default: '请选择'
+    },
     data: {
       type: Array,
       required: true

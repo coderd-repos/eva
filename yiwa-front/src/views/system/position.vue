@@ -1,29 +1,22 @@
 <template>
   <TableLayout v-permissions="['system:position:query']">
-    <!-- 搜索表单 -->
-    <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="100px" inline>
-      <el-form-item label="岗位名称" prop="name">
-        <el-input v-model="searchForm.name" v-trim placeholder="请输入岗位名称" @keypress.enter.native="search"/>
-      </el-form-item>
-      <section>
-        <el-button type="primary" @click="search">搜索</el-button>
-        <el-button @click="reset">重置</el-button>
-      </section>
-    </el-form>
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:position:create', 'system:position:delete']">
-        <li><el-button type="primary" @click="$refs.operaPositionWindow.open('新建岗位')" icon="el-icon-plus" v-permissions="['system:position:create']">新建</el-button></li>
+        <li><el-button type="primary" @click="$refs.operaPositionWindow.open('新建岗位', null, null, tableData.list)" icon="el-icon-plus" v-permissions="['system:position:create']">新建</el-button></li>
         <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete" v-permissions="['system:position:delete']">删除</el-button></li>
       </ul>
       <el-table
         v-loading="isWorking.search"
         :data="tableData.list"
+        :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+        row-key="id"
         stripe
+        default-expand-all
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="name" label="岗位名称" min-width="100px"></el-table-column>
+        <el-table-column prop="name" label="岗位名称" min-width="200px"></el-table-column>
         <el-table-column prop="userCount" label="岗位人数" min-width="100px"></el-table-column>
         <el-table-column prop="createUser" label="创建人" min-width="100px">
           <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
@@ -36,11 +29,12 @@
         <el-table-column
           v-if="containPermissions(['system:position:update', 'system:position:query', 'system:position:delete'])"
           label="操作"
-          min-width="200"
+          min-width="310"
           fixed="right"
         >
           <template slot-scope="{row}">
-            <el-button type="text" @click="$refs.operaPositionWindow.open('编辑岗位', row)" icon="el-icon-edit" v-permissions="['system:position:update']">编辑</el-button>
+            <el-button type="text" @click="$refs.operaPositionWindow.open('编辑岗位', row, null, tableData.list)" icon="el-icon-edit" v-permissions="['system:position:update']">编辑</el-button>
+            <el-button type="text" @click="$refs.operaPositionWindow.open('新增下级岗位', null, row, tableData.list)" icon="el-icon-edit" v-permissions="['system:position:update']">新增下级岗位</el-button>
             <el-button type="text" @click="$refs.userManagerWindow.open(row.id, row.name)" icon="el-icon-user-solid" v-permissions="['system:position:query']">人员管理</el-button>
             <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:position:delete']">删除</el-button>
           </template>
@@ -54,7 +48,7 @@
       </pagination>
     </template>
     <!-- 新建/修改 -->
-    <OperaPositionWindow ref="operaPositionWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>
+    <OperaPositionWindow ref="operaPositionWindow" @success="handlePageChange"/>
     <!-- 人员管理 -->
     <UserManagerWindow ref="userManagerWindow"/>
   </TableLayout>
@@ -71,14 +65,6 @@ export default {
   name: 'SystemPosition',
   extends: BaseTable,
   components: { OperaPositionWindow, UserManagerWindow, TableLayout, Pagination },
-  data () {
-    return {
-      // 搜索
-      searchForm: {
-        name: ''
-      }
-    }
-  },
   methods: {
     // 删除
     deleteById (id) {
@@ -137,18 +123,12 @@ export default {
       })
     },
     // 页码变更处理
-    handlePageChange (pageIndex) {
+    handlePageChange () {
       // 调用查询接口
-      this.tableData.pagination.pageIndex = pageIndex
       this.isWorking.search = true
-      fetchList({
-        page: pageIndex,
-        capacity: this.tableData.pagination.pageSize,
-        model: this.searchForm
-      })
-        .then(data => {
-          this.tableData.list = data.records
-          this.tableData.pagination.total = data.total
+      fetchList()
+        .then(records => {
+          this.tableData.list = records
         })
         .catch(e => {
           this.$message.error(e.message)
@@ -163,3 +143,10 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+  .table-layout {
+    /deep/ .table-content {
+      margin-top: 0;
+    }
+  }
+</style>
