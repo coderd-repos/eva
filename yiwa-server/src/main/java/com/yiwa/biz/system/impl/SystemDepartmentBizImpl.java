@@ -29,13 +29,6 @@ public class SystemDepartmentBizImpl implements SystemDepartmentBiz {
         if (systemDepartment != null) {
             throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "部门编码已存在");
         }
-        // 统计上级部门下子部门数量
-        SystemDepartment countDto = new SystemDepartment();
-        countDto.setParentId(department.getParentId());
-        countDto.setDeleted(Boolean.FALSE);
-        long subDeptCount = systemDepartmentService.count(countDto);
-        // 设置新建部门的顺序
-        department.setSort(Integer.valueOf("" + subDeptCount));
         return systemDepartmentService.create(department);
     }
 

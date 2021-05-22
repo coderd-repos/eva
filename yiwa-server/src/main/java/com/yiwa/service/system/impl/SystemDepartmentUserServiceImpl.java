@@ -2,6 +2,7 @@ package com.yiwa.service.system.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yiwa.dao.system.SystemDepartmentUserMapper;
 import com.yiwa.dao.system.model.SystemDepartmentUser;
 import com.yiwa.service.system.SystemDepartmentUserService;
@@ -34,6 +35,15 @@ public class SystemDepartmentUserServiceImpl implements SystemDepartmentUserServ
         systemDepartmentUser.setId(id);
         systemDepartmentUser.setDeleted(Boolean.TRUE);
         systemDepartmentUserMapper.updateById(systemDepartmentUser);
+    }
+
+    @Override
+    public void delete(SystemDepartmentUser dto) {
+        SystemDepartmentUser newDepartmentUser = new SystemDepartmentUser();
+        newDepartmentUser.setDeleted(Boolean.TRUE);
+        UpdateWrapper<SystemDepartmentUser> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.setEntity(dto);
+        systemDepartmentUserMapper.update(newDepartmentUser, updateWrapper);
     }
 
     @Override

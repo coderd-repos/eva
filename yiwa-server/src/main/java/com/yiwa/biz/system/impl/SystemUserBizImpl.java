@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.Date;
+
 @Service
 public class SystemUserBizImpl implements SystemUserBiz {
 
@@ -109,6 +111,8 @@ public class SystemUserBizImpl implements SystemUserBiz {
             SystemDepartmentUser systemDepartmentUser = new SystemDepartmentUser();
             systemDepartmentUser.setDepartmentId(systemUser.getDepartmentId());
             systemDepartmentUser.setUserId(userId);
+            systemDepartmentUser.setOperaUser(systemUser.getCreateUser());
+            systemDepartmentUser.setOperaTime(new Date());
             systemDepartmentUserService.create(systemDepartmentUser);
         }
         // 设置岗位
@@ -116,12 +120,14 @@ public class SystemUserBizImpl implements SystemUserBiz {
             SystemPositionUser systemPositionUser = new SystemPositionUser();
             systemPositionUser.setPositionId(systemUser.getPositionId());
             systemPositionUser.setUserId(userId);
+            systemPositionUser.setOperaUser(systemUser.getCreateUser());
+            systemPositionUser.setOperaTime(new Date());
             systemPositionUserService.create(systemPositionUser);
         }
     }
 
     @Override
-    public void updateById(SystemUser systemUser) {
+    public void updateById(CreateSystemUserDTO systemUser) {
         Assert.notNull(systemUser.getUsername(), "缺少参数");
         Assert.notNull(systemUser.getRealname(), "缺少参数");
         // 验证用户名
@@ -144,6 +150,30 @@ public class SystemUserBizImpl implements SystemUserBiz {
         }
         // 修改用户
         systemUserService.updateById(systemUser);
+        // 设置部门
+        SystemDepartmentUser deleteDepartmentDto = new SystemDepartmentUser();
+        deleteDepartmentDto.setUserId(systemUser.getId());
+        systemDepartmentUserService.delete(deleteDepartmentDto);
+        if (systemUser.getDepartmentId() != null) {
+            SystemDepartmentUser systemDepartmentUser = new SystemDepartmentUser();
+            systemDepartmentUser.setDepartmentId(systemUser.getDepartmentId());
+            systemDepartmentUser.setUserId(systemUser.getId());
+            systemDepartmentUser.setOperaUser(systemUser.getUpdateUser());
+            systemDepartmentUser.setOperaTime(new Date());
+            systemDepartmentUserService.create(systemDepartmentUser);
+        }
+        // 设置岗位
+        SystemPositionUser deletePositionDto = new SystemPositionUser();
+        deletePositionDto.setUserId(systemUser.getId());
+        systemPositionUserService.delete(deletePositionDto);
+        if (systemUser.getPositionId() != null) {
+            SystemPositionUser systemPositionUser = new SystemPositionUser();
+            systemPositionUser.setPositionId(systemUser.getPositionId());
+            systemPositionUser.setUserId(systemUser.getId());
+            systemPositionUser.setOperaUser(systemUser.getUpdateUser());
+            systemPositionUser.setOperaTime(new Date());
+            systemPositionUserService.create(systemPositionUser);
+        }
     }
 
     @Override

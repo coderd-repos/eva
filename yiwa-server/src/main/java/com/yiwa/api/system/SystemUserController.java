@@ -67,6 +67,7 @@ public class SystemUserController extends BaseController {
     @PostMapping("/create")
     @ApiOperation("新建")
     public ApiResponse create(@RequestBody CreateSystemUserDTO systemUser) {
+        systemUser.setCreateUser(this.getLoginUser().getId());
         systemUserBiz.create(systemUser);
         return ApiResponse.success(null);
     }
@@ -107,7 +108,8 @@ public class SystemUserController extends BaseController {
     @RequiresPermissions("system:user:update")
     @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
-    public ApiResponse updateById(@RequestBody SystemUser systemUser) {
+    public ApiResponse updateById(@RequestBody CreateSystemUserDTO systemUser) {
+        systemUser.setUpdateUser(this.getLoginUser().getId());
         systemUserBiz.updateById(systemUser);
         return ApiResponse.success(null);
     }

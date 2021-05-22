@@ -39,7 +39,7 @@ public interface SystemUserBiz {
      * @author Yiwa
      * @date 2021-03-31 22:14
      */
-    void updateById(SystemUser systemUser);
+    void updateById(CreateSystemUserDTO systemUser);
 
     /**
      * 创建用户角色

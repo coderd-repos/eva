@@ -1,5 +1,7 @@
 package com.yiwa.dao.system.model;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -22,6 +24,7 @@ public class SystemPosition {
     private Integer id;
 
     @ApiModelProperty(value = "上级岗位")
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private Integer parentId;
 
     @ApiModelProperty(value = "岗位编码")

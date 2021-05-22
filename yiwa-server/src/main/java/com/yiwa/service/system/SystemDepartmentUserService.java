@@ -25,6 +25,13 @@ public interface SystemDepartmentUserService {
     void deleteById(Integer id);
 
     /**
+     * 删除
+     * @author Caesar Liu
+     * @date 2021-05-22 15:11
+     */
+    void delete(SystemDepartmentUser dto);
+
+    /**
      * 批量主键删除
      * @author Caesar Liu
      * @date 2021/05/22 11:57

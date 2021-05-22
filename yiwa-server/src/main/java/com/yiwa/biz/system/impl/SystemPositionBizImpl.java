@@ -1,6 +1,9 @@
 package com.yiwa.biz.system.impl;
 
 import com.yiwa.biz.system.SystemPositionBiz;
+import com.yiwa.core.model.BusinessException;
+import com.yiwa.core.model.ResponseStatus;
+import com.yiwa.dao.system.model.SystemPosition;
 import com.yiwa.dao.system.vo.SystemPositionListVO;
 import com.yiwa.service.system.SystemPositionService;
 import org.springframework.beans.BeanUtils;
@@ -15,6 +18,30 @@ public class SystemPositionBizImpl implements SystemPositionBiz {
 
     @Autowired
     private SystemPositionService systemPositionService;
+
+    @Override
+    public Integer create(SystemPosition systemPosition) {
+        SystemPosition queryDto = new SystemPosition();
+        queryDto.setCode(systemPosition.getCode());
+        queryDto.setDeleted(Boolean.FALSE);
+        SystemPosition position = systemPositionService.findOne(queryDto);
+        if (position != null) {
+            throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "岗位编码已存在");
+        }
+        return systemPositionService.create(systemPosition);
+    }
+
+    @Override
+    public void updateById(SystemPosition systemPosition) {
+        SystemPosition queryDto = new SystemPosition();
+        queryDto.setCode(systemPosition.getCode());
+        queryDto.setDeleted(Boolean.FALSE);
+        SystemPosition position = systemPositionService.findOne(queryDto);
+        if (position != null && !position.getId().equals(systemPosition.getId())) {
+            throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "岗位编码已存在");
+        }
+        systemPositionService.updateById(systemPosition);
+    }
 
     @Override
     public List<SystemPositionListVO> findList() {

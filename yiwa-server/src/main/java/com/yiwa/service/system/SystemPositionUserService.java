@@ -25,6 +25,13 @@ public interface SystemPositionUserService {
     void deleteById(Integer id);
 
     /**
+     * 删除
+     * @author Caesar Liu
+     * @date 2021-05-22 15:18
+     */
+    void delete(SystemPositionUser dto);
+
+    /**
      * 批量主键删除
      * @author Yiwa
      * @date 2021/05/22 09:35

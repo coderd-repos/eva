@@ -2,7 +2,9 @@ package com.yiwa.service.system.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yiwa.dao.system.SystemPositionUserMapper;
+import com.yiwa.dao.system.model.SystemDepartmentUser;
 import com.yiwa.dao.system.model.SystemPositionUser;
 import com.yiwa.service.system.SystemPositionUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,15 @@ public class SystemPositionUserServiceImpl implements SystemPositionUserService 
         systemPositionUser.setId(id);
         systemPositionUser.setDeleted(Boolean.FALSE);
         this.updateById(systemPositionUser);
+    }
+
+    @Override
+    public void delete(SystemPositionUser dto) {
+        SystemPositionUser newSystemPositionUser = new SystemPositionUser();
+        newSystemPositionUser.setDeleted(Boolean.TRUE);
+        UpdateWrapper<SystemPositionUser> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.setEntity(dto);
+        systemPositionUserMapper.update(newSystemPositionUser, updateWrapper);
     }
 
     @Override

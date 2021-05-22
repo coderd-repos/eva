@@ -1,5 +1,6 @@
 package com.yiwa.service.system.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yiwa.core.utils.WrapperUtil;
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;

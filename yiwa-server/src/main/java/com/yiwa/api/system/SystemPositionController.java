@@ -38,7 +38,7 @@ public class SystemPositionController extends BaseController {
     @PostMapping("/create")
     @ApiOperation("新建")
     public ApiResponse create(@RequestBody SystemPosition systemPosition) {
-        return ApiResponse.success(systemPositionService.create(systemPosition));
+        return ApiResponse.success(systemPositionBiz.create(systemPosition));
     }
 
     /**
@@ -78,7 +78,7 @@ public class SystemPositionController extends BaseController {
     @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
     public ApiResponse updateById(@RequestBody SystemPosition systemPosition) {
-        systemPositionService.updateById(systemPosition);
+        systemPositionBiz.updateById(systemPosition);
         return ApiResponse.success(null);
     }
 
