@@ -1,10 +1,9 @@
 <template>
   <GlobalWindow
-    class="position-user-manager-window"
+    class="position-user-window"
     width="80%"
     :title="positionName + '人员列表'"
-    :visible.sync="visible.userManager"
-    :confirm-working="isWorking.userManager"
+    :visible.sync="visible"
     :with-footer="false"
   >
     <TableLayout :with-breadcrumb="false">
@@ -76,16 +75,14 @@ import BaseTable from '../../views/BaseTable'
 import GlobalWindow from '../common/GlobalWindow'
 import { fetchList } from '../../api/system/user'
 export default {
-  name: 'UserManagerWindow',
+  name: 'PositionUserWindow',
   extends: BaseTable,
   components: { GlobalWindow, TableLayout },
   data () {
     return {
       positionId: null,
       positionName: '',
-      visible: {
-        userManager: false
-      },
+      visible: false,
       // 搜索表单
       searchForm: {
         positionId: null,
@@ -101,7 +98,7 @@ export default {
       this.positionId = positionId
       this.positionName = positionName
       this.searchForm.positionId = positionId
-      this.visible.userManager = true
+      this.visible = true
       this.search()
     },
     // 处理分页
@@ -127,7 +124,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.position-user-manager-window {
+.position-user-window {
   /deep/ .table-search-form {
     padding: 0;
   }

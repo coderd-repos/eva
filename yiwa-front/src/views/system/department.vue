@@ -18,6 +18,7 @@
         <el-table-column type="selection" fixed="left" width="55"></el-table-column>
         <el-table-column prop="name" label="部门名称" fixed="left" min-width="200px"></el-table-column>
         <el-table-column prop="code" label="部门编码" fixed="left" min-width="100px"></el-table-column>
+        <el-table-column prop="userCount" label="部门人数" min-width="100px"></el-table-column>
         <el-table-column prop="phone" label="联系电话" min-width="100px"></el-table-column>
         <el-table-column prop="email" label="部门邮箱" min-width="180px"></el-table-column>
         <el-table-column prop="createUser" label="创建人" min-width="100px">
@@ -31,12 +32,13 @@
         <el-table-column
           v-if="containPermissions(['system:department:update', 'system:department:create', 'system:department:delete'])"
           label="操作"
-          min-width="230"
+          min-width="310"
           fixed="right"
         >
           <template slot-scope="{row}">
             <el-button type="text" @click="$refs.operaDepartmentWindow.open('编辑部门', row)" icon="el-icon-edit" v-permissions="['system:department:update']">编辑</el-button>
             <el-button type="text" @click="$refs.operaDepartmentWindow.open('新建下级部门', null, row)" icon="el-icon-edit" v-permissions="['system:department:create']">新建下级部门</el-button>
+            <el-button type="text" @click="$refs.departmentUserWindow.open(row.id, row.name)" icon="el-icon-user-solid" v-permissions="['system:department:query']">查看人员</el-button>
             <el-button v-if="row.parentId != null" type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:department:delete']">删除</el-button>
           </template>
         </el-table-column>
@@ -44,6 +46,8 @@
     </template>
     <!-- 新建/修改 -->
     <OperaDepartmentWindow ref="operaDepartmentWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>
+    <!-- 查看人员 -->
+    <DepartmentUserWindow ref="departmentUserWindow"/>
   </TableLayout>
 </template>
 
@@ -52,10 +56,11 @@ import TableLayout from '../../layouts/TableLayout'
 import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/department'
 import BaseTable from '../BaseTable'
 import OperaDepartmentWindow from '../../components/department/OperaDepartmentWindow'
+import DepartmentUserWindow from '../../components/department/DepartmentUserWindow'
 export default {
   name: 'SystemDepartment',
   extends: BaseTable,
-  components: { OperaDepartmentWindow, TableLayout },
+  components: { DepartmentUserWindow, OperaDepartmentWindow, TableLayout },
   data () {
     return {
       // 搜索
