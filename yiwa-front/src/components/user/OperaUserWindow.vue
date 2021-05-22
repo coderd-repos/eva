@@ -29,10 +29,10 @@
         <el-input type="password" v-model="form.password" maxlength="30"></el-input>
       </el-form-item>
       <el-form-item label="所属部门" prop="departmentId">
-        <DepartmentSelect placeholder="请选择用户所属部门" v-model="form.departmentId" clearable :default-first="false"/>
+        <DepartmentSelect placeholder="请选择用户所属部门" v-model="form.departmentId" :inline="false" clearable/>
       </el-form-item>
       <el-form-item label="岗位" prop="positionId">
-        <PositionSelect placeholder="请选择用户所在岗位" v-model="form.positionId" clearable/>
+        <PositionSelect placeholder="请选择用户所在岗位" v-model="form.positionId" :inline="false" clearable/>
       </el-form-item>
       <el-form-item label="工号" prop="empNo">
         <el-input v-model="form.empNo" v-trim maxlength="50"/>

@@ -29,7 +29,7 @@ export default {
     },
     // 当没有选中时是否默认选中第一条
     defaultFirst: {
-      default: true
+      default: false
     },
     // 需被排除的部门ID
     excludeId: {}
