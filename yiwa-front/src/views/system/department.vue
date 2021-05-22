@@ -17,6 +17,7 @@
       >
         <el-table-column type="selection" fixed="left" width="55"></el-table-column>
         <el-table-column prop="name" label="部门名称" fixed="left" min-width="200px"></el-table-column>
+        <el-table-column prop="code" label="部门编码" fixed="left" min-width="100px"></el-table-column>
         <el-table-column prop="phone" label="联系电话" min-width="100px"></el-table-column>
         <el-table-column prop="email" label="部门邮箱" min-width="180px"></el-table-column>
         <el-table-column prop="createUser" label="创建人" min-width="100px">

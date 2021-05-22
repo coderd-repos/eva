@@ -9,6 +9,9 @@
       <el-form-item label="上级岗位" prop="parentId">
         <PositionSelect placeholder="请选择上级岗位" v-model="form.parentId" :exclude-id="excludePositionId" clearable/>
       </el-form-item>
+      <el-form-item label="岗位编码" prop="code" required>
+        <el-input v-model="form.code" v-trim maxlength="50" placeholder="请输入岗位编码"/>
+      </el-form-item>
       <el-form-item label="岗位名称" prop="name" required>
         <el-input v-model="form.name" v-trim maxlength="50" placeholder="请输入岗位名称"/>
       </el-form-item>
@@ -34,10 +37,14 @@ export default {
       form: {
         id: null,
         parentId: null,
+        code: '',
         name: ''
       },
       // 验证规则
       rules: {
+        code: [
+          { required: true, message: '请输入岗位编码' }
+        ],
         name: [
           { required: true, message: '请输入岗位名称' }
         ]

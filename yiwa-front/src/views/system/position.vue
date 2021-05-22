@@ -17,6 +17,7 @@
       >
         <el-table-column type="selection" width="55" fixed="left"></el-table-column>
         <el-table-column prop="name" label="岗位名称" fixed="left" min-width="200px"></el-table-column>
+        <el-table-column prop="code" label="岗位编码" fixed="left" min-width="100px"></el-table-column>
         <el-table-column prop="userCount" label="岗位人数" min-width="100px"></el-table-column>
         <el-table-column prop="createUser" label="创建人" min-width="100px">
           <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>

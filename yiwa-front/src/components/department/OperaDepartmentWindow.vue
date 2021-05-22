@@ -9,6 +9,9 @@
       <el-form-item v-if="form.id == null || form.parentId != null" label="上级部门" prop="parentId" required>
         <DepartmentSelect placeholder="请选择上级部门" v-model="form.parentId" :exclude-id="excludeDeptId"/>
       </el-form-item>
+      <el-form-item label="部门编码" prop="code" required>
+        <el-input v-model="form.code" v-trim maxlength="50" placeholder="请输入部门编码"/>
+      </el-form-item>
       <el-form-item label="部门名称" prop="name" required>
         <el-input v-model="form.name" v-trim maxlength="50" placeholder="请输入部门名称"/>
       </el-form-item>
@@ -41,12 +44,16 @@ export default {
       form: {
         id: null,
         parentId: null,
+        code: '',
         name: '',
         phone: '',
         email: ''
       },
       // 验证规则
       rules: {
+        code: [
+          { required: true, message: '请输入部门编码' }
+        ],
         name: [
           { required: true, message: '请输入部门名称' }
         ],

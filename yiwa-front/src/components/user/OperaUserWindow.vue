@@ -28,11 +28,11 @@
       <el-form-item v-if="form.id == null" label="初始密码" prop="password" required>
         <el-input type="password" v-model="form.password" maxlength="30"></el-input>
       </el-form-item>
-      <el-form-item label="所属部门" prop="empNo">
-        <el-input v-model="form.empNo" v-trim maxlength="50"/>
+      <el-form-item label="所属部门" prop="departmentId">
+        <DepartmentSelect placeholder="请选择用户所属部门" v-model="form.departmentId" clearable :default-first="false"/>
       </el-form-item>
-      <el-form-item label="工号" prop="empNo">
-        <el-input v-model="form.empNo" v-trim maxlength="50"/>
+      <el-form-item label="岗位" prop="positionId">
+        <PositionSelect placeholder="请选择用户所在岗位" v-model="form.positionId" clearable/>
       </el-form-item>
       <el-form-item label="工号" prop="empNo">
         <el-input v-model="form.empNo" v-trim maxlength="50"/>
@@ -54,10 +54,12 @@
 import GlobalWindow from '../common/GlobalWindow'
 import { checkMobile, checkEmail } from '../../utils/form'
 import { create, updateById } from '../../api/system/user'
+import DepartmentSelect from '../common/DepartmentSelect'
+import PositionSelect from '../common/PositionSelect'
 
 export default {
   name: 'OperaUserWindow',
-  components: { GlobalWindow },
+  components: { PositionSelect, DepartmentSelect, GlobalWindow },
   data () {
     return {
       title: '',
@@ -69,6 +71,8 @@ export default {
         username: '', // 用户名
         realname: '', // 姓名
         empNo: '', // 工号
+        departmentId: null, //  所属部门ID
+        positionId: null, //  所属岗位ID
         avatar: '/avatar/man.png', // 头像
         password: '', // 密码
         mobile: '', // 手机号码
