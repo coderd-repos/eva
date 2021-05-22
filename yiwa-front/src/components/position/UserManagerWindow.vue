@@ -2,7 +2,7 @@
   <GlobalWindow
     class="position-user-manager-window"
     width="80%"
-    :title="positionName + '管理'"
+    :title="positionName + '人员列表'"
     :visible.sync="visible.userManager"
     :confirm-working="isWorking.userManager"
     :with-footer="false"
@@ -127,14 +127,14 @@ export default {
 .position-user-manager-window {
   /deep/ .table-search-form {
     padding: 0;
-    .form-wrap {
-      padding: 0;
-    }
   }
-  /deep/ .table-content {
-    padding: 0;
-    .table-wrap {
+  /deep/ .window__body {
+    background: #f7f7f7;
+    .table-content {
       padding: 0;
+      .table-wrap {
+        padding: 0;
+      }
     }
   }
   // 列表头像处理

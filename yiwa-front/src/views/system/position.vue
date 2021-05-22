@@ -35,7 +35,7 @@
           <template slot-scope="{row}">
             <el-button type="text" @click="$refs.operaPositionWindow.open('编辑岗位', row, null, tableData.list)" icon="el-icon-edit" v-permissions="['system:position:update']">编辑</el-button>
             <el-button type="text" @click="$refs.operaPositionWindow.open('新增下级岗位', null, row, tableData.list)" icon="el-icon-edit" v-permissions="['system:position:update']">新增下级岗位</el-button>
-            <el-button type="text" @click="$refs.userManagerWindow.open(row.id, row.name)" icon="el-icon-user-solid" v-permissions="['system:position:query']">人员管理</el-button>
+            <el-button type="text" @click="$refs.userManagerWindow.open(row.id, row.name)" icon="el-icon-user-solid" v-permissions="['system:position:query']">查看人员</el-button>
             <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:position:delete']">删除</el-button>
           </template>
         </el-table-column>
@@ -49,16 +49,15 @@
 </template>
 
 <script>
-import Pagination from '../../components/common/Pagination'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/position'
 import BaseTable from '../BaseTable'
 import UserManagerWindow from '../../components/position/UserManagerWindow'
 import OperaPositionWindow from '../../components/position/OperaPositionWindow'
+import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/position'
 export default {
   name: 'SystemPosition',
   extends: BaseTable,
-  components: { OperaPositionWindow, UserManagerWindow, TableLayout, Pagination },
+  components: { OperaPositionWindow, UserManagerWindow, TableLayout },
   methods: {
     // 删除
     deleteById (id) {
