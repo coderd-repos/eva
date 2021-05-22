@@ -42,6 +42,9 @@
           <el-table-column prop="department" label="部门" min-width="120px">
             <template slot-scope="{row}">{{row.department == null ? '' : row.department.name}}</template>
           </el-table-column>
+          <el-table-column prop="position" label="岗位" min-width="120px">
+            <template slot-scope="{row}">{{row.position == null ? '' : row.position.name}}</template>
+          </el-table-column>
           <el-table-column prop="sex" label="性别" min-width="80px">
             <template slot-scope="{row}">
               {{row.sex | sex}}
@@ -73,11 +76,12 @@
 import TableLayout from '../../layouts/TableLayout'
 import BaseTable from '../../views/BaseTable'
 import GlobalWindow from '../common/GlobalWindow'
+import Pagination from '../common/Pagination'
 import { fetchList } from '../../api/system/user'
 export default {
   name: 'PositionUserWindow',
   extends: BaseTable,
-  components: { GlobalWindow, TableLayout },
+  components: { Pagination, GlobalWindow, TableLayout },
   data () {
     return {
       positionId: null,
@@ -103,6 +107,8 @@ export default {
     },
     // 处理分页
     handlePageChange (pageIndex) {
+      this.tableData.pagination.pageIndex = pageIndex
+      this.isWorking.search = true
       fetchList({
         page: pageIndex,
         capacity: this.tableData.pagination.pageSize,

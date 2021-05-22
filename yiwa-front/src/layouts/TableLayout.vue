@@ -12,6 +12,7 @@
         <slot name="search-form"></slot>
       </div>
     </div>
+    <slot name="space"></slot>
     <!-- 列表和分页部分 -->
     <div class="table-content">
       <div class="table-wrap">

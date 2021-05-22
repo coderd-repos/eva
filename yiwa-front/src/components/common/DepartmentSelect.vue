@@ -1,5 +1,12 @@
 <template>
-  <TreeSelect :placeholder="placeholder" :value="value" :data="data" @input="$emit('input', $event)" :clearable="clearable"/>
+  <TreeSelect
+    :placeholder="placeholder"
+    :value="value"
+    :data="data"
+    :clearable="clearable"
+    :inline="inline"
+    @input="$emit('input', $event)"
+  />
 </template>
 
 <script>
@@ -10,6 +17,9 @@ export default {
   components: { TreeSelect },
   props: {
     value: {},
+    inline: {
+      default: true
+    },
     placeholder: {
       default: '请选择部门'
     },

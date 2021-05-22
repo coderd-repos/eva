@@ -11,6 +11,12 @@
       <el-form-item label="手机号码" prop="mobile">
         <el-input v-model="searchForm.mobile" v-trim placeholder="请输入手机号码" @keypress.enter.native="search"/>
       </el-form-item>
+      <el-form-item label="所属部门" prop="rootDeptId">
+        <DepartmentSelect v-model="searchForm.rootDeptId" placeholder="请选择所属部门" clearable/>
+      </el-form-item>
+      <el-form-item label="岗位" prop="rootDeptId">
+        <PositionSelect v-model="searchForm.positionId" placeholder="请选择岗位" clearable/>
+      </el-form-item>
       <section>
         <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
         <el-button @click="reset">重置</el-button>
@@ -100,18 +106,22 @@ import BaseTable from '../BaseTable'
 import OperaUserWindow from '../../components/user/OperaUserWindow'
 import RoleConfigWindow from '../../components/user/RoleConfigWindow'
 import ResetPwdWindow from '../../components/user/ResetPwdWindow'
+import DepartmentSelect from '../../components/common/DepartmentSelect'
+import PositionSelect from '../../components/common/PositionSelect'
 
 export default {
   name: 'SystemUser',
   extends: BaseTable,
-  components: { ResetPwdWindow, RoleConfigWindow, OperaUserWindow, TableLayout, Pagination },
+  components: { PositionSelect, DepartmentSelect, ResetPwdWindow, RoleConfigWindow, OperaUserWindow, TableLayout, Pagination },
   data () {
     return {
       // 搜索
       searchForm: {
         username: '', // 名字
         realname: '', // 姓名
-        mobile: '' // 手机号码
+        mobile: '', // 手机号码
+        rootDeptId: null, // 部门ID
+        positionId: null // 岗位ID
       },
       // 配置角色数据
       selectRoleData: {

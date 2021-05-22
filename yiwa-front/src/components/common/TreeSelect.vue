@@ -1,5 +1,12 @@
 <template>
-  <vue-tree-select :placeholder="placeholder" :value="value" :options="data" @input="$emit('input', $event)" :clearable="clearable"/>
+  <vue-tree-select
+    :class="{inline}"
+    :placeholder="placeholder"
+    :value="value"
+    :options="data"
+    :clearable="clearable"
+    @input="$emit('input', $event)"
+  />
 </template>
 
 <script>
@@ -8,6 +15,9 @@ import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 export default {
   name: 'TreeSelect',
   props: {
+    inline: {
+      default: false
+    },
     value: {},
     placeholder: {
       default: '请选择'
@@ -25,6 +35,17 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.inline {
+  width: 178px;
+}
+.vue-treeselect {
+  line-height: 30px;
+  /deep/ .vue-treeselect__control {
+    height: 32px;
+    .vue-treeselect__single-value {
+      line-height: 30px;
+    }
+  }
+}
 </style>

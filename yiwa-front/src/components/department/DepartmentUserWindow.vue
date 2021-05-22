@@ -23,6 +23,10 @@
           <el-button @click="reset">重置</el-button>
         </section>
       </el-form>
+      <div slot="space" class="toolbar">
+        <el-switch v-model="onlyCurrentDept" @change="search" :disabled="isWorking.search"/>
+        <label>仅查看当前部门人员</label>
+      </div>
       <template v-slot:table-wrap>
         <el-table
           v-loading="isWorking.search"
@@ -30,7 +34,6 @@
           stripe
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column prop="avatar" label="头像" width="80px" class-name="table-column-avatar" fixed="left">
             <template slot-scope="{row}">
               <img :src="row.avatar == null ? '/static/avatar/man.png' : row.avatar">
@@ -39,6 +42,9 @@
           <el-table-column prop="realname" label="姓名" min-width="100px" fixed="left"></el-table-column>
           <el-table-column prop="username" label="用户名" min-width="100px"></el-table-column>
           <el-table-column prop="empNo" label="工号" min-width="80px"></el-table-column>
+          <el-table-column prop="department" label="部门" min-width="120px">
+            <template slot-scope="{row}">{{row.department == null ? '' : row.department.name}}</template>
+          </el-table-column>
           <el-table-column prop="position" label="岗位" min-width="120px">
             <template slot-scope="{row}">{{row.position == null ? '' : row.position.name}}</template>
           </el-table-column>
@@ -73,16 +79,19 @@
 import TableLayout from '../../layouts/TableLayout'
 import BaseTable from '../../views/BaseTable'
 import GlobalWindow from '../common/GlobalWindow'
+import Pagination from '../common/Pagination'
 import { fetchList } from '../../api/system/user'
 export default {
   name: 'DepartmentUserWindow',
   extends: BaseTable,
-  components: { GlobalWindow, TableLayout },
+  components: { Pagination, GlobalWindow, TableLayout },
   data () {
     return {
       departmentId: null,
       departmentName: '',
       visible: false,
+      // 仅查看当前部门
+      onlyCurrentDept: true,
       // 搜索表单
       searchForm: {
         departmentId: null,
@@ -103,6 +112,15 @@ export default {
     },
     // 处理分页
     handlePageChange (pageIndex) {
+      // 仅查看当前部门处理
+      this.searchForm.strictDeptId = null
+      this.searchForm.rootDeptId = this.searchForm.departmentId
+      if (this.onlyCurrentDept) {
+        this.searchForm.strictDeptId = this.searchForm.departmentId
+        this.searchForm.rootDeptId = null
+      }
+      this.tableData.pagination.pageIndex = pageIndex
+      this.isWorking.search = true
       fetchList({
         page: pageIndex,
         capacity: this.tableData.pagination.pageSize,
@@ -135,6 +153,17 @@ export default {
       .table-wrap {
         padding: 0;
       }
+    }
+  }
+  .toolbar {
+    margin-top: 10px;
+    padding: 6px 12px;
+    background: #fff;
+    font-size: 13px;
+    label {
+      margin-left: 8px;
+      vertical-align: middle;
+      color: #999;
     }
   }
   // 列表头像处理
