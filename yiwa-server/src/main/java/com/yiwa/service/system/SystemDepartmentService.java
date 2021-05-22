@@ -83,4 +83,11 @@ public interface SystemDepartmentService {
      * @date 2021/05/16 11:59
      */
     long count(SystemDepartment systemDepartment);
+
+    /**
+     * 获取子孙部门ID集
+     * @author Caesar Liu
+     * @date 2021-05-22 23:23
+     */
+    List<Integer> findChildren(Integer departmentId);
 }

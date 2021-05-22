@@ -42,8 +42,14 @@
       <if test="positionId != null">
         AND spu.POSITION_ID = #{positionId}
       </if>
-      <if test="departmentId != null">
-        AND sdu.DEPARTMENT_ID = #{departmentId}
+      <if test="strictDeptId != null">
+        AND sdu.DEPARTMENT_ID = #{strictDeptId}
+      </if>
+      <if test="departmentIds != null and departmentIds.size > 0">
+        AND sdu.DEPARTMENT_ID IN
+        <foreach collection="departmentIds" open="(" close=")" separator="," item="id">
+          #{id}
+        </foreach>
       </if>
       <if test="username != null and username != ''">
         AND usr.`USERNAME` LIKE CONCAT('%', #{username}, '%')

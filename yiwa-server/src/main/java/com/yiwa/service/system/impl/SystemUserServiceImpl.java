@@ -8,6 +8,7 @@ import com.yiwa.dao.system.SystemUserMapper;
 import com.yiwa.dao.system.dto.QuerySystemUserDTO;
 import com.yiwa.dao.system.model.SystemUser;
 import com.yiwa.dao.system.vo.SystemUserListVO;
+import com.yiwa.service.system.SystemDepartmentService;
 import com.yiwa.service.system.SystemRoleService;
 import com.yiwa.service.system.SystemUserService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -32,6 +33,9 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Autowired
     private SystemRoleService systemRoleService;
+
+    @Autowired
+    private SystemDepartmentService systemDepartmentService;
 
     @Override
     public Integer create(SystemUser systemUser) {
@@ -89,6 +93,12 @@ public class SystemUserServiceImpl implements SystemUserService {
     @Override
     public PageData<SystemUserListVO> findPage(PageWrap<QuerySystemUserDTO> pageWrap) {
         PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
+        // 根部门条件处理
+        if (pageWrap.getModel().getRootDeptId() != null) {
+            List<Integer> departmentIds = systemDepartmentService.findChildren(pageWrap.getModel().getRootDeptId());
+            departmentIds.add(pageWrap.getModel().getRootDeptId());
+            pageWrap.getModel().setDepartmentIds(departmentIds);
+        }
         List<SystemUserListVO> userList = systemUserMapper.selectManageList(pageWrap.getModel());
         for (SystemUserListVO user : userList) {
             user.setRoles(systemRoleService.findByUserId(user.getId()));

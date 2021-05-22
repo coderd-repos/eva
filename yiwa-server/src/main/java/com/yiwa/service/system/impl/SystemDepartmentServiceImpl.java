@@ -1,6 +1,5 @@
 package com.yiwa.service.system.impl;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yiwa.core.utils.WrapperUtil;
 import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
@@ -17,7 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service实现
@@ -100,5 +102,28 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
     public long count(SystemDepartment systemDepartment) {
         Wrapper<SystemDepartment> wrapper = new QueryWrapper<>(systemDepartment);
         return systemDepartmentMapper.selectCount(wrapper);
+    }
+
+    @Override
+    public List<Integer> findChildren(Integer departmentId) {
+        List<Integer> pool = new ArrayList<>();
+        this.fillChildren(pool, Arrays.asList(departmentId));
+        return pool;
+    }
+
+    /**
+     * 获取子部门ID
+     * @author Caesar Liu
+     * @date 2021-05-22 23:22
+     */
+    private void fillChildren(List<Integer> pool, List<Integer> parentIds) {
+        QueryWrapper<SystemDepartment> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(SystemDepartment::getDeleted, Boolean.FALSE).in(SystemDepartment::getParentId, parentIds);
+        List<SystemDepartment> departments = systemDepartmentMapper.selectList(queryWrapper);
+        List<Integer> ids = departments.stream().map(SystemDepartment::getId).collect(Collectors.toList());
+        if (ids.size() > 0) {
+            pool.addAll(ids);
+            this.fillChildren(pool, ids);
+        }
     }
 }
