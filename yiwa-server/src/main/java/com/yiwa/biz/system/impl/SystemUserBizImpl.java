@@ -4,11 +4,16 @@ import com.yiwa.biz.system.SystemUserBiz;
 import com.yiwa.core.model.BusinessException;
 import com.yiwa.core.model.ResponseStatus;
 import com.yiwa.core.utils.SecureUtil;
+import com.yiwa.dao.system.dto.CreateSystemUserDTO;
 import com.yiwa.dao.system.dto.CreateUserRoleDTO;
 import com.yiwa.dao.system.dto.ResetSystemUserPwdDTO;
 import com.yiwa.dao.system.dto.UpdatePwdDto;
+import com.yiwa.dao.system.model.SystemDepartmentUser;
+import com.yiwa.dao.system.model.SystemPositionUser;
 import com.yiwa.dao.system.model.SystemUser;
 import com.yiwa.dao.system.model.SystemUserRole;
+import com.yiwa.service.system.SystemDepartmentUserService;
+import com.yiwa.service.system.SystemPositionUserService;
 import com.yiwa.service.system.SystemUserRoleService;
 import com.yiwa.service.system.SystemUserService;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -25,6 +30,12 @@ public class SystemUserBizImpl implements SystemUserBiz {
 
     @Autowired
     private SystemUserRoleService systemUserRoleService;
+
+    @Autowired
+    private SystemDepartmentUserService systemDepartmentUserService;
+
+    @Autowired
+    private SystemPositionUserService systemPositionUserService;
 
     @Override
     public void updatePwd(UpdatePwdDto dto) {
@@ -64,7 +75,7 @@ public class SystemUserBizImpl implements SystemUserBiz {
     }
 
     @Override
-    public void create(SystemUser systemUser) {
+    public void create(CreateSystemUserDTO systemUser) {
         Assert.notNull(systemUser.getUsername(), "缺少参数");
         Assert.notNull(systemUser.getRealname(), "缺少参数");
         Assert.notNull(systemUser.getPassword(), "缺少参数");
@@ -88,10 +99,25 @@ public class SystemUserBizImpl implements SystemUserBiz {
         }
         // 生成密码盐
         String salt = RandomStringUtils.randomAlphabetic(6);
-        // 创建用户
+        // 生成密码
         systemUser.setPassword(SecureUtil.encryptPassword(systemUser.getPassword(), salt));
         systemUser.setSalt(salt);
-        systemUserService.create(systemUser);
+        // 创建用户记录
+        Integer userId = systemUserService.create(systemUser);
+        // 设置部门
+        if (systemUser.getDepartmentId() != null) {
+            SystemDepartmentUser systemDepartmentUser = new SystemDepartmentUser();
+            systemDepartmentUser.setDepartmentId(systemUser.getDepartmentId());
+            systemDepartmentUser.setUserId(userId);
+            systemDepartmentUserService.create(systemDepartmentUser);
+        }
+        // 设置岗位
+        if (systemUser.getPositionId() != null) {
+            SystemPositionUser systemPositionUser = new SystemPositionUser();
+            systemPositionUser.setPositionId(systemUser.getPositionId());
+            systemPositionUser.setUserId(userId);
+            systemPositionUserService.create(systemPositionUser);
+        }
     }
 
     @Override

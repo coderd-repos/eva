@@ -1,5 +1,6 @@
 package com.yiwa.biz.system;
 
+import com.yiwa.dao.system.dto.CreateSystemUserDTO;
 import com.yiwa.dao.system.dto.CreateUserRoleDTO;
 import com.yiwa.dao.system.dto.ResetSystemUserPwdDTO;
 import com.yiwa.dao.system.dto.UpdatePwdDto;
@@ -31,7 +32,7 @@ public interface SystemUserBiz {
      * @author Yiwa
      * @date 2021-03-31 17:03
      */
-    void create(SystemUser systemUser);
+    void create(CreateSystemUserDTO systemUser);
 
     /**
      * 修改用户信息

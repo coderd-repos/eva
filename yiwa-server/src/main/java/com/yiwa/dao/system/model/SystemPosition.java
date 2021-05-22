@@ -24,6 +24,9 @@ public class SystemPosition {
     @ApiModelProperty(value = "上级岗位")
     private Integer parentId;
 
+    @ApiModelProperty(value = "岗位编码")
+    private String code;
+
     @ApiModelProperty(value = "岗位名称")
     private String name;
 

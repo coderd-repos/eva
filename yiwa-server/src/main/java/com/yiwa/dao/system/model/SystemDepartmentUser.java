@@ -1,7 +1,5 @@
 package com.yiwa.dao.system.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,19 +7,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 /**
- * @author Yiwa
- * @date 2021/05/22 09:35
+ * @author Caesar Liu
+ * @date 2021/05/22 11:57
  */
 @Data
-@ApiModel("岗位用户")
-public class SystemPositionUser {
+@ApiModel("部门用户")
+public class SystemDepartmentUser {
 
-    @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "主键", example = "1")
     private Integer id;
 
-    @ApiModelProperty(value = "岗位ID", example = "1")
-    private Integer positionId;
+    @ApiModelProperty(value = "部门ID", example = "1")
+    private Integer departmentId;
 
     @ApiModelProperty(value = "用户ID", example = "1")
     private Integer userId;

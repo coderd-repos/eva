@@ -24,6 +24,9 @@ public class SystemDepartment {
     @ApiModelProperty(value = "父部门", example = "1")
     private Integer parentId;
 
+    @ApiModelProperty(value = "部门编码")
+    private String code;
+
     @ApiModelProperty(value = "部门名称")
     private String name;
 

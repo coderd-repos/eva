@@ -4,6 +4,7 @@ import com.yiwa.api.BaseController;
 import com.yiwa.biz.system.SystemUserBiz;
 import com.yiwa.core.model.ApiResponse;
 import com.yiwa.core.model.PageWrap;
+import com.yiwa.dao.system.dto.CreateSystemUserDTO;
 import com.yiwa.dao.system.dto.CreateUserRoleDTO;
 import com.yiwa.dao.system.dto.QuerySystemUserDTO;
 import com.yiwa.dao.system.dto.ResetSystemUserPwdDTO;
@@ -65,7 +66,7 @@ public class SystemUserController extends BaseController {
     @RequiresPermissions("system:user:create")
     @PostMapping("/create")
     @ApiOperation("新建")
-    public ApiResponse create(@RequestBody SystemUser systemUser) {
+    public ApiResponse create(@RequestBody CreateSystemUserDTO systemUser) {
         systemUserBiz.create(systemUser);
         return ApiResponse.success(null);
     }

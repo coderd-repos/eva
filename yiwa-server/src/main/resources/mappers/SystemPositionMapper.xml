@@ -16,7 +16,7 @@
   </resultMap>
   <select id="selectManageList" resultMap="SystemPositionListVO">
     SELECT
-      posi.`ID`, posi.`PARENT_ID`, posi.`NAME`, posi.`CREATE_TIME`, posi.`UPDATE_TIME`, posi.`CREATE_USER`, posi.`UPDATE_USER`,
+      posi.`ID`, posi.`PARENT_ID`, posi.`CODE`, posi.`NAME`, posi.`CREATE_TIME`, posi.`UPDATE_TIME`, posi.`CREATE_USER`, posi.`UPDATE_USER`,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
       update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME,
       COUNT(usr.ID) USER_COUNT
