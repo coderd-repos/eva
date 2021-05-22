@@ -21,7 +21,7 @@
       update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME,
       COUNT(usr.ID) USER_COUNT
     FROM SYSTEM_POSITION posi
-    LEFT JOIN `SYSTEM_POSITION_USER` spu ON spu.POSITION_ID = posi.ID
+    LEFT JOIN `SYSTEM_POSITION_USER` spu ON spu.POSITION_ID = posi.ID AND spu.DELETED = 0
     LEFT JOIN `SYSTEM_USER` usr ON usr.ID = spu.USER_ID AND usr.DELETED = 0
     LEFT JOIN `SYSTEM_USER` create_user ON create_user.ID = posi.CREATE_USER
     LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = posi.UPDATE_USER
