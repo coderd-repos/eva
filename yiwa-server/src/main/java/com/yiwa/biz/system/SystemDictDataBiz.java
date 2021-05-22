@@ -11,14 +11,14 @@ public interface SystemDictDataBiz {
 
     /**
      * 新建
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-05-21 22:19
      */
     Integer create(SystemDictData systemDictData);
 
     /**
      * 编辑
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-05-21 22:19
      */
     void updateById(SystemDictData systemDictData);
