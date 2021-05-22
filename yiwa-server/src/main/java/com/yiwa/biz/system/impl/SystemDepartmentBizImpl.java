@@ -1,6 +1,8 @@
 package com.yiwa.biz.system.impl;
 
 import com.yiwa.biz.system.SystemDepartmentBiz;
+import com.yiwa.core.model.BusinessException;
+import com.yiwa.core.model.ResponseStatus;
 import com.yiwa.dao.system.model.SystemDepartment;
 import com.yiwa.dao.system.vo.SystemDepartmentListVO;
 import com.yiwa.service.system.SystemDepartmentService;
@@ -19,6 +21,14 @@ public class SystemDepartmentBizImpl implements SystemDepartmentBiz {
 
     @Override
     public Integer create(SystemDepartment department) {
+        // 验证部门编码
+        SystemDepartment queryDto = new SystemDepartment();
+        queryDto.setCode(department.getCode());
+        queryDto.setDeleted(Boolean.FALSE);
+        SystemDepartment systemDepartment = systemDepartmentService.findOne(queryDto);
+        if (systemDepartment != null) {
+            throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "部门编码已存在");
+        }
         // 统计上级部门下子部门数量
         SystemDepartment countDto = new SystemDepartment();
         countDto.setParentId(department.getParentId());
@@ -27,6 +37,19 @@ public class SystemDepartmentBizImpl implements SystemDepartmentBiz {
         // 设置新建部门的顺序
         department.setSort(Integer.valueOf("" + subDeptCount));
         return systemDepartmentService.create(department);
+    }
+
+    @Override
+    public void updateById(SystemDepartment department) {
+        // 验证部门编码
+        SystemDepartment queryDto = new SystemDepartment();
+        queryDto.setCode(department.getCode());
+        queryDto.setDeleted(Boolean.FALSE);
+        SystemDepartment systemDepartment = systemDepartmentService.findOne(queryDto);
+        if (systemDepartment != null && !systemDepartment.getId().equals(department.getId())) {
+            throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "部门编码已存在");
+        }
+        systemDepartmentService.updateById(department);
     }
 
     @Override

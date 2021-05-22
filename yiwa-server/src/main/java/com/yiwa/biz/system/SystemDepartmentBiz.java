@@ -13,11 +13,18 @@ import java.util.List;
 public interface SystemDepartmentBiz {
 
     /**
-     * 创建部门
+     * 新建
      * @author Yiwa
      * @date 2021-05-16 16:16
      */
     Integer create(SystemDepartment department);
+
+    /**
+     * 编辑
+     * @author Caesar Liu
+     * @date 2021-05-22 14:08
+     */
+    void updateById(SystemDepartment department);
 
     /**
      * 查询部门

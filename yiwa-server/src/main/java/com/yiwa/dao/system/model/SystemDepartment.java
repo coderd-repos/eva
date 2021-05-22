@@ -30,9 +30,6 @@ public class SystemDepartment {
     @ApiModelProperty(value = "部门名称")
     private String name;
 
-    @ApiModelProperty(value = "排序", example = "1")
-    private Integer sort;
-
     @ApiModelProperty(value = "联系电话")
     private String phone;
 

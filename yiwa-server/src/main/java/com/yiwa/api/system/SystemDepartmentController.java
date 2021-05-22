@@ -77,7 +77,7 @@ public class SystemDepartmentController extends BaseController {
     @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
     public ApiResponse updateById(@RequestBody SystemDepartment systemDepartment) {
-        systemDepartmentService.updateById(systemDepartment);
+        systemDepartmentBiz.updateById(systemDepartment);
         return ApiResponse.success(null);
     }
 
