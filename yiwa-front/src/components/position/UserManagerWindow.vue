@@ -40,13 +40,16 @@
           <el-table-column prop="realname" label="姓名" min-width="100px" fixed="left"></el-table-column>
           <el-table-column prop="username" label="用户名" min-width="100px"></el-table-column>
           <el-table-column prop="empNo" label="工号" min-width="80px"></el-table-column>
+          <el-table-column prop="department" label="部门" min-width="120px">
+            <template slot-scope="{row}">{{row.department == null ? '' : row.department.name}}</template>
+          </el-table-column>
           <el-table-column prop="sex" label="性别" min-width="80px">
             <template slot-scope="{row}">
               {{row.sex | sex}}
             </template>
           </el-table-column>
-          <el-table-column prop="email" label="邮箱" min-width="160px"></el-table-column>
           <el-table-column prop="mobile" label="手机号码" min-width="100px"></el-table-column>
+          <el-table-column prop="email" label="邮箱" min-width="180px"></el-table-column>
           <el-table-column prop="birthday" label="生日" min-width="100px"></el-table-column>
           <el-table-column prop="birthday" label="角色" min-width="160px" class-name="table-column-role">
             <template slot-scope="{row}">
