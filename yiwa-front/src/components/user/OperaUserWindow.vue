@@ -127,6 +127,8 @@ export default {
         for (const key in this.form) {
           this.form[key] = target[key]
         }
+        this.form.departmentId = target.department == null ? null : target.department.id
+        this.form.positionId = target.position == null ? null : target.position.id
       })
     },
     // 确认新建/修改
