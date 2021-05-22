@@ -13,9 +13,6 @@
       <el-form-item label="姓名" prop="realname" required>
         <el-input v-model="form.realname" v-trim maxlength="50"/>
       </el-form-item>
-      <el-form-item label="工号" prop="empNo">
-        <el-input v-model="form.empNo" v-trim maxlength="50"/>
-      </el-form-item>
       <el-form-item label="性别" prop="sex" required>
         <el-radio-group v-model="form.sex">
           <el-radio label="1">男</el-radio>
@@ -30,6 +27,15 @@
       </el-form-item>
       <el-form-item v-if="form.id == null" label="初始密码" prop="password" required>
         <el-input type="password" v-model="form.password" maxlength="30"></el-input>
+      </el-form-item>
+      <el-form-item label="所属部门" prop="empNo">
+        <el-input v-model="form.empNo" v-trim maxlength="50"/>
+      </el-form-item>
+      <el-form-item label="工号" prop="empNo">
+        <el-input v-model="form.empNo" v-trim maxlength="50"/>
+      </el-form-item>
+      <el-form-item label="工号" prop="empNo">
+        <el-input v-model="form.empNo" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="手机号码" prop="mobile">
         <el-input v-model="form.mobile" v-trim maxlength="11"/>

@@ -1,5 +1,5 @@
 <template>
-  <vue-tree-select :placeholder="placeholder" :value="value" :options="data" @input="$emit('input', $event)"/>
+  <vue-tree-select :placeholder="placeholder" :value="value" :options="data" @input="$emit('input', $event)" :clearable="clearable"/>
 </template>
 
 <script>
@@ -11,6 +11,10 @@ export default {
     value: {},
     placeholder: {
       default: '请选择'
+    },
+    // 是否可清空
+    clearable: {
+      default: false
     },
     data: {
       type: Array,

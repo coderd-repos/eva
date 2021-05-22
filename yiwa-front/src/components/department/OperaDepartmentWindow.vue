@@ -7,7 +7,7 @@
   >
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item v-if="form.id == null || form.parentId != null" label="上级部门" prop="parentId" required>
-        <TreeSelect v-model="form.parentId" :data="parentDepartmentList"/>
+        <DepartmentSelect placeholder="请选择上级部门" v-model="form.parentId" :exclude-id="excludeDeptId"/>
       </el-form-item>
       <el-form-item label="部门名称" prop="name" required>
         <el-input v-model="form.name" v-trim maxlength="50" placeholder="请输入部门名称"/>
@@ -24,19 +24,19 @@
 
 <script>
 import GlobalWindow from '../common/GlobalWindow'
-import TreeSelect from '../common/TreeSelect'
 import { checkMobile, checkEmail } from '../../utils/form'
 import { create, updateById } from '../../api/system/department'
+import DepartmentSelect from '../common/DepartmentSelect'
 export default {
   name: 'OperaDepartmentWindow',
-  components: { TreeSelect, GlobalWindow },
+  components: { DepartmentSelect, GlobalWindow },
   data () {
     return {
       title: '新建系统权限',
       visible: false,
       isWorking: false,
-      // 父部门数据
-      parentDepartmentList: [],
+      // 需排除选择的部门ID
+      excludeDeptId: null,
       // 表单数据
       form: {
         id: null,
@@ -69,11 +69,9 @@ export default {
     open (title, target, parent, departmentList) {
       this.title = title
       this.visible = true
-      // 填充上级部门数据
-      this.parentDepartmentList = []
-      this.__fillParentDepartmentList(this.parentDepartmentList, departmentList, target == null ? null : target.id)
       // 新建
       if (target == null) {
+        this.excludeDeptId = null
         this.$nextTick(() => {
           this.$refs.form.resetFields()
           this.form.id = null
@@ -83,6 +81,7 @@ export default {
       }
       // 编辑
       this.$nextTick(() => {
+        this.excludeDeptId = target.id
         for (const key in this.form) {
           this.form[key] = target[key]
         }
@@ -139,31 +138,7 @@ export default {
             this.isWorking = false
           })
       })
-    },
-    // 获取上级部门列表
-    __fillParentDepartmentList (list, pool, excludeId) {
-      for (const dept of pool) {
-        if (dept.id === excludeId) {
-          continue
-        }
-        const deptNode = {
-          id: dept.id,
-          label: dept.name
-        }
-        list.push(deptNode)
-        if (dept.children != null && dept.children.length > 0) {
-          deptNode.children = []
-          this.__fillParentDepartmentList(deptNode.children, dept.children, excludeId)
-          if (deptNode.children.length === 0) {
-            deptNode.children = null
-          }
-        }
-      }
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>
