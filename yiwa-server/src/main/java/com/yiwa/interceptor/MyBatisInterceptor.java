@@ -9,6 +9,7 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -71,22 +72,20 @@ public class MyBatisInterceptor implements Interceptor {
      */
     private void handleOperaStatement(Object target, String... fieldNames) throws Exception{
         // 操作时间
-        try {
-            Field operaTimeField = target.getClass().getDeclaredField(fieldNames[0]);
+        Field operaTimeField = ReflectionUtils.findField(target.getClass(), fieldNames[0]);
+        if (operaTimeField != null) {
             Object operaTime = this.getFieldValue(operaTimeField, target);
-            if(operaTime == null) {
+            if (operaTime == null) {
                 this.setFieldValue(operaTimeField, target, new Date());
             }
-        } catch (NoSuchFieldException e) {
         }
         // 操作人
-        try {
-            Field operaUserField = target.getClass().getDeclaredField(fieldNames[1]);
+        Field operaUserField = ReflectionUtils.findField(target.getClass(), fieldNames[1]);
+        if (operaUserField != null) {
             Object operaUser = this.getFieldValue(operaUserField, target);
-            if(operaUser == null) {
+            if (operaUser == null) {
                 this.setFieldValue(operaUserField, target, this.getLoginUser().getId());
             }
-        } catch (NoSuchFieldException e) {
         }
     }
 
