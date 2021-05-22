@@ -13,11 +13,15 @@ public class SystemPositionListVO extends SystemPosition {
     @ApiModelProperty("岗位人数")
     private long userCount;
 
+    @ApiModelProperty("子岗位列表")
     private List<SystemPositionListVO> children;
 
+    @ApiModelProperty("是否包含子部门")
     private Boolean hasChildren;
 
+    @ApiModelProperty("创建人信息")
     private SystemUser createUserInfo;
 
+    @ApiModelProperty("更新人信息")
     private SystemUser updateUserInfo;
 }

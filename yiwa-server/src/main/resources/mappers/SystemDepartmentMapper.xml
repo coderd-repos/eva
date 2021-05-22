@@ -18,13 +18,17 @@
     SELECT
       dept.`ID`, dept.`PARENT_ID`, dept.`CODE`, dept.`NAME`, dept.`PHONE`, dept.`EMAIL`, dept.`CREATE_TIME`, dept.`UPDATE_TIME`, dept.`CREATE_USER`, dept.`UPDATE_USER`, dept.`DELETED`,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
-      update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME
+      update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME,
+      COUNT(usr.ID) USER_COUNT
     FROM SYSTEM_DEPARTMENT dept
+    LEFT JOIN `SYSTEM_DEPARTMENT_USER` sdu ON sdu.DEPARTMENT_ID = dept.ID AND sdu.DELETED = 0
+    LEFT JOIN `SYSTEM_USER` usr ON usr.ID = sdu.USER_ID AND usr.DELETED = 0
     LEFT JOIN `SYSTEM_USER` create_user ON create_user.ID = dept.CREATE_USER
     LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = dept.UPDATE_USER
     <where>
       dept.DELETED = 0
     </where>
+    GROUP BY dept.`ID`
   </select>
 
 </mapper>
