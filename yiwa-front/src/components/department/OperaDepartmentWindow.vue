@@ -66,7 +66,7 @@ export default {
      * @parent 新建时的上级部门对象
      * @departmentList 部门列表
      */
-    open (title, target, parent, departmentList) {
+    open (title, target, parent) {
       this.title = title
       this.visible = true
       // 新建
@@ -75,7 +75,7 @@ export default {
         this.$nextTick(() => {
           this.$refs.form.resetFields()
           this.form.id = null
-          this.form.parentId = parent == null ? departmentList[0].id : parent.id
+          this.form.parentId = parent == null ? null : parent.id
         })
         return
       }

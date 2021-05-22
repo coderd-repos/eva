@@ -3,7 +3,7 @@
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:department:create', 'system:department:delete']">
-        <li><el-button type="primary" @click="$refs.operaDepartmentWindow.open('新建部门', null, null, tableData.list)" icon="el-icon-plus" v-permissions="['system:department:create']">新建</el-button></li>
+        <li><el-button type="primary" @click="$refs.operaDepartmentWindow.open('新建部门')" icon="el-icon-plus" v-permissions="['system:department:create']">新建</el-button></li>
         <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete" v-permissions="['system:department:delete']">删除</el-button></li>
       </ul>
       <el-table
@@ -34,8 +34,8 @@
           fixed="right"
         >
           <template slot-scope="{row}">
-            <el-button type="text" @click="$refs.operaDepartmentWindow.open('编辑部门', row, null, tableData.list)" icon="el-icon-edit" v-permissions="['system:department:update']">编辑</el-button>
-            <el-button type="text" @click="$refs.operaDepartmentWindow.open('新建下级部门', null, row, tableData.list)" icon="el-icon-edit" v-permissions="['system:department:create']">新建下级部门</el-button>
+            <el-button type="text" @click="$refs.operaDepartmentWindow.open('编辑部门', row)" icon="el-icon-edit" v-permissions="['system:department:update']">编辑</el-button>
+            <el-button type="text" @click="$refs.operaDepartmentWindow.open('新建下级部门', null, row)" icon="el-icon-edit" v-permissions="['system:department:create']">新建下级部门</el-button>
             <el-button v-if="row.parentId != null" type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:department:delete']">删除</el-button>
           </template>
         </el-table-column>

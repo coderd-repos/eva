@@ -3,7 +3,7 @@
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:position:create', 'system:position:delete']">
-        <li><el-button type="primary" @click="$refs.operaPositionWindow.open('新建岗位', null, null, tableData.list)" icon="el-icon-plus" v-permissions="['system:position:create']">新建</el-button></li>
+        <li><el-button type="primary" @click="$refs.operaPositionWindow.open('新建岗位')" icon="el-icon-plus" v-permissions="['system:position:create']">新建</el-button></li>
         <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete" v-permissions="['system:position:delete']">删除</el-button></li>
       </ul>
       <el-table
@@ -33,8 +33,8 @@
           fixed="right"
         >
           <template slot-scope="{row}">
-            <el-button type="text" @click="$refs.operaPositionWindow.open('编辑岗位', row, null, tableData.list)" icon="el-icon-edit" v-permissions="['system:position:update']">编辑</el-button>
-            <el-button type="text" @click="$refs.operaPositionWindow.open('新增下级岗位', null, row, tableData.list)" icon="el-icon-edit" v-permissions="['system:position:update']">新增下级岗位</el-button>
+            <el-button type="text" @click="$refs.operaPositionWindow.open('编辑岗位', row)" icon="el-icon-edit" v-permissions="['system:position:update']">编辑</el-button>
+            <el-button type="text" @click="$refs.operaPositionWindow.open('新增下级岗位', null, row)" icon="el-icon-edit" v-permissions="['system:position:update']">新增下级岗位</el-button>
             <el-button type="text" @click="$refs.userManagerWindow.open(row.id, row.name)" icon="el-icon-user-solid" v-permissions="['system:position:query']">查看人员</el-button>
             <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:position:delete']">删除</el-button>
           </template>

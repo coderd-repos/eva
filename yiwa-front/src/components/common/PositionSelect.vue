@@ -4,14 +4,14 @@
 
 <script>
 import TreeSelect from './TreeSelect'
-import { fetchList } from '../../api/system/department'
+import { fetchList } from '../../api/system/position'
 export default {
-  name: 'DepartmentSelect',
+  name: 'PositionSelect',
   components: { TreeSelect },
   props: {
     value: {},
     placeholder: {
-      default: '请选择部门'
+      default: '请选择岗位'
     },
     // 是否可清空
     clearable: {
@@ -35,7 +35,7 @@ export default {
     }
   },
   methods: {
-    // 获取所有部门
+    // 获取所有岗位
     fetchData () {
       fetchList()
         .then(records => {
@@ -49,7 +49,7 @@ export default {
           this.$message.error(e.message)
         })
     },
-    // 填充部门树
+    // 填充岗位树
     __fillData (list, pool) {
       for (const dept of pool) {
         if (dept.id === this.excludeId) {
