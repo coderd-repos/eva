@@ -24,7 +24,7 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
         // 统计上级菜单下子菜单数量
         SystemMenu countDto = new SystemMenu();
         countDto.setParentId(systemMenu.getParentId());
-        countDto.setDeleted(Boolean.TRUE);
+        countDto.setDeleted(Boolean.FALSE);
         long subMenuCount = systemMenuService.count(countDto);
         // 设置新建部门的顺序
         systemMenu.setSort(Integer.valueOf("" + subMenuCount));
