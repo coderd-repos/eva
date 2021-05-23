@@ -27,10 +27,10 @@ public class SystemRolePermission {
     @ApiModelProperty(value = "权限ID", example = "1")
     private Integer permissionId;
 
-    @ApiModelProperty(value = "创建时间", hidden = true)
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    @ApiModelProperty(value = "更新时间", hidden = true)
+    @ApiModelProperty(value = "更新时间")
     private Date updateTime;
 
     @ApiModelProperty(value = "创建人", example = "1", hidden = true)

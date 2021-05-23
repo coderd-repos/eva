@@ -29,7 +29,7 @@ public class SystemDepartmentUser {
     @ApiModelProperty(value = "操作人", example = "1", hidden = true)
     private Integer operaUser;
 
-    @ApiModelProperty(value = "操作时间", hidden = true)
+    @ApiModelProperty(value = "操作时间")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date operaTime;
 

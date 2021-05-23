@@ -42,10 +42,10 @@ public class SystemDictData {
     @ApiModelProperty(value = "更新人", example = "1", hidden = true)
     private Integer updateUser;
 
-    @ApiModelProperty(value = "创建时间", hidden = true)
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    @ApiModelProperty(value = "更新时间", hidden = true)
+    @ApiModelProperty(value = "更新时间")
     private Date updateTime;
 
     @ApiModelProperty(value = "是否删除", hidden = true)

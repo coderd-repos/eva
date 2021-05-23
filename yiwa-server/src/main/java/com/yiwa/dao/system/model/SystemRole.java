@@ -30,10 +30,10 @@ public class SystemRole {
     @ApiModelProperty(value = "角色备注")
     private String remark;
 
-    @ApiModelProperty(value = "创建时间", hidden = true)
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    @ApiModelProperty(value = "更新时间", hidden = true)
+    @ApiModelProperty(value = "更新时间")
     private Date updateTime;
 
     @ApiModelProperty(value = "创建者ID", example = "1", hidden = true)

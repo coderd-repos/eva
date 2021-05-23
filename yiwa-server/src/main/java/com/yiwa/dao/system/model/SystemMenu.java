@@ -42,10 +42,10 @@ public class SystemMenu {
     @ApiModelProperty(value = "排序", example = "1")
     private Integer sort;
 
-    @ApiModelProperty(value = "创建时间", hidden = true)
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    @ApiModelProperty(value = "更新时间", hidden = true)
+    @ApiModelProperty(value = "更新时间")
     private Date updateTime;
 
     @ApiModelProperty(value = "创建者ID", example = "1", hidden = true)
