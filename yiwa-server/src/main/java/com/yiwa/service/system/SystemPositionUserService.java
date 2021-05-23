@@ -26,7 +26,7 @@ public interface SystemPositionUserService {
 
     /**
      * 删除
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-05-22 15:18
      */
     void delete(SystemPositionUser dto);

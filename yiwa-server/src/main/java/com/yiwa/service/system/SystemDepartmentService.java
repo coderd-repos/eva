@@ -86,7 +86,7 @@ public interface SystemDepartmentService {
 
     /**
      * 获取子孙部门ID集
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-05-22 23:23
      */
     List<Integer> findChildren(Integer departmentId);

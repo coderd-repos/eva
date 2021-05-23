@@ -21,7 +21,7 @@ public interface SystemDepartmentBiz {
 
     /**
      * 编辑
-     * @author Caesar Liu
+     * @author Yiwa
      * @date 2021-05-22 14:08
      */
     void updateById(SystemDepartment department);
