@@ -1,7 +1,5 @@
 package com.yiwa.service.system;
 
-import com.yiwa.core.model.PageData;
-import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.model.SystemMenu;
 import com.yiwa.dao.system.vo.SystemMenuListVO;
 
@@ -97,13 +95,6 @@ public interface SystemMenuService {
      * @date 2021-03-31 20:34
      */
     List<SystemMenu> findByRoleId(Integer roleId);
-  
-    /**
-     * 分页查询
-     * @author Yiwa
-     * @date 2021/05/15 19:41
-     */
-    PageData<SystemMenu> findPage(PageWrap<SystemMenu> pageWrap);
 
     /**
      * 条件统计

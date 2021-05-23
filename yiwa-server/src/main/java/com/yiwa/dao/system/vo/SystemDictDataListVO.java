@@ -2,17 +2,21 @@ package com.yiwa.dao.system.vo;
 
 import com.yiwa.dao.system.model.SystemDictData;
 import com.yiwa.dao.system.model.SystemUser;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 字典数据列表视图对象
  * @author Yiwa
  * @date 2021-05-16 20:43
  */
 @Data
+@ApiModel("字典数据列表视图对象")
 public class SystemDictDataListVO extends SystemDictData {
 
+    @ApiModelProperty(value = "创建人信息")
     private SystemUser createUserInfo;
 
+    @ApiModelProperty(value = "更新人信息")
     private SystemUser updateUserInfo;
 }

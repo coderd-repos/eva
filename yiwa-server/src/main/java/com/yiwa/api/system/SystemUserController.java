@@ -3,12 +3,14 @@ package com.yiwa.api.system;
 import com.yiwa.api.BaseController;
 import com.yiwa.biz.system.SystemUserBiz;
 import com.yiwa.core.model.ApiResponse;
+import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.dto.CreateSystemUserDTO;
 import com.yiwa.dao.system.dto.CreateUserRoleDTO;
 import com.yiwa.dao.system.dto.QuerySystemUserDTO;
 import com.yiwa.dao.system.dto.ResetSystemUserPwdDTO;
 import com.yiwa.dao.system.model.SystemUser;
+import com.yiwa.dao.system.vo.SystemUserListVO;
 import com.yiwa.service.system.SystemUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,7 +25,7 @@ import java.util.List;
  * @author Yiwa
  * @date 2021/03/28 09:30
  */
-@Api(tags = "系统用户接口")
+@Api(tags = "用户接口")
 @RestController
 @RequestMapping("/system/user")
 public class SystemUserController extends BaseController {
@@ -38,9 +40,9 @@ public class SystemUserController extends BaseController {
      * @author Yiwa
      * @date 2021-03-29 22:36
      */
-    @RequiresPermissions("system:user:createUserRole")
-    @PostMapping("/createUserRole")
     @ApiOperation("配置用户角色")
+    @PostMapping("/createUserRole")
+    @RequiresPermissions("system:user:createUserRole")
     public ApiResponse createUserRole (@RequestBody CreateUserRoleDTO dto) {
         systemUserBiz.createUserRole(dto);
         return ApiResponse.success(null);
@@ -50,9 +52,9 @@ public class SystemUserController extends BaseController {
      * @author Yiwa
      * @date 2021-03-31 20:25
      */
-    @RequiresPermissions("system:user:resetPwd")
-    @PostMapping("/resetPwd")
     @ApiOperation("重置密码")
+    @PostMapping("/resetPwd")
+    @RequiresPermissions("system:user:resetPwd")
     public ApiResponse resetPwd (@RequestBody ResetSystemUserPwdDTO dto) {
         dto.setOperaUserId(this.getLoginUser().getId());
         systemUserBiz.resetPwd(dto);
@@ -63,9 +65,9 @@ public class SystemUserController extends BaseController {
      * @author Yiwa
      * @date 2021/03/28 09:30
      */
-    @RequiresPermissions("system:user:create")
-    @PostMapping("/create")
     @ApiOperation("新建")
+    @PostMapping("/create")
+    @RequiresPermissions("system:user:create")
     public ApiResponse create(@RequestBody CreateSystemUserDTO systemUser) {
         systemUser.setCreateUser(this.getLoginUser().getId());
         systemUserBiz.create(systemUser);
@@ -76,9 +78,9 @@ public class SystemUserController extends BaseController {
      * @author Yiwa
      * @date 2021/03/28 09:30
      */
-    @RequiresPermissions("system:user:delete")
-    @GetMapping("/delete/{id}")
     @ApiOperation("根据ID删除")
+    @GetMapping("/delete/{id}")
+    @RequiresPermissions("system:user:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
         systemUserService.deleteById(id);
         return ApiResponse.success(null);
@@ -88,9 +90,9 @@ public class SystemUserController extends BaseController {
      * @author Yiwa
      * @date 2021/03/28 09:30
      */
-    @RequiresPermissions("system:user:delete")
-    @GetMapping("/delete/batch")
     @ApiOperation("批量删除")
+    @GetMapping("/delete/batch")
+    @RequiresPermissions("system:user:delete")
     public ApiResponse deleteById(@RequestParam String ids) {
         String [] idArray = ids.split(",");
         List<Integer> idList = new ArrayList<>();
@@ -105,9 +107,9 @@ public class SystemUserController extends BaseController {
      * @author Yiwa
      * @date 2021/03/28 09:30
      */
-    @RequiresPermissions("system:user:update")
-    @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
+    @PostMapping("/updateById")
+    @RequiresPermissions("system:user:update")
     public ApiResponse updateById(@RequestBody CreateSystemUserDTO systemUser) {
         systemUser.setUpdateUser(this.getLoginUser().getId());
         systemUserBiz.updateById(systemUser);
@@ -118,10 +120,10 @@ public class SystemUserController extends BaseController {
      * @author Yiwa
      * @date 2021/03/28 09:30
      */
-    @RequiresPermissions("system:user:query")
-    @PostMapping("/page")
     @ApiOperation("分页查询")
-    public ApiResponse findPage (@RequestBody PageWrap<QuerySystemUserDTO> pageWrap) {
+    @PostMapping("/page")
+    @RequiresPermissions("system:user:query")
+    public ApiResponse<PageData<SystemUserListVO>> findPage (@RequestBody PageWrap<QuerySystemUserDTO> pageWrap) {
         return ApiResponse.success(systemUserService.findPage(pageWrap));
     }
 }

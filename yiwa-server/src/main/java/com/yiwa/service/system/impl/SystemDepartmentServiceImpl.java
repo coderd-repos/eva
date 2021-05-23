@@ -1,16 +1,11 @@
 package com.yiwa.service.system.impl;
 
-import com.yiwa.core.utils.WrapperUtil;
-import com.yiwa.core.model.PageData;
-import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.SystemDepartmentMapper;
 import com.yiwa.dao.system.model.SystemDepartment;
 import com.yiwa.dao.system.vo.SystemDepartmentListVO;
 import com.yiwa.service.system.SystemDepartmentService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,20 +77,6 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
     @Override
     public List<SystemDepartmentListVO> findList() {
         return systemDepartmentMapper.selectManageList();
-    }
-  
-    @Override
-    public PageData<SystemDepartment> findPage(PageWrap<SystemDepartment> pageWrap) {
-        IPage<SystemDepartment> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemDepartment> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
-        for(PageWrap.SortData sortData: pageWrap.getSorts()) {
-            if (sortData.getDirection().equalsIgnoreCase("DESC")) {
-                queryWrapper.orderByDesc(sortData.getProperty());
-            } else {
-                queryWrapper.orderByAsc(sortData.getProperty());
-            }
-        }
-        return PageData.from(systemDepartmentMapper.selectPage(page, queryWrapper));
     }
 
     @Override

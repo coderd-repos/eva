@@ -33,22 +33,19 @@ public class SystemPosition {
     @ApiModelProperty(value = "岗位名称")
     private String name;
 
-    @ApiModelProperty(value = "排序", example = "1")
-    private Integer sort;
-
-    @ApiModelProperty(value = "创建人", example = "1")
+    @ApiModelProperty(value = "创建人", example = "1", hidden = true)
     private Integer createUser;
 
-    @ApiModelProperty(value = "更新人", example = "1")
+    @ApiModelProperty(value = "更新人", example = "1", hidden = true)
     private Integer updateUser;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "创建时间", hidden = true)
     private Date createTime;
 
-    @ApiModelProperty(value = "更新时间")
+    @ApiModelProperty(value = "更新时间", hidden = true)
     private Date updateTime;
 
-    @ApiModelProperty(value = "是否删除")
+    @ApiModelProperty(value = "是否删除", hidden = true)
     private Boolean deleted;
 
 }

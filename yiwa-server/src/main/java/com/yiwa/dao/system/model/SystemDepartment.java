@@ -35,19 +35,19 @@ public class SystemDepartment {
     @ApiModelProperty(value = "部门邮箱")
     private String email;
 
-    @ApiModelProperty(value = "创建人", example = "1")
+    @ApiModelProperty(value = "创建人", example = "1", hidden = true)
     private Integer createUser;
 
-    @ApiModelProperty(value = "更新人", example = "1")
+    @ApiModelProperty(value = "更新人", example = "1", hidden = true)
     private Integer updateUser;
 
-    @ApiModelProperty(value = "创建人")
+    @ApiModelProperty(value = "创建人", hidden = true)
     private Date createTime;
 
-    @ApiModelProperty(value = "更新人")
+    @ApiModelProperty(value = "更新时间", hidden = true)
     private Date updateTime;
 
-    @ApiModelProperty(value = "是否删除")
+    @ApiModelProperty(value = "是否删除", hidden = true)
     private Boolean deleted;
 
 }

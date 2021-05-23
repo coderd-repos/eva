@@ -3,6 +3,7 @@ package com.yiwa.api.system;
 import com.yiwa.api.BaseController;
 import com.yiwa.biz.system.SystemUserBiz;
 import com.yiwa.core.model.ApiResponse;
+import com.yiwa.core.model.LoginUserInfo;
 import com.yiwa.dao.system.dto.LoginDTO;
 import com.yiwa.dao.system.dto.UpdatePwdDto;
 import com.yiwa.service.common.CaptchaService;
@@ -44,7 +45,7 @@ public class SystemController extends BaseController {
      */
     @ApiOperation("登录")
     @PostMapping("/login")
-    public ApiResponse login (@RequestBody LoginDTO dto, HttpServletRequest request) {
+    public ApiResponse<LoginUserInfo> login (@RequestBody LoginDTO dto, HttpServletRequest request) {
         // 校验验证码
         captchaService.check(dto.getCode(), request);
         // 校验用户名和密码
@@ -90,7 +91,7 @@ public class SystemController extends BaseController {
      */
     @ApiOperation("获取当前登录的用户信息")
     @GetMapping("/getUserInfo")
-    public ApiResponse getUserInfo () {
+    public ApiResponse<LoginUserInfo> getUserInfo () {
         return ApiResponse.success(this.getLoginUser());
     }
 }

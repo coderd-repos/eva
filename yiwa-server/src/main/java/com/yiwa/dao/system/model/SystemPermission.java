@@ -30,19 +30,19 @@ public class SystemPermission {
     @ApiModelProperty(value = "权限备注")
     private String remark;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "创建时间", hidden = true)
     private Date createTime;
 
-    @ApiModelProperty(value = "更新时间")
+    @ApiModelProperty(value = "更新时间", hidden = true)
     private Date updateTime;
 
-    @ApiModelProperty(value = "创建者ID", example = "1")
+    @ApiModelProperty(value = "创建者ID", example = "1", hidden = true)
     private Integer createUser;
 
-    @ApiModelProperty(value = "更新者ID", example = "1")
+    @ApiModelProperty(value = "更新者ID", example = "1", hidden = true)
     private Integer updateUser;
 
-    @ApiModelProperty(value = "是否已删除")
+    @ApiModelProperty(value = "是否已删除", hidden = true)
     private Boolean deleted;
 
 }

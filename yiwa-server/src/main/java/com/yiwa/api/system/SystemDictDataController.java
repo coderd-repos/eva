@@ -3,9 +3,11 @@ package com.yiwa.api.system;
 import com.yiwa.api.BaseController;
 import com.yiwa.biz.system.SystemDictDataBiz;
 import com.yiwa.core.model.ApiResponse;
+import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.dto.QuerySystemDictDataDTO;
 import com.yiwa.dao.system.model.SystemDictData;
+import com.yiwa.dao.system.vo.SystemDictDataListVO;
 import com.yiwa.service.system.SystemDictDataService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,9 +37,9 @@ public class SystemDictDataController extends BaseController {
      * @author Yiwa
      * @date 2021/05/16 20:18
      */
-    @RequiresPermissions("system:dict:update")
-    @PostMapping("/create")
     @ApiOperation("新建")
+    @PostMapping("/create")
+    @RequiresPermissions("system:dict:update")
     public ApiResponse create(@RequestBody SystemDictData systemDictData) {
         return ApiResponse.success(systemDictDataBiz.create(systemDictData));
     }
@@ -46,9 +48,9 @@ public class SystemDictDataController extends BaseController {
      * @author Yiwa
      * @date 2021/05/16 20:18
      */
-    @RequiresPermissions("system:dict:update")
-    @GetMapping("/delete/{id}")
     @ApiOperation("根据ID删除")
+    @GetMapping("/delete/{id}")
+    @RequiresPermissions("system:dict:update")
     public ApiResponse deleteById(@PathVariable Integer id) {
         systemDictDataService.deleteById(id);
         return ApiResponse.success(null);
@@ -58,9 +60,9 @@ public class SystemDictDataController extends BaseController {
      * @author Yiwa
      * @date 2021/03/28 09:30
      */
-    @RequiresPermissions("system:dict:delete")
-    @GetMapping("/delete/batch")
     @ApiOperation("批量删除")
+    @GetMapping("/delete/batch")
+    @RequiresPermissions("system:dict:delete")
     public ApiResponse deleteById(@RequestParam String ids) {
         String [] idArray = ids.split(",");
         List<Integer> idList = new ArrayList<>();
@@ -75,9 +77,9 @@ public class SystemDictDataController extends BaseController {
      * @author Yiwa
      * @date 2021/05/16 20:18
      */
-    @RequiresPermissions("system:dict:update")
-    @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
+    @PostMapping("/updateById")
+    @RequiresPermissions("system:dict:update")
     public ApiResponse updateById(@RequestBody SystemDictData systemDictData) {
         systemDictDataBiz.updateById(systemDictData);
         return ApiResponse.success(null);
@@ -87,10 +89,10 @@ public class SystemDictDataController extends BaseController {
      * @author Yiwa
      * @date 2021/05/16 20:18
      */
-    @RequiresPermissions("system:dict:update")
-    @PostMapping("/page")
     @ApiOperation("分页查询")
-    public ApiResponse findPage (@RequestBody PageWrap<QuerySystemDictDataDTO> pageWrap) {
+    @PostMapping("/page")
+    @RequiresPermissions("system:dict:update")
+    public ApiResponse<PageData<SystemDictDataListVO>> findPage (@RequestBody PageWrap<QuerySystemDictDataDTO> pageWrap) {
         return ApiResponse.success(systemDictDataService.findPage(pageWrap));
     }
 
@@ -98,10 +100,10 @@ public class SystemDictDataController extends BaseController {
      * @author Yiwa
      * @date 2021/05/16 20:18
      */
-    @RequiresPermissions("system:dict:update")
-    @GetMapping("/{id}")
     @ApiOperation("根据ID查询")
-    public ApiResponse finById(@PathVariable Integer id) {
+    @GetMapping("/{id}")
+    @RequiresPermissions("system:dict:update")
+    public ApiResponse<SystemDictData> finById(@PathVariable Integer id) {
         return ApiResponse.success(systemDictDataService.findById(id));
     }
 }

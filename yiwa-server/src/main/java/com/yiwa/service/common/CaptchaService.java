@@ -99,7 +99,7 @@ public class CaptchaService {
     }
 
     /**
-     * 验证码
+     * 验证码对象
      * @author Yiwa
      * @date 2021-05-20 18:01
      */

@@ -26,14 +26,14 @@ public class SystemDepartmentUser {
     @ApiModelProperty(value = "用户ID", example = "1")
     private Integer userId;
 
-    @ApiModelProperty(value = "操作人", example = "1")
+    @ApiModelProperty(value = "操作人", example = "1", hidden = true)
     private Integer operaUser;
 
-    @ApiModelProperty(value = "操作时间")
+    @ApiModelProperty(value = "操作时间", hidden = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date operaTime;
 
-    @ApiModelProperty(value = "是否已删除")
+    @ApiModelProperty(value = "是否已删除", hidden = true)
     private Boolean deleted;
 
 }

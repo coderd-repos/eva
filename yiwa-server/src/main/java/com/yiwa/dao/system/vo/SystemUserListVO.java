@@ -4,17 +4,18 @@ import com.yiwa.dao.system.model.SystemDepartment;
 import com.yiwa.dao.system.model.SystemPosition;
 import com.yiwa.dao.system.model.SystemRole;
 import com.yiwa.dao.system.model.SystemUser;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.List;
 
 /**
- * 系统用户列表视图对象
  * @author Yiwa
  * @date 2021-03-29 22:47
  */
 @Data
+@ApiModel("系统用户列表视图对象")
 public class SystemUserListVO extends SystemUser {
 
     @ApiModelProperty(value = "角色")

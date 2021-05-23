@@ -3,6 +3,7 @@ package com.yiwa.api.system;
 import com.yiwa.api.BaseController;
 import com.yiwa.core.model.ApiResponse;
 import com.yiwa.core.model.monitor.Monitor;
+import com.yiwa.core.model.monitor.SystemInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -24,10 +25,10 @@ public class SystemMonitorController extends BaseController {
      * @author Yiwa
      * @date 2021-04-13 22:42
      */
-    @RequiresPermissions("system:monitor:query")
     @ApiOperation("获取系统信息")
     @GetMapping("/getSystemInfo")
-    public ApiResponse getSystemInfo () {
+    @RequiresPermissions("system:monitor:query")
+    public ApiResponse<SystemInfo> getSystemInfo () {
         return ApiResponse.success(Monitor.getSystemInfo());
     }
 }

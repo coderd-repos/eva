@@ -19,12 +19,14 @@ public class ApiResponse<T> {
 
     private T data;
 
+    public ApiResponse () {}
+
     /**
      * 请求成功
      * @author Yiwa
      * @date 2021/03/26 19:48
      */
-    public static <T> ApiResponse success(T data) {
+    public static <T> ApiResponse<T> success(T data) {
         return ApiResponse.success("请求成功", data);
     }
 
@@ -33,7 +35,7 @@ public class ApiResponse<T> {
      * @author Yiwa
      * @date 2021/03/26 19:48
      */
-    public static <T> ApiResponse success(String message, T data) {
+    public static <T> ApiResponse<T> success(String message, T data) {
         return new ApiResponse<>(HttpStatus.OK.value(), message, data);
     }
 
@@ -42,16 +44,7 @@ public class ApiResponse<T> {
      * @author Yiwa
      * @date 2021/03/26 19:48
      */
-    public static ApiResponse failed() {
-        return ApiResponse.failed("请求失败");
-    }
-
-    /**
-     * 请求失败
-     * @author Yiwa
-     * @date 2021/03/26 19:48
-     */
-    public static ApiResponse failed(String message) {
+    public static <T> ApiResponse<T> failed(String message) {
         return ApiResponse.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), message);
     }
 
@@ -60,7 +53,7 @@ public class ApiResponse<T> {
      * @author Yiwa
      * @date 2021/03/26 19:48
      */
-    public static ApiResponse failed(Integer code, String message) {
+    public static <T> ApiResponse<T> failed(Integer code, String message) {
         return new ApiResponse<>(code, message, null);
     }
 }

@@ -1,6 +1,6 @@
 # 项目信息配置
 project:
-  name: admin
+  name: 伊娃
   version: 1.0.0
   env: development
   #env: production
@@ -34,10 +34,6 @@ mybatis-plus:
   mapper-locations: classpath*:/mappers/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
-#mybatis-plus:
-#  mapper-locations: classpath:/mappers/*.xml
-#  configuration:
-#    map-underscore-to-camel-case: true
 
 # Swagger配置
 swagger:

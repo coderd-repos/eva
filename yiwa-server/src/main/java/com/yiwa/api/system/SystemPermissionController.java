@@ -3,9 +3,11 @@ package com.yiwa.api.system;
 import com.yiwa.api.BaseController;
 import com.yiwa.biz.system.SystemPermissionBiz;
 import com.yiwa.core.model.ApiResponse;
+import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.dto.QuerySystemPermissionDTO;
 import com.yiwa.dao.system.model.SystemPermission;
+import com.yiwa.dao.system.vo.SystemPermissionListVO;
 import com.yiwa.service.system.SystemPermissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,7 +22,7 @@ import java.util.List;
  * @author Yiwa
  * @date 2021/03/27 22:36
  */
-@Api(tags = "系统权限接口")
+@Api(tags = "权限接口")
 @RestController
 @RequestMapping("/system/permission")
 public class SystemPermissionController extends BaseController {
@@ -35,9 +37,9 @@ public class SystemPermissionController extends BaseController {
      * @author Yiwa
      * @date 2021/03/27 22:36
      */
-    @RequiresPermissions("system:permission:create")
-    @PostMapping("/create")
     @ApiOperation("新建")
+    @PostMapping("/create")
+    @RequiresPermissions("system:permission:create")
     public ApiResponse create(@RequestBody SystemPermission systemPermission) {
         return ApiResponse.success(systemPermissionBiz.create(systemPermission));
     }
@@ -46,9 +48,9 @@ public class SystemPermissionController extends BaseController {
      * @author Yiwa
      * @date 2021/03/27 22:36
      */
-    @RequiresPermissions("system:permission:delete")
-    @GetMapping("/delete/{id}")
     @ApiOperation("根据ID删除")
+    @GetMapping("/delete/{id}")
+    @RequiresPermissions("system:permission:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
         systemPermissionService.deleteById(id);
         return ApiResponse.success(null);
@@ -58,9 +60,9 @@ public class SystemPermissionController extends BaseController {
      * @author Yiwa
      * @date 2021/03/28 09:30
      */
-    @RequiresPermissions("system:permission:delete")
-    @GetMapping("/delete/batch")
     @ApiOperation("批量删除")
+    @GetMapping("/delete/batch")
+    @RequiresPermissions("system:permission:delete")
     public ApiResponse deleteById(@RequestParam String ids) {
         String [] idArray = ids.split(",");
         List<Integer> idList = new ArrayList<>();
@@ -75,9 +77,9 @@ public class SystemPermissionController extends BaseController {
      * @author Yiwa
      * @date 2021/03/27 22:36
      */
-    @RequiresPermissions("system:permission:update")
-    @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
+    @PostMapping("/updateById")
+    @RequiresPermissions("system:permission:update")
     public ApiResponse updateById(@RequestBody SystemPermission systemPermission) {
         systemPermissionBiz.updateById(systemPermission);
         return ApiResponse.success(null);
@@ -87,10 +89,10 @@ public class SystemPermissionController extends BaseController {
      * @author Yiwa
      * @date 2021/03/27 22:36
      */
-    @RequiresPermissions("system:permission:query")
-    @PostMapping("/page")
     @ApiOperation("分页查询")
-    public ApiResponse findPage (@RequestBody PageWrap<QuerySystemPermissionDTO> pageWrap) {
+    @PostMapping("/page")
+    @RequiresPermissions("system:permission:query")
+    public ApiResponse<PageData<SystemPermissionListVO>> findPage (@RequestBody PageWrap<QuerySystemPermissionDTO> pageWrap) {
         return ApiResponse.success(systemPermissionService.findPage(pageWrap));
     }
 }

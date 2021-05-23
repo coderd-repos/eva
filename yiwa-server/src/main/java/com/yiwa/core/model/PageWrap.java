@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2021/05/15 18:44
  */
 @Data
-@ApiModel("分页对象")
+@ApiModel("分页请求参数")
 public class PageWrap<M> {
 
     @ApiModelProperty("条件参数")
@@ -68,27 +68,6 @@ public class PageWrap<M> {
         return capacity <= 0 ? 10 : capacity;
     }
 
-    /**
-     * 获取排序字符串
-     * @author Yiwa
-     * @date 2021/05/15 18:44
-     */
-    @ApiModelProperty(hidden = true)
-    public String getOrderByClause () {
-        List<SortData> sorts = this.getSorts();
-        if (sorts.size() == 0) {
-            return null;
-        }
-        StringBuilder stringBuilder = new StringBuilder();
-        for (SortData sortData: sorts) {
-            stringBuilder.append(sortData.getProperty().trim());
-            stringBuilder.append(" ");
-            stringBuilder.append(sortData.getDirection().trim());
-            stringBuilder.append(",");
-        }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
-    }
-  
     /**
      * 排序对象
      * @author Yiwa

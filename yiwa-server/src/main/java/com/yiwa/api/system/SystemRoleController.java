@@ -3,11 +3,13 @@ package com.yiwa.api.system;
 import com.yiwa.api.BaseController;
 import com.yiwa.biz.system.SystemRoleBiz;
 import com.yiwa.core.model.ApiResponse;
+import com.yiwa.core.model.PageData;
 import com.yiwa.core.model.PageWrap;
 import com.yiwa.dao.system.dto.CreateRoleMenuDTO;
 import com.yiwa.dao.system.dto.CreateRolePermissionDTO;
 import com.yiwa.dao.system.dto.QuerySystemRoleDTO;
 import com.yiwa.dao.system.model.SystemRole;
+import com.yiwa.dao.system.vo.SystemRoleListVO;
 import com.yiwa.service.system.SystemRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +24,7 @@ import java.util.List;
  * @author Yiwa
  * @date 2021/03/27 22:36
  */
-@Api(tags = "系统角色接口")
+@Api(tags = "角色接口")
 @RestController
 @RequestMapping("/system/role")
 public class SystemRoleController extends BaseController {
@@ -37,9 +39,9 @@ public class SystemRoleController extends BaseController {
      * @author Yiwa
      * @date 2021-03-30 15:47
      */
-    @RequiresPermissions("system:role:createRoleMenu")
-    @PostMapping("/createRoleMenu")
     @ApiOperation("配置角色菜单")
+    @PostMapping("/createRoleMenu")
+    @RequiresPermissions("system:role:createRoleMenu")
     public ApiResponse createRoleMenu (@RequestBody CreateRoleMenuDTO dto) {
         systemRoleBiz.createRoleMenu(dto);
         return ApiResponse.success(null);
@@ -49,9 +51,9 @@ public class SystemRoleController extends BaseController {
      * @author Yiwa
      * @date 2021-03-29 22:36
      */
-    @RequiresPermissions("system:role:createRolePermission")
-    @PostMapping("/createRolePermission")
     @ApiOperation("配置角色权限")
+    @PostMapping("/createRolePermission")
+    @RequiresPermissions("system:role:createRolePermission")
     public ApiResponse createRolePermission (@RequestBody CreateRolePermissionDTO dto) {
         systemRoleBiz.createRolePermission(dto);
         return ApiResponse.success(null);
@@ -61,9 +63,9 @@ public class SystemRoleController extends BaseController {
      * @author Yiwa
      * @date 2021/03/27 22:36
      */
-    @RequiresPermissions("system:role:create")
-    @PostMapping("/create")
     @ApiOperation("新建")
+    @PostMapping("/create")
+    @RequiresPermissions("system:role:create")
     public ApiResponse create(@RequestBody SystemRole systemRole) {
         return ApiResponse.success(systemRoleService.create(systemRole));
     }
@@ -72,9 +74,9 @@ public class SystemRoleController extends BaseController {
      * @author Yiwa
      * @date 2021/03/27 22:36
      */
-    @RequiresPermissions("system:role:delete")
-    @GetMapping("/delete/{id}")
     @ApiOperation("根据ID删除")
+    @GetMapping("/delete/{id}")
+    @RequiresPermissions("system:role:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
         systemRoleService.deleteById(id);
         return ApiResponse.success(null);
@@ -84,9 +86,9 @@ public class SystemRoleController extends BaseController {
      * @author Yiwa
      * @date 2021/03/28 09:30
      */
-    @RequiresPermissions("system:role:delete")
-    @GetMapping("/delete/batch")
     @ApiOperation("批量删除")
+    @GetMapping("/delete/batch")
+    @RequiresPermissions("system:role:delete")
     public ApiResponse deleteById(@RequestParam String ids) {
         String [] idArray = ids.split(",");
         List<Integer> idList = new ArrayList<>();
@@ -101,9 +103,9 @@ public class SystemRoleController extends BaseController {
      * @author Yiwa
      * @date 2021/03/27 22:36
      */
-    @RequiresPermissions("system:role:update")
-    @PostMapping("/updateById")
     @ApiOperation("根据ID修改")
+    @PostMapping("/updateById")
+    @RequiresPermissions("system:role:update")
     public ApiResponse updateById(@RequestBody SystemRole systemRole) {
         systemRoleService.updateById(systemRole);
         return ApiResponse.success(null);
@@ -113,10 +115,10 @@ public class SystemRoleController extends BaseController {
      * @author Yiwa
      * @date 2021/03/27 22:36
      */
-    @RequiresPermissions("system:role:query")
-    @PostMapping("/page")
     @ApiOperation("分页查询")
-    public ApiResponse findPage (@RequestBody PageWrap<QuerySystemRoleDTO> pageWrap) {
+    @PostMapping("/page")
+    @RequiresPermissions("system:role:query")
+    public ApiResponse<PageData<SystemRoleListVO>> findPage (@RequestBody PageWrap<QuerySystemRoleDTO> pageWrap) {
         return ApiResponse.success(systemRoleService.findPage(pageWrap));
     }
 
@@ -124,10 +126,10 @@ public class SystemRoleController extends BaseController {
      * @author Yiwa
      * @date 2021/03/27 22:36
      */
-    @RequiresPermissions("system:role:query")
-    @GetMapping("/all")
     @ApiOperation("查询所有")
-    public ApiResponse findAll () {
+    @GetMapping("/all")
+    @RequiresPermissions("system:role:query")
+    public ApiResponse<List<SystemRole>> findAll () {
         return ApiResponse.success(systemRoleService.findList(new SystemRole()));
     }
 }

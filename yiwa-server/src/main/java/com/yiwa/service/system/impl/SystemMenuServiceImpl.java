@@ -1,16 +1,11 @@
 package com.yiwa.service.system.impl;
 
-import com.yiwa.core.model.PageData;
-import com.yiwa.core.model.PageWrap;
-import com.yiwa.core.utils.WrapperUtil;
 import com.yiwa.dao.system.SystemMenuMapper;
 import com.yiwa.dao.system.model.SystemMenu;
 import com.yiwa.dao.system.vo.SystemMenuListVO;
 import com.yiwa.service.system.SystemMenuService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,20 +100,6 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     @Override
     public List<SystemMenu> findByRoleId(Integer roleId) {
         return systemMenuMapper.selectByRoleId(roleId);
-    }
-
-    @Override
-    public PageData<SystemMenu> findPage(PageWrap<SystemMenu> pageWrap) {
-        IPage<SystemMenu> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemMenu> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
-        for(PageWrap.SortData sortData: pageWrap.getSorts()) {
-            if (sortData.getDirection().equalsIgnoreCase("DESC")) {
-                queryWrapper.orderByDesc(sortData.getProperty());
-            } else {
-                queryWrapper.orderByAsc(sortData.getProperty());
-            }
-        }
-        return PageData.from(systemMenuMapper.selectPage(page, queryWrapper));
     }
 
     @Override
