@@ -78,7 +78,8 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
     @Override
     public List<SystemMenu> findList(SystemMenu systemMenu) {
-        Wrapper<SystemMenu> wrapper = new QueryWrapper<>(systemMenu);
+        QueryWrapper<SystemMenu> wrapper = new QueryWrapper<>(systemMenu);
+        wrapper.lambda().orderByAsc(SystemMenu::getSort);
         return systemMenuMapper.selectList(wrapper);
     }
 
