@@ -7,13 +7,13 @@
   >
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="权限编码" prop="code" required>
-        <el-input placeholder="请输入权限编码" v-model="form.code" v-trim maxlength="50"/>
+        <el-input v-model="form.code" placeholder="请输入权限编码" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="权限名称" prop="name" required>
-        <el-input placeholder="请输入权限名称" v-model="form.name" v-trim maxlength="50"/>
+        <el-input v-model="form.name" placeholder="请输入权限名称" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="权限备注" prop="remark">
-        <el-input placeholder="请输入权限备注" type="textarea" v-model="form.remark" :rows="3" v-trim maxlength="500"/>
+        <el-input v-model="form.remark" placeholder="请输入权限备注" type="textarea" :rows="3" v-trim maxlength="500"/>
       </el-form-item>
     </el-form>
   </GlobalWindow>

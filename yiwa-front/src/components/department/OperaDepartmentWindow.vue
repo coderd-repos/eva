@@ -10,16 +10,16 @@
         <DepartmentSelect placeholder="请选择上级部门" v-model="form.parentId" :exclude-id="excludeDeptId" :inline="false" :default-first="true"/>
       </el-form-item>
       <el-form-item label="部门编码" prop="code" required>
-        <el-input v-model="form.code" v-trim maxlength="50" placeholder="请输入部门编码"/>
+        <el-input v-model="form.code" placeholder="请输入部门编码" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="部门名称" prop="name" required>
-        <el-input v-model="form.name" v-trim maxlength="50" placeholder="请输入部门名称"/>
+        <el-input v-model="form.name" placeholder="请输入部门名称" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="联系电话" prop="phone">
-        <el-input v-model="form.phone" v-trim maxlength="11" placeholder="请输入联系电话"/>
+        <el-input v-model="form.phone" placeholder="请输入联系电话" v-trim maxlength="11"/>
       </el-form-item>
       <el-form-item label="部门邮箱" prop="email">
-        <el-input v-model="form.email" v-trim maxlength="200" placeholder="请输入部门邮箱"/>
+        <el-input v-model="form.email" placeholder="请输入部门邮箱" v-trim maxlength="200"/>
       </el-form-item>
     </el-form>
   </GlobalWindow>

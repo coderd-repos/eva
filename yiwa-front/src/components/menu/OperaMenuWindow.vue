@@ -9,10 +9,10 @@
     <p class="tip" v-if="form.parent != null && form.id == null">为 <em>{{form.parent.name}}</em> 新建子菜单</p>
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="菜单名称" prop="name" required>
-        <el-input v-model="form.name" v-trim maxlength="50"/>
+        <el-input v-model="form.name" placeholder="请输入菜单名称" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="访问路径" prop="path">
-        <el-input v-model="form.path" v-trim maxlength="200"/>
+        <el-input v-model="form.path" placeholder="请输入访问路径" v-trim maxlength="200"/>
       </el-form-item>
       <el-form-item label="图标" prop="icon" class="form-item-icon">
         <el-radio-group v-model="form.icon">
@@ -22,7 +22,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="备注" prop="remark">
-        <el-input type="textarea" v-model="form.remark" v-trim :rows="3" maxlength="500"/>
+        <el-input type="textarea" v-model="form.remark" placeholder="请输入菜单备注" v-trim :rows="3" maxlength="500"/>
       </el-form-item>
     </el-form>
   </GlobalWindow>
@@ -144,7 +144,7 @@ export default {
 
 <style scoped lang="scss">
 @import "../../assets/style/variables";
-$icon-background-color: #456;
+$icon-background-color: $primary-color;
 .global-window {
   .tip {
     margin-bottom: 12px;

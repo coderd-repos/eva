@@ -7,10 +7,10 @@
   >
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="数据标签" prop="label" required>
-        <el-input v-model="form.label" v-trim maxlength="50" placeholder="请输入数据标签"/>
+        <el-input v-model="form.label" placeholder="请输入数据标签" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="数据值" prop="code" required>
-        <el-input v-model="form.code" v-trim maxlength="50" placeholder="请输入数据值"/>
+        <el-input v-model="form.code" placeholder="请输入数据值" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="状态" prop="code" required>
         <el-switch v-model="form.disabled" :active-value="false" :inactive-value="true"/>

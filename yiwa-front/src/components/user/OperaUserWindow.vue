@@ -8,10 +8,10 @@
   >
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="用户名" prop="username" required>
-        <el-input v-model="form.username" v-trim maxlength="50"/>
+        <el-input v-model="form.username" placeholder="请输入用户名" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="姓名" prop="realname" required>
-        <el-input v-model="form.realname" v-trim maxlength="50"/>
+        <el-input v-model="form.realname" placeholder="请输入姓名" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="性别" prop="sex" required>
         <el-radio-group v-model="form.sex">
@@ -26,25 +26,25 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item v-if="form.id == null" label="初始密码" prop="password" required>
-        <el-input type="password" v-model="form.password" maxlength="30"></el-input>
+        <el-input v-model="form.password" type="password" placeholder="请输入初始密码" maxlength="30"></el-input>
       </el-form-item>
       <el-form-item label="所属部门" prop="departmentId">
-        <DepartmentSelect placeholder="请选择用户所属部门" v-model="form.departmentId" :inline="false" clearable/>
+        <DepartmentSelect v-model="form.departmentId" placeholder="请选择用户所属部门" :inline="false" clearable/>
       </el-form-item>
       <el-form-item label="岗位" prop="positionId">
-        <PositionSelect placeholder="请选择用户所在岗位" v-model="form.positionId" :inline="false" clearable/>
+        <PositionSelect v-model="form.positionId" placeholder="请选择用户所在岗位" :inline="false" clearable/>
       </el-form-item>
       <el-form-item label="工号" prop="empNo">
-        <el-input v-model="form.empNo" v-trim maxlength="50"/>
+        <el-input v-model="form.empNo" placeholder="请输入工号" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="手机号码" prop="mobile">
-        <el-input v-model="form.mobile" v-trim maxlength="11"/>
+        <el-input v-model="form.mobile" placeholder="请输入手机号码" v-trim maxlength="11"/>
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
-        <el-input v-model="form.email" v-trim maxlength="200"/>
+        <el-input v-model="form.email" placeholder="请输入邮箱" v-trim maxlength="200"/>
       </el-form-item>
       <el-form-item label="生日" prop="birthday">
-        <el-date-picker v-model="form.birthday"/>
+        <el-date-picker v-model="form.birthday" placeholder="请选择用户生日"/>
       </el-form-item>
     </el-form>
   </GlobalWindow>
