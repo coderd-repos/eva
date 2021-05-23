@@ -10,7 +10,7 @@ export default {
       }
       return '未知'
     })
-    // 性别
+    // 启用禁用
     Vue.filter('disabledText', (value) => {
       if (value) {
         return '停用'

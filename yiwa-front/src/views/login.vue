@@ -67,7 +67,6 @@ export default {
     },
     // 刷新验证码
     refreshCaptcha () {
-      console.log('process.env.VUE_APP_API_PREFIX', process.env.VUE_APP_API_PREFIX)
       this.captchaUri = `${process.env.VUE_APP_API_PREFIX}/common/captcha?t=${new Date().getTime()}`
     },
     // 登录前验证
