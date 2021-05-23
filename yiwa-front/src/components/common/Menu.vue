@@ -119,7 +119,7 @@ export default {
 @import "../../assets/style/variables.scss";
 // 菜单样式
 .el-menu {
-  border-right: 0;
+  border-right: 0 !important;
   user-select: none;
   background: $primary-color !important;
   .el-menu-item {
