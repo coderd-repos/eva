@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * 分页请求参数
@@ -66,6 +67,30 @@ public class PageWrap<M> {
      */
     public int getCapacity () {
         return capacity <= 0 ? 10 : capacity;
+    }
+
+    /**
+     * 获取排序字符串
+     * @author Yiwa
+     * @date 2021/05/15 18:44
+     */
+    @ApiModelProperty(hidden = true)
+    public String getOrderByClause () {
+        List<SortData> sorts = this.getSorts();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (SortData sortData: sorts) {
+            if (!sortData.getProperty().matches("[a-zA-Z0-9_]+")) {
+                continue;
+            }
+            stringBuilder.append(sortData.getProperty().trim());
+            stringBuilder.append(" ");
+            stringBuilder.append(sortData.getDirection().trim());
+            stringBuilder.append(",");
+        }
+        if (stringBuilder.length() == 0) {
+            return null;
+        }
+        return "ORDER BY " + stringBuilder.substring(0, stringBuilder.length() - 1);
     }
 
     /**
