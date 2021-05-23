@@ -14,7 +14,7 @@
       <el-form-item label="所属部门" prop="rootDeptId">
         <DepartmentSelect v-model="searchForm.rootDeptId" placeholder="请选择所属部门" clearable/>
       </el-form-item>
-      <el-form-item label="岗位" prop="rootDeptId">
+      <el-form-item label="岗位" prop="positionId">
         <PositionSelect v-model="searchForm.positionId" placeholder="请选择岗位" clearable/>
       </el-form-item>
       <section>
