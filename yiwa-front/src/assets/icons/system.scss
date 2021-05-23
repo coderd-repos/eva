@@ -1,8 +1,11 @@
+/**
+ * 此文件为系统自带的图标定义，如您需要扩展图标请在ext.scss文件中处理。
+ */
+// 图标样式
 [class^="yw-icon-"], [class*=" yw-icon-"] {
   display: inline-block;
-  vertical-align: middle;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   background-size: 13px;
   background-repeat: no-repeat;
   background-position: center;
@@ -14,4 +17,28 @@
 // 盾牌
 .yw-icon-shield {
   background-image: url("assets/icons/shield.svg");
+}
+// 权限
+.yw-icon-permission {
+  background-image: url("assets/icons/permission.svg");
+}
+// 角色
+.yw-icon-role {
+  background-image: url("assets/icons/role.svg");
+}
+// 部门
+.yw-icon-department {
+  background-image: url("assets/icons/department.svg");
+}
+// 岗位
+.yw-icon-position {
+  background-image: url("assets/icons/position.svg");
+}
+// 字典
+.yw-icon-dictionary {
+  background-image: url("assets/icons/dictionary.svg");
+}
+// 监测
+.yw-icon-listener {
+  background-image: url("assets/icons/listener.svg");
 }

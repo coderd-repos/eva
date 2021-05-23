@@ -128,10 +128,6 @@ export default {
     &.is-active {
       background: $primary-color - 40 !important;
     }
-    // 菜单图标
-    i {
-      color: #f7f7f7;
-    }
     // 悬浮
     &:hover {
       background-color: $primary-color - 12;
@@ -157,6 +153,18 @@ export default {
     // 菜单上下箭头
     .el-submenu__title i {
       color: #f7f7f7;
+    }
+  }
+  // 菜单图标
+  i {
+    color: #f7f7f7 !important;
+    position: relative;
+    top: -1px;
+    // 自定义图标
+    &[class^="yw-icon-"] {
+      width: 24px;
+      margin-right: 5px;
+      background-size: 15px;
     }
   }
 }

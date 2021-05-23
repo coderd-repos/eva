@@ -55,11 +55,11 @@ new Vue({
       const storeMenus = this.$store.state.menuData.list
       await fetchMenuTree()
         .then(menus => {
-          // 新建菜单
+          // 添加菜单
           storeMenus.push.apply(storeMenus, menus)
-          // 新建路由
+          // 添加路由
           this.__addRouters(menus)
-          // 新建404重定向到workbench
+          // 404重定向到workbench
           router.addRoute({
             path: '*',
             redirect: '/workbench'

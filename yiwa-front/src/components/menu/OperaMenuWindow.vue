@@ -16,7 +16,7 @@
       </el-form-item>
       <el-form-item label="图标" prop="icon" class="form-item-icon">
         <el-radio-group v-model="form.icon">
-          <el-radio :label="icon" border v-for="icon in icons" :key="icon">
+          <el-radio :label="icon" v-for="icon in icons" :key="icon">
             <i :class="{[icon]: true}"></i>
           </el-radio>
         </el-radio-group>
@@ -144,6 +144,7 @@ export default {
 
 <style scoped lang="scss">
 @import "../../assets/style/variables";
+$icon-background-color: #456;
 .global-window {
   .tip {
     margin-bottom: 12px;
@@ -160,22 +161,38 @@ export default {
       overflow-y: auto;
     }
     .el-radio-group {
+      background: $icon-background-color;
+      padding: 4px;
       .el-radio {
         margin-right: 0;
+        color: #fff;
+        padding: 6px;
+        &.is-checked {
+          background: $icon-background-color - 30;
+          border-radius: 10px;
+        }
+        .el-radio__input.is-checked + .el-radio__label {
+          color: #fff;
+        }
       }
       .el-radio__input {
         display: none;
       }
       .el-radio__label {
         padding-left: 0;
+        // element-ui图标
         i {
           font-size: 30px;
         }
-        &:hover i{
-          color: $primary-color;
+        // 自定义图标
+        [class^="yw-icon-"], [class*=" yw-icon-"] {
+          width: 30px;
+          height: 30px;
+          background-size: 25px;
+          vertical-align: bottom;
         }
       }
-      .el-radio--small.is-bordered {
+      .el-radio--small {
         height: auto;
         padding: 8px;
         margin-left: 0;

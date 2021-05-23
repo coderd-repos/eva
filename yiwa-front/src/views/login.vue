@@ -94,6 +94,7 @@ export default {
 
 <style scoped lang="scss">
 @import "../assets/style/variables.scss";
+$input-gap: 30px;
 .wrap {
   display: flex;
   width: 100%;
@@ -128,7 +129,6 @@ export default {
   }
   // 右边登录
   .login {
-    $gap: 30px;
     height: 100%;
     width: 38%;
     max-width: 560px;
@@ -146,7 +146,7 @@ export default {
       font-weight: 500;
     }
     .info-input {
-      margin-top: $gap;
+      margin-top: $input-gap;
       margin-bottom: 60px;
       /deep/ .el-input {
         margin-top: 30px;
@@ -163,7 +163,7 @@ export default {
     // 验证码输入
     .captcha-input {
       display: flex;
-      margin-top: $gap;
+      margin-top: $input-gap;
       height: 50px;
       .el-input {
         width: 100%;

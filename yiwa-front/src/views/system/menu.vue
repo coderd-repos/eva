@@ -255,8 +255,21 @@ export default {
 }
 // 图标列
 .table-column-icon {
+  // element-ui图标
   i {
+    background-color: $primary-color;
+    opacity: 0.72;
     font-size: 20px;
+    color: #fff;
+    padding: 4px;
+    border-radius: 50%;
+  }
+  // 自定义图标
+  [class^="yw-icon-"] {
+    width: 20px;
+    height: 20px;
+    background-size: 16px;
+    vertical-align: middle;
   }
 }
 </style>
