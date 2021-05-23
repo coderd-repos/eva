@@ -21,8 +21,8 @@
         <el-table-column prop="name" label="菜单名称"  fixed="left" min-width="160px"></el-table-column>
         <el-table-column prop="icon" label="图标" min-width="80px" class-name="table-column-icon">
           <template slot-scope="{row}">
-            <i v-if="row.icon != null" :class="{[row.icon]: true}"></i>
-            <template v-else>无</template>
+            <i v-if="row.icon != null && row.icon !== ''" :class="{[row.icon]: true}"></i>
+            <template v-else>未设置</template>
           </template>
         </el-table-column>
         <el-table-column prop="path" label="访问路径" min-width="140px"></el-table-column>
