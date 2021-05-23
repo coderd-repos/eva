@@ -2,7 +2,7 @@ import axios from 'axios'
 import { trim } from './util'
 axios.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8'
 const axiosInstance = axios.create({
-  baseURL: '/api',
+  baseURL: process.env.VUE_APP_API_PREFIX,
   // 请求超时时间
   timeout: 300000
 })

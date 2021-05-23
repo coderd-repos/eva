@@ -8,10 +8,10 @@ module.exports = {
     port: 8081,
     proxy: {
       [process.env.VUE_APP_API_PREFIX]: {
-        target: process.env.VUE_APP_API,
+        target: 'http://localhost:8082',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          [`^${[process.env.VUE_APP_API_PREFIX]}`]: ''
         }
       }
     }

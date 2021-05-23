@@ -1,9 +1,9 @@
 <template>
   <div class="wrap">
     <div class="introduce">
-      <h2>伊娃后台管理系统</h2>
-      <h3>一套基于懒猴子CG的</h3>
-      <p>企业级后台管理系统模版，结合懒猴子CG极速开发平台可快速生成页面和接口</p>
+      <h2>伊娃后台管理系统（前后端分离版）</h2>
+      <h3>一套开源 & 无版权 & 简洁易懂的</h3>
+      <p>企业级后台管理系统模版</p>
     </div>
     <div class="login">
       <h1>系统登录&nbsp;/&nbsp;LOGIN IN</h1>
@@ -67,7 +67,8 @@ export default {
     },
     // 刷新验证码
     refreshCaptcha () {
-      this.captchaUri = `${process.env.VUE_APP_API}/common/captcha?t=${new Date().getTime()}`
+      console.log('process.env.VUE_APP_API_PREFIX', process.env.VUE_APP_API_PREFIX)
+      this.captchaUri = `${process.env.VUE_APP_API_PREFIX}/common/captcha?t=${new Date().getTime()}`
     },
     // 登录前验证
     __check () {
