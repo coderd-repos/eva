@@ -1,4 +1,4 @@
-package com.yiwa.shiro;
+package com.yiwa.config.shiro;
 
 import com.yiwa.core.utils.SecureUtil;
 import com.yiwa.dao.system.model.SystemUser;

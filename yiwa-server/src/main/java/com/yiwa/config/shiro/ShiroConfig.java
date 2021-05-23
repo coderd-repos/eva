@@ -1,4 +1,4 @@
-package com.yiwa.shiro;
+package com.yiwa.config.shiro;
 
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;

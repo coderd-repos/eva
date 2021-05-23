@@ -1,4 +1,4 @@
-package com.yiwa.shiro;
+package com.yiwa.config.shiro;
 
 import com.yiwa.core.model.LoginUserInfo;
 import com.yiwa.dao.system.model.SystemPermission;

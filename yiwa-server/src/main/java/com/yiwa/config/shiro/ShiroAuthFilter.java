@@ -1,4 +1,4 @@
-package com.yiwa.shiro;
+package com.yiwa.config.shiro;
 
 import com.yiwa.core.model.ApiResponse;
 import com.alibaba.fastjson.JSON;
