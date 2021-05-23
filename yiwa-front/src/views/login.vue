@@ -8,10 +8,10 @@
     <div class="login">
       <h1>系统登录&nbsp;/&nbsp;LOGIN IN</h1>
       <div class="info-input">
-        <el-input placeholder="请输入用户名" v-model="username" v-trim/>
-        <el-input placeholder="请输入密码" v-model="password" type="password" show-password/>
+        <el-input v-model="username" placeholder="请输入用户名" prefix-icon="el-icon-user-solid" maxlength="50" v-trim/>
+        <el-input v-model="password" placeholder="请输入密码" prefix-icon="yw-icon-password" type="password" show-password/>
         <div class="captcha-input">
-          <el-input v-model="captcha" placeholder="图片验证码" maxlength="4" @keypress.enter.native="login"/>
+          <el-input v-model="captcha" placeholder="图片验证码" prefix-icon="yw-icon-shield" maxlength="4" @keypress.enter.native="login"/>
           <img :src="captchaUri" @click="refreshCaptcha">
         </div>
       </div>
@@ -128,13 +128,15 @@ export default {
   }
   // 右边登录
   .login {
+    $gap: 30px;
     height: 100%;
-    width: 45%;
-    max-width: 640px;
+    width: 38%;
+    max-width: 560px;
+    min-width: 460px;
     flex-shrink: 0;
     text-align: center;
     background: #fff;
-    padding: 0 8%;
+    padding: 0 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -144,10 +146,10 @@ export default {
       font-weight: 500;
     }
     .info-input {
-      margin-top: 32px;
-      margin-bottom: 62px;
+      margin-top: $gap;
+      margin-bottom: 60px;
       /deep/ .el-input {
-        margin-top: 38px;
+        margin-top: 30px;
         .el-input__inner {
           height: 50px;
           background: #F9F9F9;
@@ -161,7 +163,7 @@ export default {
     // 验证码输入
     .captcha-input {
       display: flex;
-      margin-top: 38px;
+      margin-top: $gap;
       height: 50px;
       .el-input {
         width: 100%;
@@ -179,7 +181,7 @@ export default {
       width: 100%;
       color: #fff;
       font-size: 16px;
-      background: linear-gradient(130deg,$primary-color + 20 0%,$primary-color - 20 100%);
+      background: linear-gradient(130deg, $primary-color + 20 0%, $primary-color - 20 100%);
     }
   }
 }

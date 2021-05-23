@@ -1,0 +1,17 @@
+[class^="yw-icon-"], [class*=" yw-icon-"] {
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  background-size: 13px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+// 密码
+.yw-icon-password {
+  background-image: url("assets/icons/pwd.svg");
+}
+// 盾牌
+.yw-icon-shield {
+  background-image: url("assets/icons/shield.svg");
+}
