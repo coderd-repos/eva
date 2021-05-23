@@ -2,7 +2,8 @@
 project:
   name: admin
   version: 1.0.0
-  env: development
+  #env: development
+  env: production
 
 # WEB服务器配置
 server:
