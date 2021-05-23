@@ -25,15 +25,16 @@
         :default-sort = "{prop: 'date', order: 'descending'}"
         stripe
         @selection-change="handleSelectionChange"
+        @sort-change="handleSortChange"
       >
         <el-table-column type="selection" fixed="left" width="55"></el-table-column>
-        <el-table-column prop="code" label="权限CODE" fixed="left" min-width="200px"></el-table-column>
+        <el-table-column prop="code" label="权限编码" fixed="left" sortable="custom" sort-by="CODE" min-width="200px"></el-table-column>
         <el-table-column prop="name" label="权限名称" fixed="left" min-width="120px"></el-table-column>
         <el-table-column prop="remark" label="权限备注" min-width="120px"></el-table-column>
         <el-table-column prop="createUser" label="创建人" min-width="100px">
           <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间" min-width="140px"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" sortable="custom" sort-by="CREATE_TIME" min-width="140px"></el-table-column>
         <el-table-column prop="updateUser" label="更新人" min-width="100px">
           <template slot-scope="{row}">{{row.updateUserInfo == null ? '' : row.updateUserInfo.username}}</template>
         </el-table-column>
@@ -58,14 +59,13 @@
       </pagination>
     </template>
     <!-- 新建/修改 -->
-    <OperaPermissionWindow ref="operaPermissionWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>
+    <OperaPermissionWindow ref="operaPermissionWindow" @success="handlePageChange"/>
   </TableLayout>
 </template>
 
 <script>
 import Pagination from '../../components/common/Pagination'
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/permission'
 import BaseTable from '../BaseTable'
 import OperaPermissionWindow from '../../components/permission/OperaPermissionWindow'
 export default {
@@ -82,86 +82,11 @@ export default {
       }
     }
   },
-  methods: {
-    // 删除
-    deleteById (id) {
-      this.$confirm('确认删除此权限吗?', '提示', {
-        confirmButtonText: '确认删除',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.isWorking.delete = true
-        deleteById(id)
-          .then(() => {
-            this.$message.success('删除成功')
-            // 删除当前页最后一条记录时查询上一页数据
-            if (this.tableData.list.length - 1 === 0) {
-              this.handlePageChange(this.tableData.pagination.pageIndex - 1 === 0 ? 1 : this.tableData.pagination.pageIndex - 1)
-            } else {
-              this.handlePageChange(this.tableData.pagination.pageIndex)
-            }
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.delete = false
-          })
-      })
-    },
-    // 批量删除
-    deleteByIdInBatch () {
-      if (this.tableData.selectedRows.length === 0) {
-        this.$message.warning('请至少选择一条数据')
-        return
-      }
-      this.$confirm(`确认删除已选中的 ${this.tableData.selectedRows.length} 条数据吗?`, '提示', {
-        confirmButtonText: '确认删除',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.isWorking.delete = true
-        deleteByIdInBatch(this.tableData.selectedRows.map(row => row.id).join(','))
-          .then(() => {
-            this.$message.success('删除成功')
-            // 删除当前页最后一条记录时查询上一页数据
-            if (this.tableData.list.length - 1 === 0) {
-              this.handlePageChange(this.tableData.pagination.pageIndex - 1 === 0 ? 1 : this.tableData.pagination.pageIndex - 1)
-            } else {
-              this.handlePageChange(this.tableData.pagination.pageIndex)
-            }
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.delete = false
-          })
-      })
-    },
-    // 页码变更处理
-    handlePageChange (pageIndex) {
-      // 调用查询接口
-      this.tableData.pagination.pageIndex = pageIndex
-      this.isWorking.search = true
-      fetchList({
-        page: pageIndex,
-        capacity: this.tableData.pagination.pageSize,
-        model: this.searchForm
-      })
-        .then(data => {
-          this.tableData.list = data.records
-          this.tableData.pagination.total = data.total
-        })
-        .catch(e => {
-          this.$message.error(e.message)
-        })
-        .finally(() => {
-          this.isWorking.search = false
-        })
-    }
-  },
   created () {
+    this.config({
+      module: '权限',
+      api: '/system/permission'
+    })
     this.search()
   }
 }

@@ -61,7 +61,7 @@
 
 <script>
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, updateById, deleteById, deleteByIdInBatch, sort } from '../../api/system/menu'
+import { fetchList, updateById, sort } from '../../api/system/menu'
 import BaseTable from '../BaseTable'
 import OperaMenuWindow from '../../components/menu/OperaMenuWindow'
 export default {
@@ -77,52 +77,6 @@ export default {
     }
   },
   methods: {
-    // 删除
-    deleteById (row) {
-      this.$confirm(`确认删除 ${row.name} 菜单吗?`, '提示', {
-        confirmButtonText: '确认删除',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.isWorking.delete = true
-        deleteById(row.id)
-          .then(() => {
-            this.$message.success('删除成功')
-            this.handlePageChange()
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.delete = false
-          })
-      })
-    },
-    // 批量删除
-    deleteByIdInBatch () {
-      if (this.tableData.selectedRows.length === 0) {
-        this.$message.warning('请至少选择一条数据')
-        return
-      }
-      this.$confirm(`确认删除已选中的 ${this.tableData.selectedRows.length} 条数据吗?`, '提示', {
-        confirmButtonText: '确认删除',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.isWorking.delete = true
-        deleteByIdInBatch(this.tableData.selectedRows.map(row => row.id).join(','))
-          .then(() => {
-            this.$message.success('删除成功')
-            this.handlePageChange()
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking.delete = false
-          })
-      })
-    },
     // 页码变更处理
     handlePageChange () {
       // 调用查询接口
@@ -241,6 +195,10 @@ export default {
     }
   },
   created () {
+    this.config({
+      module: '菜单',
+      api: '/system/menu'
+    })
     this.search()
   }
 }
