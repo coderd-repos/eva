@@ -26,7 +26,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item v-if="form.id == null" label="初始密码" prop="password" required>
-        <el-input v-model="form.password" type="password" placeholder="请输入初始密码" maxlength="30"></el-input>
+        <el-input v-model="form.password" type="password" placeholder="请输入初始密码" maxlength="30" show-password/>
       </el-form-item>
       <el-form-item label="所属部门" prop="departmentId">
         <DepartmentSelect v-model="form.departmentId" placeholder="请选择用户所属部门" :inline="false" clearable/>

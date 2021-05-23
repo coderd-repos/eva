@@ -27,13 +27,13 @@
     >
       <el-form :model="changePwdData.form" ref="changePwdDataForm" :rules="changePwdData.rules">
         <el-form-item label="原始密码" prop="oldPwd" required>
-          <el-input v-model="changePwdData.form.oldPwd" type="password" placeholder="请输入原始密码"></el-input>
+          <el-input v-model="changePwdData.form.oldPwd" type="password" placeholder="请输入原始密码" maxlength="30" show-password></el-input>
         </el-form-item>
         <el-form-item label="新密码" prop="newPwd" required>
-          <el-input v-model="changePwdData.form.newPwd" type="password" placeholder="请输入新密码"></el-input>
+          <el-input v-model="changePwdData.form.newPwd" type="password" placeholder="请输入新密码" maxlength="30" show-password></el-input>
         </el-form-item>
         <el-form-item label="确认新密码" prop="confirmPwd" required>
-          <el-input v-model="changePwdData.form.confirmPwd" type="password" placeholder="请再次输入新密码"></el-input>
+          <el-input v-model="changePwdData.form.confirmPwd" type="password" placeholder="请再次输入新密码" maxlength="30" show-password></el-input>
         </el-form-item>
       </el-form>
     </GlobalWindow>
