@@ -72,7 +72,6 @@ export default {
   methods: {
     // 页码变更处理
     handlePageChange () {
-      // 调用查询接口
       this.tableData.list.splice(0, this.tableData.list.length)
       this.isWorking.search = true
       fetchList()

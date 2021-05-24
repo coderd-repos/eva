@@ -51,20 +51,18 @@
 </template>
 
 <script>
+import BaseOpera from '../base/BaseOpera'
 import GlobalWindow from '../common/GlobalWindow'
-import { checkMobile, checkEmail } from '../../utils/form'
-import { create, updateById } from '../../api/system/user'
 import DepartmentSelect from '../common/DepartmentSelect'
 import PositionSelect from '../common/PositionSelect'
+import { checkMobile, checkEmail } from '../../utils/form'
 
 export default {
   name: 'OperaUserWindow',
+  extends: BaseOpera,
   components: { PositionSelect, DepartmentSelect, GlobalWindow },
   data () {
     return {
-      title: '',
-      visible: false,
-      isWorking: false,
       // 表单数据
       form: {
         id: null,
@@ -130,59 +128,12 @@ export default {
         this.form.departmentId = target.department == null ? null : target.department.id
         this.form.positionId = target.position == null ? null : target.position.id
       })
-    },
-    // 确认新建/修改
-    confirm () {
-      if (this.form.id == null) {
-        this.__confirmCreate()
-        return
-      }
-      this.__confirmEdit()
-    },
-    // 确认新建
-    __confirmCreate () {
-      this.$refs.form.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking = true
-        create(this.form)
-          .then(() => {
-            this.visible = false
-            this.$message.success('新建成功')
-            this.$emit('success')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking = false
-          })
-      })
-    },
-    // 确认修改
-    __confirmEdit () {
-      this.$refs.form.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking = true
-        updateById(this.form)
-          .then(() => {
-            this.visible = false
-            this.$message.success('修改成功')
-            this.$emit('success')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking = false
-          })
-      })
     }
+  },
+  created () {
+    this.config({
+      api: '/system/user'
+    })
   }
 }
 </script>

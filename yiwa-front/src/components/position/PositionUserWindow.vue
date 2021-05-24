@@ -77,7 +77,6 @@ import TableLayout from '../../layouts/TableLayout'
 import BaseTable from '../../components/base/BaseTable'
 import GlobalWindow from '../common/GlobalWindow'
 import Pagination from '../common/Pagination'
-import { fetchList } from '../../api/system/user'
 export default {
   name: 'PositionUserWindow',
   extends: BaseTable,
@@ -104,27 +103,12 @@ export default {
       this.searchForm.positionId = positionId
       this.visible = true
       this.search()
-    },
-    // 处理分页
-    handlePageChange (pageIndex) {
-      this.tableData.pagination.pageIndex = pageIndex
-      this.isWorking.search = true
-      fetchList({
-        page: pageIndex,
-        capacity: this.tableData.pagination.pageSize,
-        model: this.searchForm
-      })
-        .then(data => {
-          this.tableData.list = data.records
-          this.tableData.pagination.total = data.total
-        })
-        .catch(e => {
-          this.$message.error(e.message)
-        })
-        .finally(() => {
-          this.isWorking.search = false
-        })
     }
+  },
+  created () {
+    this.config({
+      api: '/system/user'
+    })
   }
 }
 </script>

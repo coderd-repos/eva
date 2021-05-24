@@ -6,7 +6,7 @@
     :confirm-working="isWorking"
     @confirm="confirm"
   >
-    <p class="tip" v-if="form.parent != null && form.id == null">为 <em>{{form.parent.name}}</em> 新建子菜单</p>
+    <p class="tip" v-if="form.parent != null && form.id == null">为 <em>{{parentName}}</em> 新建子菜单</p>
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="菜单名称" prop="name" required>
         <el-input v-model="form.name" placeholder="请输入菜单名称" v-trim maxlength="50"/>
@@ -29,22 +29,22 @@
 </template>
 
 <script>
-import icons from '../../utils/icons'
+import BaseOpera from '../base/BaseOpera'
 import GlobalWindow from '../common/GlobalWindow'
-import { create, updateById } from '../../api/system/menu'
+import icons from '../../utils/icons'
 export default {
   name: 'OperaMenuWindow',
+  extends: BaseOpera,
   components: { GlobalWindow },
   data () {
     return {
       icons,
-      title: '',
-      visible: false,
-      isWorking: false,
+      // 上级菜单名称
+      parentName: '',
       // 表单数据
       form: {
         id: null,
-        parent: null,
+        parentId: null,
         name: '',
         path: '',
         icon: '',
@@ -72,7 +72,8 @@ export default {
         this.$nextTick(() => {
           this.$refs.form.resetFields()
           this.form.id = null
-          this.form.parent = parent
+          this.form.parentId = parent.id
+          this.parentName = parent.name
         })
         return
       }
@@ -82,62 +83,12 @@ export default {
           this.form[key] = target[key]
         }
       })
-    },
-    // 确认新建/修改
-    confirm () {
-      if (this.form.id == null) {
-        this.__confirmCreate()
-        return
-      }
-      this.__confirmEdit()
-    },
-    // 确定新建
-    __confirmCreate () {
-      this.$refs.form.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking = true
-        create({
-          ...this.form,
-          parentId: this.form.parent == null ? null : this.form.parent.id
-        })
-          .then(() => {
-            this.visible = false
-            this.$message.success('新建成功')
-            this.$emit('success')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking = false
-          })
-      })
-    },
-    // 确认修改
-    __confirmEdit () {
-      this.$refs.form.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking = true
-        updateById(this.form)
-          .then(() => {
-            this.visible = false
-            this.$message.success('修改成功')
-            this.$emit('success')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking = false
-          })
-      })
     }
+  },
+  created () {
+    this.config({
+      api: '/system/menu'
+    })
   }
 }
 </script>

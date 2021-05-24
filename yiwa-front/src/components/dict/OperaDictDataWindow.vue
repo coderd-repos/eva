@@ -20,16 +20,14 @@
 </template>
 
 <script>
+import BaseOpera from '../../components/base/BaseOpera'
 import GlobalWindow from '../common/GlobalWindow'
-import { create, updateById } from '../../api/system/dictData'
 export default {
   name: 'OperaDictDataWindow',
+  extends: BaseOpera,
   components: { GlobalWindow },
   data () {
     return {
-      visible: false,
-      isWorking: false,
-      title: '',
       // 表单数据
       form: {
         id: null,
@@ -62,8 +60,8 @@ export default {
       if (target == null) {
         this.$nextTick(() => {
           this.$refs.form.resetFields()
-          this.form.dictId = dictId
           this.form.id = null
+          this.form.dictId = dictId
         })
         return
       }
@@ -73,59 +71,12 @@ export default {
           this.form[key] = target[key]
         }
       })
-    },
-    // 确认新建/修改
-    confirm () {
-      if (this.form.id == null || this.form.id === '') {
-        this.__confirmCreate()
-        return
-      }
-      this.__confirmEdit()
-    },
-    // 确定新建
-    __confirmCreate () {
-      this.$refs.form.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking = true
-        create(this.form)
-          .then(() => {
-            this.visible = false
-            this.$message.success('新建成功')
-            this.$emit('success')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking = false
-          })
-      })
-    },
-    // 确认修改
-    __confirmEdit () {
-      this.$refs.form.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking = true
-        updateById(this.form)
-          .then(() => {
-            this.visible = false
-            this.$message.success('修改成功')
-            this.$emit('success')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking = false
-          })
-      })
     }
+  },
+  created () {
+    this.config({
+      api: '/system/dictData'
+    })
   }
 }
 </script>

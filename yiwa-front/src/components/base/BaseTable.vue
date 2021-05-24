@@ -35,7 +35,7 @@ export default {
     }
   },
   methods: {
-    // 页面配置
+    // 配置
     config (extParams = {}) {
       if (extParams.api == null) {
         throw new Error('config缺少api参数')

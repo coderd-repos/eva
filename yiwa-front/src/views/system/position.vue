@@ -62,7 +62,6 @@ export default {
   methods: {
     // 页码变更处理
     handlePageChange () {
-      // 调用查询接口
       this.isWorking.search = true
       fetchList()
         .then(records => {

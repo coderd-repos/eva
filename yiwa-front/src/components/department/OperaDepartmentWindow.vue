@@ -26,18 +26,16 @@
 </template>
 
 <script>
+import BaseOpera from '../base/BaseOpera'
 import GlobalWindow from '../common/GlobalWindow'
-import { checkMobile, checkEmail } from '../../utils/form'
-import { create, updateById } from '../../api/system/department'
 import DepartmentSelect from '../common/DepartmentSelect'
+import { checkMobile, checkEmail } from '../../utils/form'
 export default {
   name: 'OperaDepartmentWindow',
+  extends: BaseOpera,
   components: { DepartmentSelect, GlobalWindow },
   data () {
     return {
-      title: '新建系统权限',
-      visible: false,
-      isWorking: false,
       // 需排除选择的部门ID
       excludeDeptId: null,
       // 表单数据
@@ -93,59 +91,12 @@ export default {
           this.form[key] = target[key]
         }
       })
-    },
-    // 确认新建/修改
-    confirm () {
-      if (this.form.id == null || this.form.id === '') {
-        this.__confirmCreate()
-        return
-      }
-      this.__confirmEdit()
-    },
-    // 确定新建
-    __confirmCreate () {
-      this.$refs.form.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking = true
-        create(this.form)
-          .then(() => {
-            this.visible = false
-            this.$message.success('新建成功')
-            this.$emit('success')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking = false
-          })
-      })
-    },
-    // 确认修改
-    __confirmEdit () {
-      this.$refs.form.validate((valid) => {
-        if (!valid) {
-          return
-        }
-        // 调用新建接口
-        this.isWorking = true
-        updateById(this.form)
-          .then(() => {
-            this.visible = false
-            this.$message.success('修改成功')
-            this.$emit('success')
-          })
-          .catch(e => {
-            this.$message.error(e.message)
-          })
-          .finally(() => {
-            this.isWorking = false
-          })
-      })
     }
+  },
+  created () {
+    this.config({
+      api: '/system/department'
+    })
   }
 }
 </script>
