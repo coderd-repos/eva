@@ -12,8 +12,9 @@
       <el-form-item label="数据值" prop="code" required>
         <el-input v-model="form.code" placeholder="请输入数据值" v-trim maxlength="50"/>
       </el-form-item>
-      <el-form-item label="状态" prop="code" required>
+      <el-form-item label="状态" prop="disabled" required class="form-item-status">
         <el-switch v-model="form.disabled" :active-value="false" :inactive-value="true"/>
+        <span class="status-text">{{form.disabled | disabledText}}</span>
       </el-form-item>
     </el-form>
   </GlobalWindow>
@@ -81,6 +82,13 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.form-item-status {
+  .status-text {
+    color: #999;
+    margin-left: 6px;
+    font-size: 13px;
+    vertical-align: middle;
+  }
+}
 </style>
