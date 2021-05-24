@@ -1,6 +1,7 @@
 package com.eva.core.model;
 
 import com.eva.dao.system.model.SystemPermission;
+import com.eva.dao.system.model.SystemRole;
 import com.eva.dao.system.model.SystemUser;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
@@ -29,21 +30,27 @@ public class LoginUserInfo {
 
     private String sex;
 
-    private List<Permission> permissions;
+    private List<String> roles;
 
-    public static LoginUserInfo from(SystemUser user, List<SystemPermission> permissions) {
+    private List<String> permissions;
+
+    public static LoginUserInfo from(SystemUser user, List<SystemRole> roles, List<SystemPermission> permissions) {
         if (user == null) {
             return null;
         }
         // 拷贝用户信息
         LoginUserInfo loginUserInfo = new LoginUserInfo();
         BeanUtils.copyProperties(user, loginUserInfo);
-        // 拷贝权限信息
-        List<Permission> pms = new ArrayList<>();
+        // 设置角色信息
+        List<String> rs = new ArrayList<>();
+        for (SystemRole role : roles) {
+            rs.add(role.getCode());
+        }
+        loginUserInfo.setRoles(rs);
+        // 设置权限信息
+        List<String> pms = new ArrayList<>();
         for (SystemPermission permission : permissions) {
-            Permission p = new Permission();
-            BeanUtils.copyProperties(permission, p);
-            pms.add(p);
+            pms.add(permission.getCode());
         }
         loginUserInfo.setPermissions(pms);
         return loginUserInfo;

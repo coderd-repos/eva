@@ -18,7 +18,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,22 +45,10 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         LoginUserInfo loginUserInfo = (LoginUserInfo)principalCollection.getPrimaryPrincipal();
-        // 查询用户角色
-        List<SystemRole> roles = systemRoleService.findByUserId(loginUserInfo.getId());
-        List<String> roleCodes = new ArrayList<>();
-        for (SystemRole role : roles) {
-            roleCodes.add(role.getCode());
-        }
-        // 查询用户权限
-        List<SystemPermission> permissions = systemPermissionService.findByUserId(loginUserInfo.getId());
-        List<String> permissionCodes = new ArrayList<>();
-        for (SystemPermission permission : permissions) {
-            permissionCodes.add(permission.getCode());
-        }
         // 设置用户角色和权限
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.addRoles(roleCodes);
-        authorizationInfo.addStringPermissions(permissionCodes);
+        authorizationInfo.addRoles(loginUserInfo.getRoles());
+        authorizationInfo.addStringPermissions(loginUserInfo.getPermissions());
         return authorizationInfo;
     }
 
@@ -82,8 +69,12 @@ public class ShiroRealm extends AuthorizingRealm {
         if (user == null) {
             return null;
         }
+        // 获取登录用户信息
+        List<SystemRole> roles = systemRoleService.findByUserId(user.getId());
+        List<SystemPermission> permissions = systemPermissionService.findByUserId(user.getId());
+        LoginUserInfo userInfo = LoginUserInfo.from(user, roles, permissions);
         // 验证用户
-        return new SimpleAuthenticationInfo(LoginUserInfo.from(user, systemPermissionService.findByUserId(user.getId())), user.getPassword(), this.getName());
+        return new SimpleAuthenticationInfo(userInfo, user.getPassword(), this.getName());
     }
 
 }
