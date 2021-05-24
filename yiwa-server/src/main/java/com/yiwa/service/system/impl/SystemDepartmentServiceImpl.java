@@ -99,7 +99,9 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
      */
     private void fillChildren(List<Integer> pool, List<Integer> parentIds) {
         QueryWrapper<SystemDepartment> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(SystemDepartment::getDeleted, Boolean.FALSE).in(SystemDepartment::getParentId, parentIds);
+        queryWrapper.lambda()
+                .eq(SystemDepartment::getDeleted, Boolean.FALSE)
+                .in(SystemDepartment::getParentId, parentIds);
         List<SystemDepartment> departments = systemDepartmentMapper.selectList(queryWrapper);
         List<Integer> ids = departments.stream().map(SystemDepartment::getId).collect(Collectors.toList());
         if (ids.size() > 0) {

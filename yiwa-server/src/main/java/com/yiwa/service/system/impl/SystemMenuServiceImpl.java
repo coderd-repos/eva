@@ -86,9 +86,10 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     @Override
     public List<SystemMenu> findRootList() {
         QueryWrapper<SystemMenu> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByAsc("SORT");
-        queryWrapper.lambda().isNull(SystemMenu::getParentId);
-        queryWrapper.lambda().eq(SystemMenu::getDeleted, Boolean.FALSE);
+        queryWrapper.lambda()
+                .isNull(SystemMenu::getParentId)
+                .eq(SystemMenu::getDeleted, Boolean.FALSE)
+                .orderByAsc(SystemMenu::getSort);
         return systemMenuMapper.selectList(queryWrapper);
     }
 
