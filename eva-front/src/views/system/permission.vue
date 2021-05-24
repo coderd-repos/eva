@@ -25,16 +25,15 @@
         :default-sort = "{prop: 'date', order: 'descending'}"
         stripe
         @selection-change="handleSelectionChange"
-        @sort-change="handleSortChange"
       >
         <el-table-column type="selection" fixed="left" width="55"></el-table-column>
-        <el-table-column prop="code" label="权限编码" fixed="left" sortable="custom" sort-by="CODE" min-width="200px"></el-table-column>
+        <el-table-column prop="code" label="权限编码" fixed="left" min-width="200px"></el-table-column>
         <el-table-column prop="name" label="权限名称" fixed="left" min-width="120px"></el-table-column>
         <el-table-column prop="remark" label="权限备注" min-width="120px"></el-table-column>
         <el-table-column prop="createUser" label="创建人" min-width="100px">
           <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间" sortable="custom" sort-by="CREATE_TIME" min-width="140px"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" min-width="140px"></el-table-column>
         <el-table-column prop="updateUser" label="更新人" min-width="100px">
           <template slot-scope="{row}">{{row.updateUserInfo == null ? '' : row.updateUserInfo.username}}</template>
         </el-table-column>

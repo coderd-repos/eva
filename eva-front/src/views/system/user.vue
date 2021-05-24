@@ -34,6 +34,7 @@
         :default-sort = "{prop: 'date', order: 'descending'}"
         stripe
         @selection-change="handleSelectionChange"
+        @sort-change="handleSortChange"
       >
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="avatar" label="头像" width="80px" class-name="table-column-avatar" fixed="left">
@@ -43,21 +44,21 @@
         </el-table-column>
         <el-table-column prop="realname" label="姓名" min-width="100px" fixed="left"></el-table-column>
         <el-table-column prop="username" label="用户名" min-width="120px"></el-table-column>
-        <el-table-column prop="empNo" label="工号" min-width="80px"></el-table-column>
+        <el-table-column prop="empNo" label="工号" sortable="custom" sort-by="EMP_NO" min-width="80px"></el-table-column>
         <el-table-column prop="department" label="部门" min-width="120px">
           <template slot-scope="{row}">{{row.department == null ? '' : row.department.name}}</template>
         </el-table-column>
         <el-table-column prop="position" label="岗位" min-width="120px">
           <template slot-scope="{row}">{{row.position == null ? '' : row.position.name}}</template>
         </el-table-column>
-        <el-table-column prop="sex" label="性别" min-width="80px">
+        <el-table-column prop="sex" label="性别" sortable="custom" sort-by="SEX" min-width="80px">
           <template slot-scope="{row}">
             {{row.sex | sex}}
           </template>
         </el-table-column>
         <el-table-column prop="mobile" label="手机号码" min-width="100px"></el-table-column>
         <el-table-column prop="email" label="邮箱" min-width="180px"></el-table-column>
-        <el-table-column prop="birthday" label="生日" min-width="100px"></el-table-column>
+        <el-table-column prop="birthday" label="生日" sortable="custom" sort-by="BIRTHDAY" min-width="100px"></el-table-column>
         <el-table-column prop="roles" label="角色" min-width="160px" class-name="table-column-role">
           <template slot-scope="{row}">
             <ul>
@@ -68,11 +69,11 @@
         <el-table-column prop="createUser" label="创建人" min-width="100px">
           <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间" min-width="140px"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" sortable="custom" sort-by="CREATE_TIME" min-width="140px"></el-table-column>
         <el-table-column prop="updateUser" label="更新人" min-width="100px">
           <template slot-scope="{row}">{{row.updateUserInfo == null ? '' : row.updateUserInfo.username}}</template>
         </el-table-column>
-        <el-table-column prop="updateTime" label="更新时间" min-width="140px"></el-table-column>
+        <el-table-column prop="updateTime" label="更新时间" sortable="custom" sort-by="UPDATE_TIME" min-width="140px"></el-table-column>
         <el-table-column label="操作" width="270" fixed="right">
           <template slot-scope="{row}">
             <el-button type="text" icon="el-icon-edit" @click="$refs.operaUserWindow.open('编辑用户', row)" v-permissions="['system:user:update']">编辑</el-button>
