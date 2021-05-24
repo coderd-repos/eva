@@ -47,8 +47,7 @@ public class SystemUserRoleServiceImpl implements SystemUserRoleService {
     public void delete(SystemUserRole systemUserRole) {
         SystemUserRole newUserRole = new SystemUserRole();
         newUserRole.setDeleted(Boolean.TRUE);
-        UpdateWrapper<SystemUserRole> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.setEntity(systemUserRole);
+        UpdateWrapper<SystemUserRole> updateWrapper = new UpdateWrapper<>(systemUserRole);
         systemUserRoleMapper.update(newUserRole, updateWrapper);
     }
 

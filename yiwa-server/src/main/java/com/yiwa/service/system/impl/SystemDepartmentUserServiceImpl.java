@@ -41,8 +41,7 @@ public class SystemDepartmentUserServiceImpl implements SystemDepartmentUserServ
     public void delete(SystemDepartmentUser dto) {
         SystemDepartmentUser newDepartmentUser = new SystemDepartmentUser();
         newDepartmentUser.setDeleted(Boolean.TRUE);
-        UpdateWrapper<SystemDepartmentUser> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.setEntity(dto);
+        UpdateWrapper<SystemDepartmentUser> updateWrapper = new UpdateWrapper<>(dto);
         systemDepartmentUserMapper.update(newDepartmentUser, updateWrapper);
     }
 

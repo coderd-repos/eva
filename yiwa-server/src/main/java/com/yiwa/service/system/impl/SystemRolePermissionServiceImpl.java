@@ -47,8 +47,7 @@ public class SystemRolePermissionServiceImpl implements SystemRolePermissionServ
     public void delete(SystemRolePermission systemRolePermission) {
         SystemRolePermission newPermission = new SystemRolePermission();
         newPermission.setDeleted(Boolean.TRUE);
-        UpdateWrapper<SystemRolePermission> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.setEntity(systemRolePermission);
+        UpdateWrapper<SystemRolePermission> updateWrapper = new UpdateWrapper<>(systemRolePermission);
         systemRolePermissionMapper.update(newPermission, updateWrapper);
     }
 

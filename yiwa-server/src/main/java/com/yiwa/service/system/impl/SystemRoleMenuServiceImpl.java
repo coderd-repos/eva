@@ -47,8 +47,7 @@ public class SystemRoleMenuServiceImpl implements SystemRoleMenuService {
     public void delete(SystemRoleMenu systemRoleMenu) {
         SystemRoleMenu newRoleMenu = new SystemRoleMenu();
         newRoleMenu.setDeleted(Boolean.TRUE);
-        UpdateWrapper<SystemRoleMenu> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.setEntity(systemRoleMenu);
+        UpdateWrapper<SystemRoleMenu> updateWrapper = new UpdateWrapper<>(systemRoleMenu);
         systemRoleMenuMapper.update(newRoleMenu, updateWrapper);
     }
 

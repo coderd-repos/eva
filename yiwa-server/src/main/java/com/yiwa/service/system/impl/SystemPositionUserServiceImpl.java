@@ -42,8 +42,7 @@ public class SystemPositionUserServiceImpl implements SystemPositionUserService 
     public void delete(SystemPositionUser dto) {
         SystemPositionUser newSystemPositionUser = new SystemPositionUser();
         newSystemPositionUser.setDeleted(Boolean.TRUE);
-        UpdateWrapper<SystemPositionUser> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.setEntity(dto);
+        UpdateWrapper<SystemPositionUser> updateWrapper = new UpdateWrapper<>(dto);
         systemPositionUserMapper.update(newSystemPositionUser, updateWrapper);
     }
 

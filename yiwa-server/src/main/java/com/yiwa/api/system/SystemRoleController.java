@@ -130,6 +130,8 @@ public class SystemRoleController extends BaseController {
     @GetMapping("/all")
     @RequiresPermissions("system:role:query")
     public ApiResponse<List<SystemRole>> findAll () {
-        return ApiResponse.success(systemRoleService.findList(new SystemRole()));
+        SystemRole systemRole = new SystemRole();
+        systemRole.setDeleted(Boolean.FALSE);
+        return ApiResponse.success(systemRoleService.findList(systemRole));
     }
 }
