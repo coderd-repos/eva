@@ -31,7 +31,7 @@
       <el-table
         v-loading="isWorking.search"
         :data="tableData.list"
-        :default-sort = "{prop: 'date', order: 'descending'}"
+        :default-sort = "{prop: 'createTime', order: 'descending'}"
         stripe
         @selection-change="handleSelectionChange"
         @sort-change="handleSortChange"
@@ -132,7 +132,11 @@ export default {
   created () {
     this.config({
       module: '用户',
-      api: '/system/user'
+      api: '/system/user',
+      defaultSorts: [{
+        property: 'CREATE_TIME',
+        direction: 'DESC'
+      }]
     })
     this.search()
   }

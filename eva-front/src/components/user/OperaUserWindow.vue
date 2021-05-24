@@ -127,7 +127,6 @@ export default {
         }
         this.form.departmentId = target.department == null ? null : target.department.id
         this.form.positionIds = target.positions == null ? [] : target.positions.map(p => p.id)
-        console.log('this.form.positionIds', this.form.positionIds)
       })
     }
   },

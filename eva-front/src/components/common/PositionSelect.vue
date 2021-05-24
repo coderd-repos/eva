@@ -6,7 +6,7 @@
     :clearable="clearable"
     :inline="inline"
     :multiple="multiple"
-    :flat="true"
+    :flat="multiple"
     @input="$emit('input', $event)"
   />
 </template>

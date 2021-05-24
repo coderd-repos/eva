@@ -25,7 +25,9 @@ export default {
     multiple: {
       default: false
     },
-    flat: {},
+    flat: {
+      default: false
+    },
     value: {},
     placeholder: {
       default: '请选择'

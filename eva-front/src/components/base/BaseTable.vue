@@ -41,11 +41,13 @@ export default {
         throw new Error('config缺少api参数')
       }
       const params = {
-        module: '数据'
+        module: '数据',
+        defaultSorts: []
       }
       Object.assign(params, extParams)
       this.module = params.module
       this.api = require(`@/api${params.api}`)
+      this.tableData.sorts = params.defaultSorts
     },
     // 搜索
     search () {
