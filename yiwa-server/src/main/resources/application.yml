@@ -2,8 +2,8 @@
 project:
   name: 伊娃
   version: 1.0.0
-  env: development
-  #env: production
+#  env: development
+  env: production
 
 # WEB服务器配置
 server:
