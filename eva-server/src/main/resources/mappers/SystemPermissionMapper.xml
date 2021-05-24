@@ -36,14 +36,13 @@
     LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = perm.UPDATE_USER
     <where>
       perm.DELETED = 0
-      <if test="dto.code != null">
-        AND perm.CODE LIKE CONCAT('%', #{dto.code}, '%')
+      <if test="code != null">
+        AND perm.CODE LIKE CONCAT('%', #{code}, '%')
       </if>
-      <if test="dto.code != null">
-        AND perm.`NAME` LIKE CONCAT('%', #{dto.name}, '%')
+      <if test="code != null">
+        AND perm.`NAME` LIKE CONCAT('%', #{name}, '%')
       </if>
     </where>
-    ${orderByClause}
   </select>
 
   <!-- 根据用户ID查询权限 -->

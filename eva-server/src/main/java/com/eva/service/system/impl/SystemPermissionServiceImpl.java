@@ -95,7 +95,7 @@ public class SystemPermissionServiceImpl implements SystemPermissionService {
     @Override
     public PageData<SystemPermissionListVO> findPage(PageWrap<QuerySystemPermissionDTO> pageWrap) {
         PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
-        return PageData.from(new PageInfo<>(systemPermissionMapper.selectManageList(pageWrap.getModel(), pageWrap.getOrderByClause())));
+        return PageData.from(new PageInfo<>(systemPermissionMapper.selectManageList(pageWrap.getModel())));
     }
 
     @Override

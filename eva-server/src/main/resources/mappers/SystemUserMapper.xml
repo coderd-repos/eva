@@ -39,29 +39,29 @@
     LEFT JOIN `SYSTEM_DEPARTMENT` sd ON sd.ID = sdu.DEPARTMENT_ID AND sd.DELETED = 0
     <where>
       usr.DELETED = 0
-      <if test="positionId != null">
-        AND spu.POSITION_ID = #{positionId}
+      <if test="dto.positionId != null">
+        AND spu.POSITION_ID = #{dto.positionId}
       </if>
-      <if test="strictDeptId != null">
-        AND sdu.DEPARTMENT_ID = #{strictDeptId}
+      <if test="dto.strictDeptId != null">
+        AND sdu.DEPARTMENT_ID = #{dto.strictDeptId}
       </if>
-      <if test="departmentIds != null and departmentIds.size > 0">
+      <if test="dto.departmentIds != null and dto.departmentIds.size > 0">
         AND sdu.DEPARTMENT_ID IN
-        <foreach collection="departmentIds" open="(" close=")" separator="," item="id">
+        <foreach collection="dto.departmentIds" open="(" close=")" separator="," item="id">
           #{id}
         </foreach>
       </if>
-      <if test="username != null and username != ''">
-        AND usr.`USERNAME` LIKE CONCAT('%', #{username}, '%')
+      <if test="dto.username != null and dto.username != ''">
+        AND usr.`USERNAME` LIKE CONCAT('%', #{dto.username}, '%')
       </if>
-      <if test="realname != null and realname != ''">
-        AND usr.`REALNAME` LIKE CONCAT('%', #{realname}, '%')
+      <if test="dto.realname != null and dto.realname != ''">
+        AND usr.`REALNAME` LIKE CONCAT('%', #{dto.realname}, '%')
       </if>
-      <if test="mobile != null and mobile != ''">
-        AND usr.`MOBILE` LIKE CONCAT('%', #{mobile}, '%')
+      <if test="dto.mobile != null and dto.mobile != ''">
+        AND usr.`MOBILE` LIKE CONCAT('%', #{dto.mobile}, '%')
       </if>
     </where>
-    ORDER BY usr.ID ASC
+    ${orderByClause}
   </select>
 
 </mapper>

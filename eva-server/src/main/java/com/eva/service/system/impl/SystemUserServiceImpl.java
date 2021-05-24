@@ -99,7 +99,7 @@ public class SystemUserServiceImpl implements SystemUserService {
             departmentIds.add(pageWrap.getModel().getRootDeptId());
             pageWrap.getModel().setDepartmentIds(departmentIds);
         }
-        List<SystemUserListVO> userList = systemUserMapper.selectManageList(pageWrap.getModel());
+        List<SystemUserListVO> userList = systemUserMapper.selectManageList(pageWrap.getModel(), pageWrap.getOrderByClause());
         for (SystemUserListVO user : userList) {
             user.setRoles(systemRoleService.findByUserId(user.getId()));
         }

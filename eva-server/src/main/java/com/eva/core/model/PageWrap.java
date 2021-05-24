@@ -78,6 +78,7 @@ public class PageWrap<M> {
         List<SortData> sorts = this.getSorts();
         StringBuilder stringBuilder = new StringBuilder();
         for (SortData sortData: sorts) {
+            // 防注入
             if (!sortData.getProperty().matches("[a-zA-Z0-9_]+")) {
                 continue;
             }
