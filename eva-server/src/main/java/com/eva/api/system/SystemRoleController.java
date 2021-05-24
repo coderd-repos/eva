@@ -3,6 +3,7 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemRoleBiz;
 import com.eva.core.model.ApiResponse;
+import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.dto.CreateRoleMenuDTO;
@@ -15,6 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class SystemRoleController extends BaseController {
     @ApiOperation("配置角色菜单")
     @PostMapping("/createRoleMenu")
     @RequiresPermissions("system:role:createRoleMenu")
-    public ApiResponse createRoleMenu (@RequestBody CreateRoleMenuDTO dto) {
+    public ApiResponse createRoleMenu (@Validated @RequestBody CreateRoleMenuDTO dto) {
         systemRoleBiz.createRoleMenu(dto);
         return ApiResponse.success(null);
     }
@@ -54,7 +56,7 @@ public class SystemRoleController extends BaseController {
     @ApiOperation("配置角色权限")
     @PostMapping("/createRolePermission")
     @RequiresPermissions("system:role:createRolePermission")
-    public ApiResponse createRolePermission (@RequestBody CreateRolePermissionDTO dto) {
+    public ApiResponse createRolePermission (@Validated @RequestBody CreateRolePermissionDTO dto) {
         systemRoleBiz.createRolePermission(dto);
         return ApiResponse.success(null);
     }
@@ -66,7 +68,7 @@ public class SystemRoleController extends BaseController {
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:role:create")
-    public ApiResponse create(@RequestBody SystemRole systemRole) {
+    public ApiResponse create(@Validated(OperaType.Create.class) @RequestBody SystemRole systemRole) {
         return ApiResponse.success(systemRoleService.create(systemRole));
     }
 
@@ -106,7 +108,7 @@ public class SystemRoleController extends BaseController {
     @ApiOperation("根据ID修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:role:update")
-    public ApiResponse updateById(@RequestBody SystemRole systemRole) {
+    public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemRole systemRole) {
         systemRoleService.updateById(systemRole);
         return ApiResponse.success(null);
     }

@@ -3,6 +3,7 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemDepartmentBiz;
 import com.eva.core.model.ApiResponse;
+import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.dto.QuerySystemUserDTO;
@@ -15,6 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class SystemDepartmentController extends BaseController {
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:department:create")
-    public ApiResponse create(@RequestBody SystemDepartment systemDepartment) {
+    public ApiResponse create(@Validated(OperaType.Create.class) @RequestBody SystemDepartment systemDepartment) {
         return ApiResponse.success(systemDepartmentBiz.create(systemDepartment));
     }
 
@@ -85,7 +87,7 @@ public class SystemDepartmentController extends BaseController {
     @ApiOperation("根据ID修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:department:update")
-    public ApiResponse updateById(@RequestBody SystemDepartment systemDepartment) {
+    public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemDepartment systemDepartment) {
         systemDepartmentBiz.updateById(systemDepartment);
         return ApiResponse.success(null);
     }
@@ -119,7 +121,7 @@ public class SystemDepartmentController extends BaseController {
     @ApiOperation("根据ID查询")
     @GetMapping("/{id}")
     @RequiresPermissions("system:department:query")
-    public ApiResponse<SystemDepartment> finById(@PathVariable Integer id) {
+    public ApiResponse<SystemDepartment> findById(@PathVariable Integer id) {
         return ApiResponse.success(systemDepartmentService.findById(id));
     }
 }

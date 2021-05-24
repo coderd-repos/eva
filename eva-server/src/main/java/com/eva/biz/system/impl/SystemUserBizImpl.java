@@ -42,9 +42,6 @@ public class SystemUserBizImpl implements SystemUserBiz {
 
     @Override
     public void updatePwd(UpdatePwdDto dto) {
-        Assert.notNull(dto.getUserId(), "缺少参数");
-        Assert.notNull(dto.getOldPwd(), "缺少参数");
-        Assert.notNull(dto.getNewPwd(), "缺少参数");
         SystemUser user = systemUserService.findById(dto.getUserId());
         if (user.getDeleted()) {
             throw new BusinessException(ResponseStatus.DATA_EMPTY.getCode(), "用户不存在或已被删除");
@@ -62,9 +59,6 @@ public class SystemUserBizImpl implements SystemUserBiz {
 
     @Override
     public void resetPwd(ResetSystemUserPwdDTO dto) {
-        Assert.notNull(dto.getId(), "缺少参数");
-        Assert.notNull(dto.getPassword(), "缺少密码");
-        Assert.notNull(dto.getOperaUserId(), "缺少参数");
         // 查询用户
         SystemUser systemUser = systemUserService.findById(dto.getId());
         if (systemUser == null || systemUser.getDeleted()) {
@@ -80,9 +74,6 @@ public class SystemUserBizImpl implements SystemUserBiz {
     @Override
     @Transactional
     public void create(CreateSystemUserDTO systemUser) {
-        Assert.notNull(systemUser.getUsername(), "缺少参数");
-        Assert.notNull(systemUser.getRealname(), "缺少参数");
-        Assert.notNull(systemUser.getPassword(), "缺少参数");
         // 验证用户名
         SystemUser queryUserDto = new SystemUser();
         queryUserDto.setDeleted(Boolean.FALSE);
@@ -130,8 +121,6 @@ public class SystemUserBizImpl implements SystemUserBiz {
 
     @Override
     public void updateById(CreateSystemUserDTO systemUser) {
-        Assert.notNull(systemUser.getUsername(), "缺少参数");
-        Assert.notNull(systemUser.getRealname(), "缺少参数");
         // 验证用户名
         SystemUser queryUserDto = new SystemUser();
         queryUserDto.setUsername(systemUser.getUsername());

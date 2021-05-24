@@ -3,6 +3,7 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemMenuBiz;
 import com.eva.core.model.ApiResponse;
+import com.eva.core.model.OperaType;
 import com.eva.dao.system.dto.UpdateSystemMenuSortDTO;
 import com.eva.dao.system.model.SystemMenu;
 import com.eva.dao.system.vo.SystemMenuListVO;
@@ -12,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ public class SystemMenuController extends BaseController {
     @ApiOperation("菜单排序")
     @PostMapping("/sort")
     @RequiresPermissions("system:menu:sort")
-    public ApiResponse updateSort (@RequestBody UpdateSystemMenuSortDTO dto) {
+    public ApiResponse updateSort (@Validated @RequestBody UpdateSystemMenuSortDTO dto) {
         systemMenuBiz.updateSort(dto);
         return ApiResponse.success(null);
     }
@@ -72,7 +74,7 @@ public class SystemMenuController extends BaseController {
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:menu:create")
-    public ApiResponse create(@RequestBody SystemMenu systemMenu) {
+    public ApiResponse create(@Validated(OperaType.Create.class) @RequestBody SystemMenu systemMenu) {
         return ApiResponse.success(systemMenuBiz.create(systemMenu));
     }
 
@@ -112,7 +114,7 @@ public class SystemMenuController extends BaseController {
     @ApiOperation("根据ID修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:menu:update")
-    public ApiResponse updateById(@RequestBody SystemMenu systemMenu) {
+    public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemMenu systemMenu) {
         systemMenuService.updateById(systemMenu);
         return ApiResponse.success(null);
     }

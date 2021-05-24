@@ -3,6 +3,7 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemUserBiz;
 import com.eva.core.model.ApiResponse;
+import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.dto.CreateSystemUserDTO;
@@ -15,6 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class SystemUserController extends BaseController {
     @ApiOperation("配置用户角色")
     @PostMapping("/createUserRole")
     @RequiresPermissions("system:user:createUserRole")
-    public ApiResponse createUserRole (@RequestBody CreateUserRoleDTO dto) {
+    public ApiResponse createUserRole (@Validated @RequestBody CreateUserRoleDTO dto) {
         systemUserBiz.createUserRole(dto);
         return ApiResponse.success(null);
     }
@@ -54,7 +56,7 @@ public class SystemUserController extends BaseController {
     @ApiOperation("重置密码")
     @PostMapping("/resetPwd")
     @RequiresPermissions("system:user:resetPwd")
-    public ApiResponse resetPwd (@RequestBody ResetSystemUserPwdDTO dto) {
+    public ApiResponse resetPwd (@Validated @RequestBody ResetSystemUserPwdDTO dto) {
         dto.setOperaUserId(this.getLoginUser().getId());
         systemUserBiz.resetPwd(dto);
         return ApiResponse.success(null);
@@ -67,7 +69,7 @@ public class SystemUserController extends BaseController {
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:user:create")
-    public ApiResponse create(@RequestBody CreateSystemUserDTO systemUser) {
+    public ApiResponse create(@Validated(OperaType.Create.class) @RequestBody CreateSystemUserDTO systemUser) {
         systemUser.setCreateUser(this.getLoginUser().getId());
         systemUserBiz.create(systemUser);
         return ApiResponse.success(null);
@@ -109,7 +111,7 @@ public class SystemUserController extends BaseController {
     @ApiOperation("根据ID修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:user:update")
-    public ApiResponse updateById(@RequestBody CreateSystemUserDTO systemUser) {
+    public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody CreateSystemUserDTO systemUser) {
         systemUser.setUpdateUser(this.getLoginUser().getId());
         systemUserBiz.updateById(systemUser);
         return ApiResponse.success(null);

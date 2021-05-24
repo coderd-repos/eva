@@ -3,6 +3,7 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemPermissionBiz;
 import com.eva.core.model.ApiResponse;
+import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.dto.QuerySystemPermissionDTO;
@@ -13,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class SystemPermissionController extends BaseController {
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:permission:create")
-    public ApiResponse create(@RequestBody SystemPermission systemPermission) {
+    public ApiResponse create(@Validated(OperaType.Create.class) @RequestBody SystemPermission systemPermission) {
         return ApiResponse.success(systemPermissionBiz.create(systemPermission));
     }
 
@@ -80,7 +82,7 @@ public class SystemPermissionController extends BaseController {
     @ApiOperation("根据ID修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:permission:update")
-    public ApiResponse updateById(@RequestBody SystemPermission systemPermission) {
+    public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemPermission systemPermission) {
         systemPermissionBiz.updateById(systemPermission);
         return ApiResponse.success(null);
     }

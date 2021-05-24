@@ -4,6 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Eva
  * @date 2021-03-31 20:00
@@ -13,9 +16,11 @@ import lombok.Data;
 public class ResetSystemUserPwdDTO {
 
     @ApiModelProperty(value = "用户ID")
+    @NotNull(message = "用户ID不能为空")
     private Integer id;
 
     @ApiModelProperty(value = "新密码")
+    @NotBlank(message = "新密码不能为空")
     private String password;
 
     @ApiModelProperty(value = "操作人", hidden = true)

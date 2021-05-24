@@ -3,6 +3,7 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemDictDataBiz;
 import com.eva.core.model.ApiResponse;
+import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.dto.QuerySystemDictDataDTO;
@@ -13,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class SystemDictDataController extends BaseController {
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:dict:update")
-    public ApiResponse create(@RequestBody SystemDictData systemDictData) {
+    public ApiResponse create(@Validated(OperaType.Create.class) @RequestBody SystemDictData systemDictData) {
         return ApiResponse.success(systemDictDataBiz.create(systemDictData));
     }
 
@@ -80,7 +82,7 @@ public class SystemDictDataController extends BaseController {
     @ApiOperation("根据ID修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:dict:update")
-    public ApiResponse updateById(@RequestBody SystemDictData systemDictData) {
+    public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemDictData systemDictData) {
         systemDictDataBiz.updateById(systemDictData);
         return ApiResponse.success(null);
     }
@@ -103,7 +105,7 @@ public class SystemDictDataController extends BaseController {
     @ApiOperation("根据ID查询")
     @GetMapping("/{id}")
     @RequiresPermissions("system:dict:update")
-    public ApiResponse<SystemDictData> finById(@PathVariable Integer id) {
+    public ApiResponse<SystemDictData> findById(@PathVariable Integer id) {
         return ApiResponse.success(systemDictDataService.findById(id));
     }
 }

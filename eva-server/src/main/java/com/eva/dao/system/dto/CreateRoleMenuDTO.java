@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -15,9 +16,11 @@ import java.util.List;
 public class CreateRoleMenuDTO {
 
     @ApiModelProperty(value = "角色ID", example = "1")
+    @NotNull(message = "角色ID不能为空")
     private Integer roleId;
 
     @ApiModelProperty(value = "菜单ID集")
+    @NotNull(message = "菜单ID集不能为空")
     private List<Integer> menuIds;
 
     @ApiModelProperty(value = "创建人ID", hidden = true)

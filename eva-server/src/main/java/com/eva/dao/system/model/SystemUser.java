@@ -1,11 +1,17 @@
 package com.eva.dao.system.model;
 
+import com.eva.core.model.OperaType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 /**
@@ -17,14 +23,17 @@ import java.util.Date;
 @ApiModel("系统用户")
 public class SystemUser {
 
-    @ApiModelProperty(value = "主键", example = "1")
     @TableId(type = IdType.AUTO)
+    @ApiModelProperty(value = "主键", example = "1")
+    @NotNull(message = "主键不能为空", groups = {OperaType.Update.class})
     private Integer id;
 
     @ApiModelProperty(value = "用户名")
+    @NotBlank(message = "用户名不能为空", groups = {OperaType.Create.class, OperaType.Update.class})
     private String username;
 
-    @ApiModelProperty(value = "真实姓名")
+    @ApiModelProperty(value = "姓名")
+    @NotBlank(message = "姓名不能为空", groups = {OperaType.Create.class, OperaType.Update.class})
     private String realname;
 
     @ApiModelProperty(value = "工号")
@@ -35,18 +44,23 @@ public class SystemUser {
     private Date birthday;
 
     @ApiModelProperty(value = "性别")
+    @NotBlank(message = "性别不能为空", groups = {OperaType.Create.class, OperaType.Update.class})
     private String sex;
 
     @ApiModelProperty(value = "邮箱")
+    @Email(message = "邮箱格式不正确", groups = {OperaType.Create.class, OperaType.Update.class})
     private String email;
 
     @ApiModelProperty(value = "手机号码")
+    @Pattern(message = "手机号码格式不正确", regexp = "^\\d*$", groups = {OperaType.Create.class, OperaType.Update.class})
     private String mobile;
 
     @ApiModelProperty(value = "头像")
+    @NotBlank(message = "头像不能为空", groups = {OperaType.Create.class, OperaType.Update.class})
     private String avatar;
 
     @ApiModelProperty(value = "密码")
+    @NotBlank(message = "初始密码不能为空", groups = {OperaType.Create.class})
     private String password;
 
     @ApiModelProperty(value = "盐")

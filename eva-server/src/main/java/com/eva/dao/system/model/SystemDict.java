@@ -1,11 +1,14 @@
 package com.eva.dao.system.model;
 
+import com.eva.core.model.OperaType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -17,14 +20,17 @@ import java.util.Date;
 @ApiModel("字典")
 public class SystemDict {
 
-    @ApiModelProperty(value = "主键", example = "1")
     @TableId(type = IdType.AUTO)
+    @ApiModelProperty(value = "主键", example = "1")
+    @NotNull(message = "主键不能为空", groups = {OperaType.Update.class})
     private Integer id;
 
     @ApiModelProperty(value = "字典编码")
+    @NotBlank(message = "字典编码不能为空", groups = {OperaType.Create.class, OperaType.Update.class})
     private String code;
 
     @ApiModelProperty(value = "字典名称")
+    @NotBlank(message = "字典名称不能为空", groups = {OperaType.Create.class, OperaType.Update.class})
     private String name;
 
     @ApiModelProperty(value = "备注")

@@ -16,6 +16,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +46,7 @@ public class SystemController extends BaseController {
      */
     @ApiOperation("登录")
     @PostMapping("/login")
-    public ApiResponse<LoginUserInfo> login (@RequestBody LoginDTO dto, HttpServletRequest request) {
+    public ApiResponse<LoginUserInfo> login (@Validated @RequestBody LoginDTO dto, HttpServletRequest request) {
         // 校验验证码
         captchaService.check(dto.getCode(), request);
         // 校验用户名和密码
@@ -79,7 +80,7 @@ public class SystemController extends BaseController {
      */
     @ApiOperation("修改密码")
     @PostMapping("/updatePwd")
-    public ApiResponse updatePwd (@RequestBody UpdatePwdDto dto) {
+    public ApiResponse updatePwd (@Validated @RequestBody UpdatePwdDto dto) {
         dto.setUserId(this.getLoginUser().getId());
         systemUserBiz.updatePwd(dto);
         return ApiResponse.success(null);

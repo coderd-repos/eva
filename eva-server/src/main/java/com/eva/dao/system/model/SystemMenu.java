@@ -1,11 +1,14 @@
 package com.eva.dao.system.model;
 
+import com.eva.core.model.OperaType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -17,14 +20,16 @@ import java.util.Date;
 @ApiModel("系统菜单")
 public class SystemMenu {
 
-    @ApiModelProperty(value = "主键", example = "1")
     @TableId(type = IdType.AUTO)
+    @ApiModelProperty(value = "主键", example = "1")
+    @NotNull(message = "主键不能为空", groups = OperaType.Update.class)
     private Integer id;
 
     @ApiModelProperty(value = "上一级菜单", example = "1")
     private Integer parentId;
 
     @ApiModelProperty(value = "菜单名称")
+    @NotBlank(message = "菜单名称不能为空", groups = {OperaType.Create.class, OperaType.Update.class})
     private String name;
 
     @ApiModelProperty(value = "菜单访问路径")
