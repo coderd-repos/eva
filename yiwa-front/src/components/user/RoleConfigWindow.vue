@@ -38,17 +38,13 @@ export default {
       selectedIds: []
     }
   },
-  watch: {
-    user () {
-      this.selectedIds = this.user.roles.map(r => r.id)
-    }
-  },
   methods: {
     open (user) {
       fetchAllRoles()
         .then(records => {
           this.roles = records
           this.user = user
+          this.selectedIds = this.user.roles.map(r => r.id)
           this.visible = true
         })
         .catch(e => {
