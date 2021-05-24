@@ -6,13 +6,13 @@ export default {
       el.parentNode && el.parentNode.removeChild(el)
       return
     }
-    // 获取配置权限
-    const configPermissions = binding.value
-    if (!(configPermissions instanceof Array)) {
-      throw new Error('v-permissions必须为一个数组')
+    // 获取配置角色
+    const configRoles = binding.value
+    if (!(configRoles instanceof Array)) {
+      throw new Error('v-roles的值必须为一个数组')
     }
     // 验证权限
-    if (configPermissions.findIndex(code => userInfo.permissions.findIndex(p => p === code) > -1) === -1) {
+    if (configRoles.findIndex(code => userInfo.roles.findIndex(r => r === code) > -1) === -1) {
       el.parentNode && el.parentNode.removeChild(el)
     }
   }

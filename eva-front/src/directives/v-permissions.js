@@ -9,10 +9,10 @@ export default {
     // 获取配置权限
     const configPermissions = binding.value
     if (!(configPermissions instanceof Array)) {
-      throw new Error('v-permissions必须为一个数组')
+      throw new Error('v-permissions的值必须为一个数组')
     }
     // 验证权限
-    if (configPermissions.findIndex(code => userInfo.permissions.findIndex(p => p.code === code) > -1) === -1) {
+    if (configPermissions.findIndex(code => userInfo.permissions.findIndex(p => p === code) > -1) === -1) {
       el.parentNode && el.parentNode.removeChild(el)
     }
   }
