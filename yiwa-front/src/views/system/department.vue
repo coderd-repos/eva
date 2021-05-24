@@ -54,7 +54,7 @@
 <script>
 import TableLayout from '../../layouts/TableLayout'
 import { fetchList } from '../../api/system/department'
-import BaseTable from '../BaseTable'
+import BaseTable from '../../components/base/BaseTable'
 import OperaDepartmentWindow from '../../components/department/OperaDepartmentWindow'
 import DepartmentUserWindow from '../../components/department/DepartmentUserWindow'
 export default {

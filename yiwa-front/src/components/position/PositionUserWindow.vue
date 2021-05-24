@@ -74,7 +74,7 @@
 
 <script>
 import TableLayout from '../../layouts/TableLayout'
-import BaseTable from '../../views/BaseTable'
+import BaseTable from '../../components/base/BaseTable'
 import GlobalWindow from '../common/GlobalWindow'
 import Pagination from '../common/Pagination'
 import { fetchList } from '../../api/system/user'

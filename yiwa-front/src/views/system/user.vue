@@ -101,7 +101,7 @@
 <script>
 import Pagination from '../../components/common/Pagination'
 import TableLayout from '../../layouts/TableLayout'
-import BaseTable from '../BaseTable'
+import BaseTable from '../../components/base/BaseTable'
 import OperaUserWindow from '../../components/user/OperaUserWindow'
 import RoleConfigWindow from '../../components/user/RoleConfigWindow'
 import ResetPwdWindow from '../../components/user/ResetPwdWindow'

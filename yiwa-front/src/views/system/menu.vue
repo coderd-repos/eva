@@ -62,7 +62,7 @@
 <script>
 import TableLayout from '../../layouts/TableLayout'
 import { fetchList, updateById, sort } from '../../api/system/menu'
-import BaseTable from '../BaseTable'
+import BaseTable from '../../components/base/BaseTable'
 import OperaMenuWindow from '../../components/menu/OperaMenuWindow'
 export default {
   name: 'SystemMenu',

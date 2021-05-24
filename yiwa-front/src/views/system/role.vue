@@ -71,7 +71,7 @@
 <script>
 import Pagination from '../../components/common/Pagination'
 import TableLayout from '../../layouts/TableLayout'
-import BaseTable from '../BaseTable'
+import BaseTable from '../../components/base/BaseTable'
 import OperaRoleWindow from '../../components/role/OperaRoleWindow'
 import PermissionConfigWindow from '../../components/role/PermissionConfigWindow'
 import MenuConfigWindow from '../../components/role/MenuConfigWindow'

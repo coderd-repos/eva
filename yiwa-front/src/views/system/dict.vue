@@ -67,7 +67,7 @@
 <script>
 import Pagination from '../../components/common/Pagination'
 import TableLayout from '../../layouts/TableLayout'
-import BaseTable from '../BaseTable'
+import BaseTable from '../../components/base/BaseTable'
 import OperaDictWindow from '../../components/dict/OperaDictWindow'
 import DictDataManagerWindow from '../../components/dict/DictDataManagerWindow'
 export default {

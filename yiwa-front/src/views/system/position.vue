@@ -51,7 +51,7 @@
 
 <script>
 import TableLayout from '../../layouts/TableLayout'
-import BaseTable from '../BaseTable'
+import BaseTable from '../../components/base/BaseTable'
 import OperaPositionWindow from '../../components/position/OperaPositionWindow'
 import { fetchList } from '../../api/system/position'
 import PositionUserWindow from '../../components/position/PositionUserWindow'

@@ -61,7 +61,7 @@ import Pagination from '../../components/common/Pagination'
 import GlobalWindow from '../../components/common/GlobalWindow'
 import TableLayout from '../../layouts/TableLayout'
 import { fetchList, deleteById, deleteByIdInBatch } from '../../api/system/dictData'
-import BaseTable from '../../views/BaseTable'
+import BaseTable from '../../components/base/BaseTable'
 import OperaDictDataWindow from './OperaDictDataWindow'
 export default {
   name: 'DictDataManagerWindow',
