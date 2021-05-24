@@ -3,9 +3,14 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemPositionBiz;
 import com.eva.core.model.ApiResponse;
+import com.eva.core.model.PageData;
+import com.eva.core.model.PageWrap;
+import com.eva.dao.system.dto.QuerySystemUserDTO;
 import com.eva.dao.system.model.SystemPosition;
 import com.eva.dao.system.vo.SystemPositionListVO;
+import com.eva.dao.system.vo.SystemUserListVO;
 import com.eva.service.system.SystemPositionService;
+import com.eva.service.system.SystemUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -30,6 +35,9 @@ public class SystemPositionController extends BaseController {
 
     @Autowired
     private SystemPositionBiz systemPositionBiz;
+
+    @Autowired
+    private SystemUserService systemUserService;
 
     /**
      * @author Eva
@@ -92,6 +100,17 @@ public class SystemPositionController extends BaseController {
     @RequiresPermissions("system:position:query")
     public ApiResponse<List<SystemPositionListVO>> findList () {
         return ApiResponse.success(systemPositionBiz.findList());
+    }
+
+    /**
+     * @author Caesar Liu
+     * @date 2021-05-24 11:55
+     */
+    @ApiOperation("查询岗位人员")
+    @PostMapping("/users")
+    @RequiresPermissions("system:position:queryUsers")
+    public ApiResponse<PageData<SystemUserListVO>> findPage (@RequestBody PageWrap<QuerySystemUserDTO> pageWrap) {
+        return ApiResponse.success(systemUserService.findPage(pageWrap));
     }
 
     /**
