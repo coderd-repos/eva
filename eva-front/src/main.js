@@ -38,6 +38,7 @@ new Vue({
     ...mapMutations(['switchCollapseMenu']),
     // 初始化本地配置
     initLocalConfig () {
+      // 菜单状态配置
       const menuStatus = window.localStorage.getItem('MENU_STATUS')
       if (menuStatus != null) {
         this.switchCollapseMenu(menuStatus === 'true')
@@ -79,7 +80,14 @@ new Vue({
       }
       const rs = router.getRoutes()
       for (const route of routes) {
-        if (rs.findIndex(r => r.name === route.name) > -1) {
+        const parentsDump = JSON.parse(JSON.stringify(parents))
+        parentsDump.push(route)
+        if (route.url == null || route.url === '') {
+          this.__addRouters(route.children, parentsDump)
+          continue
+        }
+        if (rs.findIndex(r => r.path === route.url) > -1) {
+          this.__addRouters(route.children, parentsDump)
           continue
         }
         router.addRoute('layout', {
@@ -91,8 +99,6 @@ new Vue({
           },
           component: () => import('@/views' + route.url)
         })
-        const parentsDump = JSON.parse(JSON.stringify(parents))
-        parentsDump.push(route)
         this.__addRouters(route.children, parentsDump)
       }
     }

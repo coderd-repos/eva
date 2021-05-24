@@ -156,7 +156,7 @@ export default {
     }
   }
   // 菜单图标
-  i {
+  i:not(.el-submenu__icon-arrow) {
     color: #f7f7f7 !important;
     position: relative;
     top: -1px;

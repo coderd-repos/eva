@@ -20,10 +20,12 @@
 </template>
 
 <script>
+import BaseOpera from '../base/BaseOpera'
 import GlobalWindow from '../common/GlobalWindow'
 import PositionSelect from '../common/PositionSelect'
 export default {
   name: 'OperaPositionWindow',
+  extends: BaseOpera,
   components: { PositionSelect, GlobalWindow },
   data () {
     return {
