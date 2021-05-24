@@ -23,9 +23,9 @@ public interface SystemPositionBiz {
     void updateById(SystemPosition systemPosition);
 
     /**
-     * 查询部门
+     * 查询岗位列表树
      * @author Eva
      * @date 2021-05-16 15:29
      */
-    List<SystemPositionListVO> findList();
+    List<SystemPositionListVO> findTree();
 }

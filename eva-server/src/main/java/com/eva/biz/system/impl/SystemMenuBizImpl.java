@@ -89,7 +89,7 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
     }
 
     @Override
-    public List<SystemMenuListVO> findList() {
+    public List<SystemMenuListVO> findTree() {
         List<SystemMenuListVO> menus = systemMenuService.findList();
         List<SystemMenuListVO> rootMenus = new ArrayList<>();
         // 添加根菜单

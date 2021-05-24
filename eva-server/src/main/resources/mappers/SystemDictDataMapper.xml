@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eva.dao.system.SystemDictDataMapper">
 
-  <!-- 查询部门列表 -->
+  <!-- 查询字典数据列表 -->
   <resultMap id="SystemDictDataListVO" type="com.eva.dao.system.vo.SystemDictDataListVO" autoMapping="true">
     <id column="ID" property="id"/>
     <association property="createUserInfo" javaType="com.eva.dao.system.model.SystemUser">

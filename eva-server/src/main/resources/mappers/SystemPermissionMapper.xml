@@ -2,18 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eva.dao.system.SystemPermissionMapper">
 
-  <resultMap id="BaseResultMap" type="com.eva.dao.system.model.SystemPermission">
-    <id column="ID" jdbcType="INTEGER" property="id"/>
-    <result column="CODE" jdbcType="VARCHAR" property="code"/>
-    <result column="NAME" jdbcType="VARCHAR" property="name"/>
-    <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
-    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
-    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser"/>
-    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser"/>
-    <result column="DELETED" jdbcType="BIT" property="deleted"/>
-  </resultMap>
-
   <!-- 查询系统权限列表 -->
   <resultMap id="SystemPermissionListVO" type="com.eva.dao.system.vo.SystemPermissionListVO" autoMapping="true">
     <id column="ID" property="id"/>
@@ -46,7 +34,7 @@
   </select>
 
   <!-- 根据用户ID查询权限 -->
-  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultType="com.eva.dao.system.model.SystemPermission">
     SELECT
       perm.`ID`, perm.`CODE`, perm.`NAME`, perm.`REMARK`, perm.`CREATE_TIME`, perm.`UPDATE_TIME`, perm.`CREATE_USER`, perm.`UPDATE_USER`, perm.`DELETED`
     FROM SYSTEM_PERMISSION perm
@@ -60,7 +48,7 @@
   </select>
 
   <!-- 根据角色ID查询权限 -->
-  <select id="selectByRoleId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByRoleId" parameterType="java.lang.Integer" resultType="com.eva.dao.system.model.SystemPermission">
     SELECT
       perm.`ID`, perm.`CODE`, perm.`NAME`, perm.`REMARK`, perm.`CREATE_TIME`, perm.`UPDATE_TIME`, perm.`CREATE_USER`, perm.`UPDATE_USER`, perm.`DELETED`
     FROM SYSTEM_PERMISSION perm

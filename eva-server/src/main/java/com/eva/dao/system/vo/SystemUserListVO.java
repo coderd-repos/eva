@@ -22,7 +22,7 @@ public class SystemUserListVO extends SystemUser {
     private List<SystemRole> roles;
 
     @ApiModelProperty(value = "岗位信息")
-    private SystemPosition position;
+    private List<SystemPosition> positions;
 
     @ApiModelProperty(value = "部门信息")
     private SystemDepartment department;

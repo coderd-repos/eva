@@ -8,7 +8,6 @@ import com.eva.dao.system.dto.UpdateSystemMenuSortDTO;
 import com.eva.dao.system.model.SystemMenu;
 import com.eva.dao.system.vo.SystemMenuListVO;
 import com.eva.dao.system.vo.SystemMenuNodeVO;
-import com.eva.service.system.SystemMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -58,10 +57,10 @@ public class SystemMenuController extends BaseController {
      * @date 2021/03/27 22:36
      */
     @ApiOperation("查询")
-    @PostMapping("/list")
+    @PostMapping("/tree")
     @RequiresPermissions("system:menu:query")
-    public ApiResponse<List<SystemMenuListVO>> findList () {
-        return ApiResponse.success(systemMenuBiz.findList());
+    public ApiResponse<List<SystemMenuListVO>> findTree () {
+        return ApiResponse.success(systemMenuBiz.findTree());
     }
 
     /**

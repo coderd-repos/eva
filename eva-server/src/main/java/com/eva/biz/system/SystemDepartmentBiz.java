@@ -27,9 +27,9 @@ public interface SystemDepartmentBiz {
     void updateById(SystemDepartment department);
 
     /**
-     * 查询部门
+     * 查询部门列表树
      * @author Eva
      * @date 2021-05-16 15:29
      */
-    List<SystemDepartmentListVO> findList();
+    List<SystemDepartmentListVO> findTree();
 }

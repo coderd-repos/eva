@@ -67,8 +67,12 @@ public class SystemPositionServiceImpl implements SystemPositionService {
 
     @Override
     public SystemPosition findOne(SystemPosition systemPosition) {
-        Wrapper<SystemPosition> wrapper = new QueryWrapper<>(systemPosition);
-        return systemPositionMapper.selectOne(wrapper);
+        return systemPositionMapper.selectOne(new QueryWrapper<>(systemPosition));
+    }
+
+    @Override
+    public List<SystemPosition> findList(SystemPosition systemPosition) {
+        return systemPositionMapper.selectList(new QueryWrapper<>(systemPosition));
     }
 
     @Override
@@ -77,8 +81,12 @@ public class SystemPositionServiceImpl implements SystemPositionService {
     }
 
     @Override
+    public List<SystemPosition> findByUserId(Integer userId) {
+        return systemPositionMapper.selectByUserId(userId);
+    }
+
+    @Override
     public long count(SystemPosition systemPosition) {
-        Wrapper<SystemPosition> wrapper = new QueryWrapper<>(systemPosition);
-        return systemPositionMapper.selectCount(wrapper);
+        return systemPositionMapper.selectCount(new QueryWrapper<>(systemPosition));
     }
 }

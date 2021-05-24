@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eva.dao.system.SystemPositionMapper">
 
-  <!-- 查询部门列表 -->
+  <!-- 查询岗位列表 -->
   <resultMap id="SystemPositionListVO" type="com.eva.dao.system.vo.SystemPositionListVO" autoMapping="true">
     <id column="ID" property="id"/>
     <association property="createUserInfo" javaType="com.eva.dao.system.model.SystemUser">
@@ -34,4 +34,16 @@
     GROUP BY posi.`ID`
   </select>
 
+  <!-- 查询用户岗位列表 -->
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultType="com.eva.dao.system.model.SystemPosition">
+    SELECT
+      sp.`ID`, sp.`PARENT_ID`, sp.`CODE`, sp.`NAME`
+    FROM `SYSTEM_POSITION` sp
+    INNER JOIN `SYSTEM_POSITION_USER` spu ON spu.`POSITION_ID` = sp.`ID` AND spu.`DELETED` = 0
+    INNER JOIN `SYSTEM_USER` su ON su.`ID` = spu.`USER_ID`
+    <where>
+      sp.DELETED = 0
+      AND spu.USER_ID = #{userId}
+    </where>
+  </select>
 </mapper>

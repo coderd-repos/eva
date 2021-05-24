@@ -2,22 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eva.dao.system.SystemMenuMapper">
 
-  <resultMap id="BaseResultMap" type="com.eva.dao.system.model.SystemMenu">
-    <id column="ID" jdbcType="INTEGER" property="id"/>
-    <result column="PARENT_ID" jdbcType="INTEGER" property="parentId"/>
-    <result column="NAME" jdbcType="VARCHAR" property="name"/>
-    <result column="PATH" jdbcType="VARCHAR" property="path"/>
-    <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
-    <result column="ICON" jdbcType="VARCHAR" property="icon"/>
-    <result column="DISABLED" jdbcType="BIT" property="disabled"/>
-    <result column="SORT" jdbcType="INTEGER" property="sort"/>
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
-    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
-    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser"/>
-    <result column="UPDATE_USER" jdbcType="INTEGER" property="updateUser"/>
-    <result column="DELETED" jdbcType="BIT" property="deleted"/>
-  </resultMap>
-
   <!-- 查询菜单列表 -->
   <resultMap id="SystemMenuListVO" type="com.eva.dao.system.vo.SystemMenuListVO" autoMapping="true">
     <id column="ID" property="id"/>
@@ -45,7 +29,7 @@
   </select>
 
   <!-- 查询菜单树 -->
-  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultType="com.eva.dao.system.model.SystemMenu">
     SELECT
       DISTINCT menu.`ID`, menu.`PARENT_ID`, menu.`NAME`, menu.`PATH`, menu.`REMARK`, menu.`DISABLED`, menu.SORT, menu.`ICON`, menu.`CREATE_TIME`, menu.`UPDATE_TIME`, menu.`CREATE_USER`, menu.`UPDATE_USER`, menu.`DELETED`
     FROM `SYSTEM_MENU` menu
@@ -60,7 +44,7 @@
   </select>
 
   <!-- 根据角色ID查询菜单列表 -->
-  <select id="selectByRoleId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByRoleId" parameterType="java.lang.Integer" resultType="com.eva.dao.system.model.SystemMenu">
     SELECT
       menu.`ID`, menu.`PARENT_ID`, menu.`NAME`, menu.`PATH`, menu.`REMARK`, menu.`DISABLED`, menu.SORT, menu.`ICON`, menu.`CREATE_TIME`, menu.`UPDATE_TIME`, menu.`CREATE_USER`, menu.`UPDATE_USER`, menu.`DELETED`
     FROM `SYSTEM_MENU` menu

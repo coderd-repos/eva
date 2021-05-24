@@ -23,7 +23,7 @@ public interface SystemMenuBiz {
 
     /**
      * 编辑
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-24 22:22
      */
     void updateById(SystemMenu systemMenu);
@@ -43,22 +43,22 @@ public interface SystemMenuBiz {
     List<SystemMenuNodeVO> findTree(Integer userId);
 
     /**
-     * 分页查询菜单
+     * 查询菜单列表树
      * @author Eva
      * @date 2021-03-29 20:19
      */
-    List<SystemMenuListVO> findList();
+    List<SystemMenuListVO> findTree();
 
     /**
      * 删除
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-24 22:00
      */
     void deleteById(Integer id);
 
     /**
      * 批量删除
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-24 22:00
      */
     void deleteByIdInBatch(List<Integer> ids);

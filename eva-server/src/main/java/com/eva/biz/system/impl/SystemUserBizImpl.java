@@ -109,13 +109,15 @@ public class SystemUserBizImpl implements SystemUserBiz {
             systemDepartmentUserService.create(systemDepartmentUser);
         }
         // 设置岗位
-        if (systemUser.getPositionId() != null) {
-            SystemPositionUser systemPositionUser = new SystemPositionUser();
-            systemPositionUser.setPositionId(systemUser.getPositionId());
-            systemPositionUser.setUserId(userId);
-            systemPositionUser.setOperaUser(systemUser.getCreateUser());
-            systemPositionUser.setOperaTime(new Date());
-            systemPositionUserService.create(systemPositionUser);
+        if (systemUser.getPositionIds() != null && systemUser.getPositionIds().size() > 0) {
+            for (Integer positionId : systemUser.getPositionIds()) {
+                SystemPositionUser systemPositionUser = new SystemPositionUser();
+                systemPositionUser.setPositionId(positionId);
+                systemPositionUser.setUserId(userId);
+                systemPositionUser.setOperaUser(systemUser.getCreateUser());
+                systemPositionUser.setOperaTime(new Date());
+                systemPositionUserService.create(systemPositionUser);
+            }
         }
     }
 
@@ -157,13 +159,15 @@ public class SystemUserBizImpl implements SystemUserBiz {
         SystemPositionUser deletePositionDto = new SystemPositionUser();
         deletePositionDto.setUserId(systemUser.getId());
         systemPositionUserService.delete(deletePositionDto);
-        if (systemUser.getPositionId() != null) {
-            SystemPositionUser systemPositionUser = new SystemPositionUser();
-            systemPositionUser.setPositionId(systemUser.getPositionId());
-            systemPositionUser.setUserId(systemUser.getId());
-            systemPositionUser.setOperaUser(systemUser.getUpdateUser());
-            systemPositionUser.setOperaTime(new Date());
-            systemPositionUserService.create(systemPositionUser);
+        if (systemUser.getPositionIds() != null && systemUser.getPositionIds().size() > 0) {
+            for (Integer positionId : systemUser.getPositionIds()) {
+                SystemPositionUser systemPositionUser = new SystemPositionUser();
+                systemPositionUser.setPositionId(positionId);
+                systemPositionUser.setUserId(systemUser.getId());
+                systemPositionUser.setOperaUser(systemUser.getUpdateUser());
+                systemPositionUser.setOperaTime(new Date());
+                systemPositionUserService.create(systemPositionUser);
+            }
         }
     }
 

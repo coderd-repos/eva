@@ -64,9 +64,23 @@ public interface SystemPositionService {
     /**
      * 条件查询
      * @author Eva
+     * @date 2021-05-24 22:46
+     */
+    List<SystemPosition> findList(SystemPosition systemPosition);
+
+    /**
+     * 查询管理列表
+     * @author Eva
      * @date 2021/05/16 17:03
      */
     List<SystemPositionListVO> findList();
+
+    /**
+     * 查询用户岗位列表
+     * @author Caesar Liu
+     * @date 2021-05-24 23:23
+     */
+    List<SystemPosition> findByUserId(Integer userId);
 
     /**
      * 条件统计

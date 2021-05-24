@@ -1,5 +1,6 @@
 package com.eva.service.system.impl;
 
+import com.eva.service.system.SystemPositionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.eva.core.model.PageData;
@@ -36,6 +37,9 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Autowired
     private SystemDepartmentService systemDepartmentService;
+
+    @Autowired
+    private SystemPositionService systemPositionService;
 
     @Override
     public Integer create(SystemUser systemUser) {
@@ -93,15 +97,19 @@ public class SystemUserServiceImpl implements SystemUserService {
     @Override
     public PageData<SystemUserListVO> findPage(PageWrap<QuerySystemUserDTO> pageWrap) {
         PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
-        // 根部门条件处理
+        // 根部门条件处理（需查询根部门下所有部门的用户）
         if (pageWrap.getModel().getRootDeptId() != null) {
             List<Integer> departmentIds = systemDepartmentService.findChildren(pageWrap.getModel().getRootDeptId());
             departmentIds.add(pageWrap.getModel().getRootDeptId());
             pageWrap.getModel().setDepartmentIds(departmentIds);
         }
+        // 执行查询
         List<SystemUserListVO> userList = systemUserMapper.selectManageList(pageWrap.getModel(), pageWrap.getOrderByClause());
         for (SystemUserListVO user : userList) {
+            // 查询用户角色列表
             user.setRoles(systemRoleService.findByUserId(user.getId()));
+            // 查询用户岗位列表
+            user.setPositions(systemPositionService.findByUserId(user.getId()));
         }
         return PageData.from(new PageInfo<>(userList));
     }

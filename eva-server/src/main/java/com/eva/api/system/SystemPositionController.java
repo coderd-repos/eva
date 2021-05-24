@@ -97,15 +97,28 @@ public class SystemPositionController extends BaseController {
      * @author Eva
      * @date 2021/05/16 17:03
      */
-    @ApiOperation("查询岗位列表")
-    @PostMapping("/list")
+    @ApiOperation("查询岗位树列表")
+    @PostMapping("/tree")
     @RequiresPermissions("system:position:query")
-    public ApiResponse<List<SystemPositionListVO>> findList () {
-        return ApiResponse.success(systemPositionBiz.findList());
+    public ApiResponse<List<SystemPositionListVO>> findTree () {
+        return ApiResponse.success(systemPositionBiz.findTree());
     }
 
     /**
-     * @author Caesar Liu
+     * @author Eva
+     * @date 2021-05-24 22:46
+     */
+    @ApiOperation("查询岗位列表")
+    @PostMapping("/all")
+    @RequiresPermissions("system:position:query")
+    public ApiResponse<List<SystemPosition>> findList () {
+        SystemPosition systemPosition = new SystemPosition();
+        systemPosition.setDeleted(Boolean.FALSE);
+        return ApiResponse.success(systemPositionService.findList(systemPosition));
+    }
+
+    /**
+     * @author Eva
      * @date 2021-05-24 11:55
      */
     @ApiOperation("查询岗位人员")

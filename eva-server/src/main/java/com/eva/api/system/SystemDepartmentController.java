@@ -97,14 +97,14 @@ public class SystemDepartmentController extends BaseController {
      * @date 2021/05/16 11:59
      */
     @ApiOperation("查询部门列表")
-    @PostMapping("/list")
+    @PostMapping("/tree")
     @RequiresPermissions("system:department:query")
-    public ApiResponse<List<SystemDepartmentListVO>> findList () {
-        return ApiResponse.success(systemDepartmentBiz.findList());
+    public ApiResponse<List<SystemDepartmentListVO>> findTree () {
+        return ApiResponse.success(systemDepartmentBiz.findTree());
     }
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-24 11:55
      */
     @ApiOperation("查询部门人员")

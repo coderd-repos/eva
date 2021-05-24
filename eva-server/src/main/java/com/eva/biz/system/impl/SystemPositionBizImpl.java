@@ -44,23 +44,23 @@ public class SystemPositionBizImpl implements SystemPositionBiz {
     }
 
     @Override
-    public List<SystemPositionListVO> findList() {
+    public List<SystemPositionListVO> findTree() {
         List<SystemPositionListVO> positions = systemPositionService.findList();
-        List<SystemPositionListVO> rootMenus = new ArrayList<>();
+        List<SystemPositionListVO> rootPositions = new ArrayList<>();
         // 添加根菜单
-        for (SystemPositionListVO menu : positions) {
-            if (menu.getParentId() == null) {
+        for (SystemPositionListVO position : positions) {
+            if (position.getParentId() == null) {
                 SystemPositionListVO rootMenu = new SystemPositionListVO();
-                BeanUtils.copyProperties(menu, rootMenu, "children");
+                BeanUtils.copyProperties(position, rootMenu, "children");
                 rootMenu.setChildren(new ArrayList<>());
-                rootMenus.add(rootMenu);
+                rootPositions.add(rootMenu);
             }
         }
-        positions.removeIf(menu -> menu.getParentId() == null);
-        for (SystemPositionListVO child : rootMenus) {
+        positions.removeIf(position -> position.getParentId() == null);
+        for (SystemPositionListVO child : rootPositions) {
             this.fillChildren(child, positions);
         }
-        return rootMenus;
+        return rootPositions;
     }
 
     /**

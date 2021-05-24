@@ -46,23 +46,23 @@ public class SystemDepartmentBizImpl implements SystemDepartmentBiz {
     }
 
     @Override
-    public List<SystemDepartmentListVO> findList() {
+    public List<SystemDepartmentListVO> findTree() {
         List<SystemDepartmentListVO> departments = systemDepartmentService.findList();
-        List<SystemDepartmentListVO> rootMenus = new ArrayList<>();
+        List<SystemDepartmentListVO> rootDepartments = new ArrayList<>();
         // 添加根菜单
-        for (SystemDepartmentListVO menu : departments) {
-            if (menu.getParentId() == null) {
+        for (SystemDepartmentListVO department : departments) {
+            if (department.getParentId() == null) {
                 SystemDepartmentListVO rootMenu = new SystemDepartmentListVO();
-                BeanUtils.copyProperties(menu, rootMenu, "children");
+                BeanUtils.copyProperties(department, rootMenu, "children");
                 rootMenu.setChildren(new ArrayList<>());
-                rootMenus.add(rootMenu);
+                rootDepartments.add(rootMenu);
             }
         }
-        departments.removeIf(menu -> menu.getParentId() == null);
-        for (SystemDepartmentListVO child : rootMenus) {
+        departments.removeIf(department -> department.getParentId() == null);
+        for (SystemDepartmentListVO child : rootDepartments) {
             this.fillChildren(child, departments);
         }
-        return rootMenus;
+        return rootDepartments;
     }
 
     /**

@@ -31,7 +31,7 @@ public class CaptchaController extends BaseController {
     private CaptchaService captchaService;
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-23 17:11
      */
     @ApiOperation("获取验证码")
