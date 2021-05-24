@@ -8,6 +8,9 @@
   >
     <p class="tip" v-if="form.parent != null && form.id == null">为 <em>{{parentName}}</em> 新建子菜单</p>
     <el-form :model="form" ref="form" :rules="rules">
+      <el-form-item label="上级菜单" prop="parentId">
+        <MenuSelect v-model="form.parentId" placeholder="请选择上级菜单" :exclude-id="excludeMenuId" clearable :inline="false"/>
+      </el-form-item>
       <el-form-item label="菜单名称" prop="name" required>
         <el-input v-model="form.name" placeholder="请输入菜单名称" v-trim maxlength="50"/>
       </el-form-item>
@@ -32,15 +35,18 @@
 import BaseOpera from '../base/BaseOpera'
 import GlobalWindow from '../common/GlobalWindow'
 import icons from '../../utils/icons'
+import MenuSelect from '../common/MenuSelect'
 export default {
   name: 'OperaMenuWindow',
   extends: BaseOpera,
-  components: { GlobalWindow },
+  components: { MenuSelect, GlobalWindow },
   data () {
     return {
       icons,
       // 上级菜单名称
       parentName: '',
+      // 需排除选择的菜单ID
+      excludeMenuId: null,
       // 表单数据
       form: {
         id: null,
@@ -69,16 +75,18 @@ export default {
       this.visible = true
       // 新建，menu为空时表示新建菜单
       if (target == null) {
+        this.excludeMenuId = null
         this.$nextTick(() => {
           this.$refs.form.resetFields()
           this.form.id = null
-          this.form.parentId = parent.id
-          this.parentName = parent.name
+          this.form.parentId = parent == null ? null : parent.id
+          this.parentName = parent == null ? null : parent.name
         })
         return
       }
       // 编辑
       this.$nextTick(() => {
+        this.excludeMenuId = target.id
         for (const key in this.form) {
           this.form[key] = target[key]
         }

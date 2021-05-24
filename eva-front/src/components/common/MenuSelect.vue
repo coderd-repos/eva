@@ -11,9 +11,9 @@
 
 <script>
 import TreeSelect from './TreeSelect'
-import { fetchList } from '../../api/system/department'
+import { fetchList } from '../../api/system/menu'
 export default {
-  name: 'DepartmentSelect',
+  name: 'MenuSelect',
   components: { TreeSelect },
   props: {
     value: {},
@@ -21,14 +21,10 @@ export default {
       default: true
     },
     placeholder: {
-      default: '请选择部门'
+      default: '请选择菜单'
     },
     // 是否可清空
     clearable: {
-      default: false
-    },
-    // 当没有选中时是否默认选中第一条
-    defaultFirst: {
       default: false
     },
     // 需被排除的部门ID
@@ -45,36 +41,33 @@ export default {
     }
   },
   methods: {
-    // 获取所有部门
+    // 获取所有菜单
     fetchData () {
       fetchList()
         .then(records => {
           this.data = []
           this.__fillData(this.data, records)
-          if (this.defaultFirst && this.value == null) {
-            this.$emit('input', this.data[0].id)
-          }
         })
         .catch(e => {
           this.$message.error(e.message)
         })
     },
-    // 填充部门树
+    // 填充菜单树
     __fillData (list, pool) {
-      for (const dept of pool) {
-        if (dept.id === this.excludeId) {
+      for (const menu of pool) {
+        if (menu.id === this.excludeId) {
           continue
         }
-        const deptNode = {
-          id: dept.id,
-          label: dept.name
+        const menuNode = {
+          id: menu.id,
+          label: menu.name
         }
-        list.push(deptNode)
-        if (dept.children != null && dept.children.length > 0) {
-          deptNode.children = []
-          this.__fillData(deptNode.children, dept.children)
-          if (deptNode.children.length === 0) {
-            deptNode.children = undefined
+        list.push(menuNode)
+        if (menu.children != null && menu.children.length > 0) {
+          menuNode.children = []
+          this.__fillData(menuNode.children, menu.children)
+          if (menuNode.children.length === 0) {
+            menuNode.children = undefined
           }
         }
       }
