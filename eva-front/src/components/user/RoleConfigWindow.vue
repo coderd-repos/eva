@@ -63,7 +63,7 @@ export default {
         roleIds: this.selectedIds
       })
         .then(() => {
-          this.$message.success('角色配置成功')
+          this.$message.success('角色配置成功，用户重新登录后生效')
           this.visible = false
           this.$emit('success')
         })
