@@ -3,9 +3,14 @@ package com.yiwa.api.system;
 import com.yiwa.api.BaseController;
 import com.yiwa.biz.system.SystemDepartmentBiz;
 import com.yiwa.core.model.ApiResponse;
+import com.yiwa.core.model.PageData;
+import com.yiwa.core.model.PageWrap;
+import com.yiwa.dao.system.dto.QuerySystemUserDTO;
 import com.yiwa.dao.system.model.SystemDepartment;
 import com.yiwa.dao.system.vo.SystemDepartmentListVO;
+import com.yiwa.dao.system.vo.SystemUserListVO;
 import com.yiwa.service.system.SystemDepartmentService;
+import com.yiwa.service.system.SystemUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -29,6 +34,9 @@ public class SystemDepartmentController extends BaseController {
 
     @Autowired
     private SystemDepartmentBiz systemDepartmentBiz;
+
+    @Autowired
+    private SystemUserService systemUserService;
 
     /**
      * @author Yiwa
@@ -91,6 +99,17 @@ public class SystemDepartmentController extends BaseController {
     @RequiresPermissions("system:department:query")
     public ApiResponse<List<SystemDepartmentListVO>> findList () {
         return ApiResponse.success(systemDepartmentBiz.findList());
+    }
+
+    /**
+     * @author Caesar Liu
+     * @date 2021-05-24 11:55
+     */
+    @ApiOperation("查询部门人员")
+    @PostMapping("/users")
+    @RequiresPermissions("system:department:queryUsers")
+    public ApiResponse<PageData<SystemUserListVO>> findPage (@RequestBody PageWrap<QuerySystemUserDTO> pageWrap) {
+        return ApiResponse.success(systemUserService.findPage(pageWrap));
     }
 
     /**

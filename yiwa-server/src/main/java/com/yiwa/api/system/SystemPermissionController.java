@@ -95,4 +95,13 @@ public class SystemPermissionController extends BaseController {
     public ApiResponse<PageData<SystemPermissionListVO>> findPage (@RequestBody PageWrap<QuerySystemPermissionDTO> pageWrap) {
         return ApiResponse.success(systemPermissionService.findPage(pageWrap));
     }
+
+    @ApiOperation("分页查询")
+    @GetMapping("/all")
+    @RequiresPermissions("system:permission:query")
+    public ApiResponse<List<SystemPermission>> findAll () {
+        SystemPermission systemPermission = new SystemPermission();
+        systemPermission.setDeleted(Boolean.FALSE);
+        return ApiResponse.success(systemPermissionService.findList(systemPermission));
+    }
 }
