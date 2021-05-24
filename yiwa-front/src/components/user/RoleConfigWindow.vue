@@ -7,6 +7,7 @@
     @confirm="confirm"
   >
     <p class="tip" v-if="user != null">为用户 <em>{{user.realname}}</em> 配置角色</p>
+    <p class="tip-warn"><i class="el-icon-warning"></i>提醒：角色配置后需重新登录后生效</p>
     <el-transfer
       v-model="selectedIds"
       :titles="['未授权角色', '已授权角色']"
@@ -86,11 +87,22 @@ export default {
 // 角色配置
 .global-window {
   .tip {
-    margin-bottom: 12px;
     em {
       font-style: normal;
       color: $primary-color;
       font-weight: bold;
+    }
+  }
+  .tip-warn {
+    margin: 4px 0 12px 0;
+    font-size: 12px;
+    color: #999;
+    i {
+      color: orange;
+      margin-right: 4px;
+      font-size: 14px;
+      position: relative;
+      top: 1px;
     }
   }
 }

@@ -5,6 +5,11 @@ export function fetchList () {
   return request.post('/system/department/list')
 }
 
+// 查询部门用户
+export function fetchUserList (data) {
+  return request.post('/system/department/users', data)
+}
+
 // 新建
 export function create (data) {
   return request.post('/system/department/create', data)

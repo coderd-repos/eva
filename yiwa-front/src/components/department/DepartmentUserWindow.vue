@@ -80,7 +80,7 @@ import TableLayout from '../../layouts/TableLayout'
 import BaseTable from '../../components/base/BaseTable'
 import GlobalWindow from '../common/GlobalWindow'
 import Pagination from '../common/Pagination'
-import { fetchList } from '../../api/system/user'
+import { fetchUserList } from '../../api/system/department'
 export default {
   name: 'DepartmentUserWindow',
   extends: BaseTable,
@@ -121,7 +121,7 @@ export default {
       }
       this.tableData.pagination.pageIndex = pageIndex
       this.isWorking.search = true
-      fetchList({
+      fetchUserList({
         page: pageIndex,
         capacity: this.tableData.pagination.pageSize,
         model: this.searchForm

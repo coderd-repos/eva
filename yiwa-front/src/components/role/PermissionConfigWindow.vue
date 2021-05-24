@@ -26,7 +26,7 @@
 <script>
 import GlobalWindow from '../common/GlobalWindow'
 import { createRolePermission } from '../../api/system/role'
-import { fetchList as fetchPermissionList } from '../../api/system/permission'
+import { fetchAll } from '../../api/system/permission'
 export default {
   name: 'PermissionConfigWindow',
   components: { GlobalWindow },
@@ -51,13 +51,10 @@ export default {
         this.$refs.permissionTransfer.clearQuery('left')
         this.$refs.permissionTransfer.clearQuery('right')
       }
-      fetchPermissionList({
-        page: 1,
-        capacity: 100000
-      })
-        .then(data => {
+      fetchAll()
+        .then(records => {
           this.role = role
-          this.permissions = data.records
+          this.permissions = records
           this.selectedIds = role.permissions.map(r => r.id)
           this.visible = true
         })
