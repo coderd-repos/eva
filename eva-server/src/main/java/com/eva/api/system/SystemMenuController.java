@@ -29,9 +29,6 @@ import java.util.List;
 public class SystemMenuController extends BaseController {
 
     @Autowired
-    private SystemMenuService systemMenuService;
-
-    @Autowired
     private SystemMenuBiz systemMenuBiz;
 
     /**
@@ -86,7 +83,7 @@ public class SystemMenuController extends BaseController {
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:menu:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
-        systemMenuService.deleteById(id);
+        systemMenuBiz.deleteById(id);
         return ApiResponse.success(null);
     }
 
@@ -103,7 +100,7 @@ public class SystemMenuController extends BaseController {
         for (String id : idArray) {
             idList.add(Integer.valueOf(id));
         }
-        systemMenuService.deleteByIdInBatch(idList);
+        systemMenuBiz.deleteByIdInBatch(idList);
         return ApiResponse.success(null);
     }
 
@@ -115,7 +112,7 @@ public class SystemMenuController extends BaseController {
     @PostMapping("/updateById")
     @RequiresPermissions("system:menu:update")
     public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemMenu systemMenu) {
-        systemMenuService.updateById(systemMenu);
+        systemMenuBiz.updateById(systemMenu);
         return ApiResponse.success(null);
     }
 

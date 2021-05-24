@@ -102,4 +102,11 @@ public interface SystemMenuService {
      * @date 2021/05/15 19:41
      */
     long count(SystemMenu systemMenu);
+
+    /**
+     * 查询子菜单
+     * @author Caesar Liu
+     * @date 2021-05-24 21:59
+     */
+    List<Integer> findChildren(Integer menuId);
 }

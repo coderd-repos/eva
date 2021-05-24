@@ -9,6 +9,7 @@ import com.eva.service.system.SystemMenuService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,21 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
         // 设置新建部门的顺序
         systemMenu.setSort(Integer.valueOf("" + subMenuCount));
         return systemMenuService.create(systemMenu);
+    }
+
+    @Override
+    public void updateById(SystemMenu systemMenu) {
+        SystemMenu dbMenu = systemMenuService.findById(systemMenu.getId());
+        // 如果上级菜单发生了变化，则重新调整菜单的排序
+        if (dbMenu.getParentId() != systemMenu.getParentId() && dbMenu.getParentId() != null && !dbMenu.getParentId().equals(systemMenu.getParentId())) {
+            // 统计上级菜单下子菜单数量
+            SystemMenu countDto = new SystemMenu();
+            countDto.setParentId(systemMenu.getParentId());
+            countDto.setDeleted(Boolean.FALSE);
+            long subMenuCount = systemMenuService.count(countDto);
+            systemMenu.setSort(Integer.valueOf("" + subMenuCount));
+        }
+        systemMenuService.updateById(systemMenu);
     }
 
     @Override
@@ -116,6 +132,23 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
             this.fillChildren(child, menus);
         }
         return rootNodes;
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        List<Integer> ids = systemMenuService.findChildren(id);
+        ids.add(id);
+        systemMenuService.deleteByIdInBatch(ids);
+    }
+
+    @Override
+    public void deleteByIdInBatch(List<Integer> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return;
+        }
+        for (Integer id : ids) {
+            this.deleteById(id);
+        }
     }
 
     /**

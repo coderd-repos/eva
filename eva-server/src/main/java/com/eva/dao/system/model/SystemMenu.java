@@ -1,5 +1,7 @@
 package com.eva.dao.system.model;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.eva.core.model.OperaType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,6 +28,7 @@ public class SystemMenu {
     private Integer id;
 
     @ApiModelProperty(value = "上一级菜单", example = "1")
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private Integer parentId;
 
     @ApiModelProperty(value = "菜单名称")
