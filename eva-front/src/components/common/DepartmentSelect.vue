@@ -11,7 +11,7 @@
 
 <script>
 import TreeSelect from './TreeSelect'
-import { fetchList } from '../../api/system/department'
+import { fetchTree } from '../../api/system/department'
 export default {
   name: 'DepartmentSelect',
   components: { TreeSelect },
@@ -47,7 +47,7 @@ export default {
   methods: {
     // 获取所有部门
     fetchData () {
-      fetchList()
+      fetchTree()
         .then(records => {
           this.data = []
           this.__fillData(this.data, records)

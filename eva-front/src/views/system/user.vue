@@ -48,8 +48,12 @@
         <el-table-column prop="department" label="部门" min-width="120px">
           <template slot-scope="{row}">{{row.department == null ? '' : row.department.name}}</template>
         </el-table-column>
-        <el-table-column prop="position" label="岗位" min-width="120px">
-          <template slot-scope="{row}">{{row.position == null ? '' : row.position.name}}</template>
+        <el-table-column prop="position" label="岗位" min-width="160px" class-name="table-column-strings">
+          <template slot-scope="{row}">
+            <ul>
+              <li v-for="position in row.positions" :key="position.id">{{position.name}}</li>
+            </ul>
+          </template>
         </el-table-column>
         <el-table-column prop="sex" label="性别" sortable="custom" sort-by="SEX" min-width="80px">
           <template slot-scope="{row}">
@@ -59,7 +63,7 @@
         <el-table-column prop="mobile" label="手机号码" min-width="100px"></el-table-column>
         <el-table-column prop="email" label="邮箱" min-width="180px"></el-table-column>
         <el-table-column prop="birthday" label="生日" sortable="custom" sort-by="BIRTHDAY" min-width="100px"></el-table-column>
-        <el-table-column prop="roles" label="角色" min-width="160px" class-name="table-column-role">
+        <el-table-column prop="roles" label="角色" min-width="160px" class-name="table-column-strings">
           <template slot-scope="{row}">
             <ul>
               <li v-for="role in row.roles" :key="role.id">{{role.name}}</li>
@@ -141,18 +145,6 @@ export default {
 .table-column-avatar {
   img {
     width: 48px;
-  }
-}
-// 列表角色处理
-.table-column-role {
-  ul {
-    li {
-      display: inline-block;
-      background: #eee;
-      border-radius: 3px;
-      padding: 0 3px;
-      margin-right: 3px;
-    }
   }
 }
 </style>

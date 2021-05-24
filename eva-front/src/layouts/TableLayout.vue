@@ -107,6 +107,19 @@ export default {
           text-align: center !important;
         }
       }
+      // 多值字段
+      .table-column-strings {
+        ul {
+          li {
+            display: inline-block;
+            background: #eee;
+            border-radius: 3px;
+            padding: 0 3px;
+            margin-right: 3px;
+            margin-bottom: 3px;
+          }
+        }
+      }
     }
     // 分页
     .table-pagination {

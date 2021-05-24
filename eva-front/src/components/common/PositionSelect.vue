@@ -5,13 +5,15 @@
     :data="data"
     :clearable="clearable"
     :inline="inline"
+    :multiple="multiple"
+    :flat="true"
     @input="$emit('input', $event)"
   />
 </template>
 
 <script>
 import TreeSelect from './TreeSelect'
-import { fetchList } from '../../api/system/position'
+import { fetchTree } from '../../api/system/position'
 export default {
   name: 'PositionSelect',
   components: { TreeSelect },
@@ -19,6 +21,9 @@ export default {
     value: {},
     inline: {
       default: true
+    },
+    multiple: {
+      default: false
     },
     placeholder: {
       default: '请选择岗位'
@@ -43,7 +48,7 @@ export default {
   methods: {
     // 获取所有岗位
     fetchData () {
-      fetchList()
+      fetchTree()
         .then(records => {
           this.data = []
           this.__fillData(this.data, records)
@@ -78,3 +83,17 @@ export default {
   }
 }
 </script>
+<style scoped lang="scss">
+.inline {
+  width: 178px;
+}
+.vue-treeselect {
+  line-height: 30px;
+  /deep/ .vue-treeselect__control {
+    height: 32px;
+    .vue-treeselect__single-value {
+      line-height: 30px;
+    }
+  }
+}
+</style>

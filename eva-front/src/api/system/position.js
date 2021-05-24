@@ -1,6 +1,11 @@
 import request from '../../utils/request'
 
-// 查询
+// 查询列表树
+export function fetchTree (data) {
+  return request.post('/system/position/tree', data)
+}
+
+// 查询列表
 export function fetchList (data) {
   return request.post('/system/position/list', data)
 }

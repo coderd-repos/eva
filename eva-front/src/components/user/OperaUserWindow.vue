@@ -32,7 +32,7 @@
         <DepartmentSelect v-model="form.departmentId" placeholder="请选择用户所属部门" :inline="false" clearable/>
       </el-form-item>
       <el-form-item label="岗位" prop="positionId">
-        <PositionSelect v-model="form.positionId" placeholder="请选择用户所在岗位" :inline="false" clearable/>
+        <PositionSelect v-model="form.positionIds" placeholder="请选择用户所在岗位" :inline="false" :multiple="true" clearable/>
       </el-form-item>
       <el-form-item label="工号" prop="empNo">
         <el-input v-model="form.empNo" placeholder="请输入工号" v-trim maxlength="50"/>
@@ -70,7 +70,7 @@ export default {
         realname: '', // 姓名
         empNo: '', // 工号
         departmentId: null, //  所属部门ID
-        positionId: null, //  所属岗位ID
+        positionIds: [], //  所属岗位ID集
         avatar: '/avatar/man.png', // 头像
         password: '', // 密码
         mobile: '', // 手机号码
@@ -126,7 +126,8 @@ export default {
           this.form[key] = target[key]
         }
         this.form.departmentId = target.department == null ? null : target.department.id
-        this.form.positionId = target.position == null ? null : target.position.id
+        this.form.positionIds = target.positions == null ? [] : target.positions.map(p => p.id)
+        console.log('this.form.positionIds', this.form.positionIds)
       })
     }
   },

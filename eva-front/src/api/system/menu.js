@@ -1,8 +1,8 @@
 import request from '../../utils/request'
 
 // 查询
-export function fetchList (data) {
-  return request.post('/system/menu/list', data)
+export function fetchTree (data) {
+  return request.post('/system/menu/tree', data)
 }
 
 // 新建

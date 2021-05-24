@@ -1,8 +1,8 @@
 import request from '../../utils/request'
 
 // 查询
-export function fetchList () {
-  return request.post('/system/department/list')
+export function fetchTree () {
+  return request.post('/system/department/tree')
 }
 
 // 查询部门用户

@@ -62,7 +62,7 @@
 
 <script>
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList, updateById, sort } from '../../api/system/menu'
+import { fetchTree, updateById, sort } from '../../api/system/menu'
 import BaseTable from '../../components/base/BaseTable'
 import OperaMenuWindow from '../../components/menu/OperaMenuWindow'
 export default {
@@ -81,7 +81,7 @@ export default {
     // 页码变更处理
     handlePageChange () {
       this.isWorking.search = true
-      fetchList()
+      fetchTree()
         .then(records => {
           this.tableData.list = records
         })

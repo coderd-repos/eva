@@ -53,7 +53,7 @@
 import TableLayout from '../../layouts/TableLayout'
 import BaseTable from '../../components/base/BaseTable'
 import OperaPositionWindow from '../../components/position/OperaPositionWindow'
-import { fetchList } from '../../api/system/position'
+import { fetchTree } from '../../api/system/position'
 import PositionUserWindow from '../../components/position/PositionUserWindow'
 export default {
   name: 'SystemPosition',
@@ -63,7 +63,7 @@ export default {
     // 页码变更处理
     handlePageChange () {
       this.isWorking.search = true
-      fetchList()
+      fetchTree()
         .then(records => {
           this.tableData.list = records
         })

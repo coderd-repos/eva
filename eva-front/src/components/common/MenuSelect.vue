@@ -11,7 +11,7 @@
 
 <script>
 import TreeSelect from './TreeSelect'
-import { fetchList } from '../../api/system/menu'
+import { fetchTree } from '../../api/system/menu'
 export default {
   name: 'MenuSelect',
   components: { TreeSelect },
@@ -43,7 +43,7 @@ export default {
   methods: {
     // 获取所有菜单
     fetchData () {
-      fetchList()
+      fetchTree()
         .then(records => {
           this.data = []
           this.__fillData(this.data, records)

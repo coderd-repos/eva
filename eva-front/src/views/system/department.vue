@@ -53,7 +53,7 @@
 
 <script>
 import TableLayout from '../../layouts/TableLayout'
-import { fetchList } from '../../api/system/department'
+import { fetchTree } from '../../api/system/department'
 import BaseTable from '../../components/base/BaseTable'
 import OperaDepartmentWindow from '../../components/department/OperaDepartmentWindow'
 import DepartmentUserWindow from '../../components/department/DepartmentUserWindow'
@@ -74,7 +74,7 @@ export default {
     handlePageChange () {
       this.tableData.list.splice(0, this.tableData.list.length)
       this.isWorking.search = true
-      fetchList()
+      fetchTree()
         .then(records => {
           this.tableData.list = records
         })
