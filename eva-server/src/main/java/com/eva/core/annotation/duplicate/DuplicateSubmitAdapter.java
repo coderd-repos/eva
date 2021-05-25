@@ -40,13 +40,6 @@ public abstract class DuplicateSubmitAdapter {
     }
 
     /**
-     * 获取参数
-     * @author Caesar Liu
-     * @date 2021-05-25 11:23
-     */
-    public abstract Map<String, Object> getParameters (HttpServletRequest request);
-
-    /**
      * 参数签名
      * @author Caesar Liu
      * @date 2021-05-25 11:39
