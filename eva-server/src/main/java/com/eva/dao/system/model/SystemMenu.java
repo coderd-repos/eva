@@ -24,7 +24,7 @@ public class SystemMenu {
 
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "主键", example = "1")
-    @NotNull(message = "主键不能为空", groups = OperaType.Update.class)
+    @NotNull(message = "主键不能为空", groups = {OperaType.Update.class, OperaType.UpdateStatus.class})
     private Integer id;
 
     @ApiModelProperty(value = "上一级菜单", example = "1")
@@ -45,6 +45,7 @@ public class SystemMenu {
     private String icon;
 
     @ApiModelProperty(value = "是否禁用")
+    @NotNull(message = "是否禁用不能为空", groups = OperaType.UpdateStatus.class)
     private Boolean disabled;
 
     @ApiModelProperty(value = "排序", example = "1")

@@ -12,7 +12,7 @@ import java.nio.charset.Charset;
 /**
  * 请求流传递对象
  * 技术参考：https://blog.csdn.net/AlbenXie/article/details/114868245
- * @author Caesar Liu
+ * @author Eva
  * @date 2021-05-25 16:13
  */
 @Getter
@@ -62,7 +62,7 @@ public class ContainBodyRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 获取请求体参数字符串
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-25 16:16
      */
     private String getBodyString() {
@@ -101,7 +101,7 @@ public class ContainBodyRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 复制输入流
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-25 16:14
      */
     private InputStream cloneInputStream(ServletInputStream inputStream) {

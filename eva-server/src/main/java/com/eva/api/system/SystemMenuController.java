@@ -117,4 +117,16 @@ public class SystemMenuController extends BaseController {
         return ApiResponse.success(null);
     }
 
+    /**
+     * @author Eva
+     * @date 2021-05-25 19:43
+     */
+    @ApiOperation("修改菜单状态")
+    @PostMapping("/updateStatus")
+    @RequiresPermissions("system:menu:update")
+    public ApiResponse updateStatus(@Validated(OperaType.UpdateStatus.class) @RequestBody SystemMenu systemMenu) {
+        systemMenuBiz.updateById(systemMenu);
+        return ApiResponse.success(null);
+    }
+
 }

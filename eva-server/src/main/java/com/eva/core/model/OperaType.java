@@ -20,4 +20,11 @@ public interface OperaType {
      * @date 2021-05-24 17:00
      */
     interface Update {}
+
+    /**
+     * 修改状态
+     * @author Eva
+     * @date 2021-05-25 19:44
+     */
+    interface UpdateStatus {}
 }
