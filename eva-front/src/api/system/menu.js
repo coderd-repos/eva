@@ -15,6 +15,11 @@ export function updateById (data) {
   return request.post('/system/menu/updateById', data)
 }
 
+// 修改状态
+export function updateStatus (data) {
+  return request.post('/system/menu/updateStatus', data)
+}
+
 // 删除
 export function deleteById (id) {
   return request.get(`/system/menu/delete/${id}`)

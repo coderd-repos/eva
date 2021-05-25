@@ -62,7 +62,7 @@
 
 <script>
 import TableLayout from '../../layouts/TableLayout'
-import { fetchTree, updateById, sort } from '../../api/system/menu'
+import { fetchTree, updateStatus, sort } from '../../api/system/menu'
 import BaseTable from '../../components/base/BaseTable'
 import OperaMenuWindow from '../../components/menu/OperaMenuWindow'
 export default {
@@ -218,8 +218,9 @@ export default {
     },
     // 修改菜单状态
     __updateMenuStatus (row) {
-      updateById({
+      updateStatus({
         id: row.id,
+        parentId: row.parentId,
         disabled: row.disabled
       })
         .then(() => {
