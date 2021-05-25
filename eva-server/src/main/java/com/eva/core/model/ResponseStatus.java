@@ -12,6 +12,7 @@ public enum ResponseStatus {
     DATA_EXISTS(4002, "记录已存在"),
     PWD_INCORRECT(4003, "密码不正确"),
     VERIFICATION_CODE_INCORRECT(4004, "验证码不正确"),
+    DUPLICATE_SUBMIT(4005, "重复提交"),
     ;
 
     private Integer code;

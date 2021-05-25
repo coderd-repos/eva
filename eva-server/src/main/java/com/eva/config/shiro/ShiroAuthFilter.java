@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Shiro认证过滤器，处理未认证情况的响应
- * @author Eva
+ * @author Caesar Liu
  * @date 2021-03-28 10:03
  */
 public class ShiroAuthFilter extends FormAuthenticationFilter {

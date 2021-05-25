@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author Eva
+ * @author Caesar Liu
  * @date 2021-04-13 23:25
  */
 @Api(tags = "系统监听接口")
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SystemMonitorController extends BaseController {
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021-04-13 22:42
      */
     @ApiOperation("获取系统信息")

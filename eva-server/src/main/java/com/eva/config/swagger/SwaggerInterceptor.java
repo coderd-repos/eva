@@ -1,4 +1,4 @@
-package com.eva.interceptor;
+package com.eva.config.swagger;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * Swagger拦截器
- * @author Eva
+ * @author Caesar Liu
  * @date 2021/05/15 18:44
  */
 @Slf4j

@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * 磁盘信息
- * @author Eva
+ * @author Caesar Liu
  * @date 2021-04-13 20:03
  */
 @Data
@@ -27,7 +27,7 @@ public class Disk {
 
     /**
      * 获取已使用大小
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021-04-13 20:12
      */
     public double getUsedSpace () {
@@ -36,7 +36,7 @@ public class Disk {
 
     /**
      * 获取使用率
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021-04-13 20:13
      */
     public double getUseRatio () {

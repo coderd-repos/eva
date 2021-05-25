@@ -1,4 +1,4 @@
-package com.eva.config;
+package com.eva.config.swagger;
 
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Swagger配置
- * @author Eva
+ * @author Caesar Liu
  * @date 2021/05/15 18:44
  */
 @Configuration

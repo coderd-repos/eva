@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Eva
+ * @author Caesar Liu
  * @date 2021/05/16 17:40
  */
 @Api(tags = "字典接口")
@@ -36,7 +36,7 @@ public class SystemDictController extends BaseController {
     private SystemDictBiz systemDictBiz;
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/05/16 17:40
      */
     @ApiOperation("新建")
@@ -47,7 +47,7 @@ public class SystemDictController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/05/16 17:40
      */
     @ApiOperation("根据ID删除")
@@ -59,7 +59,7 @@ public class SystemDictController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("批量删除")
@@ -76,7 +76,7 @@ public class SystemDictController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/05/16 17:40
      */
     @ApiOperation("根据ID修改")
@@ -88,7 +88,7 @@ public class SystemDictController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/05/16 17:40
      */
     @ApiOperation("分页查询")
@@ -99,7 +99,7 @@ public class SystemDictController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/05/16 17:40
      */
     @ApiOperation("根据ID查询")

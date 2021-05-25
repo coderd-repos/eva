@@ -4,14 +4,14 @@ import java.lang.reflect.Field;
 
 /**
  * Mybatis Plus Wrapper工具类
- * @author Eva
+ * @author Caesar Liu
  * @date 2021-05-16 01:39
  */
 public class WrapperUtil {
 
     /**
      * 将空转为null，用于mybatis plus查询数据时将值为""的字段转为null，防止将空字符串作为条件。
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021-05-16 01:37
      */
     public static <T> T blankToNull(T object) {

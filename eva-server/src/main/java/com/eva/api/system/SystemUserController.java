@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Eva
+ * @author Caesar Liu
  * @date 2021/03/28 09:30
  */
 @Api(tags = "用户接口")
@@ -38,7 +38,7 @@ public class SystemUserController extends BaseController {
     private SystemUserBiz systemUserBiz;
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021-03-29 22:36
      */
     @ApiOperation("配置用户角色")
@@ -50,7 +50,7 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021-03-31 20:25
      */
     @ApiOperation("重置密码")
@@ -63,7 +63,7 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("新建")
@@ -76,7 +76,7 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("根据ID删除")
@@ -88,7 +88,7 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("批量删除")
@@ -105,7 +105,7 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("根据ID修改")
@@ -118,7 +118,7 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("分页查询")

@@ -10,7 +10,7 @@ public interface SystemPositionMapper extends BaseMapper<SystemPosition> {
 
     /**
      * 查询管理列表
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021-05-16 17:18
      */
     List<SystemPositionListVO> selectManageList();

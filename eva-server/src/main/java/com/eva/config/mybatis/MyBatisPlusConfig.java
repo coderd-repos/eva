@@ -1,4 +1,4 @@
-package com.eva.config;
+package com.eva.config.mybatis;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * MyBatisPlus配置
- * @author Eva
+ * @author Caesar Liu
  * @date 2021/05/15 18:44
  */
 @Configuration

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Eva
+ * @author Caesar Liu
  * @date 2021/03/27 22:36
  */
 @Api(tags = "权限接口")
@@ -36,7 +36,7 @@ public class SystemPermissionController extends BaseController {
     private SystemPermissionBiz systemPermissionBiz;
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/03/27 22:36
      */
     @ApiOperation("新建")
@@ -47,7 +47,7 @@ public class SystemPermissionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/03/27 22:36
      */
     @ApiOperation("根据ID删除")
@@ -59,7 +59,7 @@ public class SystemPermissionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("批量删除")
@@ -76,7 +76,7 @@ public class SystemPermissionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/03/27 22:36
      */
     @ApiOperation("根据ID修改")
@@ -88,7 +88,7 @@ public class SystemPermissionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Caesar Liu
      * @date 2021/03/27 22:36
      */
     @ApiOperation("分页查询")
