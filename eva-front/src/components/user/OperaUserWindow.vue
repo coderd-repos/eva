@@ -117,6 +117,8 @@ export default {
         this.$nextTick(() => {
           this.$refs.form.resetFields()
           this.form.id = null
+          this.form.departmentId = null
+          this.form.positionIds = []
         })
         return
       }
