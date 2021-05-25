@@ -2,7 +2,7 @@
   <div class="wrap">
     <div class="introduce">
       <h2>伊娃后台管理系统（单应用版）</h2>
-      <h3>一套开源 & 无版权 & 简洁易懂的</h3>
+      <h3>一套开源 & 无版权 & 可定制化的</h3>
       <p>企业级后台管理系统模版</p>
     </div>
     <div class="login">
