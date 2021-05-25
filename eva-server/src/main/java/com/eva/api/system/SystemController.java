@@ -2,7 +2,6 @@ package com.eva.api.system;
 
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemUserBiz;
-import com.eva.core.annotation.duplicate.DuplicateSubmit;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.LoginUserInfo;
 import com.eva.dao.system.dto.LoginDTO;
@@ -23,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author Caesar Liu
+ * @author Eva
  * @date 2021-05-21 22:10
  */
 @Api(tags = "系统接口")
@@ -42,12 +41,11 @@ public class SystemController extends BaseController {
     private CaptchaService captchaService;
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-03-27 21:36
      */
     @ApiOperation("登录")
     @PostMapping("/login")
-    @DuplicateSubmit(interval = 1000)
     public ApiResponse<LoginUserInfo> login (@Validated @RequestBody LoginDTO dto, HttpServletRequest request) {
         // 校验验证码
         captchaService.check(dto.getCode(), request);
@@ -65,7 +63,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-03-27 21:36
      */
     @ApiOperation("退出登录")
@@ -77,7 +75,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-03-31 14:16
      */
     @ApiOperation("修改密码")
@@ -89,7 +87,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-03-28 17:04
      */
     @ApiOperation("获取当前登录的用户信息")

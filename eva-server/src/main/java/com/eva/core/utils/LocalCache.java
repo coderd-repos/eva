@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 单机本地缓存，项目初始阶段使用
  * - 超过指定大小可通过日志方式报警
  * - 延长超时时间
- * @author Caesar Liu
+ * @author Eva
  * @date 2019/3/23 17:57
  */
 @Slf4j
@@ -47,7 +47,7 @@ public final class LocalCache {
      * 添加缓存，超时时间为30分钟
      * @param key: 缓存的key
      * @param value: 缓存值
-     * @author Caesar Liu
+     * @author Eva
      * @date 2019/3/23 18:26
      */
     public void set(String key, Object value) {
@@ -59,7 +59,7 @@ public final class LocalCache {
      * @param key: 缓存的key
      * @param value: 缓存值
      * @param timeout: 超时时间
-     * @author Caesar Liu
+     * @author Eva
      * @date 2019/3/23 18:26
      */
     public void set(String key, Object value, long timeout) {
@@ -92,7 +92,7 @@ public final class LocalCache {
      * @param key
      * @param <T>
      * @return
-     * @author Caesar Liu
+     * @author Eva
      * @date 2019/3/23 18:26
      */
     public <T> T get(String key) {
@@ -113,7 +113,7 @@ public final class LocalCache {
      * 根据key获取缓存对象
      * @param key
      * @return
-     * @author Caesar Liu
+     * @author Eva
      * @date 2019/3/23 18:39
      */
     public void remove(String key) {
@@ -123,7 +123,7 @@ public final class LocalCache {
 
     /**
      * 重置缓存诞生时间
-     * @author Caesar Liu
+     * @author Eva
      * @date 2020-07-27 10:27
      */
     public void relive(String key) {

@@ -4,11 +4,10 @@ import com.eva.service.proxy.CacheProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 /**
  * 防重复提交实现接口
- * @author Caesar Liu
+ * @author Eva
  * @date 2021-05-25 10:58
  */
 public abstract class DuplicateSubmitAdapter {
@@ -24,24 +23,16 @@ public abstract class DuplicateSubmitAdapter {
 
     /**
      * 验证是否重复
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-25 11:05
      */
-    public Boolean isDuplicate(HttpServletRequest request, Long interval) {
-        String requestKey = this.sign(request);
-        Long requestTime = cacheProxy.get(requestKey);
-        if (requestTime == null) {
-            return Boolean.FALSE;
-        }
-        if (System.currentTimeMillis() - requestTime > interval) {
-            return Boolean.FALSE;
-        }
-        return Boolean.TRUE;
+    public Boolean isDuplicate(HttpServletRequest request) {
+        return cacheProxy.get(this.sign(request)) != null;
     }
 
     /**
      * 参数签名
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-25 11:39
      */
     public abstract String sign (HttpServletRequest request);

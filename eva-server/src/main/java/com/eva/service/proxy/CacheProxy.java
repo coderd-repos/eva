@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 缓存代理类，便于缓存变更
- * @author Caesar Liu
+ * @author Eva
  * @date 2019/3/23 20:31
  */
 @Slf4j
@@ -17,7 +17,7 @@ public class CacheProxy {
      * 设置缓存，默认过期时间为24h
      * @param key：缓存key
      * @param value：缓存内容
-     * @author Caesar Liu
+     * @author Eva
      * @date 2019/3/23 20:38
      */
     public void set(String key, Object value) {
@@ -29,7 +29,7 @@ public class CacheProxy {
      * @param key：缓存key
      * @param value：缓存内容
      * @param timeout：缓存时间（毫秒）
-     * @author Caesar Liu
+     * @author Eva
      * @date 2019/3/23 20:38
      */
     public void set(String key, Object value, long timeout) {
@@ -41,7 +41,7 @@ public class CacheProxy {
      * @param key：缓存key
      * @param <T>
      * @return
-     * @author Caesar Liu
+     * @author Eva
      * @date 2019/3/23 20:38
      */
     public <T> T get(String key) {
@@ -51,7 +51,7 @@ public class CacheProxy {
     /**
      * 删除缓存
      * @param key：缓存key
-     * @author Caesar Liu
+     * @author Eva
      * @date 2019/3/23 20:38
      */
     public void remove(String key) {
@@ -61,7 +61,7 @@ public class CacheProxy {
     /**
      * 重置缓存诞生时间（延长超时时间）
      * @param key: 缓存key
-     * @author Caesar Liu
+     * @author Eva
      * @date 2020-07-27 10:28
      */
     public void relive(String key) {

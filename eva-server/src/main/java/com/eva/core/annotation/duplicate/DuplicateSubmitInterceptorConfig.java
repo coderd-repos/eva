@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * Swagger拦截器配置
- * @author Caesar Liu
+ * @author Eva
  * @date 2021/05/15 18:44
  */
 @Configuration

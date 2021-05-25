@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * 分页请求参数
- * @author Caesar Liu
+ * @author Eva
  * @date 2021/05/15 18:44
  */
 @Data
@@ -30,7 +30,7 @@ public class PageWrap<M> {
 
     /**
      * 处理异常排序对象
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021/05/15 18:44
      */
     public List<SortData> getSorts () {
@@ -52,7 +52,7 @@ public class PageWrap<M> {
 
     /**
      * 处理异常页码
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021/05/15 18:44
      */
     public int getPage () {
@@ -61,7 +61,7 @@ public class PageWrap<M> {
 
     /**
      * 处理异常页容量
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021/05/15 18:44
      */
     public int getCapacity () {
@@ -70,7 +70,7 @@ public class PageWrap<M> {
 
     /**
      * 获取排序字符串
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021/05/15 18:44
      */
     @ApiModelProperty(hidden = true)
@@ -95,7 +95,7 @@ public class PageWrap<M> {
 
     /**
      * 排序对象
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021/05/15 18:44
      */
     @Data

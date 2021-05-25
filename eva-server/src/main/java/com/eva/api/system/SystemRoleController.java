@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Caesar Liu
+ * @author Eva
  * @date 2021/03/27 22:36
  */
 @Api(tags = "角色接口")
@@ -38,7 +38,7 @@ public class SystemRoleController extends BaseController {
     private SystemRoleBiz systemRoleBiz;
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-03-30 15:47
      */
     @ApiOperation("配置角色菜单")
@@ -50,7 +50,7 @@ public class SystemRoleController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-03-29 22:36
      */
     @ApiOperation("配置角色权限")
@@ -62,7 +62,7 @@ public class SystemRoleController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021/03/27 22:36
      */
     @ApiOperation("新建")
@@ -73,7 +73,7 @@ public class SystemRoleController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021/03/27 22:36
      */
     @ApiOperation("根据ID删除")
@@ -85,7 +85,7 @@ public class SystemRoleController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021/03/28 09:30
      */
     @ApiOperation("批量删除")
@@ -102,7 +102,7 @@ public class SystemRoleController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021/03/27 22:36
      */
     @ApiOperation("根据ID修改")
@@ -114,7 +114,7 @@ public class SystemRoleController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021/03/27 22:36
      */
     @ApiOperation("分页查询")
@@ -125,7 +125,7 @@ public class SystemRoleController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021/03/27 22:36
      */
     @ApiOperation("查询所有")
