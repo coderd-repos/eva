@@ -59,12 +59,12 @@ export default {
           password: this.form.password
         })
           .then(() => {
-            this.$message.success('密码重置成功')
+            this.$tip.success('密码重置成功')
             this.visible = false
             this.$emit('success')
           })
           .catch(e => {
-            this.$message.error(e.message)
+            this.$tip.error(e.message)
           })
           .finally(() => {
             this.isWorking = false

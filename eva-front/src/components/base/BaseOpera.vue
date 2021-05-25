@@ -66,11 +66,11 @@ export default {
         this.api.create(this.form)
           .then(() => {
             this.visible = false
-            this.$message.success('新建成功')
+            this.$tip.success('新建成功')
             this.$emit('success')
           })
           .catch(e => {
-            this.$message.error(e.message)
+            this.$tip.error(e.message)
           })
           .finally(() => {
             this.isWorking = false
@@ -88,11 +88,11 @@ export default {
         this.api.updateById(this.form)
           .then(() => {
             this.visible = false
-            this.$message.success('修改成功')
+            this.$tip.success('修改成功')
             this.$emit('success')
           })
           .catch(e => {
-            this.$message.error(e.message)
+            this.$tip.error(e.message)
           })
           .finally(() => {
             this.isWorking = false

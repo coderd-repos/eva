@@ -59,7 +59,7 @@ export default {
         })
         .catch(e => {
           this.refreshCaptcha()
-          this.$message.error(e.message)
+          this.$tip.error(e.message)
         })
         .finally(() => {
           this.loading = false
@@ -72,15 +72,15 @@ export default {
     // 登录前验证
     __check () {
       if (this.username.trim() === '') {
-        this.$message.error('请输入用户名')
+        this.$tip.error('请输入用户名')
         return false
       }
       if (this.password === '') {
-        this.$message.error('请输入密码')
+        this.$tip.error('请输入密码')
         return false
       }
       if (this.captcha.trim() === '') {
-        this.$message.error('请输入图片验证码')
+        this.$tip.error('请输入图片验证码')
         return false
       }
       return true

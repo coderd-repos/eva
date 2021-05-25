@@ -68,7 +68,7 @@ export default {
           this.tableData.list = records
         })
         .catch(e => {
-          this.$message.error(e.message)
+          this.$tip.error(e.message)
         })
         .finally(() => {
           this.isWorking.search = false

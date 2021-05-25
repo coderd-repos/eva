@@ -117,7 +117,7 @@ export default {
         }
         // 验证两次密码输入是否一致
         if (this.changePwdData.form.newPwd !== this.changePwdData.form.confirmPwd) {
-          this.$message.warning('两次密码输入不一致')
+          this.$tip.warning('两次密码输入不一致')
           return
         }
         // 执行修改
@@ -127,11 +127,11 @@ export default {
           newPwd: this.changePwdData.form.newPwd
         })
           .then(() => {
-            this.$message.success('修改成功')
+            this.$tip.success('修改成功')
             this.visible.changePwd = false
           })
           .catch(e => {
-            this.$message.error(e.message)
+            this.$tip.error(e.message)
           })
           .finally(() => {
             this.isWorking.changePwd = false
@@ -146,7 +146,7 @@ export default {
           this.setUserInfo(null)
         })
         .catch(e => {
-          this.$message.error(e.message)
+          this.$tip.error(e.message)
         })
     }
   }

@@ -49,7 +49,7 @@ export default {
           this.visible = true
         })
         .catch(e => {
-          this.$message.error(e.message)
+          this.$tip.error(e.message)
         })
     },
     // 确认选择角色
@@ -63,12 +63,12 @@ export default {
         roleIds: this.selectedIds
       })
         .then(() => {
-          this.$message.success('角色配置成功，用户重新登录后生效')
+          this.$tip.success('角色配置成功，用户重新登录后生效')
           this.visible = false
           this.$emit('success')
         })
         .catch(e => {
-          this.$message.error(e.message)
+          this.$tip.error(e.message)
         })
         .finally(() => {
           this.isWorking = false

@@ -202,7 +202,7 @@ export default {
           }
         })
         .catch(e => {
-          this.$message.error(e.message)
+          this.$tip.error(e.message)
         })
         .finally(() => {
           this.loading = false

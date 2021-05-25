@@ -86,7 +86,7 @@ export default {
           this.tableData.list = records
         })
         .catch(e => {
-          this.$message.error(e.message)
+          this.$tip.error(e.message)
         })
         .finally(() => {
           this.isWorking.search = false
@@ -98,11 +98,11 @@ export default {
         return
       }
       if (this.tableData.selectedRows.length === 0) {
-        this.$message.warning('请选择一条数据')
+        this.$tip.warning('请选择一条数据')
         return
       }
       if (this.tableData.selectedRows.length > 1) {
-        this.$message.warning('排序时仅允许选择一条数据')
+        this.$tip.warning('排序时仅允许选择一条数据')
         return
       }
       const menuId = this.tableData.selectedRows[0].id
@@ -118,12 +118,12 @@ export default {
       const menuIndex = menuPool.findIndex(menu => menu.id === menuId)
       // 上移校验
       if (direction === 'top' && menuIndex === 0) {
-        this.$message.warning('菜单已到顶部')
+        this.$tip.warning('菜单已到顶部')
         return
       }
       // 下移校验
       if (direction === 'bottom' && menuIndex === menuPool.length - 1) {
-        this.$message.warning('菜单已到底部')
+        this.$tip.warning('菜单已到底部')
         return
       }
       this.isWorking.sort = true
@@ -139,7 +139,7 @@ export default {
           }
         })
         .catch(e => {
-          this.$message.error(e.message)
+          this.$tip.error(e.message)
         })
         .finally(() => {
           this.isWorking.sort = false
@@ -151,7 +151,7 @@ export default {
         this.__updateMenuStatus(row)
         return
       }
-      this.$confirm(`确认禁用 ${row.name} 菜单吗？`, '提示', {
+      this.$dialog.confirm(`确认禁用 ${row.name} 菜单吗？`, '提示', {
         confirmButtonText: '确认禁用',
         cancelButtonText: '取消',
         type: 'warning'
@@ -164,7 +164,7 @@ export default {
     // 批量删除
     deleteByIdInBatch () {
       if (this.tableData.selectedRows.length === 0) {
-        this.$message.warning('请至少选择一条数据')
+        this.$tip.warning('请至少选择一条数据')
         return
       }
       const containChildrenRows = []
@@ -174,7 +174,7 @@ export default {
         }
       }
       const message = containChildrenRows.length > 0 ? `本次将删除 【${containChildrenRows.join('、')}】 及其子菜单数据，确认删除吗？` : `确认删除已选中的 ${this.tableData.selectedRows.length} 条数据吗?`
-      this.$confirm(message, '提示', {
+      this.$dialog.confirm(message, '提示', {
         confirmButtonText: '确认删除',
         cancelButtonText: '取消',
         type: 'warning'
@@ -182,7 +182,7 @@ export default {
         this.isWorking.delete = true
         this.api.deleteByIdInBatch(this.tableData.selectedRows.map(row => row.id).join(','))
           .then(() => {
-            this.$message.success('删除成功')
+            this.$tip.success('删除成功')
             // 删除当前页最后一条记录时查询上一页数据
             if (this.tableData.list.length - 1 === 0) {
               this.handlePageChange(this.tableData.pagination.pageIndex - 1 === 0 ? 1 : this.tableData.pagination.pageIndex - 1)
@@ -191,7 +191,7 @@ export default {
             }
           })
           .catch(e => {
-            this.$message.error(e.message)
+            this.$tip.error(e.message)
           })
           .finally(() => {
             this.isWorking.delete = false
@@ -223,11 +223,11 @@ export default {
         disabled: row.disabled
       })
         .then(() => {
-          this.$message.success('修改成功')
+          this.$tip.success('修改成功')
         })
         .catch(e => {
           row.disabled = !row.disabled
-          this.$message.error(e.message)
+          this.$tip.error(e.message)
         })
     }
   },

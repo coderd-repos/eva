@@ -25,7 +25,7 @@
 <script>
 import GlobalWindow from '../common/GlobalWindow'
 import { createRoleMenu } from '../../api/system/role'
-import { fetchList as fetchMenuList } from '../../api/system/menu'
+import { fetchTree as fetchMenuList } from '../../api/system/menu'
 export default {
   name: 'MenuConfigWindow',
   components: { GlobalWindow },
@@ -61,7 +61,7 @@ export default {
           this.visible = true
         })
         .catch(e => {
-          this.$message.error(e.message)
+          this.$tip.error(e.message)
         })
     },
     // 确认选择菜单
@@ -73,12 +73,12 @@ export default {
         menuIds: selectedMenus.map(menu => menu.id)
       })
         .then(() => {
-          this.$message.success('菜单授权成功')
+          this.$tip.success('菜单授权成功')
           this.visible = false
           this.$emit('success')
         })
         .catch(e => {
-          this.$message.error(e.message)
+          this.$tip.error(e.message)
         })
         .finally(() => {
           this.isWorking = false

@@ -3,11 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
+import './assets/style/element-variables.scss'
 import directives from './directives'
 import filters from './filters'
-import './assets/style/element-variables.scss'
-import { fetchMenuTree } from './api/system/menu'
+import plugins from './plugins'
 import { mapState, mapMutations } from 'vuex'
+import { fetchMenuTree } from './api/system/menu'
 
 Vue.use(ElementUI, {
   size: 'small'
@@ -16,6 +17,7 @@ Vue.use(ElementUI, {
 Vue.config.productionTip = false
 Vue.use(directives)
 Vue.use(filters)
+Vue.use(plugins)
 
 new Vue({
   data: {

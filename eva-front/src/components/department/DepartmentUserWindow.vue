@@ -131,7 +131,7 @@ export default {
           this.tableData.pagination.total = data.total
         })
         .catch(e => {
-          this.$message.error(e.message)
+          this.$tip.error(e.message)
         })
         .finally(() => {
           this.isWorking.search = false
