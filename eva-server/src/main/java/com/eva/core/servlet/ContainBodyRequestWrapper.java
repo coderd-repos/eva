@@ -1,4 +1,4 @@
-package com.eva.core.annotation.duplicate;
+package com.eva.core.servlet;
 
 import lombok.Getter;
 
@@ -10,18 +10,19 @@ import java.io.*;
 import java.nio.charset.Charset;
 
 /**
+ * 请求流传递对象
  * 技术参考：https://blog.csdn.net/AlbenXie/article/details/114868245
  * @author Caesar Liu
  * @date 2021-05-25 16:13
  */
 @Getter
-public class DuplicateSubmitRequestWrapper extends HttpServletRequestWrapper {
+public class ContainBodyRequestWrapper extends HttpServletRequestWrapper {
 
     private final HttpServletRequest request;
 
     private final String body;
 
-    DuplicateSubmitRequestWrapper(HttpServletRequest request) {
+    public ContainBodyRequestWrapper(HttpServletRequest request) {
         super(request);
         this.request = request;
         this.body = getBodyString();

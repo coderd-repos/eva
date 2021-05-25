@@ -1,16 +1,14 @@
 package com.eva.core.annotation.duplicate;
 
+import com.eva.core.servlet.ContainBodyRequestWrapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * 默认防重复提交实现
@@ -60,7 +58,7 @@ public class DuplicateSubmitDefaultHandler extends DuplicateSubmitAdapter {
         // 获取请求路径
         paramMap.put(REQUEST_URI, request.getRequestURI());
         // 获取请求体参数
-        String bodyParameters = new DuplicateSubmitRequestWrapper(request).getBody();
+        String bodyParameters = new ContainBodyRequestWrapper(request).getBody();
         paramMap.put(REQUEST_BODY_PARAMETERS, bodyParameters);
         // 获取Cookie信息
         Cookie[] cookies = request.getCookies();
