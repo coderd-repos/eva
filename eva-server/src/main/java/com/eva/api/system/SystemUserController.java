@@ -2,6 +2,7 @@ package com.eva.api.system;
 
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemUserBiz;
+import com.eva.core.annotation.duplicate.DuplicateSubmit;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
@@ -41,6 +42,7 @@ public class SystemUserController extends BaseController {
      * @author Eva
      * @date 2021-03-29 22:36
      */
+    @DuplicateSubmit
     @ApiOperation("配置用户角色")
     @PostMapping("/createUserRole")
     @RequiresPermissions("system:user:createUserRole")
@@ -53,7 +55,7 @@ public class SystemUserController extends BaseController {
      * @author Eva
      * @date 2021-03-31 20:25
      */
-    @ApiOperation("重置密码")
+    @DuplicateSubmit
     @PostMapping("/resetPwd")
     @RequiresPermissions("system:user:resetPwd")
     public ApiResponse resetPwd (@Validated @RequestBody ResetSystemUserPwdDTO dto) {
@@ -66,6 +68,7 @@ public class SystemUserController extends BaseController {
      * @author Eva
      * @date 2021/03/28 09:30
      */
+    @DuplicateSubmit
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:user:create")

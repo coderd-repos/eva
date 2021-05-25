@@ -2,6 +2,7 @@ package com.eva.api.system;
 
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemDepartmentBiz;
+import com.eva.core.annotation.duplicate.DuplicateSubmit;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
@@ -44,6 +45,7 @@ public class SystemDepartmentController extends BaseController {
      * @author Eva
      * @date 2021/05/16 11:59
      */
+    @DuplicateSubmit
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:department:create")
@@ -67,8 +69,8 @@ public class SystemDepartmentController extends BaseController {
      * @author Eva
      * @date 2021/03/28 09:30
      */
-    @ApiOperation("批量删除")
     @GetMapping("/delete/batch")
+    @DuplicateSubmit
     @RequiresPermissions("system:department:delete")
     public ApiResponse deleteById(@RequestParam String ids) {
         String [] idArray = ids.split(",");

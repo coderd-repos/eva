@@ -2,6 +2,7 @@ package com.eva.api.system;
 
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemPositionBiz;
+import com.eva.core.annotation.duplicate.DuplicateSubmit;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
@@ -45,6 +46,7 @@ public class SystemPositionController extends BaseController {
      * @author Eva
      * @date 2021/05/16 17:03
      */
+    @DuplicateSubmit
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:position:create")

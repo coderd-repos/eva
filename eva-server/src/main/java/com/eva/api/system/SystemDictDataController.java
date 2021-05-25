@@ -2,6 +2,7 @@ package com.eva.api.system;
 
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemDictDataBiz;
+import com.eva.core.annotation.duplicate.DuplicateSubmit;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
@@ -39,6 +40,7 @@ public class SystemDictDataController extends BaseController {
      * @author Eva
      * @date 2021/05/16 20:18
      */
+    @DuplicateSubmit
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:dict:update")
