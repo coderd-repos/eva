@@ -45,6 +45,14 @@ export default {
         .then(records => {
           this.roles = records
           this.user = user
+          // 如果为固定用户，则固定角色不可更改
+          if (this.user.fixed) {
+            for (const role of this.roles) {
+              if (role.fixed) {
+                role.disabled = true
+              }
+            }
+          }
           this.selectedIds = this.user.roles.map(r => r.id)
           this.visible = true
         })

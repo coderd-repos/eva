@@ -55,6 +55,14 @@ export default {
         .then(records => {
           this.role = role
           this.permissions = records
+          // 如果为固定角色，则固定权限不可更改
+          if (this.role.fixed) {
+            for (const perm of this.permissions) {
+              if (perm.fixed) {
+                perm.disabled = true
+              }
+            }
+          }
           this.selectedIds = role.permissions.map(r => r.id)
           this.visible = true
         })

@@ -50,10 +50,8 @@ export default {
         .then(records => {
           this.role = role
           this.menus = records
-          // 重置disabled为false，避免无法选中
-          this.menus.map(r => {
-            r.disabled = false
-          })
+          // 如果为固定角色，则固定菜单不可更改
+          this.__resetDisabled(this.menus, this.role)
           // 找出叶节点
           role.menus = role.menus.filter(menu => role.menus.findIndex(m => m.parentId === menu.id) === -1)
           // 初始化选中
@@ -83,6 +81,19 @@ export default {
         .finally(() => {
           this.isWorking = false
         })
+    },
+    // 重置disabled
+    __resetDisabled (menus, role) {
+      if (menus == null || menus.length === 0) {
+        return
+      }
+      for (const menu of menus) {
+        menu.disabled = false
+        if (role.fixed && menu.fixed) {
+          menu.disabled = true
+        }
+        this.__resetDisabled(menu.children, role)
+      }
     }
   }
 }

@@ -78,12 +78,17 @@
           <template slot-scope="{row}">{{row.updateUserInfo == null ? '' : row.updateUserInfo.username}}</template>
         </el-table-column>
         <el-table-column prop="updateTime" label="更新时间" sortable="custom" sort-by="UPDATE_TIME" min-width="140px"></el-table-column>
-        <el-table-column label="操作" width="270" fixed="right">
+        <el-table-column
+          v-if="containPermissions(['system:user:update', 'system:user:createUserRole', 'system:user:resetPwd', 'system:user:delete'])"
+          label="操作"
+          width="270"
+          fixed="right"
+        >
           <template slot-scope="{row}">
             <el-button type="text" icon="el-icon-edit" @click="$refs.operaUserWindow.open('编辑用户', row)" v-permissions="['system:user:update']">编辑</el-button>
             <el-button type="text" icon="el-icon-s-custom" @click="$refs.roleConfigWindow.open(row)" v-permissions="['system:user:createUserRole']">配置角色</el-button>
-            <el-button type="text" @click="$refs.resetPwdWindow.open(row)">重置密码</el-button>
-            <el-button type="text" v-if="row.deletable" icon="el-icon-delete" @click="deleteById(row.id)" v-permissions="['system:user:delete']">删除</el-button>
+            <el-button type="text" @click="$refs.resetPwdWindow.open(row)" v-permissions="['system:user:resetPwd']">重置密码</el-button>
+            <el-button v-if="!row.fixed" type="text" icon="el-icon-delete" @click="deleteById(row.id)" v-permissions="['system:user:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
