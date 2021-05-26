@@ -34,6 +34,10 @@ public class SystemDepartmentBizImpl implements SystemDepartmentBiz {
 
     @Override
     public void updateById(SystemDepartment department) {
+        // 如果是根部门，则不允许调整部门编码
+        if (department.getParentId() == null && !department.getCode().equals("ROOT")) {
+            throw new BusinessException(ResponseStatus.BAD_REQUEST.getCode(), "请勿修改根部门编码");
+        }
         // 验证部门编码
         SystemDepartment queryDto = new SystemDepartment();
         queryDto.setCode(department.getCode());
