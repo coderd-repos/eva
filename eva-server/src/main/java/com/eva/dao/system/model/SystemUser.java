@@ -66,6 +66,9 @@ public class SystemUser {
     @ApiModelProperty(value = "盐")
     private String salt;
 
+    @ApiModelProperty(value = "是否可删除", hidden = true)
+    private Boolean deletable;
+
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
