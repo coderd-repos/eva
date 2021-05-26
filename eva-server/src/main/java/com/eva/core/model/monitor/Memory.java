@@ -1,35 +1,37 @@
 package com.eva.core.model.monitor;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 内存信息
  * @author Eva
  * @date 2021-04-13 20:09
  */
 @Data
+@ApiModel("内存信息")
 public class Memory {
 
-    // 总内存
+    @ApiModelProperty(value = "总内存")
     private double size;
 
-    // 空闲内存
+    @ApiModelProperty(value = "空闲内存")
     private double freeSpace;
 
     /**
-     * 获取已使用大小
      * @author Eva
      * @date 2021-04-13 20:10
      */
+    @ApiModelProperty(value = "获取已使用大小")
     public double getUsedSpace () {
         return size - freeSpace;
     }
 
     /**
-     * 获取使用率
      * @author Eva
      * @date 2021-04-13 20:10
      */
+    @ApiModelProperty(value = "获取使用率")
     public double getUseRatio () {
         return getUsedSpace() / size * 100;
     }

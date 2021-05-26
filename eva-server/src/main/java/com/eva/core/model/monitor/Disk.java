@@ -1,5 +1,7 @@
 package com.eva.core.model.monitor;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -8,37 +10,30 @@ import lombok.Data;
  * @date 2021-04-13 20:03
  */
 @Data
+@ApiModel("磁盘信息")
 public class Disk {
 
-    // 磁盘名称
+    @ApiModelProperty(value = "磁盘名称")
     private String name;
 
-    // 盘符路径
+    @ApiModelProperty(value = "盘符路径")
     private String dir;
 
-    // 文件系统类型
+    @ApiModelProperty(value = "文件系统类型")
     private String fsType;
 
-    // 总大小
+    @ApiModelProperty(value = "总大小")
     private double size;
 
-    // 可用大小
+    @ApiModelProperty(value = "可用大小")
     private double freeSpace;
 
-    /**
-     * 获取已使用大小
-     * @author Eva
-     * @date 2021-04-13 20:12
-     */
+    @ApiModelProperty(value = "获取已使用大小")
     public double getUsedSpace () {
         return size - freeSpace;
     }
 
-    /**
-     * 获取使用率
-     * @author Eva
-     * @date 2021-04-13 20:13
-     */
+    @ApiModelProperty(value = "使用率")
     public double getUseRatio () {
         return getUsedSpace() / size * 100;
     }

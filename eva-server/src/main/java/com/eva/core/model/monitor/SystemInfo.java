@@ -1,7 +1,8 @@
 package com.eva.core.model.monitor;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.ToString;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.GlobalMemory;
 import oshi.hardware.HardwareAbstractionLayer;
@@ -18,42 +19,41 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 系统信息
  * @author Eva
  * @date 2021-04-13 20:34
  */
 @Data
-@ToString
+@ApiModel("系统信息")
 public class SystemInfo {
 
-    // 操作系统名称
+    @ApiModelProperty(value = "操作系统名称")
     private String osName;
 
-    // 操作系统架构
+    @ApiModelProperty(value = "操作系统架构")
     private String osArch;
 
-    // 操作系统版本
+    @ApiModelProperty(value = "操作系统版本")
     private String osVersion;
 
-    // IP地址
+    @ApiModelProperty(value = "服务器IP地址")
     private String ip;
 
-    // MAC地址
+    @ApiModelProperty(value = "MAC地址")
     private String mac;
 
-    // 服务器时间
+    @ApiModelProperty(value = "服务器时间")
     private Date currentTime;
 
-    // 内存信息
+    @ApiModelProperty(value = "内存信息")
     private Memory memory;
 
-    // CPU信息
+    @ApiModelProperty(value = "CPU信息")
     private CPU cpu;
 
-    // 磁盘信息
+    @ApiModelProperty(value = "磁盘列表")
     private List<Disk> disks;
 
-    // JVM信息
+    @ApiModelProperty(value = "JVM信息")
     private JVM jvm;
 
     public SystemInfo() {
@@ -72,10 +72,6 @@ public class SystemInfo {
         this.setCpu(hardware.getProcessor());
         this.setJvm();
         this.setDisks(systemInfo.getOperatingSystem());
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new SystemInfo());
     }
 
     /**

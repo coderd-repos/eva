@@ -1,5 +1,7 @@
 package com.eva.core.model.monitor;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -8,28 +10,25 @@ import lombok.Data;
  * @date 2021-04-13 19:59
  */
 @Data
+@ApiModel("CPU信息")
 public class CPU {
 
-    // 逻辑核数
+    @ApiModelProperty(value = "逻辑核数")
     private int logicalCount;
 
-    // 物理核数
+    @ApiModelProperty(value = "物理核数")
     private int physicalCount;
 
-    // 用户使用率
+    @ApiModelProperty(value = "用户使用率")
     private double userRatio;
 
-    // 系统使用率
+    @ApiModelProperty(value = "系统使用率")
     private double systemRatio;
 
-    // 当前使用率
+    @ApiModelProperty(value = "当前使用率")
     private double useRatio;
 
-    /**
-     * 空闲率
-     * @author Eva
-     * @date 2021-04-13 20:17
-     */
+    @ApiModelProperty(value = "空闲率")
     public double getFreeRatio () {
         return 100.0 - useRatio;
     }

@@ -1,30 +1,32 @@
 package com.eva.core.model.monitor;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
 
 /**
- * JVM信息
  * @author Eva
  * @date 2021-04-13 19:52
  */
 @Data
+@ApiModel("JVM信息")
 public class JVM {
 
-    // 版本
+    @ApiModelProperty(value = "版本")
     private String version;
 
-    // 安装路径
+    @ApiModelProperty(value = "安装路径")
     private String home;
 
-    // 启动时间
+    @ApiModelProperty(value = "启动时间")
     private Date bootTime;
 
-    // 内存信息
+    @ApiModelProperty(value = "内存信息")
     private Memory memory;
 
-    // 获取运行时长
+    @ApiModelProperty(value = "运行时长")
     public String getRuntime () {
         long ms = (System.currentTimeMillis() - bootTime.getTime())/1000;
         long months = ms/2592000; // 一个月按30天计算
