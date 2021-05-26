@@ -9,7 +9,7 @@
       <!-- 表格和分页 -->
       <template v-slot:table-wrap>
         <ul class="toolbar">
-          <li><el-button type="primary" @click="$refs.operaDictDataWindow.open('新建字典数据', dictId)" icon="el-icon-plus">新建</el-button></li>
+          <li><el-button type="primary" @click="$refs.operaDictDataWindow.open('新建字典数据', searchForm.dictId)" icon="el-icon-plus">新建</el-button></li>
           <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete">删除</el-button></li>
         </ul>
         <el-table
