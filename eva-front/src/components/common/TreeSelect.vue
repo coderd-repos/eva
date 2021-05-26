@@ -8,6 +8,8 @@
     :clearable="clearable"
     :flat="flat"
     :multiple="multiple"
+    no-children-text="无记录"
+    no-options-text="无记录"
     no-results-text="未匹配到数据"
     @input="$emit('input', $event)"
   />

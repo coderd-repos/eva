@@ -39,7 +39,7 @@
             <el-button type="text" @click="$refs.operaDepartmentWindow.open('编辑部门', row)" icon="el-icon-edit" v-permissions="['system:department:update']">编辑</el-button>
             <el-button type="text" @click="$refs.operaDepartmentWindow.open('新建下级部门', null, row)" icon="el-icon-edit" v-permissions="['system:department:create']">新建下级部门</el-button>
             <el-button type="text" @click="$refs.departmentUserWindow.open(row.id, row.name)" icon="el-icon-user-solid" v-permissions="['system:department:queryUsers']">查看人员</el-button>
-            <el-button v-if="row.parentId != null" type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:department:delete']">删除</el-button>
+            <el-button v-if="row.code !== 'ROOT'" type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:department:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
