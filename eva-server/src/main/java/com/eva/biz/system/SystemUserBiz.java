@@ -5,12 +5,28 @@ import com.eva.dao.system.dto.CreateUserRoleDTO;
 import com.eva.dao.system.dto.ResetSystemUserPwdDTO;
 import com.eva.dao.system.dto.UpdatePwdDto;
 
+import java.util.List;
+
 /**
  * 系统用户业务处理
  * @author Eva
  * @date 2021-03-29 22:24
  */
 public interface SystemUserBiz {
+
+    /**
+     * 删除用户
+     * @author Caesar Liu
+     * @date 2021-05-26 16:34
+     */
+    void deleteById(Integer id);
+
+    /**
+     * 批量删除用户
+     * @author Caesar Liu
+     * @date 2021-05-26 16:37
+     */
+    void deleteByIdInBatch(List<Integer> ids);
 
     /**
      * 修改密码

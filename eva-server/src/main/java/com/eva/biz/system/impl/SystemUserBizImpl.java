@@ -22,8 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class SystemUserBizImpl implements SystemUserBiz {
@@ -39,6 +41,29 @@ public class SystemUserBizImpl implements SystemUserBiz {
 
     @Autowired
     private SystemPositionUserService systemPositionUserService;
+
+    @Override
+    public void deleteById(Integer id) {
+        SystemUser user = systemUserService.findById(id);
+        if (user == null) {
+            return;
+        }
+        if (user.getFixed()) {
+            throw new BusinessException(ResponseStatus.NOT_ALLOWED.getCode(), "请勿删除固定用户" + user.getUsername());
+        }
+        systemUserService.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByIdInBatch(List<Integer> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return;
+        }
+        for (Integer id : ids) {
+            this.deleteById(id);
+        }
+    }
 
     @Override
     public void updatePwd(UpdatePwdDto dto) {

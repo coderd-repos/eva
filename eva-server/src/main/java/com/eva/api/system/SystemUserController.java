@@ -86,7 +86,7 @@ public class SystemUserController extends BaseController {
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:user:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
-        systemUserService.deleteById(id);
+        systemUserBiz.deleteById(id);
         return ApiResponse.success(null);
     }
 
@@ -97,13 +97,13 @@ public class SystemUserController extends BaseController {
     @ApiOperation("批量删除")
     @GetMapping("/delete/batch")
     @RequiresPermissions("system:user:delete")
-    public ApiResponse deleteById(@RequestParam String ids) {
+    public ApiResponse deleteByIdInBatch(@RequestParam String ids) {
         String [] idArray = ids.split(",");
         List<Integer> idList = new ArrayList<>();
         for (String id : idArray) {
             idList.add(Integer.valueOf(id));
         }
-        systemUserService.deleteByIdInBatch(idList);
+        systemUserBiz.deleteByIdInBatch(idList);
         return ApiResponse.success(null);
     }
 
