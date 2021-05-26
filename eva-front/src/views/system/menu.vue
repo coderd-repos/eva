@@ -50,7 +50,7 @@
           <template slot-scope="{row}">
             <el-button type="text" icon="el-icon-edit" @click="$refs.operaMenuWindow.open('编辑菜单', row)" v-permissions="['system:menu:update']">编辑</el-button>
             <el-button type="text" icon="el-icon-plus" @click="$refs.operaMenuWindow.open('新建子菜单', null, row)" v-permissions="['system:menu:create']">新建子菜单</el-button>
-            <el-button v-if="!row.fixed" type="text" icon="el-icon-delete" @click="deleteById(row)" v-permissions="['system:menu:delete']">删除</el-button>
+            <el-button v-if="!row.fixed" type="text" icon="el-icon-delete" @click="deleteById(row.id)" v-permissions="['system:menu:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
