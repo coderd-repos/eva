@@ -109,14 +109,14 @@
 </template>
 
 <script>
-import Pagination from '../../components/common/Pagination'
-import TableLayout from '../../layouts/TableLayout'
-import BaseTable from '../../components/base/BaseTable'
-import OperaUserWindow from '../../components/user/OperaUserWindow'
-import RoleConfigWindow from '../../components/user/RoleConfigWindow'
-import ResetPwdWindow from '../../components/user/ResetPwdWindow'
-import DepartmentSelect from '../../components/common/DepartmentSelect'
-import PositionSelect from '../../components/common/PositionSelect'
+import Pagination from '@/components/common/Pagination'
+import TableLayout from '@/layouts/TableLayout'
+import BaseTable from '@/components/base/BaseTable'
+import OperaUserWindow from '@/components/system/user/OperaUserWindow'
+import RoleConfigWindow from '@/components/system/user/RoleConfigWindow'
+import ResetPwdWindow from '@/components/system/user/ResetPwdWindow'
+import DepartmentSelect from '@/components/common/DepartmentSelect'
+import PositionSelect from '@/components/common/PositionSelect'
 
 export default {
   name: 'SystemUser',
@@ -149,7 +149,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/style/variables.scss";
+@import "@/assets/style/variables.scss";
 // 列表头像处理
 .table-column-avatar {
   img {

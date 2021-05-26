@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import BaseOpera from '../base/BaseOpera'
-import GlobalWindow from '../common/GlobalWindow'
-import PositionSelect from '../common/PositionSelect'
+import BaseOpera from '@/components/base/BaseOpera'
+import GlobalWindow from '@/components/common/GlobalWindow'
+import PositionSelect from '@/components/common/PositionSelect'
 export default {
   name: 'OperaPositionWindow',
   extends: BaseOpera,

@@ -69,12 +69,12 @@
 </template>
 
 <script>
-import Pagination from '../../components/common/Pagination'
-import TableLayout from '../../layouts/TableLayout'
-import BaseTable from '../../components/base/BaseTable'
-import OperaRoleWindow from '../../components/role/OperaRoleWindow'
-import PermissionConfigWindow from '../../components/role/PermissionConfigWindow'
-import MenuConfigWindow from '../../components/role/MenuConfigWindow'
+import Pagination from '@/components/common/Pagination'
+import TableLayout from '@/layouts/TableLayout'
+import BaseTable from '@/components/base/BaseTable'
+import OperaRoleWindow from '@/components/system/role/OperaRoleWindow'
+import PermissionConfigWindow from '@/components/system/role/PermissionConfigWindow'
+import MenuConfigWindow from '@/components/system/role/MenuConfigWindow'
 export default {
   name: 'SystemRole',
   extends: BaseTable,

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import AppLayout from '../layouts/AppLayout'
-import { getUserInfo } from '../api/system/common'
-const Login = () => import('../views/login')
-const Workbench = () => import('../views/workbench')
+import AppLayout from '@/layouts/AppLayout'
+import { getUserInfo } from '@/api/system/common'
+const Login = () => import('@/views/login')
+const Workbench = () => import('@/views/workbench')
 
 Vue.use(VueRouter)
 

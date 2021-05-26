@@ -1,4 +1,4 @@
-import request from '../../utils/request'
+import request from '@/utils/request'
 
 // 根据密码登录
 export function loginByPassword (data) {

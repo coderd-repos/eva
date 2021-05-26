@@ -18,8 +18,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import Header from '../components/common/Header'
-import Menu from '../components/common/Menu'
+import Header from '@/components/common/Header'
+import Menu from '@/components/common/Menu'
 export default {
   name: 'DefaultLayout',
   components: { AppHeader: Header, Menu },
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../assets/style/variables.scss";
+@import "@/assets/style/variables.scss";
 .el-container {
   background: #F7F8F9;
   height: 100%;

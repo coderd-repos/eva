@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import GlobalWindow from '../common/GlobalWindow'
-import { createRoleMenu } from '../../api/system/role'
-import { fetchTree as fetchMenuList } from '../../api/system/menu'
+import GlobalWindow from '@/components/common/GlobalWindow'
+import { createRoleMenu } from '@/api/system/role'
+import { fetchTree as fetchMenuList } from '@/api/system/menu'
 export default {
   name: 'MenuConfigWindow',
   components: { GlobalWindow },
@@ -100,7 +100,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import "../../assets/style/variables.scss";
+  @import "@/assets/style/variables.scss";
   .global-window {
     .tip {
       margin-bottom: 12px;

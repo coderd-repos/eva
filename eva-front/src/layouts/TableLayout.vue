@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../assets/style/variables.scss";
+@import "@/assets/style/variables.scss";
 .el-container {
   background: #F7F8F9;
   min-height: calc(100vh);

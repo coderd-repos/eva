@@ -22,7 +22,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import { loginByPassword } from '../api/system/common'
+import { loginByPassword } from '@/api/system/common'
 
 export default {
   name: 'Login',
@@ -93,13 +93,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../assets/style/variables.scss";
+@import "@/assets/style/variables.scss";
 $input-gap: 30px;
 .wrap {
   display: flex;
   width: 100%;
   height: 100vh;
-  background-image: url("../assets/images/login.jpg");
+  background-image: url("/assets/images/login.jpg");
   background-repeat: no-repeat;
   background-size: auto 180%;
   background-clip: content-box;

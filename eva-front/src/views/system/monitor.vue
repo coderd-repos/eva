@@ -150,9 +150,9 @@
 </template>
 
 <script>
-import { getSystemInfo } from '../../api/system/monitor'
-import Value from '../../components/common/Value'
-import Light from '../../components/common/Light'
+import { getSystemInfo } from '@/api/system/monitor'
+import Value from '@/components/common/Value'
+import Light from '@/components/common/Light'
 
 export default {
   name: 'SystemMonitor',
@@ -224,7 +224,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/style/variables.scss";
+@import "@/assets/style/variables.scss";
 .monitor {
   padding: 20px 20px;
 }

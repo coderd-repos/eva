@@ -11,7 +11,7 @@
 
 <script>
 import TreeSelect from './TreeSelect'
-import { fetchTree } from '../../api/system/menu'
+import { fetchTree } from '@/api/system/menu'
 export default {
   name: 'MenuSelect',
   components: { TreeSelect },

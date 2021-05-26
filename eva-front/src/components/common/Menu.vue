@@ -77,7 +77,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/style/variables.scss";
+@import "@/assets/style/variables.scss";
 .menu {
   height: 100%;
   display: flex;
@@ -116,7 +116,7 @@ export default {
 }
 </style>
 <style lang="scss">
-@import "../../assets/style/variables.scss";
+@import "@/assets/style/variables.scss";
 // 菜单样式
 .el-menu {
   border-right: 0 !important;

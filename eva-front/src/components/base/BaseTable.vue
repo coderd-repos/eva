@@ -1,6 +1,5 @@
 <script>
 import BasePage from './BasePage'
-
 export default {
   name: 'BaseTable',
   extends: BasePage,

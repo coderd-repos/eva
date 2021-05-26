@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import BaseOpera from '../../components/base/BaseOpera'
-import GlobalWindow from '../common/GlobalWindow'
+import BaseOpera from '@/components/base/BaseOpera'
+import GlobalWindow from '@/components/common/GlobalWindow'
 export default {
   name: 'OperaDictWindow',
   extends: BaseOpera,

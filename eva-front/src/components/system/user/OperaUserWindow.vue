@@ -51,11 +51,11 @@
 </template>
 
 <script>
-import BaseOpera from '../base/BaseOpera'
-import GlobalWindow from '../common/GlobalWindow'
-import DepartmentSelect from '../common/DepartmentSelect'
-import PositionSelect from '../common/PositionSelect'
-import { checkMobile, checkEmail } from '../../utils/form'
+import BaseOpera from '@/components/base/BaseOpera'
+import GlobalWindow from '@/components/common/GlobalWindow'
+import DepartmentSelect from '@/components/common/DepartmentSelect'
+import PositionSelect from '@/components/common/PositionSelect'
+import { checkMobile, checkEmail } from '@/utils/form'
 
 export default {
   name: 'OperaUserWindow',

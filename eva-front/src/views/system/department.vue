@@ -52,11 +52,11 @@
 </template>
 
 <script>
-import TableLayout from '../../layouts/TableLayout'
-import { fetchTree } from '../../api/system/department'
-import BaseTable from '../../components/base/BaseTable'
-import OperaDepartmentWindow from '../../components/department/OperaDepartmentWindow'
-import DepartmentUserWindow from '../../components/department/DepartmentUserWindow'
+import TableLayout from '@/layouts/TableLayout'
+import { fetchTree } from '@/api/system/department'
+import BaseTable from '@/components/base/BaseTable'
+import OperaDepartmentWindow from '@/components/system/department/OperaDepartmentWindow'
+import DepartmentUserWindow from '@/components/system/department/DepartmentUserWindow'
 export default {
   name: 'SystemDepartment',
   extends: BaseTable,

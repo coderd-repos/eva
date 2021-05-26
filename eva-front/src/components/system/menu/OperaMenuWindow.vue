@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import BaseOpera from '../base/BaseOpera'
-import GlobalWindow from '../common/GlobalWindow'
-import icons from '../../utils/icons'
-import MenuSelect from '../common/MenuSelect'
+import BaseOpera from '@/components/base/BaseOpera'
+import GlobalWindow from '@/components/common/GlobalWindow'
+import MenuSelect from '@/components/common/MenuSelect'
+import icons from '@/utils/icons'
 export default {
   name: 'OperaMenuWindow',
   extends: BaseOpera,
@@ -102,7 +102,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/style/variables";
+@import "@/assets/style/variables";
 $icon-background-color: $primary-color;
 .global-window {
   .tip {

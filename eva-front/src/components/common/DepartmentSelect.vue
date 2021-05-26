@@ -11,7 +11,7 @@
 
 <script>
 import TreeSelect from './TreeSelect'
-import { fetchTree } from '../../api/system/department'
+import { fetchTree } from '@/api/system/department'
 export default {
   name: 'DepartmentSelect',
   components: { TreeSelect },

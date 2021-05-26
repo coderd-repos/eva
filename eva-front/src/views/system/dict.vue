@@ -65,11 +65,11 @@
 </template>
 
 <script>
-import Pagination from '../../components/common/Pagination'
-import TableLayout from '../../layouts/TableLayout'
-import BaseTable from '../../components/base/BaseTable'
-import OperaDictWindow from '../../components/dict/OperaDictWindow'
-import DictDataManagerWindow from '../../components/dict/DictDataManagerWindow'
+import Pagination from '@/components/common/Pagination'
+import TableLayout from '@/layouts/TableLayout'
+import BaseTable from '@/components/base/BaseTable'
+import OperaDictWindow from '@/components/system/dict/OperaDictWindow'
+import DictDataManagerWindow from '@/components/system/dict/DictDataManagerWindow'
 export default {
   name: 'SystemDict',
   extends: BaseTable,

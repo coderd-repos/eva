@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import GlobalWindow from '../common/GlobalWindow'
-import { createUserRole } from '../../api/system/user'
-import { fetchAll as fetchAllRoles } from '../../api/system/role'
+import GlobalWindow from '@/components/common/GlobalWindow'
+import { createUserRole } from '@/api/system/user'
+import { fetchAll as fetchAllRoles } from '@/api/system/role'
 export default {
   name: 'RoleConfigWindow',
   components: { GlobalWindow },
@@ -91,7 +91,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/style/variables.scss";
+@import "@/assets/style/variables.scss";
 // 角色配置
 .global-window {
   .tip {

@@ -61,10 +61,10 @@
 </template>
 
 <script>
-import TableLayout from '../../layouts/TableLayout'
-import { fetchTree, updateStatus, sort } from '../../api/system/menu'
-import BaseTable from '../../components/base/BaseTable'
-import OperaMenuWindow from '../../components/menu/OperaMenuWindow'
+import TableLayout from '@/layouts/TableLayout'
+import BaseTable from '@/components/base/BaseTable'
+import OperaMenuWindow from '@/components/system/menu/OperaMenuWindow'
+import { fetchTree, updateStatus, sort } from '@/api/system/menu'
 export default {
   name: 'SystemMenu',
   extends: BaseTable,
@@ -243,7 +243,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/style/variables.scss";
+@import "@/assets/style/variables.scss";
 .menu-layout {
   /deep/ .table-content {
     margin-top: 0;

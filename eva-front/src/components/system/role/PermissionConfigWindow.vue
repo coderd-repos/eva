@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import GlobalWindow from '../common/GlobalWindow'
-import { createRolePermission } from '../../api/system/role'
-import { fetchAll } from '../../api/system/permission'
+import GlobalWindow from '@/components/common/GlobalWindow'
+import { createRolePermission } from '@/api/system/role'
+import { fetchAll } from '@/api/system/permission'
 export default {
   name: 'PermissionConfigWindow',
   components: { GlobalWindow },
@@ -99,7 +99,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/style/variables.scss";
+@import "@/assets/style/variables.scss";
 .global-window {
   .tip {
     em {

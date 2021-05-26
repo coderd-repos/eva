@@ -57,10 +57,10 @@
 </template>
 
 <script>
-import BaseTable from '../../components/base/BaseTable'
-import Pagination from '../../components/common/Pagination'
-import GlobalWindow from '../../components/common/GlobalWindow'
-import TableLayout from '../../layouts/TableLayout'
+import BaseTable from '@/components/base/BaseTable'
+import Pagination from '@/components/common/Pagination'
+import GlobalWindow from '@/components/common/GlobalWindow'
+import TableLayout from '@/layouts/TableLayout'
 import OperaDictDataWindow from './OperaDictDataWindow'
 export default {
   name: 'DictDataManagerWindow',

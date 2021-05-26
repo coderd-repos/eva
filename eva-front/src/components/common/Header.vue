@@ -43,7 +43,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import GlobalWindow from './GlobalWindow'
-import { logout, updatePwd } from '../../api/system/common'
+import { logout, updatePwd } from '@/api/system/common'
 export default {
   name: 'Header',
   components: { GlobalWindow },
@@ -154,7 +154,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/style/variables.scss";
+@import "@/assets/style/variables.scss";
 .header {
   overflow: hidden;
   padding: 0 25px;

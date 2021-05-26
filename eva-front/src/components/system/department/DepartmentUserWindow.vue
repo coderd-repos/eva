@@ -76,11 +76,11 @@
 </template>
 
 <script>
-import TableLayout from '../../layouts/TableLayout'
-import BaseTable from '../../components/base/BaseTable'
-import GlobalWindow from '../common/GlobalWindow'
-import Pagination from '../common/Pagination'
-import { fetchUserList } from '../../api/system/department'
+import TableLayout from '@/layouts/TableLayout'
+import BaseTable from '@/components/base/BaseTable'
+import GlobalWindow from '@/components/common/GlobalWindow'
+import Pagination from '@/components/common/Pagination'
+import { fetchUserList } from '@/api/system/department'
 export default {
   name: 'DepartmentUserWindow',
   extends: BaseTable,

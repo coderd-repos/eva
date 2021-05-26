@@ -50,11 +50,11 @@
 </template>
 
 <script>
-import TableLayout from '../../layouts/TableLayout'
-import BaseTable from '../../components/base/BaseTable'
-import OperaPositionWindow from '../../components/position/OperaPositionWindow'
-import { fetchTree } from '../../api/system/position'
-import PositionUserWindow from '../../components/position/PositionUserWindow'
+import TableLayout from '@/layouts/TableLayout'
+import BaseTable from '@/components/base/BaseTable'
+import OperaPositionWindow from '@/components/system/position/OperaPositionWindow'
+import PositionUserWindow from '@/components/system/position/PositionUserWindow'
+import { fetchTree } from '@/api/system/position'
 export default {
   name: 'SystemPosition',
   extends: BaseTable,

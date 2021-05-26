@@ -13,7 +13,7 @@
 
 <script>
 import TreeSelect from './TreeSelect'
-import { fetchTree } from '../../api/system/position'
+import { fetchTree } from '@/api/system/position'
 export default {
   name: 'PositionSelect',
   components: { TreeSelect },

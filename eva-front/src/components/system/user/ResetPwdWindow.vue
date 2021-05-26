@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import GlobalWindow from '../common/GlobalWindow'
-import { resetPwd } from '../../api/system/user'
+import GlobalWindow from '@/components/common/GlobalWindow'
+import { resetPwd } from '@/api/system/user'
 export default {
   name: 'ResetPwdWindow',
   components: { GlobalWindow },
@@ -76,7 +76,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/style/variables.scss";
+@import "@/assets/style/variables.scss";
 // 角色配置
 .global-window {
   .tip {

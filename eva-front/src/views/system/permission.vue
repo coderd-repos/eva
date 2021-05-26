@@ -63,10 +63,10 @@
 </template>
 
 <script>
-import Pagination from '../../components/common/Pagination'
-import TableLayout from '../../layouts/TableLayout'
-import BaseTable from '../../components/base/BaseTable'
-import OperaPermissionWindow from '../../components/permission/OperaPermissionWindow'
+import Pagination from '@/components/common/Pagination'
+import TableLayout from '@/layouts/TableLayout'
+import BaseTable from '@/components/base/BaseTable'
+import OperaPermissionWindow from '@/components/system/permission/OperaPermissionWindow'
 export default {
   name: 'SystemPermission',
   extends: BaseTable,
