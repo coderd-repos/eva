@@ -36,6 +36,9 @@ public class SystemRole {
     @ApiModelProperty(value = "角色备注")
     private String remark;
 
+    @ApiModelProperty(value = "是否为固定角色", hidden = true)
+    private Boolean fixed;
+
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 

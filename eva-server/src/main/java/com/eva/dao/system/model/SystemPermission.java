@@ -36,6 +36,9 @@ public class SystemPermission {
     @ApiModelProperty(value = "权限备注")
     private String remark;
 
+    @ApiModelProperty(value = "是否为固定权限", hidden = true)
+    private Boolean fixed;
+
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 

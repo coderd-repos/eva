@@ -51,6 +51,9 @@ public class SystemMenu {
     @ApiModelProperty(value = "排序", example = "1")
     private Integer sort;
 
+    @ApiModelProperty(value = "是否为固定菜单", hidden = true)
+    private Boolean fixed;
+
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 

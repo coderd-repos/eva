@@ -16,7 +16,7 @@
   </resultMap>
   <select id="selectManageList" resultMap="SystemMenuListVO">
     SELECT
-      menu.`ID`, menu.`PARENT_ID`, menu.`NAME`, menu.`PATH`, menu.`REMARK`, menu.`DISABLED`, menu.SORT, menu.`ICON`, menu.`CREATE_TIME`, menu.`UPDATE_TIME`, menu.`CREATE_USER`, menu.`UPDATE_USER`, menu.`DELETED`,
+      menu.`ID`, menu.`PARENT_ID`, menu.`NAME`, menu.`PATH`, menu.`FIXED`, menu.`REMARK`, menu.`DISABLED`, menu.SORT, menu.`ICON`, menu.`CREATE_TIME`, menu.`UPDATE_TIME`, menu.`CREATE_USER`, menu.`UPDATE_USER`, menu.`DELETED`,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
       update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME
     FROM SYSTEM_MENU menu

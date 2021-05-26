@@ -21,7 +21,7 @@
   <select id="selectManageList" parameterType="com.eva.dao.system.dto.QuerySystemUserDTO" resultMap="SystemUserListVO">
     SELECT
       DISTINCT
-      usr.ID, usr.BIRTHDAY, usr.EMAIL, usr.EMP_NO, usr.MOBILE, usr.AVATAR, usr.USERNAME, usr.REALNAME, usr.SEX, usr.DELETABLE, usr.CREATE_TIME, usr.UPDATE_TIME,
+      usr.ID, usr.BIRTHDAY, usr.EMAIL, usr.EMP_NO, usr.MOBILE, usr.AVATAR, usr.USERNAME, usr.REALNAME, usr.SEX, usr.FIXED, usr.CREATE_TIME, usr.UPDATE_TIME,
       sd.ID AS DEPARTMENT_ID, sd.`NAME` AS DEPARTMENT_NAME,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
       update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME

@@ -16,7 +16,7 @@
   </resultMap>
   <select id="selectManageList" parameterType="com.eva.dao.system.dto.QuerySystemUserDTO" resultMap="SystemRoleListVO">
     SELECT
-      role.ID, role.`CODE`, role.`NAME`, role.`REMARK`, role.`CREATE_TIME`, role.`UPDATE_TIME`,
+      role.ID, role.`CODE`, role.`NAME`, role.`REMARK`, role.`FIXED`, role.`CREATE_TIME`, role.`UPDATE_TIME`,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
       update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME
     FROM SYSTEM_ROLE role
