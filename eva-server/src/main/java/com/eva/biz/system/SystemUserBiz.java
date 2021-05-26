@@ -15,14 +15,14 @@ import java.util.List;
 public interface SystemUserBiz {
 
     /**
-     * 删除用户
+     * 删除
      * @author Caesar Liu
      * @date 2021-05-26 16:34
      */
     void deleteById(Integer id);
 
     /**
-     * 批量删除用户
+     * 批量删除
      * @author Caesar Liu
      * @date 2021-05-26 16:37
      */

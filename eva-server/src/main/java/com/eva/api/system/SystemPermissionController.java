@@ -56,7 +56,7 @@ public class SystemPermissionController extends BaseController {
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:permission:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
-        systemPermissionService.deleteById(id);
+        systemPermissionBiz.deleteById(id);
         return ApiResponse.success(null);
     }
 
@@ -67,13 +67,13 @@ public class SystemPermissionController extends BaseController {
     @ApiOperation("批量删除")
     @GetMapping("/delete/batch")
     @RequiresPermissions("system:permission:delete")
-    public ApiResponse deleteById(@RequestParam String ids) {
+    public ApiResponse deleteByIdInBatch(@RequestParam String ids) {
         String [] idArray = ids.split(",");
         List<Integer> idList = new ArrayList<>();
         for (String id : idArray) {
             idList.add(Integer.valueOf(id));
         }
-        systemPermissionService.deleteByIdInBatch(idList);
+        systemPermissionBiz.deleteByIdInBatch(idList);
         return ApiResponse.success(null);
     }
 

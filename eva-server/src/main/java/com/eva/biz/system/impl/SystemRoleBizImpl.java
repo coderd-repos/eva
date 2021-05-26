@@ -1,23 +1,58 @@
 package com.eva.biz.system.impl;
 
 import com.eva.biz.system.SystemRoleBiz;
+import com.eva.core.model.BusinessException;
+import com.eva.core.model.ResponseStatus;
 import com.eva.dao.system.dto.CreateRoleMenuDTO;
 import com.eva.dao.system.dto.CreateRolePermissionDTO;
+import com.eva.dao.system.model.SystemRole;
 import com.eva.dao.system.model.SystemRoleMenu;
 import com.eva.dao.system.model.SystemRolePermission;
+import com.eva.dao.system.model.SystemUser;
 import com.eva.service.system.SystemRoleMenuService;
 import com.eva.service.system.SystemRolePermissionService;
+import com.eva.service.system.SystemRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 @Service
 public class SystemRoleBizImpl implements SystemRoleBiz {
+
+    @Autowired
+    private SystemRoleService systemRoleService;
 
     @Autowired
     private SystemRolePermissionService systemRolePermissionService;
 
     @Autowired
     private SystemRoleMenuService systemRoleMenuService;
+
+    @Override
+    public void deleteById(Integer id) {
+        SystemRole role = systemRoleService.findById(id);
+        if (role == null) {
+            return;
+        }
+        if (role.getFixed()) {
+            throw new BusinessException(ResponseStatus.NOT_ALLOWED.getCode(), "请勿删除" + role.getName() + "，因为这是固定角色");
+        }
+        systemRoleService.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByIdInBatch(List<Integer> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return;
+        }
+        for (Integer id : ids) {
+            this.deleteById(id);
+        }
+    }
 
     @Override
     public void createRolePermission(CreateRolePermissionDTO dto) {

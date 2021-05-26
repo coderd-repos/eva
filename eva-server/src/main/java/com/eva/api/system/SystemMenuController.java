@@ -95,7 +95,7 @@ public class SystemMenuController extends BaseController {
     @ApiOperation("批量删除")
     @GetMapping("/delete/batch")
     @RequiresPermissions("system:menu:delete")
-    public ApiResponse deleteById(@RequestParam String ids) {
+    public ApiResponse deleteByIdInBatch(@RequestParam String ids) {
         String [] idArray = ids.split(",");
         List<Integer> idList = new ArrayList<>();
         for (String id : idArray) {

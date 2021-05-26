@@ -84,7 +84,7 @@ public class SystemRoleController extends BaseController {
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:role:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
-        systemRoleService.deleteById(id);
+        systemRoleBiz.deleteById(id);
         return ApiResponse.success(null);
     }
 
@@ -95,13 +95,13 @@ public class SystemRoleController extends BaseController {
     @ApiOperation("批量删除")
     @GetMapping("/delete/batch")
     @RequiresPermissions("system:role:delete")
-    public ApiResponse deleteById(@RequestParam String ids) {
+    public ApiResponse deleteByIdInBatch(@RequestParam String ids) {
         String [] idArray = ids.split(",");
         List<Integer> idList = new ArrayList<>();
         for (String id : idArray) {
             idList.add(Integer.valueOf(id));
         }
-        systemRoleService.deleteByIdInBatch(idList);
+        systemRoleBiz.deleteByIdInBatch(idList);
         return ApiResponse.success(null);
     }
 

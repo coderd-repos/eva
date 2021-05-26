@@ -49,7 +49,7 @@ public class SystemUserBizImpl implements SystemUserBiz {
             return;
         }
         if (user.getFixed()) {
-            throw new BusinessException(ResponseStatus.NOT_ALLOWED.getCode(), "请勿删除固定用户" + user.getUsername());
+            throw new BusinessException(ResponseStatus.NOT_ALLOWED.getCode(), "请勿删除" + user.getUsername() + "，因为这是固定用户");
         }
         systemUserService.deleteById(id);
     }

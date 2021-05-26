@@ -1,8 +1,11 @@
 package com.eva.biz.system.impl;
 
 import com.eva.biz.system.SystemMenuBiz;
+import com.eva.core.model.BusinessException;
+import com.eva.core.model.ResponseStatus;
 import com.eva.dao.system.dto.UpdateSystemMenuSortDTO;
 import com.eva.dao.system.model.SystemMenu;
+import com.eva.dao.system.model.SystemPermission;
 import com.eva.dao.system.vo.SystemMenuListVO;
 import com.eva.dao.system.vo.SystemMenuNodeVO;
 import com.eva.service.system.SystemMenuService;
@@ -138,6 +141,15 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
     public void deleteById(Integer id) {
         List<Integer> ids = systemMenuService.findChildren(id);
         ids.add(id);
+        for (Integer id2 : ids) {
+            SystemMenu menu = systemMenuService.findById(id2);
+            if (menu == null) {
+                continue;
+            }
+            if (menu.getFixed()) {
+                throw new BusinessException(ResponseStatus.NOT_ALLOWED.getCode(), "请勿删除" + menu.getName() + ", 因为这是固定菜单");
+            }
+        }
         systemMenuService.deleteByIdInBatch(ids);
     }
 
