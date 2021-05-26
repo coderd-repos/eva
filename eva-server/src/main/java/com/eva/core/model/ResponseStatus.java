@@ -3,6 +3,11 @@ package com.eva.core.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * 响应状态定义
+ * @author Eva
+ * @date 2021-05-27 01:33
+ */
 @Getter
 @AllArgsConstructor
 public enum ResponseStatus {
