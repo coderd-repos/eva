@@ -14,14 +14,14 @@ public interface SystemRoleBiz {
 
     /**
      * 删除
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-26 16:34
      */
     void deleteById(Integer id);
 
     /**
      * 批量删除
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-26 16:37
      */
     void deleteByIdInBatch(List<Integer> ids);

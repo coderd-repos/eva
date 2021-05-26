@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 public @interface DuplicateSubmit {
 
     /**
-     * 标记防重复提交的验证类
+     * 防重复规则设定类
      * @author Eva
      * @date 2021-05-25 11:10
      */
