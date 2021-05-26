@@ -45,7 +45,7 @@
           fixed="right"
         >
           <template slot-scope="{row}">
-            <el-button type="text" @click="$refs.operaPermissionWindow.open('编辑系统权限', row)" icon="el-icon-edit" v-permissions="['system:permission:update']">编辑</el-button>
+            <el-button v-if="!row.fixed" type="text" @click="$refs.operaPermissionWindow.open('编辑系统权限', row)" icon="el-icon-edit" v-permissions="['system:permission:update']">编辑</el-button>
             <el-button v-if="!row.fixed" type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:permission:delete']">删除</el-button>
           </template>
         </el-table-column>
