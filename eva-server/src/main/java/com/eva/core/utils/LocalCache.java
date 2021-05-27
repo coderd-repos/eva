@@ -5,8 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -17,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2019/3/23 17:57
  */
 @Slf4j
-public final class LocalCache {
+public final class LocalCache<K,V> {
 
     // 警告大小
     private final int WARN_SIZE = 1073741824;
@@ -29,7 +31,7 @@ public final class LocalCache {
     private static LocalCache instance;
 
     // 数据存储对象
-    private ConcurrentHashMap<String, Value> cache = new ConcurrentHashMap();
+    private ConcurrentHashMap<String, Serializable> cache = new ConcurrentHashMap();
 
     private LocalCache(){}
 
@@ -50,7 +52,7 @@ public final class LocalCache {
      * @author Eva
      * @date 2019/3/23 18:26
      */
-    public void set(String key, Object value) {
+    public void set(String key, Serializable value) {
         set(key, value, 30 * 60 * 1000);
     }
 
@@ -62,12 +64,12 @@ public final class LocalCache {
      * @author Eva
      * @date 2019/3/23 18:26
      */
-    public void set(String key, Object value, long timeout) {
+    public void set(String key, Serializable value, long timeout) {
         if(key == null) throw new NullPointerException("key can not be null");
         // 清理旧数据
         long now = System.currentTimeMillis();
-        for(Map.Entry<String, Value> entry: cache.entrySet()){
-            Value v = entry.getValue();
+        for(Map.Entry<String, Serializable> entry: cache.entrySet()){
+            Value v = (Value) entry.getValue();
             if(v.getValue() == null) // 值为空时清除掉
                 cache.remove(entry.getKey());
             if(now - v.getBirthtime() > v.getTimeout()) // 超时时清除掉
@@ -95,9 +97,9 @@ public final class LocalCache {
      * @author Eva
      * @date 2019/3/23 18:26
      */
-    public <T> T get(String key) {
+    public <T extends Serializable> T get(String key) {
         if(key == null) return null;
-        Value value = cache.get(key);
+        Value value = (Value)cache.get(key);
         if(value == null)
             return null;
         if(value.getValue() == null)
@@ -116,9 +118,47 @@ public final class LocalCache {
      * @author Eva
      * @date 2019/3/23 18:39
      */
-    public void remove(String key) {
-        if(key == null) return;
+    public Serializable remove(String key) {
+        if(key == null) return null;
+        Serializable value = cache.get(key);
         cache.remove(key);
+        return value;
+    }
+
+    /**
+     * 清空缓存
+     * @author Caesar Liu
+     * @date 2021-05-28 01:10
+     */
+    public void clear () {
+        cache.clear();
+    }
+
+    /**
+     * 获取缓存数
+     * @author Caesar Liu
+     * @date 2021-05-28 01:11
+     */
+    public int size () {
+        return cache.size();
+    }
+
+    /**
+     * 获取缓存所有的key
+     * @author Caesar Liu
+     * @date 2021-05-28 01:12
+     */
+    public Set<String> keys () {
+        return cache.keySet();
+    }
+
+    /**
+     * 获取缓存值
+     * @author Caesar Liu
+     * @date 2021-05-28 01:15
+     */
+    public Collection<Serializable> values () {
+        return cache.values();
     }
 
     /**
@@ -128,7 +168,7 @@ public final class LocalCache {
      */
     public void relive(String key) {
         if (key == null) return;
-        Value v = cache.get(key);
+        Value v = (Value)cache.get(key);
         if (v == null) {
             return;
         }
@@ -139,7 +179,7 @@ public final class LocalCache {
     private static class Value implements Serializable {
 
         // 缓存具体值
-        private Object value;
+        private Serializable value;
 
         // 存储时间
         private long birthtime;

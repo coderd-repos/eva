@@ -1,9 +1,11 @@
 package com.eva.config.shiro;
 
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -26,8 +28,14 @@ public class ShiroConfig {
     @Autowired
     private ShiroCredentialsMatcher shiroCredentialsMatcher;
 
+    @Autowired
+    private ShiroSessionDAO shiroSessionDAO;
+
+    @Autowired
+    private ShiroCacheManager shiroCacheManager;
+
     @Bean
-    public ShiroRealm getShiroRealm () {
+    public ShiroRealm shiroRealm () {
         ShiroRealm shiroRealm = new ShiroRealm();
         shiroRealm.setCredentialsMatcher(shiroCredentialsMatcher);
         return shiroRealm;
@@ -42,9 +50,18 @@ public class ShiroConfig {
     }
 
     @Bean
+    public SessionManager sessionManager() {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        sessionManager.setSessionDAO(shiroSessionDAO);
+        return sessionManager;
+    }
+
+    @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(this.getShiroRealm());
+        securityManager.setRealm(this.shiroRealm());
+        securityManager.setSessionManager(this.sessionManager());
+        securityManager.setCacheManager(shiroCacheManager);
         return securityManager;
     }
 

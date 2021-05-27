@@ -43,6 +43,11 @@
       <artifactId>shiro-spring</artifactId>
       <version>${apache.shiro.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.crazycake</groupId>
+      <artifactId>shiro-redis-spring-boot-starter</artifactId>
+      <version>3.2.1</version>
+    </dependency>
     <!-- MyBatis plus -->
     <dependency>
       <groupId>com.baomidou</groupId>

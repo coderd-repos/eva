@@ -7,6 +7,7 @@ import com.eva.core.model.LoginUserInfo;
 import com.eva.dao.system.dto.LoginDTO;
 import com.eva.dao.system.dto.UpdatePwdDto;
 import com.eva.service.common.CaptchaService;
+import com.eva.service.system.SystemLoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -29,14 +30,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/system")
 public class SystemController extends BaseController {
 
-    @Value("${session.timeout}")
-    private Long sessionTimeout;
-
     @Autowired
     private SystemUserBiz systemUserBiz;
 
     @Autowired
-    private CaptchaService captchaService;
+    private SystemLoginService systemLoginService;
 
     /**
      * @author Eva
@@ -44,20 +42,8 @@ public class SystemController extends BaseController {
      */
     @ApiOperation("登录")
     @PostMapping("/login")
-    public ApiResponse<LoginUserInfo> login (@Validated @RequestBody LoginDTO dto) {
-        // 校验验证码
-        captchaService.check(dto.getUuid(), dto.getCode());
-        // 校验用户名和密码
-        Subject subject = SecurityUtils.getSubject();
-        subject.getSession().setTimeout(sessionTimeout);
-        UsernamePasswordToken token = new UsernamePasswordToken(dto.getUsername(), dto.getPassword());
-        try {
-            subject.login(token);
-            return ApiResponse.success(this.getLoginUser());
-        } catch (AuthenticationException e) {
-            log.error("登录失败", e);
-            return ApiResponse.failed("用户名或密码错误");
-        }
+    public ApiResponse<String> login (@Validated @RequestBody LoginDTO dto) {
+        return ApiResponse.success(systemLoginService.login(dto));
     }
 
     /**

@@ -9,11 +9,6 @@ project:
 server:
   port: 8082
 
-# session设置
-session:
-  # 过期时间(单位: ms)
-  timeout: 1800000
-
 spring:
   # 数据源配置
   datasource:
