@@ -47,6 +47,7 @@ public class SystemPositionUserServiceImpl implements SystemPositionUserService 
     }
 
     @Override
+    @Transactional
     public void deleteByIdInBatch(List<Integer> ids) {
         if (CollectionUtils.isEmpty(ids)) return;
         for (Integer id: ids) {
