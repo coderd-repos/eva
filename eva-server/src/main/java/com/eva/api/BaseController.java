@@ -1,7 +1,7 @@
 package com.eva.api;
 
 import com.eva.core.model.ApiResponse;
-import com.eva.core.model.BusinessException;
+import com.eva.core.exception.BusinessException;
 import com.eva.core.model.LoginUserInfo;
 import com.alibaba.fastjson.JSON;
 import com.eva.core.model.ResponseStatus;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;

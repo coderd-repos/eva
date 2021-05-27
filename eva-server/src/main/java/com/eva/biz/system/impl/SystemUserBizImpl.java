@@ -1,7 +1,7 @@
 package com.eva.biz.system.impl;
 
 import com.eva.biz.system.SystemUserBiz;
-import com.eva.core.model.BusinessException;
+import com.eva.core.exception.BusinessException;
 import com.eva.core.model.ResponseStatus;
 import com.eva.core.utils.SecureUtil;
 import com.eva.dao.system.dto.CreateSystemUserDTO;
@@ -21,7 +21,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Date;

@@ -1,14 +1,13 @@
 package com.eva.biz.system.impl;
 
 import com.eva.biz.system.SystemRoleBiz;
-import com.eva.core.model.BusinessException;
+import com.eva.core.exception.BusinessException;
 import com.eva.core.model.ResponseStatus;
 import com.eva.dao.system.dto.CreateRoleMenuDTO;
 import com.eva.dao.system.dto.CreateRolePermissionDTO;
 import com.eva.dao.system.model.SystemRole;
 import com.eva.dao.system.model.SystemRoleMenu;
 import com.eva.dao.system.model.SystemRolePermission;
-import com.eva.dao.system.model.SystemUser;
 import com.eva.service.system.SystemRoleMenuService;
 import com.eva.service.system.SystemRolePermissionService;
 import com.eva.service.system.SystemRoleService;

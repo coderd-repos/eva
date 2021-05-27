@@ -1,7 +1,7 @@
 package com.eva.biz.system.impl;
 
 import com.eva.biz.system.SystemDepartmentBiz;
-import com.eva.core.model.BusinessException;
+import com.eva.core.exception.BusinessException;
 import com.eva.core.model.ResponseStatus;
 import com.eva.dao.system.model.SystemDepartment;
 import com.eva.dao.system.vo.SystemDepartmentListVO;

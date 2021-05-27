@@ -1,7 +1,7 @@
 package com.eva.service.common;
 
 import com.eva.core.constants.Constants;
-import com.eva.core.model.BusinessException;
+import com.eva.core.exception.BusinessException;
 import com.eva.core.model.ResponseStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
