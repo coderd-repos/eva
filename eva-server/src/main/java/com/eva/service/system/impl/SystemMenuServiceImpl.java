@@ -1,7 +1,6 @@
 package com.eva.service.system.impl;
 
 import com.eva.dao.system.SystemMenuMapper;
-import com.eva.dao.system.model.SystemDepartment;
 import com.eva.dao.system.model.SystemMenu;
 import com.eva.dao.system.vo.SystemMenuListVO;
 import com.eva.service.system.SystemMenuService;
