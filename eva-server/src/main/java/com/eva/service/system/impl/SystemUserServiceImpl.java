@@ -70,6 +70,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     }
 
     @Override
+    @Transactional
     public void updateByIdInBatch(List<SystemUser> systemUsers) {
         if (CollectionUtils.isEmpty(systemUsers)) return;
         for (SystemUser systemUser: systemUsers) {

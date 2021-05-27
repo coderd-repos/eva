@@ -66,6 +66,7 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     }
 
     @Override
+    @Transactional
     public void updateByIdInBatch(List<SystemRole> systemRoles) {
         if (CollectionUtils.isEmpty(systemRoles)) return;
         for (SystemRole systemRole: systemRoles) {

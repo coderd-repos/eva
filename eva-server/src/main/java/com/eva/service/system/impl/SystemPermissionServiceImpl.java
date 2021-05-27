@@ -58,6 +58,7 @@ public class SystemPermissionServiceImpl implements SystemPermissionService {
     }
 
     @Override
+    @Transactional
     public void updateByIdInBatch(List<SystemPermission> systemPermissions) {
         if (CollectionUtils.isEmpty(systemPermissions)) return;
         for (SystemPermission systemPermission: systemPermissions) {

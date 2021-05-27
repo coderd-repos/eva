@@ -53,6 +53,7 @@ public class SystemPositionServiceImpl implements SystemPositionService {
     }
 
     @Override
+    @Transactional
     public void updateByIdInBatch(List<SystemPosition> systemPositions) {
         if (CollectionUtils.isEmpty(systemPositions)) return;
         for (SystemPosition systemPosition: systemPositions) {

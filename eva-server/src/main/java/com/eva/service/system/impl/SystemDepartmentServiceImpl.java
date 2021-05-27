@@ -56,6 +56,7 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
     }
 
     @Override
+    @Transactional
     public void updateByIdInBatch(List<SystemDepartment> systemDepartments) {
         if (CollectionUtils.isEmpty(systemDepartments)) return;
         for (SystemDepartment systemDepartment: systemDepartments) {

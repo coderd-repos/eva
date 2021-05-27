@@ -66,6 +66,7 @@ public class SystemRolePermissionServiceImpl implements SystemRolePermissionServ
     }
 
     @Override
+    @Transactional
     public void updateByIdInBatch(List<SystemRolePermission> systemRolePermissions) {
         if (CollectionUtils.isEmpty(systemRolePermissions)) return;
         for (SystemRolePermission systemRolePermission: systemRolePermissions) {

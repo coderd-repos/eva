@@ -8,6 +8,7 @@ import com.eva.dao.system.model.SystemPositionUser;
 import com.eva.service.system.SystemPositionUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -59,6 +60,7 @@ public class SystemPositionUserServiceImpl implements SystemPositionUserService 
     }
 
     @Override
+    @Transactional
     public void updateByIdInBatch(List<SystemPositionUser> systemPositionUsers) {
         if (CollectionUtils.isEmpty(systemPositionUsers)) return;
         for (SystemPositionUser systemPositionUser: systemPositionUsers) {

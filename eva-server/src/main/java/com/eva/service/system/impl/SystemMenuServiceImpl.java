@@ -57,6 +57,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     }
 
     @Override
+    @Transactional
     public void updateByIdInBatch(List<SystemMenu> systemMenus) {
         if (CollectionUtils.isEmpty(systemMenus)) return;
         for (SystemMenu systemMenu: systemMenus) {

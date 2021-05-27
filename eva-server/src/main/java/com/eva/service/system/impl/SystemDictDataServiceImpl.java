@@ -58,6 +58,7 @@ public class SystemDictDataServiceImpl implements SystemDictDataService {
     }
 
     @Override
+    @Transactional
     public void updateByIdInBatch(List<SystemDictData> systemDictDatas) {
         if (CollectionUtils.isEmpty(systemDictDatas)) return;
         for (SystemDictData systemDictData: systemDictDatas) {

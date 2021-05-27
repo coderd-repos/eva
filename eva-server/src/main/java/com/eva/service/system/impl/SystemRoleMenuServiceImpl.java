@@ -66,6 +66,7 @@ public class SystemRoleMenuServiceImpl implements SystemRoleMenuService {
     }
 
     @Override
+    @Transactional
     public void updateByIdInBatch(List<SystemRoleMenu> systemRoleMenus) {
         if (CollectionUtils.isEmpty(systemRoleMenus)) return;
         for (SystemRoleMenu systemRoleMenu: systemRoleMenus) {
