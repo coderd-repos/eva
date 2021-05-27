@@ -16,6 +16,12 @@ import java.util.List;
 @ApiModel("分页请求参数")
 public class PageWrap<M> {
 
+    // 降序
+    public static final String DESC = "DESC";
+
+    // 升序
+    public static final String ASC = "ASC";
+
     @ApiModelProperty("条件参数")
     private M model;
 
