@@ -26,4 +26,8 @@ public class LoginDTO implements Serializable {
     @NotBlank(message = "验证码不能为空")
     @ApiModelProperty(value = "验证码")
     private String code;
+
+    @NotBlank(message = "验证码UUID不能为空")
+    @ApiModelProperty(value = "验证码UUID")
+    private String uuid;
 }

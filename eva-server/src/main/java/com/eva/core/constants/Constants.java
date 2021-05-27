@@ -7,6 +7,4 @@ package com.eva.core.constants;
  */
 public final class Constants {
 
-    // 验证码Key
-    public static final String VERIFICATION_CODE_KEY = "VERIFICATION_CODE";
 }

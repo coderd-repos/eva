@@ -1,16 +1,23 @@
 package com.eva.service.common;
 
-import com.eva.core.constants.Constants;
 import com.eva.core.exception.BusinessException;
 import com.eva.core.model.ResponseStatus;
-import lombok.AllArgsConstructor;
+import com.eva.service.proxy.CacheProxy;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * 图片验证码
@@ -32,6 +39,9 @@ public class CaptchaService {
 
     // 验证码图片高度
     private static final Integer HEIGHT = 30;
+
+    @Autowired
+    private CacheProxy cacheProxy;
 
     /**
      * 生成验证码图片
@@ -82,7 +92,10 @@ public class CaptchaService {
             // 将产生的四个随机数组合在一起。
             randomCode.append(code);
         }
-        return new Captcha(randomCode.toString(), buffImg);
+        // 存入缓存
+        Captcha captcha = new Captcha(randomCode.toString(), buffImg);
+        cacheProxy.set(captcha.getUuid(), captcha.getText());
+        return captcha;
     }
 
     /**
@@ -90,25 +103,45 @@ public class CaptchaService {
      * @author Eva
      * @date 2021-05-20 22:09
      */
-    public void check(String code, HttpServletRequest request) {
-        Object sessionCode = request.getSession().getAttribute(Constants.VERIFICATION_CODE_KEY);
-        request.getSession().removeAttribute(Constants.VERIFICATION_CODE_KEY);
-        if (sessionCode == null || !code.equalsIgnoreCase(sessionCode.toString())) {
-            throw new BusinessException(ResponseStatus.VERIFICATION_CODE_INCORRECT.getCode(), ResponseStatus.VERIFICATION_CODE_INCORRECT.getMessage());
+    public void check(String uuid, String code) {
+        String cacheCode = cacheProxy.get(uuid);
+        if (cacheCode == null) {
+            throw new BusinessException(ResponseStatus.VERIFICATION_CODE_INCORRECT);
+        }
+        cacheProxy.remove(cacheCode);
+        if (!code.equalsIgnoreCase(cacheCode)) {
+            throw new BusinessException(ResponseStatus.VERIFICATION_CODE_INCORRECT);
         }
     }
 
     /**
-     * 验证码对象
      * @author Eva
      * @date 2021-05-20 18:01
      */
     @Data
-    @AllArgsConstructor
+    @ApiModel("验证码对象")
     public static class Captcha {
 
+        @ApiModelProperty(value = "验证码UUID")
+        private String uuid;
+
+        @JsonIgnore
+        @ApiModelProperty(value = "验证码", hidden = true)
         private String text;
 
-        private BufferedImage image;
+        @ApiModelProperty(value = "验证码Base64")
+        private String image;
+
+        Captcha (String text, BufferedImage image) {
+            this.uuid = UUID.randomUUID().toString();
+            this.text = text;
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            try {
+                ImageIO.write(image, "png", stream);
+            } catch (IOException e) {
+                throw new RuntimeException("生成验证码失败");
+            }
+            this.image = "data:image/png;base64," + Base64.getEncoder().encodeToString(stream.toByteArray());
+        }
     }
 }
