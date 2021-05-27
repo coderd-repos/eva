@@ -102,29 +102,26 @@ export default {
     // 删除
     deleteById (id) {
       this.__checkApi()
-      this.$dialog.confirm(`确认删除此${this.module}吗?`, '提示', {
-        confirmButtonText: '确认删除',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.isWorking.delete = true
-        this.api.deleteById(id)
-          .then(() => {
-            this.$tip.apiSuccess('删除成功')
-            // 删除当前页最后一条记录时查询上一页数据
-            if (this.tableData.list.length - 1 === 0) {
-              this.handlePageChange(this.tableData.pagination.pageIndex - 1 === 0 ? 1 : this.tableData.pagination.pageIndex - 1)
-            } else {
-              this.handlePageChange(this.tableData.pagination.pageIndex)
-            }
-          })
-          .catch(e => {
-            this.$tip.apiFailed(e)
-          })
-          .finally(() => {
-            this.isWorking.delete = false
-          })
-      })
+      this.$dialog.deleteConfirm(`确认删除此${this.module}吗?`)
+        .then(() => {
+          this.isWorking.delete = true
+          this.api.deleteById(id)
+            .then(() => {
+              this.$tip.apiSuccess('删除成功')
+              // 删除当前页最后一条记录时查询上一页数据
+              if (this.tableData.list.length - 1 === 0) {
+                this.handlePageChange(this.tableData.pagination.pageIndex - 1 === 0 ? 1 : this.tableData.pagination.pageIndex - 1)
+              } else {
+                this.handlePageChange(this.tableData.pagination.pageIndex)
+              }
+            })
+            .catch(e => {
+              this.$tip.apiFailed(e)
+            })
+            .finally(() => {
+              this.isWorking.delete = false
+            })
+        })
     },
     // 批量删除
     deleteByIdInBatch () {
@@ -133,29 +130,26 @@ export default {
         this.$tip.warning('请至少选择一条数据')
         return
       }
-      this.$dialog.confirm(`确认删除已选中的 ${this.tableData.selectedRows.length} 条数据吗?`, '提示', {
-        confirmButtonText: '确认删除',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.isWorking.delete = true
-        this.api.deleteByIdInBatch(this.tableData.selectedRows.map(row => row.id).join(','))
-          .then(() => {
-            this.$tip.apiSuccess('删除成功')
-            // 删除当前页最后一条记录时查询上一页数据
-            if (this.tableData.list.length - 1 === 0) {
-              this.handlePageChange(this.tableData.pagination.pageIndex - 1 === 0 ? 1 : this.tableData.pagination.pageIndex - 1)
-            } else {
-              this.handlePageChange(this.tableData.pagination.pageIndex)
-            }
-          })
-          .catch(e => {
-            this.$tip.apiFailed(e)
-          })
-          .finally(() => {
-            this.isWorking.delete = false
-          })
-      })
+      this.$dialog.deleteConfirm(`确认删除已选中的 ${this.tableData.selectedRows.length} 条数据吗?`)
+        .then(() => {
+          this.isWorking.delete = true
+          this.api.deleteByIdInBatch(this.tableData.selectedRows.map(row => row.id).join(','))
+            .then(() => {
+              this.$tip.apiSuccess('删除成功')
+              // 删除当前页最后一条记录时查询上一页数据
+              if (this.tableData.list.length - 1 === 0) {
+                this.handlePageChange(this.tableData.pagination.pageIndex - 1 === 0 ? 1 : this.tableData.pagination.pageIndex - 1)
+              } else {
+                this.handlePageChange(this.tableData.pagination.pageIndex)
+              }
+            })
+            .catch(e => {
+              this.$tip.apiFailed(e)
+            })
+            .finally(() => {
+              this.isWorking.delete = false
+            })
+        })
     },
     // 检查接口是否配置
     __checkApi () {

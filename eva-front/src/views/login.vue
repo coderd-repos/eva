@@ -22,8 +22,6 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import { loginByPassword } from '@/api/system/common'
-
 export default {
   name: 'Login',
   data () {
@@ -39,31 +37,9 @@ export default {
     ...mapMutations(['setUserInfo']),
     // 登录
     login () {
-      if (this.loading) {
-        return
-      }
-      if (!this.__check()) {
-        return
-      }
-      this.loading = true
-      loginByPassword({
-        username: this.username.trim(),
-        password: this.password,
-        code: this.captcha.trim()
+      this.$dialog.alert('你好', 'aaa', {
+        type: 'error'
       })
-        .then(data => {
-          this.setUserInfo(data)
-          this.$nextTick(() => {
-            this.$router.push('/workbench')
-          })
-        })
-        .catch(e => {
-          this.refreshCaptcha()
-          this.$tip.apiFailed(e)
-        })
-        .finally(() => {
-          this.loading = false
-        })
     },
     // 刷新验证码
     refreshCaptcha () {

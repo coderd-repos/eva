@@ -151,15 +151,12 @@ export default {
         this.__updateMenuStatus(row)
         return
       }
-      this.$dialog.confirm(`确认禁用 ${row.name} 菜单吗？`, '提示', {
-        confirmButtonText: '确认禁用',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.__updateMenuStatus(row)
-      }).catch(() => {
-        row.disabled = !row.disabled
-      })
+      this.$dialog.disableConfirm(`确认禁用 ${row.name} 菜单吗？`)
+        .then(() => {
+          this.__updateMenuStatus(row)
+        }).catch(() => {
+          row.disabled = !row.disabled
+        })
     },
     // 批量删除
     deleteByIdInBatch () {
@@ -174,29 +171,26 @@ export default {
         }
       }
       const message = containChildrenRows.length > 0 ? `本次将删除 【${containChildrenRows.join('、')}】 及其子菜单数据，确认删除吗？` : `确认删除已选中的 ${this.tableData.selectedRows.length} 条数据吗?`
-      this.$dialog.confirm(message, '提示', {
-        confirmButtonText: '确认删除',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.isWorking.delete = true
-        this.api.deleteByIdInBatch(this.tableData.selectedRows.map(row => row.id).join(','))
-          .then(() => {
-            this.$tip.apiSuccess('删除成功')
-            // 删除当前页最后一条记录时查询上一页数据
-            if (this.tableData.list.length - 1 === 0) {
-              this.handlePageChange(this.tableData.pagination.pageIndex - 1 === 0 ? 1 : this.tableData.pagination.pageIndex - 1)
-            } else {
-              this.handlePageChange(this.tableData.pagination.pageIndex)
-            }
-          })
-          .catch(e => {
-            this.$tip.apiFailed(e)
-          })
-          .finally(() => {
-            this.isWorking.delete = false
-          })
-      })
+      this.$dialog.deleteConfirm(message)
+        .then(() => {
+          this.isWorking.delete = true
+          this.api.deleteByIdInBatch(this.tableData.selectedRows.map(row => row.id).join(','))
+            .then(() => {
+              this.$tip.apiSuccess('删除成功')
+              // 删除当前页最后一条记录时查询上一页数据
+              if (this.tableData.list.length - 1 === 0) {
+                this.handlePageChange(this.tableData.pagination.pageIndex - 1 === 0 ? 1 : this.tableData.pagination.pageIndex - 1)
+              } else {
+                this.handlePageChange(this.tableData.pagination.pageIndex)
+              }
+            })
+            .catch(e => {
+              this.$tip.apiFailed(e)
+            })
+            .finally(() => {
+              this.isWorking.delete = false
+            })
+        })
     },
     // 查询父节点
     __findParent (id, parent) {
