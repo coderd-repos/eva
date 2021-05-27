@@ -67,7 +67,7 @@ export default {
           this.visible = true
         })
         .catch(e => {
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
     },
     // 确认选择权限
@@ -78,12 +78,12 @@ export default {
         permissionIds: this.selectedIds
       })
         .then(() => {
-          this.$tip.success('权限配置成功，用户重新登录后生效')
+          this.$tip.apiSuccess('权限配置成功，用户重新登录后生效')
           this.visible = false
           this.$emit('success')
         })
         .catch(e => {
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
         .finally(() => {
           this.isWorking = false

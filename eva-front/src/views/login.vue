@@ -59,7 +59,7 @@ export default {
         })
         .catch(e => {
           this.refreshCaptcha()
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
         .finally(() => {
           this.loading = false

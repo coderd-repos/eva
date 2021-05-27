@@ -57,7 +57,7 @@ export default {
           this.visible = true
         })
         .catch(e => {
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
     },
     // 确认选择角色
@@ -71,12 +71,12 @@ export default {
         roleIds: this.selectedIds
       })
         .then(() => {
-          this.$tip.success('角色配置成功，用户重新登录后生效')
+          this.$tip.apiSuccess('角色配置成功，用户重新登录后生效')
           this.visible = false
           this.$emit('success')
         })
         .catch(e => {
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
         .finally(() => {
           this.isWorking = false

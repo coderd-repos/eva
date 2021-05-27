@@ -49,7 +49,7 @@ export default {
           this.__fillData(this.data, records)
         })
         .catch(e => {
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
     },
     // 填充菜单树

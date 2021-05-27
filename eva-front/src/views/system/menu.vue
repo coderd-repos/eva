@@ -86,7 +86,7 @@ export default {
           this.tableData.list = records
         })
         .catch(e => {
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
         .finally(() => {
           this.isWorking.search = false
@@ -139,7 +139,7 @@ export default {
           }
         })
         .catch(e => {
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
         .finally(() => {
           this.isWorking.sort = false
@@ -182,7 +182,7 @@ export default {
         this.isWorking.delete = true
         this.api.deleteByIdInBatch(this.tableData.selectedRows.map(row => row.id).join(','))
           .then(() => {
-            this.$tip.success('删除成功')
+            this.$tip.apiSuccess('删除成功')
             // 删除当前页最后一条记录时查询上一页数据
             if (this.tableData.list.length - 1 === 0) {
               this.handlePageChange(this.tableData.pagination.pageIndex - 1 === 0 ? 1 : this.tableData.pagination.pageIndex - 1)
@@ -191,7 +191,7 @@ export default {
             }
           })
           .catch(e => {
-            this.$tip.error(e.message)
+            this.$tip.apiFailed(e)
           })
           .finally(() => {
             this.isWorking.delete = false
@@ -224,11 +224,11 @@ export default {
         disabled: row.disabled
       })
         .then(() => {
-          this.$tip.success('修改成功')
+          this.$tip.apiSuccess('修改成功')
         })
         .catch(e => {
           row.disabled = !row.disabled
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
     }
   },

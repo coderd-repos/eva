@@ -59,7 +59,7 @@ export default {
           this.visible = true
         })
         .catch(e => {
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
     },
     // 确认选择菜单
@@ -71,12 +71,12 @@ export default {
         menuIds: selectedMenus.map(menu => menu.id)
       })
         .then(() => {
-          this.$tip.success('菜单授权成功')
+          this.$tip.apiSuccess('菜单授权成功')
           this.visible = false
           this.$emit('success')
         })
         .catch(e => {
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
         .finally(() => {
           this.isWorking = false

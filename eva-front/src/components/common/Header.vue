@@ -127,11 +127,11 @@ export default {
           newPwd: this.changePwdData.form.newPwd
         })
           .then(() => {
-            this.$tip.success('修改成功')
+            this.$tip.apiSuccess('修改成功')
             this.visible.changePwd = false
           })
           .catch(e => {
-            this.$tip.error(e.message)
+            this.$tip.apiFailed(e)
           })
           .finally(() => {
             this.isWorking.changePwd = false
@@ -146,7 +146,7 @@ export default {
           this.setUserInfo(null)
         })
         .catch(e => {
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
     }
   }

@@ -68,7 +68,7 @@ export default {
           this.tableData.list = records
         })
         .catch(e => {
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
         .finally(() => {
           this.isWorking.search = false

@@ -56,7 +56,7 @@ export default {
           }
         })
         .catch(e => {
-          this.$tip.error(e.message)
+          this.$tip.apiFailed(e)
         })
     },
     // 填充部门树
