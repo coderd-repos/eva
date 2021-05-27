@@ -46,7 +46,7 @@ public class SystemController extends BaseController {
      */
     @ApiOperation("登录")
     @PostMapping("/login")
-    public ApiResponse<LoginUserInfo> login (@Validated @RequestBody LoginDTO dto, HttpServletRequest request) {
+    public ApiResponse<LoginUserInfo> login (@Validated @RequestBody LoginDTO dto) {
         // 校验验证码
         captchaService.check(dto.getUuid(), dto.getCode());
         // 校验用户名和密码
