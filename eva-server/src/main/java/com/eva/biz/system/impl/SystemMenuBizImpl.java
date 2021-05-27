@@ -5,7 +5,6 @@ import com.eva.core.model.BusinessException;
 import com.eva.core.model.ResponseStatus;
 import com.eva.dao.system.dto.UpdateSystemMenuSortDTO;
 import com.eva.dao.system.model.SystemMenu;
-import com.eva.dao.system.model.SystemPermission;
 import com.eva.dao.system.vo.SystemMenuListVO;
 import com.eva.dao.system.vo.SystemMenuNodeVO;
 import com.eva.service.system.SystemMenuService;
