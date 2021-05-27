@@ -11,8 +11,8 @@
         <el-input v-model="username" placeholder="请输入用户名" prefix-icon="el-icon-user-solid" maxlength="50" v-trim/>
         <el-input v-model="password" placeholder="请输入密码" type="password" prefix-icon="yw-icon-password" maxlength="30" show-password/>
         <div class="captcha-input">
-          <el-input v-model="captcha" placeholder="图片验证码" prefix-icon="yw-icon-shield" maxlength="4" @keypress.enter.native="login"/>
-          <img :src="captchaUri" @click="refreshCaptcha">
+          <el-input v-model="captcha.value" placeholder="图片验证码" prefix-icon="yw-icon-shield" maxlength="4" @keypress.enter.native="login"/>
+          <img :src="captcha.uri" @click="refreshCaptcha">
         </div>
       </div>
       <el-button :loading="loading" @click="login">登&nbsp;&nbsp;录</el-button>
@@ -22,28 +22,64 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import { getCaptcha, loginByPassword } from '@/api/system/common'
+
 export default {
   name: 'Login',
   data () {
     return {
-      username: '', // 账号输入框
-      password: '', // 密码
-      captcha: '', // 验证码
-      captchaUri: '', // 验证码地址
-      loading: false // 登录加载中
+      loading: false,
+      username: '',
+      password: '',
+      // 验证码
+      captcha: {
+        value: '',
+        uuid: '',
+        uri: ''
+      }
     }
   },
   methods: {
     ...mapMutations(['setUserInfo']),
     // 登录
     login () {
-      this.$dialog.alert('你好', 'aaa', {
-        type: 'error'
+      if (this.loading) {
+        return
+      }
+      if (!this.__check()) {
+        return
+      }
+      this.loading = true
+      loginByPassword({
+        username: this.username.trim(),
+        password: this.password,
+        code: this.captcha.value.trim(),
+        uuid: this.captcha.uuid
       })
+        .then(data => {
+          this.setUserInfo(data)
+          this.$nextTick(() => {
+            this.$router.push('/workbench')
+          })
+        })
+        .catch(e => {
+          this.refreshCaptcha()
+          this.$tip.apiFailed(e)
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     // 刷新验证码
     refreshCaptcha () {
-      this.captchaUri = `${process.env.VUE_APP_API_PREFIX}/common/captcha?t=${new Date().getTime()}`
+      getCaptcha()
+        .then(data => {
+          this.captcha.uri = data.image
+          this.captcha.uuid = data.uuid
+        })
+        .catch(e => {
+          this.$tip.apiFailed(e)
+        })
     },
     // 登录前验证
     __check () {
@@ -55,7 +91,7 @@ export default {
         this.$tip.error('请输入密码')
         return false
       }
-      if (this.captcha.trim() === '') {
+      if (this.captcha.value.trim() === '') {
         this.$tip.error('请输入图片验证码')
         return false
       }

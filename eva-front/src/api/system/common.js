@@ -1,5 +1,10 @@
 import request from '@/utils/request'
 
+// 获取图片验证码
+export function getCaptcha () {
+  return request.get('/common/captcha')
+}
+
 // 根据密码登录
 export function loginByPassword (data) {
   return request.post('/system/login', data)
