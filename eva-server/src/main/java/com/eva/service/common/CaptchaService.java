@@ -41,7 +41,7 @@ public class CaptchaService {
     private static final Integer HEIGHT = 30;
 
     @Autowired
-    private CacheProxy cacheProxy;
+    private CacheProxy<String, String> cacheProxy;
 
     /**
      * 生成验证码图片
@@ -94,7 +94,7 @@ public class CaptchaService {
         }
         // 存入缓存
         Captcha captcha = new Captcha(randomCode.toString(), buffImg);
-        cacheProxy.set(captcha.getUuid(), captcha.getText());
+        cacheProxy.put(captcha.getUuid(), captcha.getText(), 300);
         return captcha;
     }
 

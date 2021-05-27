@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.util.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -19,13 +20,16 @@ import java.util.Set;
  */
 @Slf4j
 @Component
-public class CacheProxy implements Cache<String, Serializable> {
+public class CacheProxy<K,V> implements Cache<K, V> {
 
     // key前缀
     private String keyPrefix = "";
 
     // 默认超时时间
     private long defaultExpireTime = 86400;
+
+    @Autowired
+    private LocalCache<K,V> localCache;
 
     public CacheProxy () {}
 
@@ -36,34 +40,40 @@ public class CacheProxy implements Cache<String, Serializable> {
     }
 
     @Override
-    public Serializable get(String key) throws CacheException {
+    public V get(K key) throws CacheException {
         log.debug("CacheProxy: get, key = [" + key + "]");
-        return LocalCache.getInstance().get(getKey(key));
+        return localCache.get(getKey(key));
     }
 
     @Override
-    public Serializable put(String key, Serializable value) throws CacheException {
+    public V put(K key, V value) throws CacheException {
         log.debug("CacheProxy: put, key = [" + key + "]");
-        LocalCache.getInstance().set(getKey(key), value, defaultExpireTime * 1000);
+        localCache.set(getKey(key), value, defaultExpireTime * 1000);
+        return value;
+    }
+
+    public V put(K key, V value, long expire) throws CacheException {
+        log.debug("CacheProxy: put, key = [" + key + "]");
+        localCache.set(getKey(key), value, expire * 1000);
         return value;
     }
 
     @Override
     public void clear() throws CacheException {
         log.debug("CacheProxy: clear");
-        LocalCache.getInstance().clear();
+        localCache.clear();
     }
 
     @Override
     public int size() {
         log.debug("CacheProxy: size");
-        return LocalCache.getInstance().size();
+        return localCache.size();
     }
 
     @Override
-    public Set<String> keys() {
+    public Set<K> keys() {
         log.debug("CacheProxy: keys");
-        Set<String> keys = LocalCache.getInstance().keys();
+        Set<K> keys = localCache.keys();
         if (CollectionUtils.isEmpty(keys)) {
             return Collections.emptySet();
         }
@@ -71,9 +81,9 @@ public class CacheProxy implements Cache<String, Serializable> {
     }
 
     @Override
-    public Collection<Serializable> values() {
+    public Collection<V> values() {
         log.debug("CacheProxy: values");
-        Collection<Serializable> values = LocalCache.getInstance().values();
+        Collection<V> values = localCache.values();
         if (CollectionUtils.isEmpty(values)) {
             return Collections.emptyList();
         }
@@ -81,15 +91,15 @@ public class CacheProxy implements Cache<String, Serializable> {
     }
 
     @Override
-    public Serializable remove(String key) throws CacheException {
+    public V remove(K key) throws CacheException {
         log.debug("CacheProxy: remove, key = [" + key + "]");
         if (key == null) {
             return null;
         }
-        return LocalCache.getInstance().remove(getKey(key));
+        return localCache.remove(getKey(key));
     }
 
-    private String getKey (String key) {
-        return this.keyPrefix + key;
+    private K getKey (K key) {
+        return (K)(key instanceof String ? this.keyPrefix + key : key);
     }
 }

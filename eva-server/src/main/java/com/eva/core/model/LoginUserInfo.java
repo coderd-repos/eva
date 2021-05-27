@@ -6,6 +6,7 @@ import com.eva.dao.system.model.SystemUser;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  * @date 2021-03-28 15:28
  */
 @Data
-public class LoginUserInfo {
+public class LoginUserInfo implements Serializable {
 
     private Integer id;
 

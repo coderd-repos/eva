@@ -35,7 +35,7 @@ public class ShiroConfig {
     private ShiroCacheManager shiroCacheManager;
 
     @Bean
-    public ShiroRealm shiroRealm () {
+    public ShiroRealm getShiroRealm () {
         ShiroRealm shiroRealm = new ShiroRealm();
         shiroRealm.setCredentialsMatcher(shiroCredentialsMatcher);
         return shiroRealm;
@@ -59,7 +59,7 @@ public class ShiroConfig {
     @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(this.shiroRealm());
+        securityManager.setRealm(this.getShiroRealm());
         securityManager.setSessionManager(this.sessionManager());
         securityManager.setCacheManager(shiroCacheManager);
         return securityManager;

@@ -29,7 +29,7 @@ public class DuplicateSubmitInterceptor extends HandlerInterceptorAdapter {
     private static ApplicationContext applicationContext;
 
     @Autowired
-    private CacheProxy cacheProxy;
+    private CacheProxy<String, Object> cacheProxy;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
@@ -56,7 +56,7 @@ public class DuplicateSubmitInterceptor extends HandlerInterceptorAdapter {
             }
             // 写入requestKey
             Method signMethod = duplicateSubmit.value().getMethod(DuplicateSubmitAdapter.METHOD_REQUEST_KEY, HttpServletRequest.class);
-            cacheProxy.set((String)signMethod.invoke(handlerInstance, request), System.currentTimeMillis(), duplicateSubmit.interval());
+            cacheProxy.put((String)signMethod.invoke(handlerInstance, request), System.currentTimeMillis(), duplicateSubmit.interval());
         } catch (Exception e) {
             log.error("防重复验证发生了错误", e);
         }

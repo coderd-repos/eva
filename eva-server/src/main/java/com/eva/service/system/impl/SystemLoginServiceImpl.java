@@ -1,11 +1,9 @@
 package com.eva.service.system.impl;
 
 import com.eva.core.exception.BusinessException;
-import com.eva.core.model.ApiResponse;
 import com.eva.core.model.ResponseStatus;
 import com.eva.dao.system.dto.LoginDTO;
 import com.eva.service.common.CaptchaService;
-import com.eva.service.proxy.CacheProxy;
 import com.eva.service.system.SystemLoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -21,9 +19,6 @@ public class SystemLoginServiceImpl implements SystemLoginService {
 
     @Autowired
     private CaptchaService captchaService;
-
-    @Autowired
-    private CacheProxy cacheProxy;
 
     @Override
     public String login(LoginDTO dto) {

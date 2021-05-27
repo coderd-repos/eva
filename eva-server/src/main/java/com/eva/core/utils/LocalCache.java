@@ -3,12 +3,10 @@ package com.eva.core.utils;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SerializationUtils;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -19,6 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2019/3/23 17:57
  */
 @Slf4j
+@Component
 public final class LocalCache<K,V> {
 
     // 警告大小
@@ -31,7 +30,7 @@ public final class LocalCache<K,V> {
     private static LocalCache instance;
 
     // 数据存储对象
-    private ConcurrentHashMap<String, Serializable> cache = new ConcurrentHashMap();
+    private ConcurrentHashMap<K, Value<V>> cache = new ConcurrentHashMap();
 
     private LocalCache(){}
 
@@ -52,7 +51,7 @@ public final class LocalCache<K,V> {
      * @author Eva
      * @date 2019/3/23 18:26
      */
-    public void set(String key, Serializable value) {
+    public void set(K key, V value) {
         set(key, value, 30 * 60 * 1000);
     }
 
@@ -64,12 +63,12 @@ public final class LocalCache<K,V> {
      * @author Eva
      * @date 2019/3/23 18:26
      */
-    public void set(String key, Serializable value, long timeout) {
+    public void set(K key, V value, long timeout) {
         if(key == null) throw new NullPointerException("key can not be null");
         // 清理旧数据
         long now = System.currentTimeMillis();
-        for(Map.Entry<String, Serializable> entry: cache.entrySet()){
-            Value v = (Value) entry.getValue();
+        for(Map.Entry<K, Value<V>> entry: cache.entrySet()){
+            Value v = entry.getValue();
             if(v.getValue() == null) // 值为空时清除掉
                 cache.remove(entry.getKey());
             if(now - v.getBirthtime() > v.getTimeout()) // 超时时清除掉
@@ -77,7 +76,7 @@ public final class LocalCache<K,V> {
         }
 
         // 添加缓存
-        Value v = new Value();
+        Value<V> v = new Value<>();
         v.setBirthtime(now);
         v.setTimeout(timeout);
         v.setValue(value);
@@ -97,9 +96,9 @@ public final class LocalCache<K,V> {
      * @author Eva
      * @date 2019/3/23 18:26
      */
-    public <T extends Serializable> T get(String key) {
+    public V get(K key) {
         if(key == null) return null;
-        Value value = (Value)cache.get(key);
+        Value<V> value = cache.get(key);
         if(value == null)
             return null;
         if(value.getValue() == null)
@@ -108,7 +107,7 @@ public final class LocalCache<K,V> {
             remove(key);
             return null;
         }
-        return (T) value.getValue();
+        return value.getValue();
     }
 
     /**
@@ -118,11 +117,14 @@ public final class LocalCache<K,V> {
      * @author Eva
      * @date 2019/3/23 18:39
      */
-    public Serializable remove(String key) {
+    public V remove(K key) {
         if(key == null) return null;
-        Serializable value = cache.get(key);
+        Value<V> value = cache.get(key);
+        if (value == null) {
+            return null;
+        }
         cache.remove(key);
-        return value;
+        return value.value;
     }
 
     /**
@@ -148,7 +150,7 @@ public final class LocalCache<K,V> {
      * @author Caesar Liu
      * @date 2021-05-28 01:12
      */
-    public Set<String> keys () {
+    public Set<K> keys () {
         return cache.keySet();
     }
 
@@ -157,8 +159,15 @@ public final class LocalCache<K,V> {
      * @author Caesar Liu
      * @date 2021-05-28 01:15
      */
-    public Collection<Serializable> values () {
-        return cache.values();
+    public Collection<V> values () {
+        Collection<Value<V>> values = cache.values();
+        List<V> vs = new ArrayList(keys().size());
+        for (Value<V> v : values) {
+            if (v.value != null) {
+                vs.add(v.value);
+            }
+        }
+        return vs;
     }
 
     /**
@@ -168,7 +177,7 @@ public final class LocalCache<K,V> {
      */
     public void relive(String key) {
         if (key == null) return;
-        Value v = (Value)cache.get(key);
+        Value v = cache.get(key);
         if (v == null) {
             return;
         }
@@ -176,10 +185,10 @@ public final class LocalCache<K,V> {
     }
 
     @Data
-    private static class Value implements Serializable {
+    private static class Value<V> implements Serializable {
 
         // 缓存具体值
-        private Serializable value;
+        private V value;
 
         // 存储时间
         private long birthtime;
