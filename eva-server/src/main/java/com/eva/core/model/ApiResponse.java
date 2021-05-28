@@ -13,7 +13,9 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public class ApiResponse<T> {
 
-    private Integer code;
+    private int code;
+
+    private boolean success;
 
     private String message;
 
@@ -36,7 +38,7 @@ public class ApiResponse<T> {
      * @date 2021/03/26 19:48
      */
     public static <T> ApiResponse<T> success(String message, T data) {
-        return new ApiResponse<>(HttpStatus.OK.value(), message, data);
+        return new ApiResponse<>(HttpStatus.OK.value(), Boolean.TRUE, message, data);
     }
 
     /**
@@ -63,6 +65,6 @@ public class ApiResponse<T> {
      * @date 2021/03/26 19:48
      */
     public static <T> ApiResponse<T> failed(Integer code, String message) {
-        return new ApiResponse<>(code, message, null);
+        return new ApiResponse<>(code, Boolean.FALSE, message, null);
     }
 }
