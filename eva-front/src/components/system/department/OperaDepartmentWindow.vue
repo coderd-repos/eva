@@ -6,8 +6,8 @@
     @confirm="confirm"
   >
     <el-form :model="form" ref="form" :rules="rules">
-      <el-form-item v-if="form.id == null || form.parentId != null" label="上级部门" prop="parentId" required>
-        <DepartmentSelect placeholder="请选择上级部门" v-model="form.parentId" :exclude-id="excludeDeptId" :inline="false" :default-first="true"/>
+      <el-form-item label="上级部门" prop="parentId">
+        <DepartmentSelect placeholder="请选择上级部门" v-model="form.parentId" :exclude-id="excludeDeptId" :inline="false"/>
       </el-form-item>
       <el-form-item label="部门编码" prop="code" required>
         <el-input v-model="form.code" placeholder="请输入部门编码" v-trim maxlength="50" :disabled="form.code === 'ROOT'"/>

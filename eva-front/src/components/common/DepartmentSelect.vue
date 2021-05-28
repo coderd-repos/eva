@@ -27,10 +27,6 @@ export default {
     clearable: {
       default: false
     },
-    // 当没有选中时是否默认选中第一条
-    defaultFirst: {
-      default: false
-    },
     // 需被排除的部门ID
     excludeId: {}
   },
@@ -51,9 +47,6 @@ export default {
         .then(records => {
           this.data = []
           this.__fillData(this.data, records)
-          if (this.defaultFirst && this.value == null) {
-            this.$emit('input', this.data[0].id)
-          }
         })
         .catch(e => {
           this.$tip.apiFailed(e)
