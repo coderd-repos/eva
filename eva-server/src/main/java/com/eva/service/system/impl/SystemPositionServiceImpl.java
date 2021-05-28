@@ -1,6 +1,7 @@
 package com.eva.service.system.impl;
 
 import com.eva.dao.system.SystemPositionMapper;
+import com.eva.dao.system.model.SystemDepartment;
 import com.eva.dao.system.model.SystemPosition;
 import com.eva.dao.system.vo.SystemPositionListVO;
 import com.eva.service.system.SystemPositionService;
@@ -11,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 岗位Service实现
@@ -89,5 +93,30 @@ public class SystemPositionServiceImpl implements SystemPositionService {
     @Override
     public long count(SystemPosition systemPosition) {
         return systemPositionMapper.selectCount(new QueryWrapper<>(systemPosition));
+    }
+
+    @Override
+    public List<Integer> findChildren(Integer positionId) {
+        List<Integer> pool = new ArrayList<>();
+        this.fillChildren(pool, Arrays.asList(positionId));
+        return pool;
+    }
+
+    /**
+     * 获取子岗位ID
+     * @author Eva
+     * @date 2021-05-22 23:22
+     */
+    private void fillChildren(List<Integer> pool, List<Integer> parentIds) {
+        QueryWrapper<SystemPosition> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda()
+                .eq(SystemPosition::getDeleted, Boolean.FALSE)
+                .in(SystemPosition::getParentId, parentIds);
+        List<SystemPosition> positions = systemPositionMapper.selectList(queryWrapper);
+        List<Integer> ids = positions.stream().map(SystemPosition::getId).collect(Collectors.toList());
+        if (ids.size() > 0) {
+            pool.addAll(ids);
+            this.fillChildren(pool, ids);
+        }
     }
 }

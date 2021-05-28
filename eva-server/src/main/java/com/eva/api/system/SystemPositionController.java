@@ -62,7 +62,7 @@ public class SystemPositionController extends BaseController {
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:position:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
-        systemPositionService.deleteById(id);
+        systemPositionBiz.deleteById(id);
         return ApiResponse.success(null);
     }
 
@@ -79,7 +79,7 @@ public class SystemPositionController extends BaseController {
         for (String id : idArray) {
             idList.add(Integer.valueOf(id));
         }
-        systemPositionService.deleteByIdInBatch(idList);
+        systemPositionBiz.deleteByIdInBatch(idList);
         return ApiResponse.success(null);
     }
 

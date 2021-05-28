@@ -9,6 +9,8 @@ import com.eva.service.system.SystemPositionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +63,24 @@ public class SystemPositionBizImpl implements SystemPositionBiz {
             this.fillChildren(child, positions);
         }
         return rootPositions;
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        List<Integer> ids = systemPositionService.findChildren(id);
+        ids.add(id);
+        systemPositionService.deleteByIdInBatch(ids);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByIdInBatch(List<Integer> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return;
+        }
+        for (Integer id : ids) {
+            this.deleteById(id);
+        }
     }
 
     /**

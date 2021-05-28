@@ -28,4 +28,18 @@ public interface SystemPositionBiz {
      * @date 2021-05-16 15:29
      */
     List<SystemPositionListVO> findTree();
+
+    /**
+     * 删除
+     * @author Eva
+     * @date 2021-05-24 22:00
+     */
+    void deleteById(Integer id);
+
+    /**
+     * 批量删除
+     * @author Eva
+     * @date 2021-05-24 22:00
+     */
+    void deleteByIdInBatch(List<Integer> ids);
 }

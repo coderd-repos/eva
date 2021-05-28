@@ -88,4 +88,11 @@ public interface SystemPositionService {
      * @date 2021/05/16 17:03
      */
     long count(SystemPosition systemPosition);
+
+    /**
+     * 查询子岗位ID集
+     * @author Caesar Liu
+     * @date 2021-05-28 18:17
+     */
+    List<Integer> findChildren(Integer positionId);
 }
