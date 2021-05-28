@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * 自定义Shiro CacheManager，实现与代理缓存的结合
+ * 自定义Shiro CacheManager
  * 技术参考：shiro-redis
  * @author Eva
  * @date 2021-05-28 01:01

@@ -30,6 +30,15 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
 
+# 缓存设置
+cache:
+  session:
+    # 会话过期时长(s)
+    expire: 1800
+  captcha:
+    # 验证码过期时长(s)
+    expire: 300
+
 # Swagger配置
 swagger:
   host:

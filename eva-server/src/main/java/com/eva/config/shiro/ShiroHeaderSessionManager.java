@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 
 /**
- * 自定义会话管理器，实现从Header中读取SessionId，自定义SessionId名称
+ * 自定义会话管理器
  * 技术参考：https://blog.csdn.net/weixin_30273931/article/details/96202820
  * @author Eva
  * @date 2021-05-28 14:04

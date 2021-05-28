@@ -16,7 +16,7 @@ public enum ResponseStatus {
     DATA_EMPTY(4001, "找不到目标数据"),
     DATA_EXISTS(4002, "记录已存在"),
     PWD_INCORRECT(4003, "密码不正确"),
-    VERIFICATION_CODE_INCORRECT(4004, "验证码不正确"),
+    VERIFICATION_CODE_INCORRECT(4004, "验证码不正确或已过期"),
     ACCOUNT_INCORRECT(4005, "账号或密码不正确"),
     // 510开头表示可能导致数据错误的异常
     DUPLICATE_SUBMIT(5100, "请勿重复提交"),

@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * 自定义Shiro SessionDAO，实现与代理缓存的结合
+ * 自定义Shiro SessionDAO，对接代理缓存，将会话信息存入缓存中
  * 技术参考：shiro-redis
  * @author Eva
  * @date 2021-05-28 00:24
@@ -99,10 +99,14 @@ public class ShiroSessionDAO implements SessionDAO {
             log.error("session or session id is null");
             throw new UnknownSessionException("session or session id is null");
         }
-        cacheProxy.put(session.getId(), session, (int)(session.getTimeout() / 1000L));
+        cacheProxy.put(session.getId(), session);
     }
 
     public void setTokenManager(TokenManager tokenManager) {
         this.tokenManager = tokenManager;
+    }
+
+    public void setExpireTime (long expireTime) {
+        this.cacheProxy.setDefaultExpireTime(expireTime);
     }
 }

@@ -24,7 +24,7 @@ public @interface DuplicateSubmit {
      * @author Eva
      * @date 2021-05-25 11:27
      */
-    long interval() default 800;
+    int interval() default 800;
 
     /**
      * 错误消息

@@ -57,7 +57,7 @@ public class CacheProxy<K,V> implements Cache<K, V> {
         return value;
     }
 
-    public V put(K key, V value, long expire) throws CacheException {
+    public V put(K key, V value, int expire) throws CacheException {
         log.trace("CacheProxy: put, key = [" + key + "]");
         if (key == null) {
             log.warn("CacheProxy: put, key can not be null");

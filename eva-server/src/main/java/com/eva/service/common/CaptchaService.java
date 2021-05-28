@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -26,6 +27,9 @@ import java.util.UUID;
  */
 @Service
 public class CaptchaService {
+
+    @Value("${cache.captcha.expire}")
+    private int expire;
 
     // 验证码字符集
     private static final char[] CODES = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J',
@@ -94,7 +98,7 @@ public class CaptchaService {
         }
         // 存入缓存
         Captcha captcha = new Captcha(randomCode.toString(), buffImg);
-        cacheProxy.put(captcha.getUuid(), captcha.getText(), 300);
+        cacheProxy.put(captcha.getUuid(), captcha.getText(), expire);
         return captcha;
     }
 
