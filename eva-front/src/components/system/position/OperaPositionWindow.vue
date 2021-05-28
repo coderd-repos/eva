@@ -7,7 +7,7 @@
   >
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="上级岗位" prop="parentId">
-        <PositionSelect v-model="form.parentId" placeholder="请选择上级岗位" :exclude-id="excludePositionId" clearable :inline="false"/>
+        <PositionSelect v-if="visible" v-model="form.parentId" placeholder="请选择上级岗位" :exclude-id="excludePositionId" clearable :inline="false"/>
       </el-form-item>
       <el-form-item label="岗位编码" prop="code" required>
         <el-input v-model="form.code" placeholder="请输入岗位编码" v-trim maxlength="50"/>
