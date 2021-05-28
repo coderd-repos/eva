@@ -12,7 +12,8 @@
         <el-input v-model="password" placeholder="请输入密码" type="password" prefix-icon="yw-icon-password" maxlength="30" show-password/>
         <div class="captcha-input">
           <el-input v-model="captcha.value" placeholder="图片验证码" prefix-icon="yw-icon-shield" maxlength="4" @keypress.enter.native="login"/>
-          <img :src="captcha.uri" @click="refreshCaptcha">
+          <img v-if="!captcha.loading" :src="captcha.uri" @click="refreshCaptcha">
+          <span v-else><i class="el-icon-loading"></i></span>
         </div>
       </div>
       <el-button :loading="loading" @click="login">登&nbsp;&nbsp;录</el-button>
@@ -33,6 +34,7 @@ export default {
       password: '',
       // 验证码
       captcha: {
+        loading: false,
         value: '',
         uuid: '',
         uri: ''
@@ -71,6 +73,7 @@ export default {
     },
     // 刷新验证码
     refreshCaptcha () {
+      this.captcha.loading = true
       getCaptcha()
         .then(data => {
           this.captcha.uri = data.image
@@ -78,6 +81,11 @@ export default {
         })
         .catch(e => {
           this.$tip.apiFailed(e)
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.captcha.loading = false
+          }, 150)
         })
     },
     // 登录前验证
@@ -180,11 +188,18 @@ $input-gap: 30px;
         width: 100%;
         margin-top: 0;
       }
-      img {
+      span, img {
         width: 45%;
         height: 100%;
         flex-shrink: 0;
         margin-left: 16px;
+      }
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f7f7f7;
+        border-radius: 8px;
       }
     }
     .el-button {
