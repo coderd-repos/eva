@@ -21,13 +21,6 @@ CREATE TABLE `SYSTEM_DEPARTMENT` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='部门';
 
 -- ----------------------------
--- Records of SYSTEM_MENU
--- ----------------------------
-BEGIN;
-INSERT INTO `SYSTEM_DEPARTMENT` VALUES (1, NULL, 'ROOT', 'Eva科技', NULL, NULL, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-COMMIT;
-
--- ----------------------------
 -- Table structure for SYSTEM_DEPARTMENT_USER
 -- ----------------------------
 DROP TABLE IF EXISTS `SYSTEM_DEPARTMENT_USER`;

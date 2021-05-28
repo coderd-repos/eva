@@ -28,7 +28,6 @@ public class SystemDepartment {
     private Integer id;
 
     @ApiModelProperty(value = "上级部门", example = "1")
-    @NotNull(message = "上级部门不能为空", groups = {OperaType.Create.class, OperaType.Update.class})
     private Integer parentId;
 
     @ApiModelProperty(value = "部门编码")
