@@ -1,6 +1,5 @@
 package com.eva.config.shiro;
 
-import com.eva.core.annotation.duplicate.DuplicateSubmitInterceptor;
 import com.eva.service.proxy.CacheProxy;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +7,6 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.SimpleSession;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;

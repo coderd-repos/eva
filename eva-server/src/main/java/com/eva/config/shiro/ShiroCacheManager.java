@@ -1,6 +1,5 @@
 package com.eva.config.shiro;
 
-import com.eva.Application;
 import com.eva.service.proxy.CacheProxy;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.cache.Cache;
