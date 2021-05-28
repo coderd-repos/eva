@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * @author Eva
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @ApiModel("修改密码参数")
-public class UpdatePwdDto {
+public class UpdatePwdDto implements Serializable {
 
     @ApiModelProperty(value = "用户ID", hidden = true)
     private Integer userId;

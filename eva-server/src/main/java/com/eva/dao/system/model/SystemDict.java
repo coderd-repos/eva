@@ -9,6 +9,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Date;
  */
 @Data
 @ApiModel("字典")
-public class SystemDict {
+public class SystemDict implements Serializable {
 
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "主键", example = "1")

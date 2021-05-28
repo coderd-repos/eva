@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Date;
  */
 @Data
 @ApiModel("用户角色关联")
-public class SystemUserRole {
+public class SystemUserRole implements Serializable {
 
     @ApiModelProperty(value = "主键", example = "1")
     @TableId(type = IdType.AUTO)

@@ -4,6 +4,7 @@ import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @Data
 @ApiModel("分页请求参数")
-public class PageWrap<M> {
+public class PageWrap<M> implements Serializable {
 
     // 降序
     public static final String DESC = "DESC";

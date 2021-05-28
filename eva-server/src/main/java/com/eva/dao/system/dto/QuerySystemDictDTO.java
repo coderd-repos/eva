@@ -4,13 +4,15 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author Eva
  * @date 2021-05-16 20:07
  */
 @Data
 @ApiModel("查询字典列表参数")
-public class QuerySystemDictDTO {
+public class QuerySystemDictDTO implements Serializable {
 
     @ApiModelProperty(value = "字典编码")
     private String code;

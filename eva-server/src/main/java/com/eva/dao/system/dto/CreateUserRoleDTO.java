@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  */
 @Data
 @ApiModel("创建用户角色参数")
-public class CreateUserRoleDTO {
+public class CreateUserRoleDTO implements Serializable {
 
     @ApiModelProperty(value = "用户ID")
     @NotNull(message = "用户ID不能为空")

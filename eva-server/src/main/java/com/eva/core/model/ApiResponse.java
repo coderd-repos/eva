@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
+import java.io.Serializable;
+
 /**
  * 接口返回对象
  * @author Eva
@@ -11,7 +13,7 @@ import org.springframework.http.HttpStatus;
  */
 @Data
 @AllArgsConstructor
-public class ApiResponse<T> {
+public class ApiResponse<T> implements Serializable {
 
     private int code;
 

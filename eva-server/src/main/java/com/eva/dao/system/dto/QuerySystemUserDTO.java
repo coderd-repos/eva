@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 @Data
 @ApiModel("查询系统用户参数")
-public class QuerySystemUserDTO {
+public class QuerySystemUserDTO implements Serializable {
 
     @ApiModelProperty(value = "用于查询子部门的部门ID")
     private Integer rootDeptId;

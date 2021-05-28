@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
  */
 @Data
 @ApiModel("JVM信息")
-public class JVM {
+public class JVM implements Serializable {
 
     @ApiModelProperty(value = "版本")
     private String version;

@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * @author Eva
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @ApiModel("系统菜单排序参数")
-public class UpdateSystemMenuSortDTO {
+public class UpdateSystemMenuSortDTO implements Serializable {
 
     @ApiModelProperty(value = "菜单ID")
     @NotNull(message = "菜单ID不能为空")

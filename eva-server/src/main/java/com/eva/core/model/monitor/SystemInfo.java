@@ -10,6 +10,7 @@ import oshi.software.os.FileSystem;
 import oshi.software.os.OSFileStore;
 import oshi.software.os.OperatingSystem;
 
+import java.io.Serializable;
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 import java.net.InetAddress;
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Data
 @ApiModel("系统信息")
-public class SystemInfo {
+public class SystemInfo implements Serializable {
 
     @ApiModelProperty(value = "操作系统名称")
     private String osName;

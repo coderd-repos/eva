@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 @Data
 @ApiModel("菜单节点视图对象")
-public class SystemMenuNodeVO {
+public class SystemMenuNodeVO implements Serializable {
 
     @ApiModelProperty(value = "菜单ID")
     private Integer id;

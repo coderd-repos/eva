@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 磁盘信息
  * @author Eva
@@ -11,7 +13,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel("磁盘信息")
-public class Disk {
+public class Disk implements Serializable {
 
     @ApiModelProperty(value = "磁盘名称")
     private String name;

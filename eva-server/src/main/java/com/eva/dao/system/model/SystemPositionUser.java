@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +16,7 @@ import java.util.Date;
  */
 @Data
 @ApiModel("岗位用户")
-public class SystemPositionUser {
+public class SystemPositionUser implements Serializable {
 
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "主键", example = "1")

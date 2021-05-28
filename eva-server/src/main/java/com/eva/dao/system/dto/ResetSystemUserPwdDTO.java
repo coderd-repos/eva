@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * @author Eva
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @ApiModel("重置用户密码参数对象")
-public class ResetSystemUserPwdDTO {
+public class ResetSystemUserPwdDTO implements Serializable {
 
     @ApiModelProperty(value = "用户ID")
     @NotNull(message = "用户ID不能为空")

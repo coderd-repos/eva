@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * CPU信息
  * @author Eva
@@ -11,7 +13,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel("CPU信息")
-public class CPU {
+public class CPU implements Serializable {
 
     @ApiModelProperty(value = "逻辑核数")
     private int logicalCount;

@@ -12,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -21,7 +22,7 @@ import java.util.Date;
  */
 @Data
 @ApiModel("系统用户")
-public class SystemUser {
+public class SystemUser implements Serializable {
 
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "主键", example = "1")
