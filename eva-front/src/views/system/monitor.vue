@@ -1,7 +1,7 @@
 <template>
   <div class="monitor">
     <div class="toolbar">
-      <el-switch v-model="autoRefresh" @change="changeAutoRefresh"/><label>{{autoRefreshText}}</label>
+      <el-switch v-model="autoRefresh" @change="changeAutoRefresh"/><label>{{autoRefresh | autoRefreshText}}</label>
     </div>
     <ul>
       <li class="wrap">
@@ -165,13 +165,13 @@ export default {
       autoRefresh: false,
       // 数据
       data: null,
-      // 自动刷新计时器
-      timer: null
+      // 自动刷新定时器
+      interval: null
     }
   },
-  computed: {
-    autoRefreshText () {
-      if (this.autoRefresh) {
+  filters: {
+    autoRefreshText (value) {
+      if (value) {
         return '已开启自动刷新'
       }
       return '已关闭自动刷新'
@@ -180,11 +180,15 @@ export default {
   methods: {
     // 切换自动刷新
     changeAutoRefresh (value) {
+      if (this.interval != null) {
+        clearInterval(this.interval)
+      }
       if (value) {
         this.getSystemInfo()
-        return
+        this.interval = setInterval(() => {
+          this.getSystemInfo()
+        }, 3000)
       }
-      clearTimeout(this.timer)
     },
     // 获取系统信息
     getSystemInfo () {
@@ -195,11 +199,6 @@ export default {
       getSystemInfo()
         .then(data => {
           this.data = data
-          if (this.autoRefresh) {
-            this.timer = setTimeout(() => {
-              this.getSystemInfo()
-            }, 3000)
-          }
         })
         .catch(e => {
           this.$tip.apiFailed(e)
@@ -216,6 +215,10 @@ export default {
     keep2decimals (value) {
       return Math.round(value * 100) / 100
     }
+  },
+  beforeRouteLeave (from, to, next) {
+    clearInterval(this.interval)
+    next()
   },
   created () {
     this.getSystemInfo()
