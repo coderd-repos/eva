@@ -65,8 +65,8 @@ export default {
       this.search()
     },
     // 每页显示数量变更处理
-    handleSizeChange (val) {
-      this.tableData.pagination.pageSize = val
+    handleSizeChange (pageSize) {
+      this.tableData.pagination.pageSize = pageSize
       this.search()
     },
     // 行选中处理
@@ -157,7 +157,7 @@ export default {
           this.api.deleteByIdInBatch(this.tableData.selectedRows.map(row => row.id).join(','))
             .then(() => {
               this.$tip.apiSuccess('删除成功')
-              this.__afterDelete()
+              this.__afterDelete(this.tableData.selectedRows.length)
             })
             .catch(e => {
               this.$tip.apiFailed(e)
@@ -168,9 +168,9 @@ export default {
         })
     },
     // 删除处理
-    __afterDelete () {
+    __afterDelete (deleteCount = 1) {
       // 删除当前页最后一条记录时查询上一页数据
-      if (this.tableData.list.length - 1 === 0) {
+      if (this.tableData.list.length - deleteCount === 0) {
         this.handlePageChange(this.tableData.pagination.pageIndex - 1 === 0 ? 1 : this.tableData.pagination.pageIndex - 1)
       } else {
         this.handlePageChange(this.tableData.pagination.pageIndex)
