@@ -32,7 +32,7 @@ public class DuplicateSubmitInterceptor extends HandlerInterceptorAdapter {
     private CacheProxy<String, Object> cacheProxy;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if (!(handler instanceof HandlerMethod)) {
             return Boolean.TRUE;
         }

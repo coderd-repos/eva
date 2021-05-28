@@ -20,11 +20,11 @@ public @interface DuplicateSubmit {
     Class value() default DuplicateSubmitDefaultHandler.class;
 
     /**
-     * 间隔时间，小于此时间视为重复提交
+     * 间隔时间(ms)，小于此时间视为重复提交
      * @author Eva
      * @date 2021-05-25 11:27
      */
-    int interval() default 800;
+    long interval() default 800;
 
     /**
      * 错误消息
