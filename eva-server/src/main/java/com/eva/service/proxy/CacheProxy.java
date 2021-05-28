@@ -28,17 +28,19 @@ public class CacheProxy<K,V> implements Cache<K, V> {
     @Autowired
     private LocalCache<K,V> localCache;
 
-    public CacheProxy () {}
+    public CacheProxy () {
+        log.debug("CacheProxy: new, keyPrefix = [" + keyPrefix + "], defaultExpireTime = [" + defaultExpireTime + "]");
+    }
 
     public CacheProxy (String keyPrefix, long defaultExpireTime) {
-        log.debug("CacheProxy: new, keyPrefix = [" + keyPrefix + "], defaultExpireTime = [" + defaultExpireTime + "]");
+        log.trace("CacheProxy: new, keyPrefix = [" + keyPrefix + "], defaultExpireTime = [" + defaultExpireTime + "]");
         this.keyPrefix = keyPrefix;
         this.defaultExpireTime = defaultExpireTime;
     }
 
     @Override
     public V get(K key) throws CacheException {
-        log.debug("CacheProxy: get, key = [" + key + "]");
+        log.trace("CacheProxy: get, key = [" + key + "]");
         if (key == null) {
             return null;
         }
@@ -47,7 +49,7 @@ public class CacheProxy<K,V> implements Cache<K, V> {
 
     @Override
     public V put(K key, V value) throws CacheException {
-        log.debug("CacheProxy: put, key = [" + key + "]");
+        log.trace("CacheProxy: put, key = [" + key + "]");
         if (key == null) {
             log.warn("CacheProxy: put, key can not be null");
         }
@@ -56,7 +58,7 @@ public class CacheProxy<K,V> implements Cache<K, V> {
     }
 
     public V put(K key, V value, long expire) throws CacheException {
-        log.debug("CacheProxy: put, key = [" + key + "]");
+        log.trace("CacheProxy: put, key = [" + key + "]");
         if (key == null) {
             log.warn("CacheProxy: put, key can not be null");
         }
@@ -66,19 +68,19 @@ public class CacheProxy<K,V> implements Cache<K, V> {
 
     @Override
     public void clear() throws CacheException {
-        log.debug("CacheProxy: clear");
+        log.trace("CacheProxy: clear");
         localCache.clear();
     }
 
     @Override
     public int size() {
-        log.debug("CacheProxy: size");
+        log.trace("CacheProxy: size");
         return localCache.size();
     }
 
     @Override
     public Set<K> keys() {
-        log.debug("CacheProxy: keys");
+        log.trace("CacheProxy: keys");
         Set<K> keys = localCache.keys();
         if (CollectionUtils.isEmpty(keys)) {
             return Collections.emptySet();
@@ -107,7 +109,7 @@ public class CacheProxy<K,V> implements Cache<K, V> {
 
     @Override
     public Collection<V> values() {
-        log.debug("CacheProxy: values");
+        log.trace("CacheProxy: values");
         Collection<V> values = localCache.values();
         if (CollectionUtils.isEmpty(values)) {
             return Collections.emptyList();
@@ -117,7 +119,7 @@ public class CacheProxy<K,V> implements Cache<K, V> {
 
     @Override
     public V remove(K key) throws CacheException {
-        log.debug("CacheProxy: remove, key = [" + key + "]");
+        log.trace("CacheProxy: remove, key = [" + key + "]");
         if (key == null) {
             return null;
         }
