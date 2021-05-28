@@ -129,7 +129,7 @@ public final class LocalCache<K,V> {
 
     /**
      * 清空缓存
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-28 01:10
      */
     public void clear () {
@@ -138,7 +138,7 @@ public final class LocalCache<K,V> {
 
     /**
      * 获取缓存数
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-28 01:11
      */
     public int size () {
@@ -147,7 +147,7 @@ public final class LocalCache<K,V> {
 
     /**
      * 获取缓存所有的key
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-28 01:12
      */
     public Set<K> keys () {
@@ -156,7 +156,7 @@ public final class LocalCache<K,V> {
 
     /**
      * 获取缓存值
-     * @author Caesar Liu
+     * @author Eva
      * @date 2021-05-28 01:15
      */
     public Collection<V> values () {

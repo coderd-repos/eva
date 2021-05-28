@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * 自定义Shiro SessionDAO，实现与代理缓存的结合
  * 技术参考：shiro-redis
- * @author Caesar Liu
+ * @author Eva
  * @date 2021-05-28 00:24
  */
 @Data
