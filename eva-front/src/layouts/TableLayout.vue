@@ -120,6 +120,12 @@ export default {
           }
         }
       }
+      // 树视觉调整
+      [class*=el-table__row--level] .el-table__expand-icon {
+        position: relative;
+        left: -6px;
+        margin-right: 0;
+      }
     }
     // 分页
     .table-pagination {

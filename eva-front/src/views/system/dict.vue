@@ -46,7 +46,7 @@
           <template slot-scope="{row}">
             <el-button type="text" @click="$refs.operaDictWindow.open('编辑字典', row)" icon="el-icon-edit" v-permissions="['system:dict:update']">编辑</el-button>
             <el-button type="text" @click="$refs.dictDataManagerWindow.open(row.id, row.name)" icon="el-icon-edit" v-permissions="['system:dict:update']">数据管理</el-button>
-            <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:dict:delete']">删除</el-button>
+            <el-button type="text" @click="deleteById(row)" icon="el-icon-delete" v-permissions="['system:dict:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

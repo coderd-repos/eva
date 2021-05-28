@@ -39,7 +39,7 @@
           >
             <template slot-scope="{row}">
               <el-button type="text" @click="$refs.operaDictDataWindow.open('编辑字典数据', dictId, row)" icon="el-icon-edit">编辑</el-button>
-              <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete">删除</el-button>
+              <el-button type="text" @click="deleteById(row)" icon="el-icon-delete">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -88,7 +88,8 @@ export default {
   },
   created () {
     this.config({
-      api: '/system/dictData'
+      api: '/system/dictData',
+      'field.main': 'label'
     })
   }
 }

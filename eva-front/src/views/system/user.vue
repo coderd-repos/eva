@@ -88,7 +88,7 @@
             <el-button type="text" icon="el-icon-edit" @click="$refs.operaUserWindow.open('编辑用户', row)" v-permissions="['system:user:update']">编辑</el-button>
             <el-button type="text" icon="el-icon-s-custom" @click="$refs.roleConfigWindow.open(row)" v-permissions="['system:user:createUserRole']">配置角色</el-button>
             <el-button type="text" @click="$refs.resetPwdWindow.open(row)" v-permissions="['system:user:resetPwd']">重置密码</el-button>
-            <el-button v-if="!row.fixed" type="text" icon="el-icon-delete" @click="deleteById(row.id)" v-permissions="['system:user:delete']">删除</el-button>
+            <el-button v-if="!row.fixed" type="text" icon="el-icon-delete" @click="deleteById(row)" v-permissions="['system:user:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -138,7 +138,8 @@ export default {
     this.config({
       module: '用户',
       api: '/system/user',
-      defaultSorts: [{
+      'field.main': 'realname',
+      sorts: [{
         property: 'CREATE_TIME',
         direction: 'DESC'
       }]

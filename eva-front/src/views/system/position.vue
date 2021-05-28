@@ -37,7 +37,7 @@
             <el-button type="text" @click="$refs.operaPositionWindow.open('编辑岗位', row)" icon="el-icon-edit" v-permissions="['system:position:update']">编辑</el-button>
             <el-button type="text" @click="$refs.operaPositionWindow.open('新增下级岗位', null, row)" icon="el-icon-edit" v-permissions="['system:position:update']">新增下级岗位</el-button>
             <el-button type="text" @click="$refs.positionUserWindow.open(row.id, row.name)" icon="el-icon-user-solid" v-permissions="['system:position:queryUsers']">查看人员</el-button>
-            <el-button type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:position:delete']">删除</el-button>
+            <el-button type="text" @click="deleteById(row)" icon="el-icon-delete" v-permissions="['system:position:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

@@ -48,7 +48,7 @@
             <el-button type="text" @click="$refs.operaRoleWindow.open('编辑角色', row)" icon="el-icon-edit" v-permissions="['system:role:update']">编辑</el-button>
             <el-button type="text" @click="$refs.permissionConfigWindow.open(row)" v-permissions="['system:role:createRolePermission']">配置权限</el-button>
             <el-button type="text" @click="$refs.menuConfigWindow.open(row)" icon="el-icon-menu" v-permissions="['system:role:createRoleMenu']">授权菜单</el-button>
-            <el-button v-if="!row.fixed" type="text" @click="deleteById(row.id)" icon="el-icon-delete" v-permissions="['system:role:delete']">删除</el-button>
+            <el-button v-if="!row.fixed" type="text" @click="deleteById(row)" icon="el-icon-delete" v-permissions="['system:role:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
