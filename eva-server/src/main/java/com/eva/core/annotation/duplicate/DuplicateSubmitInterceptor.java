@@ -58,7 +58,7 @@ public class DuplicateSubmitInterceptor extends HandlerInterceptorAdapter {
             Method signMethod = duplicateSubmit.value().getMethod(DuplicateSubmitAdapter.METHOD_REQUEST_KEY, HttpServletRequest.class);
             cacheProxy.put((String)signMethod.invoke(handlerInstance, request), System.currentTimeMillis(), duplicateSubmit.interval());
         } catch (Exception e) {
-            log.error("防重复验证发生了错误", e);
+            log.warn("防重复验证发生了错误", e);
         }
         return Boolean.TRUE;
     }
