@@ -61,7 +61,7 @@ public class SystemDepartmentController extends BaseController {
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:department:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
-        systemDepartmentService.deleteById(id);
+        systemDepartmentBiz.deleteById(id);
         return ApiResponse.success(null);
     }
 
@@ -78,7 +78,7 @@ public class SystemDepartmentController extends BaseController {
         for (String id : idArray) {
             idList.add(Integer.valueOf(id));
         }
-        systemDepartmentService.deleteByIdInBatch(idList);
+        systemDepartmentBiz.deleteByIdInBatch(idList);
         return ApiResponse.success(null);
     }
 

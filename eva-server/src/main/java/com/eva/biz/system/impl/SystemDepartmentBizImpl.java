@@ -4,11 +4,14 @@ import com.eva.biz.system.SystemDepartmentBiz;
 import com.eva.core.exception.BusinessException;
 import com.eva.core.model.ResponseStatus;
 import com.eva.dao.system.model.SystemDepartment;
+import com.eva.dao.system.model.SystemMenu;
 import com.eva.dao.system.vo.SystemDepartmentListVO;
 import com.eva.service.system.SystemDepartmentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +66,24 @@ public class SystemDepartmentBizImpl implements SystemDepartmentBiz {
             this.fillChildren(child, departments);
         }
         return rootDepartments;
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        List<Integer> ids = systemDepartmentService.findChildren(id);
+        ids.add(id);
+        systemDepartmentService.deleteByIdInBatch(ids);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByIdInBatch(List<Integer> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return;
+        }
+        for (Integer id : ids) {
+            this.deleteById(id);
+        }
     }
 
     /**
