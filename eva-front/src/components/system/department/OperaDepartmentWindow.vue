@@ -10,7 +10,7 @@
         <DepartmentSelect v-if="visible" ref="departmentSelect" placeholder="请选择上级部门" v-model="form.parentId" :exclude-id="excludeDeptId" :inline="false"/>
       </el-form-item>
       <el-form-item label="部门编码" prop="code" required>
-        <el-input v-model="form.code" placeholder="请输入部门编码" v-trim maxlength="50" :disabled="form.code === 'ROOT'"/>
+        <el-input v-model="form.code" placeholder="请输入部门编码" v-trim maxlength="50"/>
       </el-form-item>
       <el-form-item label="部门名称" prop="name" required>
         <el-input v-model="form.name" placeholder="请输入部门名称" v-trim maxlength="50"/>
