@@ -21,6 +21,7 @@ public enum ResponseStatus {
     // 510开头表示可能导致数据错误的异常
     DUPLICATE_SUBMIT(5100, "请勿重复提交"),
     NOT_ALLOWED(5101, "不允许的操作"),
+    UN_SAFE_SESSION(5102, "未登录或登录信息已过期"),
     ;
 
     private Integer code;

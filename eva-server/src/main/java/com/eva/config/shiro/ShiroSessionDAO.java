@@ -1,5 +1,6 @@
 package com.eva.config.shiro;
 
+import com.eva.core.authorizing.TokenManager;
 import com.eva.service.proxy.CacheProxy;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,8 @@ public class ShiroSessionDAO implements SessionDAO {
 
     private CacheProxy<Serializable, Session> cacheProxy;
 
+    private TokenManager tokenManager;
+
     @Autowired
     public ShiroSessionDAO (ApplicationContext applicationContext) {
         cacheProxy = applicationContext.getBean(CacheProxy.class, KEY_PREFIX, 1800);
@@ -42,17 +45,21 @@ public class ShiroSessionDAO implements SessionDAO {
             log.error("session is null");
             throw new UnknownSessionException("session is null");
         }
-        Serializable sessionId = UUID.randomUUID().toString();
+        Serializable sessionId = tokenManager.build();
         ((SimpleSession)session).setId(sessionId);
         this.saveSession(session);
         return sessionId;
     }
 
     @Override
-    public Session readSession(Serializable sessionId) throws UnknownSessionException {
+    public Session readSession(Serializable sessionId) throws UnknownSessionException{
         if (sessionId == null) {
             log.warn("session id is null");
             return null;
+        }
+        if (sessionId instanceof String) {
+            // 对SessionId进行验证（可用于防止Session捕获、暴力捕捉等一系列安全问题，最终安全性取决于check如何实现）
+            tokenManager.check((String) sessionId);
         }
         log.debug("read session from cache");
         Session session = cacheProxy.get(sessionId);
@@ -93,5 +100,9 @@ public class ShiroSessionDAO implements SessionDAO {
             throw new UnknownSessionException("session or session id is null");
         }
         cacheProxy.put(session.getId(), session, (int)(session.getTimeout() / 1000L));
+    }
+
+    public void setTokenManager(TokenManager tokenManager) {
+        this.tokenManager = tokenManager;
     }
 }

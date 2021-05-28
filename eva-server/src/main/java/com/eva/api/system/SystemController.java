@@ -62,7 +62,7 @@ public class SystemController extends BaseController {
      * @author Eva
      * @date 2021-03-31 14:16
      */
-    @ApiOperation("修改密码")
+    @ApiOperation("修改当前用户密码")
     @PostMapping("/updatePwd")
     public ApiResponse updatePwd (@Validated @RequestBody UpdatePwdDto dto) {
         dto.setUserId(this.getLoginUser().getId());

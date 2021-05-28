@@ -4,11 +4,13 @@ import com.eva.core.exception.BusinessException;
 import com.eva.core.model.ResponseStatus;
 import com.eva.dao.system.dto.LoginDTO;
 import com.eva.service.common.CaptchaService;
+import com.eva.service.proxy.CacheProxy;
 import com.eva.service.system.SystemLoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,10 +31,10 @@ public class SystemLoginServiceImpl implements SystemLoginService {
         UsernamePasswordToken token = new UsernamePasswordToken(dto.getUsername(), dto.getPassword());
         try {
             subject.login(token);
+            return (String)subject.getSession().getId();
         } catch (AuthenticationException e) {
-            log.error("登录失败", e);
+            log.error(ResponseStatus.ACCOUNT_INCORRECT.getMessage(), e);
             throw new BusinessException(ResponseStatus.ACCOUNT_INCORRECT);
         }
-        return null;
     }
 }

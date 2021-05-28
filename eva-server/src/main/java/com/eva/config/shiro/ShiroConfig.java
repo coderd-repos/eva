@@ -36,11 +36,8 @@ public class ShiroConfig {
     @Autowired
     private ShiroRealm shiroRealm;
 
-    @Bean
-    public ShiroRealm getShiroRealm () {
-        shiroRealm.setCredentialsMatcher(shiroCredentialsMatcher);
-        return shiroRealm;
-    }
+    @Autowired
+    private ShiroDefaultTokenManager shiroDefaultTokenManager;
 
     @Bean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
@@ -59,7 +56,7 @@ public class ShiroConfig {
     @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(this.getShiroRealm());
+        securityManager.setRealm(shiroRealm);
         securityManager.setSessionManager(this.sessionManager());
         securityManager.setCacheManager(shiroCacheManager);
         return securityManager;
@@ -94,5 +91,17 @@ public class ShiroConfig {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
+    }
+
+    @Bean
+    public ShiroSessionDAO getShiroSessionDAO () {
+        shiroSessionDAO.setTokenManager(shiroDefaultTokenManager);
+        return shiroSessionDAO;
+    }
+
+    @Bean
+    public ShiroRealm getShiroRealm () {
+        shiroRealm.setCredentialsMatcher(shiroCredentialsMatcher);
+        return shiroRealm;
     }
 }
