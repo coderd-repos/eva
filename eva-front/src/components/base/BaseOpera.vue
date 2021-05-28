@@ -6,24 +6,25 @@ export default {
       title: '',
       visible: false,
       isWorking: false,
-      // 主键名称
-      idKey: null,
       // 接口
-      api: null
+      api: null,
+      // 配置数据
+      configData: {
+        'field.id': 'id'
+      }
     }
   },
   methods: {
     // 配置
     config (extParams = {}) {
+      if (extParams == null) {
+        throw new Error('Parameter can not be null of method \'config\' .')
+      }
       if (extParams.api == null) {
-        throw new Error('config缺少api参数')
+        throw new Error('Missing config option \'api\'.')
       }
-      const params = {
-        idKey: 'id'
-      }
-      Object.assign(params, extParams)
-      this.idKey = params.idKey
-      this.api = require(`@/api${params.api}`)
+      this.api = require('@/api' + extParams.api)
+      extParams['field.id'] && (this.configData['field.id'] = extParams['field.id'])
     },
     /**
      * @title 窗口标题
