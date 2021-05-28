@@ -8,10 +8,7 @@ import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 缓存代理类，便于缓存变更
@@ -25,7 +22,7 @@ public class CacheProxy<K,V> implements Cache<K, V> {
     // key前缀
     private String keyPrefix = "";
 
-    // 默认超时时间
+    // 默认超时时间(s)
     private long defaultExpireTime = 86400;
 
     @Autowired
@@ -42,18 +39,27 @@ public class CacheProxy<K,V> implements Cache<K, V> {
     @Override
     public V get(K key) throws CacheException {
         log.debug("CacheProxy: get, key = [" + key + "]");
+        if (key == null) {
+            return null;
+        }
         return localCache.get(getKey(key));
     }
 
     @Override
     public V put(K key, V value) throws CacheException {
         log.debug("CacheProxy: put, key = [" + key + "]");
+        if (key == null) {
+            log.warn("CacheProxy: put, key can not be null");
+        }
         localCache.set(getKey(key), value, defaultExpireTime * 1000);
         return value;
     }
 
     public V put(K key, V value, long expire) throws CacheException {
         log.debug("CacheProxy: put, key = [" + key + "]");
+        if (key == null) {
+            log.warn("CacheProxy: put, key can not be null");
+        }
         localCache.set(getKey(key), value, expire * 1000);
         return value;
     }
@@ -80,6 +86,25 @@ public class CacheProxy<K,V> implements Cache<K, V> {
         return keys;
     }
 
+    public Set<K> keys(String keyPattern) {
+        if (keyPattern == null || "".equals(keyPattern)) {
+            return keys();
+        }
+        Set<K> keys = this.keys();
+        if (CollectionUtils.isEmpty(keys)) {
+            return Collections.emptySet();
+        }
+        Set<K> filterKeys = new HashSet<>();
+        Iterator<K> iter = keys.iterator();
+        while(iter.hasNext()) {
+            K key = iter.next();
+            if (key instanceof String && ((String) key).matches(keyPattern)) {
+                filterKeys.add(key);
+            }
+        }
+        return filterKeys;
+    }
+
     @Override
     public Collection<V> values() {
         log.debug("CacheProxy: values");
@@ -101,5 +126,21 @@ public class CacheProxy<K,V> implements Cache<K, V> {
 
     private K getKey (K key) {
         return (K)(key instanceof String ? this.keyPrefix + key : key);
+    }
+
+    public String getKeyPrefix() {
+        return keyPrefix;
+    }
+
+    public void setKeyPrefix(String keyPrefix) {
+        this.keyPrefix = keyPrefix;
+    }
+
+    public long getDefaultExpireTime() {
+        return defaultExpireTime;
+    }
+
+    public void setDefaultExpireTime(long defaultExpireTime) {
+        this.defaultExpireTime = defaultExpireTime;
     }
 }

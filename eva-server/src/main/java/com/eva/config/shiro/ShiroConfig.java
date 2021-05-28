@@ -8,9 +8,9 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -34,15 +34,16 @@ public class ShiroConfig {
     @Autowired
     private ShiroCacheManager shiroCacheManager;
 
+    @Autowired
+    private ShiroRealm shiroRealm;
+
     @Bean
     public ShiroRealm getShiroRealm () {
-        ShiroRealm shiroRealm = new ShiroRealm();
         shiroRealm.setCredentialsMatcher(shiroCredentialsMatcher);
         return shiroRealm;
     }
 
     @Bean
-    @ConditionalOnMissingBean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator autoProxyCreator = new DefaultAdvisorAutoProxyCreator();
         autoProxyCreator.setProxyTargetClass(true);

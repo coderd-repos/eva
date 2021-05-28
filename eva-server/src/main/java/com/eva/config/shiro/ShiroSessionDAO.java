@@ -1,5 +1,6 @@
 package com.eva.config.shiro;
 
+import com.eva.core.annotation.duplicate.DuplicateSubmitInterceptor;
 import com.eva.service.proxy.CacheProxy;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -7,8 +8,9 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.SimpleSession;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -29,11 +31,12 @@ public class ShiroSessionDAO implements SessionDAO {
 
     private static final String KEY_PREFIX = "shiro:session:";
 
-    private static final long SESSION_IN_MEMORY_TIMEOUT = 1000L;
+    private CacheProxy<Serializable, Session> cacheProxy;
 
-    @Lazy
     @Autowired
-    private CacheProxy<String, Session> cacheProxy;
+    public ShiroSessionDAO (ApplicationContext applicationContext) {
+        cacheProxy = applicationContext.getBean(CacheProxy.class, KEY_PREFIX, 1800);
+    }
 
     @Override
     public Serializable create(Session session) {
@@ -54,7 +57,7 @@ public class ShiroSessionDAO implements SessionDAO {
             return null;
         }
         log.debug("read session from cache");
-        Session session = cacheProxy.get(this.getSessionKey(sessionId));
+        Session session = cacheProxy.get(sessionId);
         if (session == null) {
             throw new UnknownSessionException("There is no session with id [" + sessionId + "]");
         }
@@ -69,13 +72,21 @@ public class ShiroSessionDAO implements SessionDAO {
     @Override
     public void delete(Session session) {
         if (session != null && session.getId() != null) {
-            cacheProxy.remove(this.getSessionKey(session.getId()));
+            cacheProxy.remove(session.getId());
         }
     }
 
     @Override
     public Collection<Session> getActiveSessions() {
-        return null;
+        Set<Session> sessions = new HashSet<>();
+        Set<Serializable> keys = cacheProxy.keys(KEY_PREFIX + "*");
+        if (keys != null && keys.size() > 0) {
+            Iterator iter = keys.iterator();
+            while(iter.hasNext()) {
+                sessions.add(cacheProxy.get((String)iter.next()));
+            }
+        }
+        return sessions;
     }
 
     private void saveSession(Session session) throws UnknownSessionException {
@@ -83,11 +94,6 @@ public class ShiroSessionDAO implements SessionDAO {
             log.error("session or session id is null");
             throw new UnknownSessionException("session or session id is null");
         }
-        String key = this.getSessionKey(session.getId());
-        cacheProxy.put(key, session, (int)(session.getTimeout() / 1000L));
-    }
-
-    private String getSessionKey(Serializable sessionId) {
-        return KEY_PREFIX + sessionId;
+        cacheProxy.put(session.getId(), session, (int)(session.getTimeout() / 1000L));
     }
 }
