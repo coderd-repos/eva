@@ -55,7 +55,7 @@ export default {
       }
       this.__confirmEdit()
     },
-    // 确定新建
+    // 确认新建
     __confirmCreate () {
       this.$refs.form.validate((valid) => {
         if (!valid) {
