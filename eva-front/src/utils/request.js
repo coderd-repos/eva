@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
 import { trim } from './util'
 axios.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8'
 const axiosInstance = axios.create({
@@ -17,6 +18,11 @@ axiosInstance.interceptors.request.use(config => {
     if (config.params != null) {
       config.params = trim(config.params)
     }
+  }
+  // 设置认证头
+  const authToken = Cookies.get('eva-auth-token')
+  if (authToken != null) {
+    config.headers['eva-auth-token'] = Cookies.get('eva-auth-token')
   }
   return config
 }, function (error) {

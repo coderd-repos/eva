@@ -56,8 +56,7 @@ export default {
         code: this.captcha.value.trim(),
         uuid: this.captcha.uuid
       })
-        .then(data => {
-          this.setUserInfo(data)
+        .then(() => {
           this.$nextTick(() => {
             this.$router.push('/workbench')
           })
