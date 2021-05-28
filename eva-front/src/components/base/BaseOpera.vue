@@ -37,7 +37,7 @@ export default {
       if (target == null) {
         this.$nextTick(() => {
           this.$refs.form.resetFields()
-          this.form[this.idKey] = null
+          this.form[this.configData['field.id']] = null
         })
         return
       }
