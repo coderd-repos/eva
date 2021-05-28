@@ -86,7 +86,7 @@ public class PageWrap<M> implements Serializable {
         StringBuilder stringBuilder = new StringBuilder();
         for (SortData sortData: sorts) {
             // 防注入
-            if (!sortData.getProperty().matches("[a-zA-Z0-9_]+")) {
+            if (!sortData.getProperty().matches("[a-zA-Z0-9_\\.]+")) {
                 continue;
             }
             stringBuilder.append(sortData.getProperty().trim());
