@@ -9,9 +9,9 @@
       <h1>系统登录&nbsp;/&nbsp;LOGIN IN</h1>
       <div class="info-input">
         <el-input v-model="username" placeholder="请输入用户名" prefix-icon="el-icon-user-solid" maxlength="50" v-trim/>
-        <el-input v-model="password" placeholder="请输入密码" type="password" prefix-icon="yw-icon-password" maxlength="30" show-password/>
+        <el-input v-model="password" placeholder="请输入密码" type="password" prefix-icon="eva-icon-password" maxlength="30" show-password/>
         <div class="captcha-input">
-          <el-input v-model="captcha.value" placeholder="图片验证码" prefix-icon="yw-icon-shield" maxlength="4" @keypress.enter.native="login"/>
+          <el-input v-model="captcha.value" placeholder="图片验证码" prefix-icon="eva-icon-shield" maxlength="4" @keypress.enter.native="login"/>
           <img v-if="!captcha.loading" :src="captcha.uri" @click="refreshCaptcha">
           <span v-else><i class="el-icon-loading"></i></span>
         </div>

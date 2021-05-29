@@ -161,7 +161,7 @@ export default {
     position: relative;
     top: -1px;
     // 自定义图标
-    &[class^="yw-icon-"] {
+    &[class^="eva-icon-"] {
       width: 24px;
       margin-right: 5px;
       background-size: 15px;

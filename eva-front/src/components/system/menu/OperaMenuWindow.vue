@@ -144,7 +144,7 @@ $icon-background-color: $primary-color;
           font-size: 30px;
         }
         // 自定义图标
-        [class^="yw-icon-"], [class*=" yw-icon-"] {
+        [class^="eva-icon-"], [class*=" eva-icon-"] {
           width: 30px;
           height: 30px;
           background-size: 25px;

@@ -1,11 +1,11 @@
 export default [
   // 自定义图标
-  'yw-icon-role',
-  'yw-icon-permission',
-  'yw-icon-department',
-  'yw-icon-position',
-  'yw-icon-dictionary',
-  'yw-icon-listener',
+  'eva-icon-role',
+  'eva-icon-permission',
+  'eva-icon-department',
+  'eva-icon-position',
+  'eva-icon-dictionary',
+  'eva-icon-listener',
   // element-ui图标
   'el-icon-platform-eleme',
   'el-icon-eleme',

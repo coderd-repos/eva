@@ -221,7 +221,7 @@ export default {
     border-radius: 50%;
   }
   // 自定义图标
-  [class^="yw-icon-"] {
+  [class^="eva-icon-"] {
     width: 20px;
     height: 20px;
     background-size: 16px;
