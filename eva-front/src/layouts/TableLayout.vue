@@ -81,6 +81,7 @@ export default {
   section {
     display: inline-block;
     margin-left: 16px;
+    margin-bottom: 18px;
   }
 }
 // 列表和分页
@@ -101,6 +102,11 @@ export default {
     }
     // 表格
     .el-table {
+      th {
+        .cell {
+          color: #666;
+        }
+      }
       // 复选框列
       .el-table-column--selection {
         .cell {
