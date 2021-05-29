@@ -185,16 +185,21 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         Trace methodTrace = method.getAnnotation(Trace.class);
-        // 非智能模式必须添加@Trace注解
-        if (!isSmart && methodTrace == null) {
-            return Boolean.FALSE;
+        Trace classTrace = method.getDeclaringClass().getAnnotation(Trace.class);
+        // 非智能模式
+        if (!isSmart) {
+            if (methodTrace == null && classTrace == null) {
+                return Boolean.FALSE;
+            }
+            if (methodTrace == null && classTrace.exclude()) {
+                return Boolean.FALSE;
+            }
         }
         // 方法排除
         if (methodTrace != null && methodTrace.exclude()) {
             return Boolean.FALSE;
         }
         // 类排除
-        Trace classTrace = method.getDeclaringClass().getAnnotation(Trace.class);
         if (methodTrace == null && classTrace != null && classTrace.exclude()) {
             return Boolean.FALSE;
         }
