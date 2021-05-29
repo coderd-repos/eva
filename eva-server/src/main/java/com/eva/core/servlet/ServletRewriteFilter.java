@@ -1,28 +1,32 @@
-package com.eva.config.filter;
+package com.eva.core.servlet;
 
-import com.eva.core.servlet.ServletDuplicateRequestWrapper;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 全局过滤器，处理请求流传递，防止请求流被拦截器进行一次读取后关闭导致流无法连续读取。
+ * 传递请求流/响应流副本
  * 技术参考：https://blog.csdn.net/AlbenXie/article/details/114868245
  * @author Eva
  * @date 2021-05-25 16:23
  */
 @Component
-@WebFilter(urlPatterns = "/*", filterName = "globalFilter")
-public class GlobalFilter implements Filter {
+@WebFilter(urlPatterns = "/*", filterName = "servletRewriteFilter")
+public class ServletRewriteFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+        HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
+        // 防止请求流被拦截器进行一次读取后关闭导致流无法连续读取的问题
         ServletRequest requestWrapper = new ServletDuplicateRequestWrapper(httpServletRequest);
-        filterChain.doFilter(requestWrapper, servletResponse);
+        // 允许响应流读取响应结果
+        ServletResponse responseWrapper = new ServletDuplicateResponseWrapper(httpServletResponse);
+        filterChain.doFilter(requestWrapper, responseWrapper);
     }
 
     @Override

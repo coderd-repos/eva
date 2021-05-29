@@ -1,7 +1,10 @@
 package com.eva.core.annotation.trace;
 
 import com.eva.core.model.LoginUserInfo;
-import com.eva.core.servlet.ContainBodyRequestWrapper;
+import com.eva.core.servlet.ServletDuplicateInputStream;
+import com.eva.core.servlet.ServletDuplicateOutputStream;
+import com.eva.core.servlet.ServletDuplicateRequestWrapper;
+import com.eva.core.servlet.ServletDuplicateResponseWrapper;
 import com.eva.core.utils.RequestHeaderUtil;
 import com.eva.core.utils.ServerUtil;
 import com.eva.dao.system.model.SystemTraceLog;
@@ -16,10 +19,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Date;
 
@@ -80,8 +85,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             log.setRequestMethod(request.getMethod());
             if (trace == null || trace.withRequestParameters()) {
                 if (HttpMethod.POST.matches(request.getMethod())) {
-                    ContainBodyRequestWrapper requestWrapper = new ContainBodyRequestWrapper(request);
-                    log.setRequestParams(requestWrapper.getBody());
+                    log.setRequestParams(((ServletDuplicateInputStream)request.getInputStream()).getBody());
                 } else {
                     log.setRequestParams(request.getQueryString());
                 }
@@ -104,7 +108,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws IOException {
         // 获取跟踪ID
         Object traceId = request.getAttribute(ATTRIBUTE_DRACE_ID);
         Object traceTime = request.getAttribute(ATTRIBUTE_DRACE_TIME);
@@ -127,7 +131,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
         Method method = handlerMethod.getMethod();
         Trace trace = method.getAnnotation(Trace.class);
         if (trace == null || trace.withRequestResult()) {
-            // log.setRequestResult();
+            log.setRequestResult(((ServletDuplicateOutputStream)response.getOutputStream()).getContent());
         }
         systemTraceLogService.updateById(log);
     }

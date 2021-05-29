@@ -1,12 +1,14 @@
 package com.eva.core.annotation.duplicate;
 
-import com.eva.core.servlet.ContainBodyRequestWrapper;
+import com.eva.core.servlet.ServletDuplicateInputStream;
+import com.eva.core.servlet.ServletDuplicateRequestWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +31,7 @@ public class DuplicateSubmitDefaultHandler extends DuplicateSubmitAdapter {
     private ThreadLocal<String> requestKeyThreadLocal = new ThreadLocal<>();
 
     @Override
-    public String sign(HttpServletRequest request) {
+    public String sign(HttpServletRequest request) throws IOException {
         String requestKey = requestKeyThreadLocal.get();
         if (requestKey != null) {
             requestKeyThreadLocal.set(null);
@@ -53,12 +55,12 @@ public class DuplicateSubmitDefaultHandler extends DuplicateSubmitAdapter {
      * @author Eva
      * @date 2021-05-25 14:18
      */
-    private Map<String, Object> getParameters(HttpServletRequest request) {
+    private Map<String, Object> getParameters(HttpServletRequest request) throws IOException {
         HashMap<String, Object> paramMap = new HashMap<>();
         // 获取请求路径
         paramMap.put(REQUEST_URI, request.getRequestURI());
         // 获取请求体参数
-        String bodyParameters = new ContainBodyRequestWrapper(request).getBody();
+        String bodyParameters = ((ServletDuplicateInputStream)request.getInputStream()).getBody();
         paramMap.put(REQUEST_BODY_PARAMETERS, bodyParameters);
         // 获取Cookie信息
         Cookie[] cookies = request.getCookies();

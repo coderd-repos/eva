@@ -40,7 +40,7 @@ public class ShiroConfig {
     private ShiroRealm shiroRealm;
 
     @Autowired
-    private ShiroDefaultTokenManager shiroDefaultTokenManager;
+    private ShiroTokenManager shiroDefaultTokenManager;
 
     @Bean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
@@ -98,7 +98,6 @@ public class ShiroConfig {
 
     @Bean
     public ShiroSessionDAO getShiroSessionDAO () {
-        shiroSessionDAO.setTokenManager(shiroDefaultTokenManager);
         shiroSessionDAO.setExpireTime(sessionExpireTime);
         return shiroSessionDAO;
     }

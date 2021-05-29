@@ -4,6 +4,7 @@ import com.eva.service.proxy.CacheProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**
  * 防重复提交实现接口
@@ -26,7 +27,7 @@ public abstract class DuplicateSubmitAdapter {
      * @author Eva
      * @date 2021-05-25 11:05
      */
-    public Boolean isDuplicate(HttpServletRequest request) {
+    public Boolean isDuplicate(HttpServletRequest request) throws IOException {
         return cacheProxy.get(this.sign(request)) != null;
     }
 
@@ -35,5 +36,5 @@ public abstract class DuplicateSubmitAdapter {
      * @author Eva
      * @date 2021-05-25 11:39
      */
-    public abstract String sign (HttpServletRequest request);
+    public abstract String sign (HttpServletRequest request) throws IOException;
 }

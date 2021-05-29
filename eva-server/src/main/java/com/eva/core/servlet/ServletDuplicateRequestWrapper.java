@@ -10,112 +10,31 @@ import java.io.*;
 import java.nio.charset.Charset;
 
 /**
- * 请求流传递对象
+ * 增加请求流副本
  * 技术参考：https://blog.csdn.net/AlbenXie/article/details/114868245
  * @author Eva
  * @date 2021-05-25 16:13
  */
 @Getter
-public class ContainBodyRequestWrapper extends HttpServletRequestWrapper {
+public class ServletDuplicateRequestWrapper extends HttpServletRequestWrapper {
 
-    private final HttpServletRequest request;
+    private ServletDuplicateInputStream servletDuplicateInputStream;
 
-    private final String body;
-
-    public ContainBodyRequestWrapper(HttpServletRequest request) {
+    public ServletDuplicateRequestWrapper(HttpServletRequest request) {
         super(request);
-        this.request = request;
-        this.body = getBodyString();
     }
 
     @Override
-    public BufferedReader getReader() {
+    public BufferedReader getReader() throws IOException {
         return new BufferedReader(new InputStreamReader(getInputStream()));
     }
 
     @Override
-    public ServletInputStream getInputStream() {
-        final ByteArrayInputStream bais = new ByteArrayInputStream(body.getBytes(Charset.forName("UTF-8")));
-        return new ServletInputStream() {
-
-            @Override
-            public int read() {
-                return bais.read();
-            }
-
-            @Override
-            public boolean isFinished() {
-                return false;
-            }
-
-            @Override
-            public boolean isReady() {
-                return false;
-            }
-
-            @Override
-            public void setReadListener(ReadListener readListener) {
-
-            }
-        };
-    }
-
-    /**
-     * 获取请求体参数字符串
-     * @author Eva
-     * @date 2021-05-25 16:16
-     */
-    private String getBodyString() {
-        StringBuilder sb = new StringBuilder();
-        InputStream inputStream = null;
-        BufferedReader reader = null;
-        try {
-            inputStream = cloneInputStream(request.getInputStream());
-            reader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (reader != null) {
-                try {
-                    reader.close();
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+    public ServletInputStream getInputStream() throws IOException{
+        if (servletDuplicateInputStream == null) {
+            servletDuplicateInputStream = new ServletDuplicateInputStream(super.getInputStream());
         }
-        return sb.toString();
+        return servletDuplicateInputStream;
     }
 
-    /**
-     * 复制输入流
-     * @author Eva
-     * @date 2021-05-25 16:14
-     */
-    private InputStream cloneInputStream(ServletInputStream inputStream) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int len;
-        try {
-            while ((len = inputStream.read(buffer)) > -1) {
-                byteArrayOutputStream.write(buffer, 0, len);
-            }
-            byteArrayOutputStream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
-    }
 }
