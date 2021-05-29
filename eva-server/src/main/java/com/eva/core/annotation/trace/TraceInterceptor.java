@@ -59,9 +59,10 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             Date now = new Date();
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
-            Trace trace = method.getAnnotation(Trace.class);
+            Trace methodTrace = method.getAnnotation(Trace.class);
+            Trace classTrace = method.getDeclaringClass().getAnnotation(Trace.class);
             // 获取跟踪类型
-            TraceType traceType = trace == null ? null : trace.type();
+            TraceType traceType = methodTrace == null ? null : methodTrace.type();
             if (traceType == null) {
                 traceType = this.smartType(request);
             }
@@ -83,7 +84,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             // 请求信息
             log.setRequestUri(request.getRequestURI());
             log.setRequestMethod(request.getMethod());
-            if (trace == null || trace.withRequestParameters()) {
+            if (methodTrace == null || methodTrace.withRequestParameters() || (classTrace != null && classTrace.withRequestParameters())) {
                 if (HttpMethod.POST.matches(request.getMethod())) {
                     log.setRequestParams(((ServletDuplicateInputStream)request.getInputStream()).getBody());
                 } else {
@@ -129,8 +130,9 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
         // 记录响应内容
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
-        Trace trace = method.getAnnotation(Trace.class);
-        if (trace == null || trace.withRequestResult()) {
+        Trace methodTrace = method.getAnnotation(Trace.class);
+        Trace classTrace = method.getDeclaringClass().getAnnotation(Trace.class);
+        if (methodTrace == null || methodTrace.withRequestResult() || (classTrace != null && classTrace.withRequestResult())) {
             log.setRequestResult(((ServletDuplicateOutputStream)response.getOutputStream()).getContent());
         }
         systemTraceLogService.updateById(log);

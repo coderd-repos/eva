@@ -28,7 +28,7 @@ public @interface Trace {
     String remark() default "";
 
     /**
-     * 是否解除
+     * 是否不做日志记录
      */
     boolean exclude() default false;
 
