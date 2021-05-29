@@ -22,7 +22,13 @@ public enum TraceType {
     UNKNOWN("UNKNOWN", "未知操作"),
     ;
 
+    /**
+     * 跟踪类型
+     */
     private String type;
 
+    /**
+     * 跟踪备注
+     */
     private String remark;
 }

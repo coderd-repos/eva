@@ -2,12 +2,10 @@ package com.eva.core.servlet;
 
 import lombok.Getter;
 
-import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
-import java.nio.charset.Charset;
 
 /**
  * 增加请求流副本
