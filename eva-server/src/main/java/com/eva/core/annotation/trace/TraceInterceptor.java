@@ -3,8 +3,6 @@ package com.eva.core.annotation.trace;
 import com.eva.core.model.LoginUserInfo;
 import com.eva.core.servlet.ServletDuplicateInputStream;
 import com.eva.core.servlet.ServletDuplicateOutputStream;
-import com.eva.core.servlet.ServletDuplicateRequestWrapper;
-import com.eva.core.servlet.ServletDuplicateResponseWrapper;
 import com.eva.core.utils.RequestHeaderUtil;
 import com.eva.core.utils.ServerUtil;
 import com.eva.dao.system.model.SystemTraceLog;
@@ -19,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +39,9 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
 
     @Value("${trace.exclude-patterns:}")
     private String excludePatterns;
+
+    @Value("${trace.smart}")
+    private Boolean isSmart;
 
     private static final String ATTRIBUTE_DRACE_ID = "eva-trace-id";
 
@@ -185,6 +185,10 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         Trace methodTrace = method.getAnnotation(Trace.class);
+        // 非智能模式必须添加@Trace注解
+        if (!isSmart && methodTrace == null) {
+            return Boolean.FALSE;
+        }
         // 方法排除
         if (methodTrace != null && methodTrace.exclude()) {
             return Boolean.FALSE;

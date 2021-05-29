@@ -41,6 +41,8 @@ cache:
 
 # 跟踪日志
 trace:
+  # 开启智能跟踪模式
+  smart: true
   # 排除跟踪的URL正则
   exclude-patterns: .*/list$, .*/tree$, .*/page$
 
