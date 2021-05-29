@@ -65,7 +65,19 @@
             </el-popconfirm>
           </template>
         </el-table-column>
-        <el-table-column prop="requestResult" label="请求结果" min-width="100px"></el-table-column>
+        <el-table-column prop="requestResult" label="请求结果" min-width="100px">
+          <template slot-scope="{row}">
+            <el-popconfirm
+                v-if="row.requestResult != null"
+                :title="row.requestResult"
+                :hide-icon="true"
+                confirm-button-text='复制'
+                cancel-button-text='关闭'
+            >
+              <el-button slot="reference">查看</el-button>
+            </el-popconfirm>
+          </template>
+        </el-table-column>
         <el-table-column prop="operaSpendTime" label="处理耗时(ms)" sortable="custom" sort-by="OPERA_SPEND_TIME" min-width="120px"></el-table-column>
         <el-table-column prop="status" label="处理状态" min-width="80px">
           <template slot-scope="{row}">
@@ -76,6 +88,7 @@
         <el-table-column prop="serviceVersion" label="接口版本" min-width="80px"></el-table-column>
         <el-table-column prop="platform" label="操作平台" min-width="100px"></el-table-column>
         <el-table-column prop="ip" label="用户IP" min-width="100px"></el-table-column>
+        <el-table-column prop="serverIp" label="服务器IP" min-width="100px"></el-table-column>
         <el-table-column prop="clientInfo" label="客户端" min-width="200px"></el-table-column>
         <el-table-column prop="systemInfo" label="操作系统" min-width="100px"></el-table-column>
       </el-table>

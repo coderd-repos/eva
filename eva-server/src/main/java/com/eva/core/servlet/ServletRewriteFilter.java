@@ -1,6 +1,6 @@
 package com.eva.config.filter;
 
-import com.eva.core.servlet.ContainBodyRequestWrapper;
+import com.eva.core.servlet.ServletDuplicateRequestWrapper;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -21,7 +21,7 @@ public class GlobalFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        ServletRequest requestWrapper = new ContainBodyRequestWrapper(httpServletRequest);
+        ServletRequest requestWrapper = new ServletDuplicateRequestWrapper(httpServletRequest);
         filterChain.doFilter(requestWrapper, servletResponse);
     }
 
