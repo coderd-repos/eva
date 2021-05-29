@@ -2,6 +2,7 @@ package com.eva.service.system;
 
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
+import com.eva.dao.system.dto.QuerySystemTraceLogDTO;
 import com.eva.dao.system.model.SystemTraceLog;
 import java.util.List;
 
@@ -73,7 +74,7 @@ public interface SystemTraceLogService {
      * @author Eva
      * @date 2021/05/29 13:53
      */
-    PageData<SystemTraceLog> findPage(PageWrap<SystemTraceLog> pageWrap);
+    PageData<SystemTraceLog> findPage(PageWrap<QuerySystemTraceLogDTO> pageWrap);
 
     /**
      * 条件统计

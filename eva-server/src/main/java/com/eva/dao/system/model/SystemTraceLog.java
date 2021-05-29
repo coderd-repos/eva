@@ -48,7 +48,6 @@ public class SystemTraceLog implements Serializable {
     private String operaRemark;
 
     @ApiModelProperty(value = "操作开始时间")
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date operaTime;
 
     @ApiModelProperty(value = "耗时", example = "1")
@@ -74,6 +73,9 @@ public class SystemTraceLog implements Serializable {
 
     @ApiModelProperty(value = "IP")
     private String ip;
+
+    @ApiModelProperty(value = "服务器IP")
+    private String serverIp;
 
     @ApiModelProperty(value = "接口版本")
     private String serviceVersion;

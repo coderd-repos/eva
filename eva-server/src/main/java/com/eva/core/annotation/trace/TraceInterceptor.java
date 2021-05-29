@@ -3,6 +3,7 @@ package com.eva.core.annotation.trace;
 import com.eva.core.model.LoginUserInfo;
 import com.eva.core.servlet.ContainBodyRequestWrapper;
 import com.eva.core.utils.RequestHeaderUtil;
+import com.eva.core.utils.ServerUtil;
 import com.eva.dao.system.model.SystemTraceLog;
 import com.eva.service.system.SystemTraceLogService;
 import io.swagger.annotations.Api;
@@ -86,6 +87,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
                 }
             }
             // 辅助信息
+            log.setServerIp(ServerUtil.getIpAddress());
             log.setIp(RequestHeaderUtil.getRequestIp(request));
             log.setServiceVersion(serviceVersion);
             log.setPlatform(request.getHeader("x-platform") == null ? "PC" : request.getHeader("x-platform"));

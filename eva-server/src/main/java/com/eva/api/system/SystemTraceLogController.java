@@ -4,10 +4,12 @@ import com.eva.api.BaseController;
 import com.eva.core.annotation.trace.Trace;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.PageWrap;
+import com.eva.dao.system.dto.QuerySystemTraceLogDTO;
 import com.eva.dao.system.model.SystemTraceLog;
 import com.eva.service.system.SystemTraceLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +33,8 @@ public class SystemTraceLogController extends BaseController {
      */
     @ApiOperation("分页查询")
     @PostMapping("/page")
-    public ApiResponse findPage (@RequestBody PageWrap<SystemTraceLog> pageWrap) {
+    @RequiresPermissions("system:traceLog:query")
+    public ApiResponse findPage (@RequestBody PageWrap<QuerySystemTraceLogDTO> pageWrap) {
         return ApiResponse.success(systemTraceLogService.findPage(pageWrap));
     }
 }
