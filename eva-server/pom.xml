@@ -23,10 +23,10 @@
     <java.version>1.8</java.version>
     <swagger.version>2.9.2</swagger.version>
     <swagger.bootstrap-ui.version>1.9.6</swagger.bootstrap-ui.version>
-    <fastjson.version>1.2.25</fastjson.version>
-    <druid.version>1.1.0</druid.version>
+    <fastjson.version>1.2.70</fastjson.version>
+    <druid.version>1.2.0</druid.version>
     <mybatis.plus.version>3.4.2</mybatis.plus.version>
-    <apache.shiro.version>1.6.0</apache.shiro.version>
+    <apache.shiro.version>1.7.0</apache.shiro.version>
     <oshi.version>5.7.0</oshi.version>
     <jna.version>5.7.0</jna.version>
   </properties>

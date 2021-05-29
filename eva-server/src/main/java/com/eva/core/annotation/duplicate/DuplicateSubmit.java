@@ -14,22 +14,16 @@ public @interface DuplicateSubmit {
 
     /**
      * 防重复规则设定类
-     * @author Eva
-     * @date 2021-05-25 11:10
      */
     Class value() default DuplicateSubmitDefaultHandler.class;
 
     /**
      * 间隔时间(ms)，小于此时间视为重复提交
-     * @author Eva
-     * @date 2021-05-25 11:27
      */
     long interval() default 800;
 
     /**
      * 错误消息
-     * @author Eva
-     * @date 2021-05-25 14:41
      */
     String message() default "请勿重复提交";
 }

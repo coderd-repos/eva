@@ -50,7 +50,7 @@ swagger:
 
 # 日志配置
 logback:
-  level: INFO
+  level: DEBUG
   appender: ${project.env}
 # dao层的日志设置为debug，方便查看sql
 logging:

@@ -23,7 +23,7 @@ public class SystemLoginServiceImpl implements SystemLoginService {
     private CaptchaService captchaService;
 
     @Override
-    public String login(LoginDTO dto) {
+    public String loginByPassword(LoginDTO dto) {
         // 校验验证码
         captchaService.check(dto.getUuid(), dto.getCode());
         // 校验用户名和密码

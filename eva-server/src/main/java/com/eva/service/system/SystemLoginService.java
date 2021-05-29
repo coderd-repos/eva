@@ -10,9 +10,9 @@ import com.eva.dao.system.dto.LoginDTO;
 public interface SystemLoginService {
 
     /**
-     * 登录
+     * 密码登录
      * @author Eva
      * @date 2021-05-28 00:05
      */
-    String login (LoginDTO dto);
+    String loginByPassword (LoginDTO dto);
 }
