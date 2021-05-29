@@ -18,6 +18,7 @@ public enum TraceType {
     DELETE_BATCH("DELETE_BATCH", "批量删除"),
     IMPORT("IMPORT", "导入"),
     EXPORT("EXPORT", "导出"),
+    RESET("RESET", "重置"),
     UNKNOWN("UNKNOWN", "未知操作"),
     ;
 

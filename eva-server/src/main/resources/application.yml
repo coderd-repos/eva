@@ -39,6 +39,11 @@ cache:
     # 验证码过期时长(s)
     expire: 300
 
+# 跟踪日志
+trace:
+  # 排除跟踪的URL正则
+  exclude-patterns: .*/list$, .*/tree$, .*/page$
+
 # Swagger配置
 swagger:
   host:
@@ -50,7 +55,7 @@ swagger:
 
 # 日志配置
 logback:
-  level: DEBUG
+  level: INFO
   appender: ${project.env}
 # dao层的日志设置为debug，方便查看sql
 logging:

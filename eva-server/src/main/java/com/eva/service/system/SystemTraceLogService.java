@@ -20,13 +20,6 @@ public interface SystemTraceLogService {
     Integer create(SystemTraceLog systemTraceLog);
 
     /**
-     * 创建
-     * @author Eva
-     * @date 2021/05/29 13:53
-     */
-    void asyncCreate(SystemTraceLog systemTraceLog);
-
-    /**
      * 主键删除
      * @author Eva
      * @date 2021/05/29 13:53

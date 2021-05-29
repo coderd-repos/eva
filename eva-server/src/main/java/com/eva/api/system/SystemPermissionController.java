@@ -3,6 +3,7 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemPermissionBiz;
 import com.eva.core.annotation.duplicate.DuplicateSubmit;
+import com.eva.core.annotation.trace.Trace;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
@@ -25,7 +26,7 @@ import java.util.List;
  * @author Eva
  * @date 2021/03/27 22:36
  */
-@Api(tags = "权限接口")
+@Api(tags = "系统权限")
 @RestController
 @RequestMapping("/system/permission")
 public class SystemPermissionController extends BaseController {
@@ -52,7 +53,7 @@ public class SystemPermissionController extends BaseController {
      * @author Eva
      * @date 2021/03/27 22:36
      */
-    @ApiOperation("根据ID删除")
+    @ApiOperation("删除")
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:permission:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
@@ -81,7 +82,7 @@ public class SystemPermissionController extends BaseController {
      * @author Eva
      * @date 2021/03/27 22:36
      */
-    @ApiOperation("根据ID修改")
+    @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:permission:update")
     public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemPermission systemPermission) {
@@ -100,7 +101,12 @@ public class SystemPermissionController extends BaseController {
         return ApiResponse.success(systemPermissionService.findPage(pageWrap));
     }
 
-    @ApiOperation("分页查询")
+    /**
+     * @author Caesar Liu
+     * @date 2021-05-29 16:40
+     */
+    @Trace(exclude = true)
+    @ApiOperation("查询所有")
     @GetMapping("/all")
     @RequiresPermissions("system:permission:query")
     public ApiResponse<List<SystemPermission>> findAll () {

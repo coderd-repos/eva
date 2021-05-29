@@ -3,6 +3,7 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemRoleBiz;
 import com.eva.core.annotation.duplicate.DuplicateSubmit;
+import com.eva.core.annotation.trace.Trace;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
@@ -27,7 +28,7 @@ import java.util.List;
  * @author Eva
  * @date 2021/03/27 22:36
  */
-@Api(tags = "角色接口")
+@Api(tags = "系统角色")
 @RestController
 @RequestMapping("/system/role")
 public class SystemRoleController extends BaseController {
@@ -80,7 +81,7 @@ public class SystemRoleController extends BaseController {
      * @author Eva
      * @date 2021/03/27 22:36
      */
-    @ApiOperation("根据ID删除")
+    @ApiOperation("删除")
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:role:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
@@ -109,7 +110,7 @@ public class SystemRoleController extends BaseController {
      * @author Eva
      * @date 2021/03/27 22:36
      */
-    @ApiOperation("根据ID修改")
+    @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:role:update")
     public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemRole systemRole) {
@@ -132,6 +133,7 @@ public class SystemRoleController extends BaseController {
      * @author Eva
      * @date 2021/03/27 22:36
      */
+    @Trace(exclude = false)
     @ApiOperation("查询所有")
     @GetMapping("/all")
     @RequiresPermissions("system:role:query")

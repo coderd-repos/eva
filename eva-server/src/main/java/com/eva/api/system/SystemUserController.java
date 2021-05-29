@@ -3,6 +3,7 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemUserBiz;
 import com.eva.core.annotation.duplicate.DuplicateSubmit;
+import com.eva.core.annotation.trace.Trace;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
@@ -27,7 +28,7 @@ import java.util.List;
  * @author Eva
  * @date 2021/03/28 09:30
  */
-@Api(tags = "用户接口")
+@Api(tags = "用户")
 @RestController
 @RequestMapping("/system/user")
 public class SystemUserController extends BaseController {
@@ -56,6 +57,8 @@ public class SystemUserController extends BaseController {
      * @date 2021-03-31 20:25
      */
     @DuplicateSubmit
+    @Trace(withRequestParameters = false)
+    @ApiOperation("重置用户密码")
     @PostMapping("/resetPwd")
     @RequiresPermissions("system:user:resetPwd")
     public ApiResponse resetPwd (@Validated @RequestBody ResetSystemUserPwdDTO dto) {
@@ -82,7 +85,7 @@ public class SystemUserController extends BaseController {
      * @author Eva
      * @date 2021/03/28 09:30
      */
-    @ApiOperation("根据ID删除")
+    @ApiOperation("删除")
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:user:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
@@ -111,7 +114,7 @@ public class SystemUserController extends BaseController {
      * @author Eva
      * @date 2021/03/28 09:30
      */
-    @ApiOperation("根据ID修改")
+    @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:user:update")
     public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody CreateSystemUserDTO systemUser) {

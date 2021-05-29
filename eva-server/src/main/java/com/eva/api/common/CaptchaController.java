@@ -1,6 +1,7 @@
 package com.eva.api.common;
 
 import com.eva.api.BaseController;
+import com.eva.core.annotation.trace.Trace;
 import com.eva.core.model.ApiResponse;
 import com.eva.service.common.CaptchaService;
 import io.swagger.annotations.Api;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021-05-20 17:55
  */
 @Api(tags = "验证码接口")
+@Trace(exclude = true)
 @RestController
 @RequestMapping("/common")
 public class CaptchaController extends BaseController {

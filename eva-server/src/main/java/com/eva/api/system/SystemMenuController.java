@@ -23,7 +23,7 @@ import java.util.List;
  * @author Eva
  * @date 2021/03/27 22:36
  */
-@Api(tags = "菜单接口")
+@Api(tags = "系统菜单")
 @RestController
 @RequestMapping("/system/menu")
 public class SystemMenuController extends BaseController {
@@ -80,7 +80,7 @@ public class SystemMenuController extends BaseController {
      * @author Eva
      * @date 2021/03/27 22:36
      */
-    @ApiOperation("根据ID删除")
+    @ApiOperation("删除")
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:menu:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
@@ -109,7 +109,7 @@ public class SystemMenuController extends BaseController {
      * @author Eva
      * @date 2021/03/27 22:36
      */
-    @ApiOperation("根据ID修改")
+    @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:menu:update")
     public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemMenu systemMenu) {

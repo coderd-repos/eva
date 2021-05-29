@@ -25,7 +25,7 @@ import java.util.List;
  * @author Eva
  * @date 2021/05/16 20:18
  */
-@Api(tags = "字典数据接口")
+@Api(tags = "字典数据")
 @RestController
 @RequestMapping("/system/dictData")
 public class SystemDictDataController extends BaseController {
@@ -52,7 +52,7 @@ public class SystemDictDataController extends BaseController {
      * @author Eva
      * @date 2021/05/16 20:18
      */
-    @ApiOperation("根据ID删除")
+    @ApiOperation("删除")
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:dict:update")
     public ApiResponse deleteById(@PathVariable Integer id) {
@@ -81,7 +81,7 @@ public class SystemDictDataController extends BaseController {
      * @author Eva
      * @date 2021/05/16 20:18
      */
-    @ApiOperation("根据ID修改")
+    @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:dict:update")
     public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemDictData systemDictData) {
@@ -98,16 +98,5 @@ public class SystemDictDataController extends BaseController {
     @RequiresPermissions("system:dict:update")
     public ApiResponse<PageData<SystemDictDataListVO>> findPage (@RequestBody PageWrap<QuerySystemDictDataDTO> pageWrap) {
         return ApiResponse.success(systemDictDataService.findPage(pageWrap));
-    }
-
-    /**
-     * @author Eva
-     * @date 2021/05/16 20:18
-     */
-    @ApiOperation("根据ID查询")
-    @GetMapping("/{id}")
-    @RequiresPermissions("system:dict:update")
-    public ApiResponse<SystemDictData> findById(@PathVariable Integer id) {
-        return ApiResponse.success(systemDictDataService.findById(id));
     }
 }

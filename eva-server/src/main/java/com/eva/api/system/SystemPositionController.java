@@ -3,6 +3,7 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemPositionBiz;
 import com.eva.core.annotation.duplicate.DuplicateSubmit;
+import com.eva.core.annotation.trace.Trace;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
@@ -28,7 +29,7 @@ import java.util.List;
  * @author Eva
  * @date 2021/05/16 17:03
  */
-@Api(tags = "岗位接口")
+@Api(tags = "岗位")
 @RestController
 @RequestMapping("/system/position")
 public class SystemPositionController extends BaseController {
@@ -58,7 +59,7 @@ public class SystemPositionController extends BaseController {
      * @author Eva
      * @date 2021/05/16 17:03
      */
-    @ApiOperation("根据ID删除")
+    @ApiOperation("删除")
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:position:delete")
     public ApiResponse deleteById(@PathVariable Integer id) {
@@ -87,7 +88,7 @@ public class SystemPositionController extends BaseController {
      * @author Eva
      * @date 2021/05/16 17:03
      */
-    @ApiOperation("根据ID修改")
+    @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:position:update")
     public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemPosition systemPosition) {
@@ -110,6 +111,7 @@ public class SystemPositionController extends BaseController {
      * @author Eva
      * @date 2021-05-24 22:46
      */
+    @Trace(exclude = true)
     @ApiOperation("查询岗位列表")
     @PostMapping("/all")
     @RequiresPermissions("system:position:query")
@@ -128,16 +130,5 @@ public class SystemPositionController extends BaseController {
     @RequiresPermissions("system:position:queryUsers")
     public ApiResponse<PageData<SystemUserListVO>> findPage (@RequestBody PageWrap<QuerySystemUserDTO> pageWrap) {
         return ApiResponse.success(systemUserService.findPage(pageWrap));
-    }
-
-    /**
-     * @author Eva
-     * @date 2021/05/16 17:03
-     */
-    @ApiOperation("根据ID查询")
-    @GetMapping("/{id}")
-    @RequiresPermissions("system:position:query")
-    public ApiResponse<SystemPosition> findById(@PathVariable Integer id) {
-        return ApiResponse.success(systemPositionService.findById(id));
     }
 }

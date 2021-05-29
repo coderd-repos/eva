@@ -1,6 +1,7 @@
 package com.eva.api.system;
 
 import com.eva.api.BaseController;
+import com.eva.core.annotation.trace.Trace;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.model.SystemTraceLog;
@@ -14,9 +15,10 @@ import org.springframework.web.bind.annotation.*;
  * @author Eva
  * @date 2021/05/29 13:53
  */
+@Api(tags = "跟踪日志")
+@Trace(exclude = true)
 @RestController
 @RequestMapping("/system/traceLog")
-@Api(tags = "跟踪日志接口")
 public class SystemTraceLogController extends BaseController {
 
     @Autowired
@@ -27,8 +29,8 @@ public class SystemTraceLogController extends BaseController {
      * @author Eva
      * @date 2021/05/29 13:53
      */
-    @PostMapping("/page")
     @ApiOperation("分页查询")
+    @PostMapping("/page")
     public ApiResponse findPage (@RequestBody PageWrap<SystemTraceLog> pageWrap) {
         return ApiResponse.success(systemTraceLogService.findPage(pageWrap));
     }

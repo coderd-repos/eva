@@ -48,6 +48,7 @@ public class SystemController extends BaseController {
      * @author Eva
      * @date 2021-03-27 21:36
      */
+    @Trace(exclude = true)
     @ApiOperation("退出登录")
     @PostMapping("/logout")
     public ApiResponse logout () {

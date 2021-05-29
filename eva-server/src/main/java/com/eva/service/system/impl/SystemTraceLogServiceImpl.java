@@ -11,7 +11,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -32,12 +31,6 @@ public class SystemTraceLogServiceImpl implements SystemTraceLogService {
     public Integer create(SystemTraceLog systemTraceLog) {
         systemTraceLogMapper.insert(systemTraceLog);
         return systemTraceLog.getId();
-    }
-
-    @Async
-    @Override
-    public void asyncCreate(SystemTraceLog systemTraceLog) {
-        this.create(systemTraceLog);
     }
 
     @Override

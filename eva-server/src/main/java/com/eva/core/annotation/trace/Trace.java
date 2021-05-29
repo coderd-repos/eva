@@ -7,7 +7,7 @@ import java.lang.annotation.*;
  * @author Eva
  * @date 2021-05-29 10:24
  */
-@Target({ ElementType.METHOD })
+@Target({ ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Trace {
