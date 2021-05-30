@@ -153,7 +153,7 @@ INSERT INTO `SYSTEM_PERMISSION` VALUES (18, 'system:user:update', '更新用户'
 INSERT INTO `SYSTEM_PERMISSION` VALUES (19, 'system:user:delete', '删除用户', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_PERMISSION` VALUES (20, 'system:user:createUserRole', '配置用户角色', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_PERMISSION` VALUES (21, 'system:user:resetPwd', '重置用户密码', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (22, 'system:monitor:query', '查询服务监测', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (22, 'system:monitor:query', '查询服务监测', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_PERMISSION` VALUES (23, 'system:department:create', '创建部门', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_PERMISSION` VALUES (24, 'system:department:delete', '删除部门', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_PERMISSION` VALUES (25, 'system:department:update', '更新部门', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
