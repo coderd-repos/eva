@@ -99,12 +99,12 @@ BEGIN;
 INSERT INTO `SYSTEM_MENU` VALUES (1, NULL, '系统管理', '', '系统初始化创建', 'el-icon-setting', 0, 0, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_MENU` VALUES (2, 1, '菜单管理', '/system/menu', '系统初始化创建', 'el-icon-menu', 0, 0, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_MENU` VALUES (3, 1, '用户管理', '/system/user', '系统初始化创建', 'el-icon-user-solid', 0, 1, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_MENU` VALUES (4, 1, '角色管理', '/system/role', '系统初始化创建', 'yw-icon-role', 0, 2, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_MENU` VALUES (5, 1, '权限管理', '/system/permission', '系统初始化创建', 'yw-icon-permission', 0, 3, 1, 1,CURRENT_TIMESTAMP,  NULL, NULL, 0);
-INSERT INTO `SYSTEM_MENU` VALUES (6, 1, '部门管理', '/system/department', '系统初始化创建', 'yw-icon-department', 0, 4, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_MENU` VALUES (7, 1, '岗位管理', '/system/position', '系统初始化创建', 'yw-icon-position', 0, 5, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_MENU` VALUES (8, 1, '字典管理', '/system/dict', '系统初始化创建', 'yw-icon-dictionary', 0, 6, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_MENU` VALUES (9, 1, '服务监测', '/system/monitor', '系统初始化创建', 'yw-icon-listener', 0, 7, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (4, 1, '角色管理', '/system/role', '系统初始化创建', 'eva-icon-role', 0, 2, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (5, 1, '权限管理', '/system/permission', '系统初始化创建', 'eva-icon-permission', 0, 3, 1, 1,CURRENT_TIMESTAMP,  NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (6, 1, '部门管理', '/system/department', '系统初始化创建', 'eva-icon-department', 0, 4, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (7, 1, '岗位管理', '/system/position', '系统初始化创建', 'eva-icon-position', 0, 5, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (8, 1, '字典管理', '/system/dict', '系统初始化创建', 'eva-icon-dictionary', 0, 6, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (9, 1, '服务监测', '/system/monitor', '系统初始化创建', 'eva-icon-listener', 0, 7, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -366,5 +366,36 @@ CREATE TABLE `SYSTEM_USER_ROLE` (
 BEGIN;
 INSERT INTO `SYSTEM_USER_ROLE` VALUES (1, 1, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 COMMIT;
+
+-- ----------------------------
+-- Table structure for SYSTEM_TRACE_LOG
+-- ----------------------------
+DROP TABLE IF EXISTS `SYSTEM_TRACE_LOG`;
+CREATE TABLE `SYSTEM_TRACE_LOG` (
+  `ID` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `USER_ID` int DEFAULT NULL COMMENT '用户',
+  `USERNAME` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '固化用户名',
+  `USER_REALNAME` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '固化用户姓名',
+  `USER_ROLES` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '固化用户角色',
+  `USER_PERMISSIONS` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '固化用户权限',
+  `OPERA_MODULE` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '操作模块',
+  `OPERA_TYPE` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '操作类型',
+  `OPERA_REMARK` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '操作备注',
+  `OPERA_TIME` datetime NOT NULL COMMENT '操作开始时间',
+  `OPERA_SPEND_TIME` int DEFAULT NULL COMMENT '耗时',
+  `REQUEST_METHOD` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '请求方式',
+  `REQUEST_URI` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '请求地址',
+  `REQUEST_PARAMS` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '请求参数',
+  `REQUEST_RESULT` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '请求结果',
+  `STATUS` tinyint NOT NULL DEFAULT '-1' COMMENT '状态（0操作失败，1操作成功，-1未得到处理）',
+  `EXCEPTION_STACK` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '异常信息',
+  `IP` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'IP',
+  `SERVER_IP` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '服务器IP',
+  `SERVICE_VERSION` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '接口版本',
+  `PLATFORM` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '操作平台',
+  `CLIENT_INFO` varchar(500) DEFAULT NULL COMMENT '客户端信息',
+  `SYSTEM_INFO` varchar(500) DEFAULT NULL COMMENT '系统信息',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='跟踪日志';
 
 SET FOREIGN_KEY_CHECKS = 1;
