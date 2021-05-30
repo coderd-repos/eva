@@ -56,4 +56,13 @@ public class GlobalExceptionHandler {
         }
         return ApiResponse.failed(ResponseStatus.BAD_REQUEST.getCode(), StringUtils.join(errors));
     }
+
+    /**
+     * 业务异常处理
+     */
+    @ExceptionHandler(Exception.class)
+    public <T> ApiResponse<T> handleException (Exception e) {
+        log.error(e.getMessage(), e);
+        return ApiResponse.failed(ResponseStatus.SERVER_ERROR, e);
+    }
 }

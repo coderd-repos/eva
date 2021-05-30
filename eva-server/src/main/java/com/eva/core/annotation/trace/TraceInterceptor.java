@@ -1,5 +1,7 @@
 package com.eva.core.annotation.trace;
 
+import com.alibaba.fastjson.JSON;
+import com.eva.core.model.ApiResponse;
 import com.eva.core.model.LoginUserInfo;
 import com.eva.core.servlet.ServletDuplicateInputStream;
 import com.eva.core.servlet.ServletDuplicateOutputStream;
@@ -43,9 +45,17 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
     @Value("${trace.smart}")
     private Boolean isSmart;
 
-    private static final String ATTRIBUTE_DRACE_ID = "eva-trace-id";
+    private static final String ATTRIBUTE_TRACE_ID = "eva-trace-id";
 
-    private static final String ATTRIBUTE_DRACE_TIME = "eva-trace-time";
+    private static final String ATTRIBUTE_TRACE_TIME = "eva-trace-time";
+
+    private static final int MAX_STORE_REQUEST_PARAM_SIZE = 1888;
+
+    private static final int MAX_STORE_REQUEST_RESULT_SIZE = 1888;
+
+    private static final int MAX_STORE_EXCEPTION_STACK_SIZE = 4888;
+
+    private static final String MORE_DETAIL_STRING = "\n\n---------- more content is missing here ... ----------\n\n";
 
     @Autowired
     private SystemTraceLogService systemTraceLogService;
@@ -85,11 +95,11 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             traceLog.setRequestUri(request.getRequestURI());
             traceLog.setRequestMethod(request.getMethod());
             if (methodTrace == null || methodTrace.withRequestParameters() || (classTrace != null && classTrace.withRequestParameters())) {
+                String requestParameters = request.getQueryString();
                 if (HttpMethod.POST.matches(request.getMethod())) {
-                    traceLog.setRequestParams(((ServletDuplicateInputStream)request.getInputStream()).getBody());
-                } else {
-                    traceLog.setRequestParams(request.getQueryString());
+                    requestParameters = ((ServletDuplicateInputStream)request.getInputStream()).getBody();
                 }
+                traceLog.setRequestParams(requestParameters.length() > MAX_STORE_REQUEST_PARAM_SIZE ? requestParameters.substring(0, MAX_STORE_REQUEST_PARAM_SIZE) + MORE_DETAIL_STRING : requestParameters);
             }
             // 辅助信息
             traceLog.setServerIp(ServerUtil.getIpAddress());
@@ -99,8 +109,8 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             traceLog.setClientInfo(RequestHeaderUtil.getClientInfo(request));
             traceLog.setSystemInfo(RequestHeaderUtil.getSystemInfo(request));
             systemTraceLogService.create(traceLog);
-            request.setAttribute(ATTRIBUTE_DRACE_ID, traceLog.getId());
-            request.setAttribute(ATTRIBUTE_DRACE_TIME, now.getTime());
+            request.setAttribute(ATTRIBUTE_TRACE_ID, traceLog.getId());
+            request.setAttribute(ATTRIBUTE_TRACE_TIME, now.getTime());
         } catch (Exception e) {
             log.warn("Eva Trace throw an exception, you can get detail message by debug mode.");
             log.debug(e.getMessage(), e);
@@ -111,37 +121,66 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws IOException {
         // 获取跟踪ID
-        Object traceId = request.getAttribute(ATTRIBUTE_DRACE_ID);
-        Object traceTime = request.getAttribute(ATTRIBUTE_DRACE_TIME);
-        request.removeAttribute(ATTRIBUTE_DRACE_ID);
-        request.removeAttribute(ATTRIBUTE_DRACE_TIME);
+        Object traceId = request.getAttribute(ATTRIBUTE_TRACE_ID);
+        Object traceTime = request.getAttribute(ATTRIBUTE_TRACE_TIME);
+        request.removeAttribute(ATTRIBUTE_TRACE_ID);
+        request.removeAttribute(ATTRIBUTE_TRACE_TIME);
         if (traceId == null) {
             return;
         }
         // 计算操作耗时
-        SystemTraceLog log = new SystemTraceLog();
-        log.setId(Integer.valueOf(traceId.toString()));
-        log.setStatus(TraceStatus.SUCCESS.getCode());
-        log.setOperaSpendTime(Integer.valueOf("" + (System.currentTimeMillis() - Long.valueOf(traceTime.toString()))));
-        if (ex != null) {
-            log.setStatus(TraceStatus.FAILED.getCode());
-            StackTraceElement[] trace = ex.getStackTrace();
-            StringBuilder error = new StringBuilder(ex.toString() + "\n");
-            for (StackTraceElement traceElement : trace) {
-                error.append("\tat ").append(traceElement).append("\n");
-            }
-            log.setExceptionStack(error.toString().length() > 2000 ? error.toString().substring(0, 2000) : error.toString());
-        } else {
-            // 记录响应内容
-            HandlerMethod handlerMethod = (HandlerMethod) handler;
-            Method method = handlerMethod.getMethod();
-            Trace methodTrace = method.getAnnotation(Trace.class);
-            Trace classTrace = method.getDeclaringClass().getAnnotation(Trace.class);
-            if (methodTrace == null || methodTrace.withRequestResult() || (classTrace != null && classTrace.withRequestResult())) {
-                log.setRequestResult(((ServletDuplicateOutputStream) response.getOutputStream()).getContent());
-            }
+        SystemTraceLog traceLog = new SystemTraceLog();
+        traceLog.setId(Integer.valueOf(traceId.toString()));
+        traceLog.setOperaSpendTime(Integer.valueOf("" + (System.currentTimeMillis() - Long.valueOf(traceTime.toString()))));
+        // 记录响应内容
+        String responseBody = ((ServletDuplicateOutputStream) response.getOutputStream()).getContent();
+        ApiResponse apiResponse = null;
+        try {
+            apiResponse = JSON.parseObject(responseBody, ApiResponse.class);
+        } catch (Exception e) {
         }
-        systemTraceLogService.updateById(log);
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        Method method = handlerMethod.getMethod();
+        Trace methodTrace = method.getAnnotation(Trace.class);
+        Trace classTrace = method.getDeclaringClass().getAnnotation(Trace.class);
+        if (methodTrace == null || methodTrace.withRequestResult() || (classTrace != null && classTrace.withRequestResult())) {
+            String requestResult = responseBody;
+            if (apiResponse != null) {
+                // 排除exception信息
+                Throwable e = apiResponse.getException();
+                apiResponse.setException(null);
+                requestResult = JSON.toJSONString(apiResponse);
+                apiResponse.setException(e);
+            }
+            traceLog.setRequestResult(requestResult.length() > MAX_STORE_REQUEST_RESULT_SIZE ? requestResult.substring(0, MAX_STORE_REQUEST_RESULT_SIZE) + MORE_DETAIL_STRING : requestResult);
+        }
+        // 请求成功
+        if (ex == null && (apiResponse != null && apiResponse.isSuccess())) {
+            traceLog.setStatus(TraceStatus.SUCCESS.getCode());
+            systemTraceLogService.updateById(traceLog);
+            return;
+        }
+        // 请求失败
+        traceLog.setStatus(TraceStatus.FAILED.getCode());
+        Throwable e = ex;
+        if (e == null && apiResponse != null) {
+            e = apiResponse.getException();
+        }
+        String error;
+        if (e != null) {
+            StackTraceElement[] trace = e.getStackTrace();
+            StringBuilder exceptionStack = new StringBuilder(e + "\n");
+            for (StackTraceElement traceElement : trace) {
+                exceptionStack.append("  at ").append(traceElement).append("\n");
+            }
+            error = exceptionStack.toString();
+        } else if (apiResponse != null){
+            error = apiResponse.getMessage();
+        } else {
+            error = "Eva can not trace for action " + request.getRequestURI();
+        }
+        traceLog.setExceptionStack(error.length() > MAX_STORE_EXCEPTION_STACK_SIZE ? error.substring(0, MAX_STORE_EXCEPTION_STACK_SIZE) + MORE_DETAIL_STRING : error);
+        systemTraceLogService.updateById(traceLog);
     }
 
     /**

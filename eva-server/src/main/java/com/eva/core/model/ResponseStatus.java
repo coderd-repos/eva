@@ -18,6 +18,8 @@ public enum ResponseStatus {
     PWD_INCORRECT(4003, "密码不正确"),
     VERIFICATION_CODE_INCORRECT(4004, "验证码不正确或已过期"),
     ACCOUNT_INCORRECT(4005, "账号或密码不正确"),
+    // 500开头表示未知的服务异常
+    SERVER_ERROR(5000, "系统繁忙，请联系系统管理员"),
     // 510开头表示可能导致数据错误的异常
     DUPLICATE_SUBMIT(5100, "请勿重复提交"),
     NOT_ALLOWED(5101, "不允许的操作"),

@@ -40,6 +40,7 @@ public class SystemMenuController extends BaseController {
     @RequiresPermissions("system:menu:sort")
     public ApiResponse updateSort (@Validated @RequestBody UpdateSystemMenuSortDTO dto) {
         systemMenuBiz.updateSort(dto);
+        int i = 1/0;
         return ApiResponse.success(null);
     }
 
