@@ -36,7 +36,7 @@ public class SystemMenuController extends BaseController {
      * @date 2021-03-30 22:22
      */
     @ApiOperation("菜单排序")
-    @PostMapping("/sort")
+    @PostMapping("/updateSort")
     @RequiresPermissions("system:menu:sort")
     public ApiResponse updateSort (@Validated @RequestBody UpdateSystemMenuSortDTO dto) {
         systemMenuBiz.updateSort(dto);

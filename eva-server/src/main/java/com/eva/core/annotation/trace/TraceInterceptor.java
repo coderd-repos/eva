@@ -56,6 +56,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             if (!this.allowTrace(request, handler)) {
                 return Boolean.TRUE;
             }
+            SystemTraceLog traceLog = new SystemTraceLog();
             Date now = new Date();
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
@@ -66,40 +67,39 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             if (traceType == null) {
                 traceType = this.smartType(request);
             }
-            SystemTraceLog log = new SystemTraceLog();
             // 用户信息
             LoginUserInfo userInfo = (LoginUserInfo) SecurityUtils.getSubject().getPrincipal();
             if (userInfo != null) {
-                log.setUserId(userInfo.getId());
-                log.setUsername(userInfo.getUsername());
-                log.setUserRealname(userInfo.getRealname());
-                log.setUserRoles(StringUtils.join(userInfo.getRoles(), ","));
-                log.setUserPermissions(StringUtils.join(userInfo.getPermissions(), ","));
+                traceLog.setUserId(userInfo.getId());
+                traceLog.setUsername(userInfo.getUsername());
+                traceLog.setUserRealname(userInfo.getRealname());
+                traceLog.setUserRoles(StringUtils.join(userInfo.getRoles(), ","));
+                traceLog.setUserPermissions(StringUtils.join(userInfo.getPermissions(), ","));
             }
             // 操作信息
-            log.setOperaModule(this.getModule(handler));
-            log.setOperaType(traceType.getType());
-            log.setOperaRemark(this.getOperaRemark(handler, traceType));
-            log.setOperaTime(now);
+            traceLog.setOperaModule(this.getModule(handler));
+            traceLog.setOperaType(traceType.getType());
+            traceLog.setOperaRemark(this.getOperaRemark(handler, traceType));
+            traceLog.setOperaTime(now);
             // 请求信息
-            log.setRequestUri(request.getRequestURI());
-            log.setRequestMethod(request.getMethod());
+            traceLog.setRequestUri(request.getRequestURI());
+            traceLog.setRequestMethod(request.getMethod());
             if (methodTrace == null || methodTrace.withRequestParameters() || (classTrace != null && classTrace.withRequestParameters())) {
                 if (HttpMethod.POST.matches(request.getMethod())) {
-                    log.setRequestParams(((ServletDuplicateInputStream)request.getInputStream()).getBody());
+                    traceLog.setRequestParams(((ServletDuplicateInputStream)request.getInputStream()).getBody());
                 } else {
-                    log.setRequestParams(request.getQueryString());
+                    traceLog.setRequestParams(request.getQueryString());
                 }
             }
             // 辅助信息
-            log.setServerIp(ServerUtil.getIpAddress());
-            log.setIp(RequestHeaderUtil.getRequestIp(request));
-            log.setServiceVersion(serviceVersion);
-            log.setPlatform(request.getHeader("x-platform") == null ? "PC" : request.getHeader("x-platform"));
-            log.setClientInfo(RequestHeaderUtil.getClientInfo(request));
-            log.setSystemInfo(RequestHeaderUtil.getSystemInfo(request));
-            systemTraceLogService.create(log);
-            request.setAttribute(ATTRIBUTE_DRACE_ID, log.getId());
+            traceLog.setServerIp(ServerUtil.getIpAddress());
+            traceLog.setIp(RequestHeaderUtil.getRequestIp(request));
+            traceLog.setServiceVersion(serviceVersion);
+            traceLog.setPlatform(request.getHeader("x-platform") == null ? "PC" : request.getHeader("x-platform"));
+            traceLog.setClientInfo(RequestHeaderUtil.getClientInfo(request));
+            traceLog.setSystemInfo(RequestHeaderUtil.getSystemInfo(request));
+            systemTraceLogService.create(traceLog);
+            request.setAttribute(ATTRIBUTE_DRACE_ID, traceLog.getId());
             request.setAttribute(ATTRIBUTE_DRACE_TIME, now.getTime());
         } catch (Exception e) {
             log.warn("Eva Trace throw an exception, you can get detail message by debug mode.");
@@ -125,15 +125,21 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
         log.setOperaSpendTime(Integer.valueOf("" + (System.currentTimeMillis() - Long.valueOf(traceTime.toString()))));
         if (ex != null) {
             log.setStatus(TraceStatus.FAILED.getCode());
-            log.setExceptionStack(ex.getMessage());
-        }
-        // 记录响应内容
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Method method = handlerMethod.getMethod();
-        Trace methodTrace = method.getAnnotation(Trace.class);
-        Trace classTrace = method.getDeclaringClass().getAnnotation(Trace.class);
-        if (methodTrace == null || methodTrace.withRequestResult() || (classTrace != null && classTrace.withRequestResult())) {
-            log.setRequestResult(((ServletDuplicateOutputStream)response.getOutputStream()).getContent());
+            StackTraceElement[] trace = ex.getStackTrace();
+            StringBuilder error = new StringBuilder(ex.toString());
+            for (StackTraceElement traceElement : trace) {
+                error.append("\tat ").append(traceElement).append("\n");
+            }
+            log.setExceptionStack(error.toString().length() > 2000 ? error.toString().substring(0, 2000) : error.toString());
+        } else {
+            // 记录响应内容
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            Method method = handlerMethod.getMethod();
+            Trace methodTrace = method.getAnnotation(Trace.class);
+            Trace classTrace = method.getDeclaringClass().getAnnotation(Trace.class);
+            if (methodTrace == null || methodTrace.withRequestResult() || (classTrace != null && classTrace.withRequestResult())) {
+                log.setRequestResult(((ServletDuplicateOutputStream) response.getOutputStream()).getContent());
+            }
         }
         systemTraceLogService.updateById(log);
     }
