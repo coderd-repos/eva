@@ -59,15 +59,15 @@
         </el-table-column>
         <el-table-column prop="requestParams" label="请求参数" min-width="80px">
           <template slot-scope="{row}">
-            <ColumnDetail v-if="row.requestParams != null" :content="row.requestParams"/>
+            <ColumnDetail v-if="row.requestParams != null" :content="row.requestParams" :limit="0"/>
           </template>
         </el-table-column>
-        <el-table-column prop="requestResult" label="请求结果" min-width="100px">
+        <el-table-column prop="requestResult" label="请求结果" min-width="80px">
           <template slot-scope="{row}">
             <ColumnDetail v-if="row.requestResult != null" :content="row.requestResult"/>
           </template>
         </el-table-column>
-        <el-table-column prop="exceptionStack" label="异常信息" min-width="100px">
+        <el-table-column prop="exceptionStack" label="异常信息" min-width="170px">
           <template slot-scope="{row}">
             <ColumnDetail v-if="row.exceptionStack != null" :content="row.exceptionStack"/>
           </template>

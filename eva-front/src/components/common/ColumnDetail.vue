@@ -1,5 +1,7 @@
 <template>
+  <span v-if="content.length <= limit">{{content}}</span>
   <el-popover
+    v-else
     v-model="visible"
     popper-class="eva-column-detail-popover"
     trigger="click"
@@ -23,6 +25,11 @@ export default {
     content: {
       type: String,
       default: ''
+    },
+    // 限制，大于限制时展示查看按钮
+    limit: {
+      type: Number,
+      default: 12
     },
     // 自动识别数据类型并格式化
     analyse: {
