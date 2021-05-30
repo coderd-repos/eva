@@ -78,7 +78,7 @@ export default {
     }
   },
   methods: {
-    // 页码变更处理
+    // 查询数据
     handlePageChange () {
       this.isWorking.search = true
       fetchTree()

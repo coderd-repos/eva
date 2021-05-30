@@ -60,7 +60,7 @@ export default {
   extends: BaseTable,
   components: { PositionUserWindow, OperaPositionWindow, TableLayout },
   methods: {
-    // 页码变更处理
+    // 查询数据
     handlePageChange () {
       this.isWorking.search = true
       fetchTree()
