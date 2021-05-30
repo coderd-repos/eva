@@ -1,5 +1,5 @@
 <template>
-  <Profile :permissions="['system:monitor:query1']">
+  <Profile :permissions="['system:monitor:query']">
     <div class="monitor">
       <div class="toolbar">
         <el-switch v-model="autoRefresh" @change="changeAutoRefresh"/><label>{{autoRefresh | autoRefreshText}}</label>
