@@ -10,7 +10,14 @@
       <pre class="eva-column-detail__main">{{formattedContent}}</pre>
       <div class="eva-column-detail__action">
         <el-button size="mini" @click="cancel">关闭</el-button>
-        <el-button size="mini" @click="confirm" type="primary">{{ confirmButtonText }}</el-button>
+        <el-button
+          size="mini"
+          type="primary"
+          v-clipboard:copy="formattedContent"
+          v-clipboard:success="copySuccess"
+          v-clipboard:error="copyFailed"
+          @click="confirm"
+        >{{ confirmButtonText }}</el-button>
       </div>
     </div>
     <el-button slot="reference" :type="buttonType">查看</el-button>
@@ -78,6 +85,14 @@ export default {
     cancel () {
       this.visible = false
       this.$emit('cancel')
+    },
+    // 复制成功
+    copySuccess () {
+      this.$tip.success('复制成功')
+    },
+    // 复制失败
+    copyFailed () {
+      this.$tip.error('复制失败')
     }
   }
 }

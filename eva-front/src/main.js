@@ -4,17 +4,18 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
 import './assets/style/element-variables.scss'
+import VueClipboard from 'vue-clipboard2'
 import directives from './directives'
 import filters from './filters'
 import plugins from './plugins'
 import { mapState, mapMutations } from 'vuex'
 import { fetchMenuTree } from './api/system/menu'
 
+Vue.config.productionTip = false
 Vue.use(ElementUI, {
   size: 'small'
 })
-
-Vue.config.productionTip = false
+Vue.use(VueClipboard)
 Vue.use(directives)
 Vue.use(filters)
 Vue.use(plugins)
