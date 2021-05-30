@@ -91,7 +91,7 @@
         <el-table-column prop="serverIp" label="处理服务器IP" min-width="100px"></el-table-column>
         <el-table-column prop="ip" label="用户IP" min-width="100px"></el-table-column>
         <el-table-column prop="clientInfo" label="用户客户端" min-width="200px"></el-table-column>
-        <el-table-column prop="systemInfo" label="用户操作系统" min-width="100px"></el-table-column>
+        <el-table-column prop="osInfo" label="用户操作系统" min-width="100px"></el-table-column>
       </el-table>
       <pagination
         @size-change="handleSizeChange"
