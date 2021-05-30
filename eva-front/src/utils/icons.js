@@ -6,6 +6,9 @@ export default [
   'eva-icon-position',
   'eva-icon-dictionary',
   'eva-icon-listener',
+  'eva-icon-log',
+  'eva-icon-log-opera',
+  'eva-icon-log-login',
   // element-ui图标
   'el-icon-platform-eleme',
   'el-icon-eleme',

@@ -1,0 +1,56 @@
+/**
+ * 此文件为系统自带的图标定义，如您需要扩展图标请在ext.scss文件中处理。
+ */
+// 图标样式
+[class^="eva-icon-"], [class*=" eva-icon-"] {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-size: 13px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+// 密码
+.eva-icon-password {
+  background-image: url("assets/icons/system/pwd.svg");
+}
+// 盾牌
+.eva-icon-shield {
+  background-image: url("assets/icons/system/shield.svg");
+}
+// 权限
+.eva-icon-permission {
+  background-image: url("assets/icons/system/permission.svg");
+}
+// 角色
+.eva-icon-role {
+  background-image: url("assets/icons/system/role.svg");
+}
+// 部门
+.eva-icon-department {
+  background-image: url("assets/icons/system/department.svg");
+}
+// 岗位
+.eva-icon-position {
+  background-image: url("assets/icons/system/position.svg");
+}
+// 字典
+.eva-icon-dictionary {
+  background-image: url("assets/icons/system/dictionary.svg");
+}
+// 监测
+.eva-icon-listener {
+  background-image: url("assets/icons/system/listener.svg");
+}
+// 日志
+.eva-icon-log {
+  background-image: url("assets/icons/system/log.svg");
+}
+// 操作日志
+.eva-icon-log-opera {
+  background-image: url("assets/icons/system/log-opera.svg");
+}
+// 登录日志
+.eva-icon-log-login {
+  background-image: url("assets/icons/system/log-login.svg");
+}

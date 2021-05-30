@@ -6,7 +6,7 @@
 // 引入全局样式
 @import "assets/style/style";
 // 引入系统内置图标
-@import "assets/icons/system";
+@import "assets/icons/system/index";
 // 引入自定义图标
-@import "assets/icons/ext";
+@import "assets/icons/ext/index";
 </style>
