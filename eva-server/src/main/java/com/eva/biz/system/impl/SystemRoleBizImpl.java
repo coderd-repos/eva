@@ -31,6 +31,32 @@ public class SystemRoleBizImpl implements SystemRoleBiz {
     private SystemRoleMenuService systemRoleMenuService;
 
     @Override
+    public Integer create(SystemRole systemRole) {
+        // 验证用户名
+        SystemRole queryDto = new SystemRole();
+        queryDto.setCode(systemRole.getCode());
+        queryDto.setDeleted(Boolean.FALSE);
+        SystemRole role = systemRoleService.findOne(queryDto);
+        if (role != null) {
+            throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "角色编码已存在");
+        }
+        return systemRoleService.create(systemRole);
+    }
+
+    @Override
+    public void updateById(SystemRole systemRole) {
+        // 验证角色编码
+        SystemRole queryDto = new SystemRole();
+        queryDto.setCode(systemRole.getCode());
+        queryDto.setDeleted(Boolean.FALSE);
+        SystemRole role = systemRoleService.findOne(queryDto);
+        if (role != null && !role.getId().equals(systemRole.getId())) {
+            throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "角色编号已存在");
+        }
+        systemRoleService.updateById(systemRole);
+    }
+
+    @Override
     public void deleteById(Integer id) {
         SystemRole role = systemRoleService.findById(id);
         if (role == null) {

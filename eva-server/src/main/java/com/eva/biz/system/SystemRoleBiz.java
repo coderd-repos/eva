@@ -2,6 +2,7 @@ package com.eva.biz.system;
 
 import com.eva.dao.system.dto.CreateRoleMenuDTO;
 import com.eva.dao.system.dto.CreateRolePermissionDTO;
+import com.eva.dao.system.model.SystemRole;
 
 import java.util.List;
 
@@ -11,6 +12,20 @@ import java.util.List;
  * @date 2021-03-30 10:51
  */
 public interface SystemRoleBiz {
+
+    /**
+     * 新建
+     * @author Eva
+     * @date 2021-05-30 20:46
+     */
+    Integer create (SystemRole systemRole);
+
+    /**
+     * 修改
+     * @author Eva
+     * @date 2021-05-30 20:43
+     */
+    void updateById(SystemRole systemRole);
 
     /**
      * 删除

@@ -3,7 +3,6 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemRoleBiz;
 import com.eva.core.annotation.duplicate.DuplicateSubmit;
-import com.eva.core.annotation.trace.Trace;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.OperaType;
 import com.eva.core.model.PageData;
@@ -74,7 +73,7 @@ public class SystemRoleController extends BaseController {
     @PostMapping("/create")
     @RequiresPermissions("system:role:create")
     public ApiResponse create(@Validated(OperaType.Create.class) @RequestBody SystemRole systemRole) {
-        return ApiResponse.success(systemRoleService.create(systemRole));
+        return ApiResponse.success(systemRoleBiz.create(systemRole));
     }
 
     /**
@@ -114,7 +113,7 @@ public class SystemRoleController extends BaseController {
     @PostMapping("/updateById")
     @RequiresPermissions("system:role:update")
     public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemRole systemRole) {
-        systemRoleService.updateById(systemRole);
+        systemRoleBiz.updateById(systemRole);
         return ApiResponse.success(null);
     }
 
@@ -133,7 +132,6 @@ public class SystemRoleController extends BaseController {
      * @author Eva
      * @date 2021/03/27 22:36
      */
-    @Trace(exclude = false)
     @ApiOperation("查询所有")
     @GetMapping("/all")
     @RequiresPermissions("system:role:query")

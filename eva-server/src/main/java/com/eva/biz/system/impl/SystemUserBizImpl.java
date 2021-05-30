@@ -100,11 +100,11 @@ public class SystemUserBizImpl implements SystemUserBiz {
     public void create(CreateSystemUserDTO systemUser) {
         // 验证用户名
         SystemUser queryUserDto = new SystemUser();
-        queryUserDto.setDeleted(Boolean.FALSE);
         queryUserDto.setUsername(systemUser.getUsername());
+        queryUserDto.setDeleted(Boolean.FALSE);
         SystemUser user = systemUserService.findOne(queryUserDto);
         if (user != null) {
-            throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "用户名已被占用");
+            throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "用户名已存在");
         }
         // 验证工号
         if (StringUtils.isNotBlank(systemUser.getEmpNo())) {
@@ -113,7 +113,7 @@ public class SystemUserBizImpl implements SystemUserBiz {
             queryUserDto.setEmpNo(systemUser.getEmpNo());
             user = systemUserService.findOne(queryUserDto);
             if (user != null) {
-                throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "工号已被占用");
+                throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "工号已存在");
             }
         }
         // 生成密码盐
@@ -153,7 +153,7 @@ public class SystemUserBizImpl implements SystemUserBiz {
         queryUserDto.setDeleted(Boolean.FALSE);
         SystemUser user = systemUserService.findOne(queryUserDto);
         if (user != null && !user.getId().equals(systemUser.getId())) {
-            throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "用户名已被占用");
+            throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "用户名已存在");
         }
         // 验证工号
         if (StringUtils.isNotBlank(systemUser.getEmpNo())) {
@@ -162,7 +162,7 @@ public class SystemUserBizImpl implements SystemUserBiz {
             queryUserDto.setDeleted(Boolean.FALSE);
             user = systemUserService.findOne(queryUserDto);
             if (user != null && !user.getId().equals(systemUser.getId())) {
-                throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "工号已被占用");
+                throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "工号已存在");
             }
         }
         // 修改用户

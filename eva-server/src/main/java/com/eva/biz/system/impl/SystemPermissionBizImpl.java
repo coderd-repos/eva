@@ -4,6 +4,7 @@ import com.eva.biz.system.SystemPermissionBiz;
 import com.eva.core.exception.BusinessException;
 import com.eva.core.model.ResponseStatus;
 import com.eva.dao.system.model.SystemPermission;
+import com.eva.dao.system.model.SystemRole;
 import com.eva.service.system.SystemPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class SystemPermissionBizImpl implements SystemPermissionBiz {
     public Integer create(SystemPermission systemPermission) {
         SystemPermission queryDto = new SystemPermission();
         queryDto.setCode(systemPermission.getCode());
-        queryDto.setDeleted(Boolean.TRUE);
+        queryDto.setDeleted(Boolean.FALSE);
         SystemPermission permission = systemPermissionService.findOne(queryDto);
         if (permission != null) {
             throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "权限编码已存在");
@@ -57,7 +58,7 @@ public class SystemPermissionBizImpl implements SystemPermissionBiz {
     public void updateById(SystemPermission systemPermission) {
         SystemPermission queryDto = new SystemPermission();
         queryDto.setCode(systemPermission.getCode());
-        queryDto.setDeleted(Boolean.TRUE);
+        queryDto.setDeleted(Boolean.FALSE);
         SystemPermission permission = systemPermissionService.findOne(queryDto);
         if (permission != null && !systemPermission.getId().equals(permission.getId())) {
             throw new BusinessException(ResponseStatus.DATA_EXISTS.getCode(), "权限编码已存在");
