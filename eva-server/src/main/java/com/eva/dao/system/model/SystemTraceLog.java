@@ -68,6 +68,9 @@ public class SystemTraceLog implements Serializable {
     @ApiModelProperty(value = "状态（0操作失败，1操作成功，-1未得到处理）", example = "1")
     private Byte status;
 
+    @ApiModelProperty(value = "异常等级")
+    private Byte exceptionLevel;
+
     @ApiModelProperty(value = "异常信息")
     private String exceptionStack;
 

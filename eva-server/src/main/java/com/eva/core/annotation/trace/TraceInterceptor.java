@@ -181,10 +181,13 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             for (StackTraceElement traceElement : trace) {
                 exceptionStack.append("  at ").append(traceElement).append("\n");
             }
+            traceLog.setExceptionLevel((byte)10);
             error = exceptionStack.toString();
         } else if (apiResponse != null){
+            traceLog.setExceptionLevel((byte)0);
             error = apiResponse.getMessage();
         } else {
+            traceLog.setExceptionLevel((byte)5);
             error = "Eva can not trace for action " + request.getRequestURI();
         }
         traceLog.setExceptionStack(
