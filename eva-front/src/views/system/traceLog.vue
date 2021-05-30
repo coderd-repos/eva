@@ -48,7 +48,7 @@
         v-loading="isWorking.search"
         :data="tableData.list"
         stripe
-        :default-sort = "{prop: 'operaTime', order: 'descending'}"
+        :default-sort="{prop: 'operaTime', order: 'descending'}"
         @selection-change="handleSelectionChange"
         @sort-change="handleSortChange"
         :row-class-name="tableRowClassName"
@@ -73,7 +73,7 @@
             <ColumnDetail v-if="row.requestResult != null" :content="row.requestResult"/>
           </template>
         </el-table-column>
-        <el-table-column prop="exceptionLevel" label="异常等级" min-width="80px">
+        <el-table-column prop="exceptionLevel" label="异常等级" sortable="custom" sort-by="EXCEPTION_LEVEL" min-width="100px">
           <template slot-scope="{row}">
             {{row.exceptionLevel | exceptionLevelText}}
           </template>
