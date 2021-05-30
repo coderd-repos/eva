@@ -13,7 +13,7 @@
         <el-button size="mini" @click="confirm" type="primary">{{ confirmButtonText }}</el-button>
       </div>
     </div>
-    <el-button slot="reference">查看</el-button>
+    <el-button slot="reference" :type="buttonType">查看</el-button>
   </el-popover>
 </template>
 
@@ -21,6 +21,10 @@
 export default {
   name: 'ColumnDetail',
   props: {
+    // 按钮类型
+    buttonType: {
+      type: String
+    },
     // 内容
     content: {
       type: String,

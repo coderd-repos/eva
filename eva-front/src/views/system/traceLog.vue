@@ -11,11 +11,18 @@
       <el-form-item label="请求地址" prop="requestUri">
         <el-input v-model="searchForm.requestUri" placeholder="请输入请求地址" @keypress.enter.native="search"></el-input>
       </el-form-item>
-      <el-form-item label="处理状态" prop="status">
+      <el-form-item label="状态" prop="status">
         <el-select v-model="searchForm.status" clearable @change="search">
           <el-option value="-1" label="未处理"/>
           <el-option value="0" label="失败"/>
           <el-option value="1" label="成功"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="异常等级" prop="status">
+        <el-select v-model="searchForm.exceptionLevel" clearable @change="search">
+          <el-option value="10" label="高"/>
+          <el-option value="5" label="中"/>
+          <el-option value="0" label="低"/>
         </el-select>
       </el-form-item>
       <el-form-item label="操作时间范围" prop="operaModule">
@@ -44,12 +51,11 @@
         :default-sort = "{prop: 'operaTime', order: 'descending'}"
         @selection-change="handleSelectionChange"
         @sort-change="handleSortChange"
+        :row-class-name="tableRowClassName"
       >
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="operaModule" label="业务模块" min-width="100px"></el-table-column>
         <el-table-column prop="operaRemark" label="操作说明" min-width="100px"></el-table-column>
-        <el-table-column prop="userRealname" label="操作人" min-width="100px"></el-table-column>
-        <el-table-column prop="operaTime" label="操作时间" sortable="custom" sort-by="OPERA_TIME" min-width="140px"></el-table-column>
         <el-table-column prop="requestMethod" label="请求方式" min-width="80px"></el-table-column>
         <el-table-column prop="requestUri" label="请求地址" min-width="200px"></el-table-column>
         <el-table-column prop="status" label="状态" min-width="80px">
@@ -67,17 +73,19 @@
             <ColumnDetail v-if="row.requestResult != null" :content="row.requestResult"/>
           </template>
         </el-table-column>
-        <el-table-column prop="exceptionStack" label="异常等级" min-width="80px">
+        <el-table-column prop="exceptionLevel" label="异常等级" min-width="80px">
           <template slot-scope="{row}">
             {{row.exceptionLevel | exceptionLevelText}}
           </template>
         </el-table-column>
         <el-table-column prop="exceptionStack" label="异常信息" min-width="170px">
           <template slot-scope="{row}">
-            <ColumnDetail v-if="row.exceptionStack != null" :content="row.exceptionStack"/>
+            <ColumnDetail v-if="row.exceptionStack != null" :content="row.exceptionStack" :button-type="getExceptionButtonType(row.exceptionLevel)"/>
           </template>
         </el-table-column>
         <el-table-column prop="operaSpendTime" label="请求耗时(ms)" sortable="custom" sort-by="OPERA_SPEND_TIME" min-width="120px"></el-table-column>
+        <el-table-column prop="userRealname" label="操作人" min-width="100px"></el-table-column>
+        <el-table-column prop="operaTime" label="操作时间" sortable="custom" sort-by="OPERA_TIME" min-width="140px"></el-table-column>
         <el-table-column prop="serviceVersion" label="接口版本" min-width="80px"></el-table-column>
         <el-table-column prop="platform" label="操作平台" min-width="100px"></el-table-column>
         <el-table-column prop="serverIp" label="处理服务器IP" min-width="100px"></el-table-column>
@@ -114,6 +122,7 @@ export default {
         operaModule: '',
         requestUri: '',
         status: null,
+        exceptionLevel: null,
         startTime: null,
         endTime: null
       }
@@ -148,6 +157,25 @@ export default {
     }
   },
   methods: {
+    // 标记行class
+    tableRowClassName ({ row }) {
+      if (row.exceptionLevel === 5 || row.status === -1) {
+        return 'warning-log'
+      } else if (row.exceptionLevel === 10) {
+        return 'danger-log'
+      }
+      return ''
+    },
+    // 获取异常查看按钮类型
+    getExceptionButtonType (level) {
+      if (level === 5) {
+        return 'warning'
+      }
+      if (level === 10) {
+        return 'danger'
+      }
+      return null
+    },
     // 时间搜索范围变化
     handleSearchTimeChange (value) {
       this.searchForm.startTime = null
@@ -171,3 +199,14 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+// 警告级日志
+/deep/ .warning-log td {
+  background-color: oldlace !important;
+}
+// 危险级日志
+/deep/ .danger-log td {
+  background-color: #fdf0f0 !important;
+}
+</style>
