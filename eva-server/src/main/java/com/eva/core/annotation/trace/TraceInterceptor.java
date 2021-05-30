@@ -99,7 +99,11 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
                 if (HttpMethod.POST.matches(request.getMethod())) {
                     requestParameters = ((ServletDuplicateInputStream)request.getInputStream()).getBody();
                 }
-                traceLog.setRequestParams(requestParameters.length() > MAX_STORE_REQUEST_PARAM_SIZE ? requestParameters.substring(0, MAX_STORE_REQUEST_PARAM_SIZE) + MORE_DETAIL_STRING : requestParameters);
+                traceLog.setRequestParams(
+                        requestParameters != null && requestParameters.length() > MAX_STORE_REQUEST_PARAM_SIZE
+                                ? requestParameters.substring(0, MAX_STORE_REQUEST_PARAM_SIZE) + MORE_DETAIL_STRING
+                                : requestParameters
+                );
             }
             // 辅助信息
             traceLog.setServerIp(ServerUtil.getIpAddress());
@@ -152,7 +156,11 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
                 requestResult = JSON.toJSONString(apiResponse);
                 apiResponse.setException(e);
             }
-            traceLog.setRequestResult(requestResult.length() > MAX_STORE_REQUEST_RESULT_SIZE ? requestResult.substring(0, MAX_STORE_REQUEST_RESULT_SIZE) + MORE_DETAIL_STRING : requestResult);
+            traceLog.setRequestResult(
+                    requestResult != null && requestResult.length() > MAX_STORE_REQUEST_RESULT_SIZE
+                            ? requestResult.substring(0, MAX_STORE_REQUEST_RESULT_SIZE) + MORE_DETAIL_STRING
+                            : requestResult
+            );
         }
         // 请求成功
         if (ex == null && (apiResponse != null && apiResponse.isSuccess())) {
@@ -179,7 +187,11 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
         } else {
             error = "Eva can not trace for action " + request.getRequestURI();
         }
-        traceLog.setExceptionStack(error.length() > MAX_STORE_EXCEPTION_STACK_SIZE ? error.substring(0, MAX_STORE_EXCEPTION_STACK_SIZE) + MORE_DETAIL_STRING : error);
+        traceLog.setExceptionStack(
+                error != null && error.length() > MAX_STORE_EXCEPTION_STACK_SIZE
+                        ? error.substring(0, MAX_STORE_EXCEPTION_STACK_SIZE) + MORE_DETAIL_STRING
+                        : error);
+
         systemTraceLogService.updateById(traceLog);
     }
 
