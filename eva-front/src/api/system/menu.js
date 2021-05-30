@@ -41,5 +41,5 @@ export function fetchMenuTree () {
 
 // 排序
 export function sort (data) {
-  return request.post('/system/menu/sort', data)
+  return request.post('/system/menu/updateSort', data)
 }
