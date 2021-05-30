@@ -101,10 +101,13 @@ INSERT INTO `SYSTEM_MENU` VALUES (2, 1, '菜单管理', '/system/menu', '系统�
 INSERT INTO `SYSTEM_MENU` VALUES (3, 1, '用户管理', '/system/user', '系统初始化创建', 'el-icon-user-solid', 0, 1, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_MENU` VALUES (4, 1, '角色管理', '/system/role', '系统初始化创建', 'eva-icon-role', 0, 2, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_MENU` VALUES (5, 1, '权限管理', '/system/permission', '系统初始化创建', 'eva-icon-permission', 0, 3, 1, 1,CURRENT_TIMESTAMP,  NULL, NULL, 0);
-INSERT INTO `SYSTEM_MENU` VALUES (6, 1, '部门管理', '/system/department', '系统初始化创建', 'eva-icon-department', 0, 4, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_MENU` VALUES (7, 1, '岗位管理', '/system/position', '系统初始化创建', 'eva-icon-position', 0, 5, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_MENU` VALUES (8, 1, '字典管理', '/system/dict', '系统初始化创建', 'eva-icon-dictionary', 0, 6, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_MENU` VALUES (9, 1, '服务监测', '/system/monitor', '系统初始化创建', 'eva-icon-listener', 0, 7, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (6, 1, '部门管理', '/system/department', '系统初始化创建', 'eva-icon-department', 0, 4, 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (7, 1, '岗位管理', '/system/position', '系统初始化创建', 'eva-icon-position', 0, 5, 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (8, 1, '字典管理', '/system/dict', '系统初始化创建', 'eva-icon-dictionary', 0, 6, 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (9, 1, '服务监测', '/system/monitor', '系统初始化创建', 'eva-icon-listener', 0, 7, 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (10, 1, '日志管理', '', '系统初始化创建', 'eva-icon-log', 0, 8, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (11, 10, '操作日志', '/system/traceLog', '系统初始化创建', 'eva-icon-log-opera', 0, 0, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (12, 10, '登录日志', '/system/loginLog', '系统初始化创建', 'eva-icon-log-login', 0, 1, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -150,21 +153,22 @@ INSERT INTO `SYSTEM_PERMISSION` VALUES (18, 'system:user:update', '更新用户'
 INSERT INTO `SYSTEM_PERMISSION` VALUES (19, 'system:user:delete', '删除用户', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_PERMISSION` VALUES (20, 'system:user:createUserRole', '配置用户角色', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_PERMISSION` VALUES (21, 'system:user:resetPwd', '重置用户密码', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (22, 'system:monitor:query', '查询服务监测', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (23, 'system:department:create', '创建部门', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (24, 'system:department:delete', '删除部门', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (25, 'system:department:update', '更新部门', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (26, 'system:department:queryUsers', '查看部门人员', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (27, 'system:department:query', '查询部门', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (28, 'system:position:create', '创建岗位', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (29, 'system:position:delete', '删除岗位', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (30, 'system:position:update', '更新岗位', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (31, 'system:position:query', '查询岗位', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (32, 'system:position:queryUsers', '查询岗位人员', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (33, 'system:dict:create', '创建字典', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (34, 'system:dict:delete', '删除字典', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (35, 'system:dict:update', '修改字典', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (36, 'system:dict:query', '查询字典', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (22, 'system:monitor:query', '查询服务监测', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (23, 'system:department:create', '创建部门', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (24, 'system:department:delete', '删除部门', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (25, 'system:department:update', '更新部门', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (26, 'system:department:queryUsers', '查看部门人员', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (27, 'system:department:query', '查询部门', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (28, 'system:position:create', '创建岗位', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (29, 'system:position:delete', '删除岗位', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (30, 'system:position:update', '更新岗位', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (31, 'system:position:query', '查询岗位', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (32, 'system:position:queryUsers', '查询岗位人员', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (33, 'system:dict:create', '创建字典', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (34, 'system:dict:delete', '删除字典', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (35, 'system:dict:update', '修改字典', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (36, 'system:dict:query', '查询字典', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (37, 'system:traceLog:query', '查询操作日志', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -252,6 +256,9 @@ INSERT INTO `SYSTEM_ROLE_MENU` VALUES (6, 1, 6, 1, CURRENT_TIMESTAMP, NULL, NULL
 INSERT INTO `SYSTEM_ROLE_MENU` VALUES (7, 1, 7, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_ROLE_MENU` VALUES (8, 1, 8, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_ROLE_MENU` VALUES (9, 1, 9, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_ROLE_MENU` VALUES (10, 1, 10, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_ROLE_MENU` VALUES (11, 1, 11, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_ROLE_MENU` VALUES (12, 1, 12, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -310,6 +317,7 @@ INSERT INTO `SYSTEM_ROLE_PERMISSION` VALUES (33, 1, 33, 1, CURRENT_TIMESTAMP, NU
 INSERT INTO `SYSTEM_ROLE_PERMISSION` VALUES (34, 1, 34, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_ROLE_PERMISSION` VALUES (35, 1, 35, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_ROLE_PERMISSION` VALUES (36, 1, 36, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_ROLE_PERMISSION` VALUES (37, 1, 37, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 COMMIT;
 
 -- ----------------------------
