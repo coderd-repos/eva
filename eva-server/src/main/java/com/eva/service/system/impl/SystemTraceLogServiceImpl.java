@@ -91,9 +91,13 @@ public class SystemTraceLogServiceImpl implements SystemTraceLogService {
         if (StringUtils.isNotBlank(pageWrap.getModel().getRequestUri())) {
             queryWrapper.lambda().like(SystemTraceLog::getRequestUri, pageWrap.getModel().getRequestUri());
         }
-        // 处理状态
+        // 状态
         if (pageWrap.getModel().getStatus() != null) {
             queryWrapper.lambda().eq(SystemTraceLog::getStatus, pageWrap.getModel().getStatus());
+        }
+        // 异常等级
+        if (pageWrap.getModel().getExceptionLevel() != null) {
+            queryWrapper.lambda().eq(SystemTraceLog::getExceptionLevel, pageWrap.getModel().getExceptionLevel());
         }
         // 操作开始时间
         if (pageWrap.getModel().getStartTime() != null) {
