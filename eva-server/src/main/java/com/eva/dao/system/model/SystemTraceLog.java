@@ -90,6 +90,6 @@ public class SystemTraceLog implements Serializable {
     private String clientInfo;
 
     @ApiModelProperty(value = "系统信息")
-    private String systemInfo;
+    private String osInfo;
 
 }

@@ -111,7 +111,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             traceLog.setServiceVersion(serviceVersion);
             traceLog.setPlatform(request.getHeader("x-platform") == null ? "PC" : request.getHeader("x-platform"));
             traceLog.setClientInfo(RequestHeaderUtil.getClientInfo(request));
-            traceLog.setSystemInfo(RequestHeaderUtil.getSystemInfo(request));
+            traceLog.setOsInfo(RequestHeaderUtil.getSystemInfo(request));
             systemTraceLogService.create(traceLog);
             request.setAttribute(ATTRIBUTE_TRACE_ID, traceLog.getId());
             request.setAttribute(ATTRIBUTE_TRACE_TIME, now.getTime());
