@@ -179,7 +179,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             StackTraceElement[] trace = e.getStackTrace();
             StringBuilder exceptionStack = new StringBuilder(e + "\n");
             for (StackTraceElement traceElement : trace) {
-                exceptionStack.append("  at ").append(traceElement).append("\n");
+                exceptionStack.append("\tat ").append(traceElement).append("\n");
             }
             traceLog.setExceptionLevel((byte)10);
             error = exceptionStack.toString();
