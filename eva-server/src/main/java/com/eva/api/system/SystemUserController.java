@@ -72,6 +72,7 @@ public class SystemUserController extends BaseController {
      * @date 2021/03/28 09:30
      */
     @DuplicateSubmit
+    @Trace(withRequestParameters = false)
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:user:create")
@@ -115,6 +116,7 @@ public class SystemUserController extends BaseController {
      * @date 2021/03/28 09:30
      */
     @ApiOperation("修改")
+    @Trace(withRequestParameters = false)
     @PostMapping("/updateById")
     @RequiresPermissions("system:user:update")
     public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody CreateSystemUserDTO systemUser) {
