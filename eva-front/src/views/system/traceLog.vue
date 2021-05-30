@@ -67,6 +67,11 @@
             <ColumnDetail v-if="row.requestResult != null" :content="row.requestResult"/>
           </template>
         </el-table-column>
+        <el-table-column prop="exceptionStack" label="异常等级" min-width="80px">
+          <template slot-scope="{row}">
+            {{row.exceptionLevel | exceptionLevelText}}
+          </template>
+        </el-table-column>
         <el-table-column prop="exceptionStack" label="异常信息" min-width="170px">
           <template slot-scope="{row}">
             <ColumnDetail v-if="row.exceptionStack != null" :content="row.exceptionStack"/>
@@ -115,6 +120,7 @@ export default {
     }
   },
   filters: {
+    // 状态
     statusText (value) {
       if (value === 1) {
         return '成功'
@@ -123,6 +129,22 @@ export default {
         return '失败'
       }
       return '未处理'
+    },
+    // 异常等级
+    exceptionLevelText (value) {
+      if (value == null) {
+        return ''
+      }
+      if (value === 0) {
+        return '低'
+      }
+      if (value === 5) {
+        return '中'
+      }
+      if (value === 10) {
+        return '高'
+      }
+      return '未知'
     }
   },
   methods: {
