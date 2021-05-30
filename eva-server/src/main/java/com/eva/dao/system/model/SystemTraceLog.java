@@ -81,7 +81,7 @@ public class SystemTraceLog implements Serializable {
     private String serverIp;
 
     @ApiModelProperty(value = "接口版本")
-    private String serviceVersion;
+    private String systemVersion;
 
     @ApiModelProperty(value = "操作平台")
     private String platform;

@@ -37,7 +37,7 @@ import java.util.Date;
 public class TraceInterceptor extends HandlerInterceptorAdapter {
 
     @Value("${project.version}")
-    private String serviceVersion;
+    private String systemVersion;
 
     @Value("${trace.exclude-patterns:}")
     private String excludePatterns;
@@ -108,7 +108,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             // 辅助信息
             traceLog.setServerIp(ServerUtil.getIpAddress());
             traceLog.setIp(RequestHeaderUtil.getRequestIp(request));
-            traceLog.setServiceVersion(serviceVersion);
+            traceLog.setSystemVersion(systemVersion);
             traceLog.setPlatform(request.getHeader("x-platform") == null ? "PC" : request.getHeader("x-platform"));
             traceLog.setClientInfo(RequestHeaderUtil.getClientInfo(request));
             traceLog.setOsInfo(RequestHeaderUtil.getSystemInfo(request));
