@@ -8,6 +8,9 @@ export default {
   methods: {
     // 是否包含指定角色
     containRoles (roles) {
+      if (roles == null) {
+        return true
+      }
       if (this.userInfo == null) {
         return false
       }
@@ -23,6 +26,9 @@ export default {
     },
     // 是否包含指定权限
     containPermissions (permissions) {
+      if (permissions == null) {
+        return true
+      }
       if (this.userInfo == null) {
         return false
       }

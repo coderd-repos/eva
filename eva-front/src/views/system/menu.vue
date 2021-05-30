@@ -1,5 +1,5 @@
 <template>
-  <TableLayout class="menu-layout" v-permissions="['system:menu:query']">
+  <TableLayout class="menu-layout" :permissions="['system:menu:query']">
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:menu:create', 'system:menu:delete', 'system:menu:sort']">

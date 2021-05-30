@@ -1,5 +1,5 @@
 <template>
-  <TableLayout v-permissions="['system:permission:query']">
+  <TableLayout :permissions="['system:permission:query']">
     <!-- 搜索表单 -->
     <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="100px" inline>
       <el-form-item label="权限编码" prop="code">

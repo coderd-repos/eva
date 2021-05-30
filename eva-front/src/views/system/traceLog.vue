@@ -1,5 +1,5 @@
 <template>
-  <TableLayout v-permissions="['system:traceLog:query']">
+  <TableLayout :permissions="['system:traceLog:query']">
     <!-- 搜索表单 -->
     <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="100px" inline>
       <el-form-item label="用户姓名" prop="userRealname">

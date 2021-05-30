@@ -8,6 +8,9 @@ export default {
     }
     // 获取配置权限
     const configPermissions = binding.value
+    if (configPermissions == null) {
+      return
+    }
     if (!(configPermissions instanceof Array)) {
       throw new Error('v-permissions的值必须为一个数组')
     }

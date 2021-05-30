@@ -1,5 +1,5 @@
 <template>
-  <TableLayout v-permissions="['system:department:query']">
+  <TableLayout :permissions="['system:department:query']">
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:department:create', 'system:department:delete']">

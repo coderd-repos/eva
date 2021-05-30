@@ -8,6 +8,9 @@ export default {
     }
     // 获取配置角色
     const configRoles = binding.value
+    if (configRoles == null) {
+      return
+    }
     if (!(configRoles instanceof Array)) {
       throw new Error('v-roles的值必须为一个数组')
     }

@@ -6,27 +6,39 @@
         <el-breadcrumb-item v-for="path in paths" :key="path">{{path}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <!-- 搜索表单部分 -->
-    <div class="table-search-form">
-      <div class="form-wrap">
-        <slot name="search-form"></slot>
+    <Profile :roles="roles" :permissions="permissions">
+      <!-- 搜索表单部分 -->
+      <div class="table-search-form">
+        <div class="form-wrap">
+          <slot name="search-form"></slot>
+        </div>
       </div>
-    </div>
-    <slot name="space"></slot>
-    <!-- 列表和分页部分 -->
-    <div class="table-content">
-      <div class="table-wrap">
-        <slot name="table-wrap"></slot>
+      <slot name="space"></slot>
+      <!-- 列表和分页部分 -->
+      <div class="table-content">
+        <div class="table-wrap">
+          <slot name="table-wrap"></slot>
+        </div>
       </div>
-    </div>
-    <slot></slot>
+      <slot></slot>
+    </Profile>
   </div>
 </template>
 
 <script>
+import Profile from '../components/common/Profile'
 export default {
   name: 'TableLayout',
+  components: { Profile },
   props: {
+    // 角色
+    roles: {
+      type: Array
+    },
+    // 权限
+    permissions: {
+      type: Array
+    },
     // 是否展示头部面包屑
     withBreadcrumb: {
       type: Boolean,
@@ -43,14 +55,19 @@ export default {
 
 <style lang="scss">
 @import "@/assets/style/variables.scss";
-.el-container {
-  background: #F7F8F9;
-  min-height: calc(100vh);
+.table-layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .not-allow-wrap {
+    padding-top: 0;
+  }
 }
 // 头部
 .table-header {
   overflow: hidden;
   padding: 12px 16px;
+  flex-shrink: 0;
   // 页面路径
   .el-breadcrumb {
     .el-breadcrumb__item {

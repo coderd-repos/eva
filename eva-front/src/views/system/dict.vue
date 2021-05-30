@@ -1,5 +1,5 @@
 <template>
-  <TableLayout v-permissions="['system:dict:query']">
+  <TableLayout :permissions="['system:dict:query']">
     <!-- 搜索表单 -->
     <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="100px" inline>
       <el-form-item label="字典编码" prop="code">
