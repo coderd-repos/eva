@@ -86,8 +86,8 @@
         <el-table-column prop="operaSpendTime" label="请求耗时(ms)" sortable="custom" sort-by="OPERA_SPEND_TIME" min-width="120px"></el-table-column>
         <el-table-column prop="userRealname" label="操作人" min-width="100px"></el-table-column>
         <el-table-column prop="operaTime" label="操作时间" sortable="custom" sort-by="OPERA_TIME" min-width="140px"></el-table-column>
-        <el-table-column prop="serviceVersion" label="接口版本" min-width="80px"></el-table-column>
         <el-table-column prop="platform" label="操作平台" min-width="100px"></el-table-column>
+        <el-table-column prop="systemVersion" label="系统版本" min-width="80px"></el-table-column>
         <el-table-column prop="serverIp" label="处理服务器IP" min-width="100px"></el-table-column>
         <el-table-column prop="ip" label="用户IP" min-width="100px"></el-table-column>
         <el-table-column prop="clientInfo" label="用户客户端" min-width="200px"></el-table-column>
