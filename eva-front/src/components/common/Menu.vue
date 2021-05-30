@@ -48,6 +48,12 @@ export default {
     // 处理菜单选中
     handleSelect (menuIndex) {
       const menuConfig = this.__getMenuConfig(menuIndex, 'index', this.menuData.list)
+      // 找不到页面
+      try {
+        require('@/views' + menuConfig.url)
+      } catch (e) {
+        this.$tip.error('未找到页面文件@/views' + menuConfig.url + '.vue，请检查菜单路径是否正确')
+      }
       // 点击当前菜单不做处理
       if (menuConfig.url === this.$route.path) {
         return
@@ -131,6 +137,9 @@ export default {
     // 悬浮
     &:hover {
       background-color: $primary-color - 12;
+    }
+    &:focus {
+      background: $primary-color;
     }
   }
   // 子菜单
