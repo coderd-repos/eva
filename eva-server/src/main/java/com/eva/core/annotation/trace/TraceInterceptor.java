@@ -126,7 +126,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
         if (ex != null) {
             log.setStatus(TraceStatus.FAILED.getCode());
             StackTraceElement[] trace = ex.getStackTrace();
-            StringBuilder error = new StringBuilder(ex.toString());
+            StringBuilder error = new StringBuilder(ex.toString() + "\n");
             for (StackTraceElement traceElement : trace) {
                 error.append("\tat ").append(traceElement).append("\n");
             }
