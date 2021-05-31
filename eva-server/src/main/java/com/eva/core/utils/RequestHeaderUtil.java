@@ -17,7 +17,7 @@ public class RequestHeaderUtil {
      * @param request
      * @return
      */
-    public static String getSystemInfo(HttpServletRequest request) {
+    public static String getOsInfo(HttpServletRequest request) {
         String browserDetails = request.getHeader("User-Agent");
         String userAgent = browserDetails;
 
