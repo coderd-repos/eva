@@ -1,4 +1,4 @@
-package com.eva.core.annotation.duplicate;
+package com.eva.core.annotation.prevent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +11,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @date 2021/05/15 18:44
  */
 @Configuration
-public class DuplicateSubmitInterceptorConfig implements WebMvcConfigurer {
+public class PreventRepeatInterceptorConfig implements WebMvcConfigurer {
 
     @Autowired
-    private DuplicateSubmitInterceptor duplicateSubmitInterceptor;
+    private PreventRepeatInterceptor duplicateSubmitInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

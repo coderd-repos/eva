@@ -1,4 +1,4 @@
-package com.eva.core.annotation.duplicate;
+package com.eva.core.annotation.prevent;
 
 import com.alibaba.fastjson.JSON;
 import com.eva.core.model.ApiResponse;
@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
  */
 @Slf4j
 @Component
-public class DuplicateSubmitInterceptor extends HandlerInterceptorAdapter {
+public class PreventRepeatInterceptor extends HandlerInterceptorAdapter {
 
     private static ApplicationContext applicationContext;
 
@@ -38,23 +38,23 @@ public class DuplicateSubmitInterceptor extends HandlerInterceptorAdapter {
         try {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
-            DuplicateSubmit duplicateSubmit = method.getAnnotation(DuplicateSubmit.class);
+            PreventRepeat duplicateSubmit = method.getAnnotation(PreventRepeat.class);
             // 接口未添加防重复提交注解
             if (duplicateSubmit == null) {
                 return Boolean.TRUE;
             }
             // 获取验证对象和方法
             Object handlerInstance = applicationContext.getBean(duplicateSubmit.value());
-            Method isDuplicateMethod = duplicateSubmit.value().getMethod(DuplicateSubmitAdapter.METHOD_IS_DUPLICATE, HttpServletRequest.class);
+            Method isDuplicateMethod = duplicateSubmit.value().getMethod(PreventRepeatAdapter.METHOD_IS_DUPLICATE, HttpServletRequest.class);
             // 执行验证
             if((Boolean)isDuplicateMethod.invoke(handlerInstance, request)) {
-                log.warn("拦截一次重复提交，请求地址：{}", request.getRequestURI());
+                log.warn("Intercept a duplicate request，url：{}", request.getRequestURI());
                 response.setHeader("content-type", "application/json;charset=UTF-8");
                 response.getWriter().write(JSON.toJSONString(ApiResponse.failed(ResponseStatus.DUPLICATE_SUBMIT.getCode(), duplicateSubmit.message())));
                 return Boolean.FALSE;
             }
             // 写入requestKey
-            Method signMethod = duplicateSubmit.value().getMethod(DuplicateSubmitAdapter.METHOD_REQUEST_KEY, HttpServletRequest.class);
+            Method signMethod = duplicateSubmit.value().getMethod(PreventRepeatAdapter.METHOD_REQUEST_KEY, HttpServletRequest.class);
             cacheProxy.put((String)signMethod.invoke(handlerInstance, request), System.currentTimeMillis(), duplicateSubmit.interval());
         } catch (Exception e) {
             log.warn("防重复验证发生了错误", e);
@@ -64,8 +64,8 @@ public class DuplicateSubmitInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        if (DuplicateSubmitInterceptor.applicationContext == null) {
-            DuplicateSubmitInterceptor.applicationContext = applicationContext;
+        if (PreventRepeatInterceptor.applicationContext == null) {
+            PreventRepeatInterceptor.applicationContext = applicationContext;
         }
     }
 }

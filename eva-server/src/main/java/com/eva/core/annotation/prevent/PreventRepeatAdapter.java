@@ -1,4 +1,4 @@
-package com.eva.core.annotation.duplicate;
+package com.eva.core.annotation.prevent;
 
 import com.eva.service.proxy.CacheProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author Eva.Caesar Liu
  * @date 2021-05-25 10:58
  */
-public abstract class DuplicateSubmitAdapter {
+public abstract class PreventRepeatAdapter {
 
     // 验证是否重复方法名称
     public static final String METHOD_IS_DUPLICATE = "isDuplicate";

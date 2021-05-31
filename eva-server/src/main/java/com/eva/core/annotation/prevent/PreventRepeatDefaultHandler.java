@@ -1,7 +1,6 @@
-package com.eva.core.annotation.duplicate;
+package com.eva.core.annotation.prevent;
 
 import com.eva.core.servlet.ServletDuplicateInputStream;
-import com.eva.core.servlet.ServletDuplicateRequestWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
@@ -19,7 +18,7 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class DuplicateSubmitDefaultHandler extends DuplicateSubmitAdapter {
+public class PreventRepeatDefaultHandler extends PreventRepeatAdapter {
 
     private static final String REQUEST_URI = "REQUEST_URI";
 
