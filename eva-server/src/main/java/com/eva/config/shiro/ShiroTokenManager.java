@@ -7,7 +7,7 @@ import java.util.UUID;
 
 /**
  * 默认Token管理器
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-05-28 11:14
  */
 @Component

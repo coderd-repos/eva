@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/05/29 13:53
  */
 @Api(tags = "跟踪日志")
@@ -28,7 +28,7 @@ public class SystemTraceLogController extends BaseController {
 
     /**
      * 分页查询
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/29 13:53
      */
     @ApiOperation("分页查询")

@@ -14,7 +14,7 @@ import java.util.Date;
 
 /**
  * 字典数据
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/05/16 20:18
  */
 @Data

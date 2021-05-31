@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * 自定义Shiro CacheManager
  * 技术参考：shiro-redis
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-05-28 01:01
  */
 @Slf4j

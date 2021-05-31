@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * 分页请求参数
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/05/15 18:44
  */
 @Data
@@ -37,7 +37,7 @@ public class PageWrap<M> implements Serializable {
 
     /**
      * 处理异常排序对象
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/15 18:44
      */
     public List<SortData> getSorts () {
@@ -59,7 +59,7 @@ public class PageWrap<M> implements Serializable {
 
     /**
      * 处理异常页码
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/15 18:44
      */
     public int getPage () {
@@ -68,7 +68,7 @@ public class PageWrap<M> implements Serializable {
 
     /**
      * 处理异常页容量
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/15 18:44
      */
     public int getCapacity () {
@@ -77,7 +77,7 @@ public class PageWrap<M> implements Serializable {
 
     /**
      * 获取排序字符串
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/15 18:44
      */
     @ApiModelProperty(hidden = true)
@@ -102,7 +102,7 @@ public class PageWrap<M> implements Serializable {
 
     /**
      * 排序对象
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/15 18:44
      */
     @Data

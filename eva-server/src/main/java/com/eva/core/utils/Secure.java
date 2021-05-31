@@ -4,7 +4,7 @@ import org.springframework.util.DigestUtils;
 
 /**
  * 安全处理工具类
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-03-31 19:30
  */
 public class Secure {

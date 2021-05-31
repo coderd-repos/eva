@@ -18,7 +18,7 @@ import java.util.*;
  * MyBatis 拦截器
  * - INSERT语句默认填充创建人和创建时间字段
  * - UPDATE语句默认填充更新人和更新时间字段
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/5/21 18:30
  */
 @Slf4j
@@ -67,7 +67,7 @@ public class MyBatisInterceptor implements Interceptor {
 
     /**
      * 处理新增和编辑语句
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2019/3/2 11:52
      */
     private void handleOperaStatement(Object target, String... fieldNames) throws Exception{
@@ -91,7 +91,7 @@ public class MyBatisInterceptor implements Interceptor {
 
     /**
      * 给属性赋值
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2019/3/2 11:36
      */
     private void setFieldValue(Field field, Object target, Object value) throws Exception {
@@ -102,7 +102,7 @@ public class MyBatisInterceptor implements Interceptor {
 
     /**
      * 获取属性值
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2019/3/2 11:40
      */
     private Object getFieldValue(Field field, Object target) throws Exception {
@@ -114,7 +114,7 @@ public class MyBatisInterceptor implements Interceptor {
 
     /**
      * 获取登录用户信息
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-16 16:22
      */
     private LoginUserInfo getLoginUser () {

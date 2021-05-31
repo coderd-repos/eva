@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * 岗位接口
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/05/16 17:03
  */
 @Api(tags = "岗位")
@@ -44,7 +44,7 @@ public class SystemPositionController extends BaseController {
     private SystemUserService systemUserService;
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/16 17:03
      */
     @DuplicateSubmit
@@ -56,7 +56,7 @@ public class SystemPositionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/16 17:03
      */
     @ApiOperation("删除")
@@ -68,7 +68,7 @@ public class SystemPositionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("批量删除")
@@ -85,7 +85,7 @@ public class SystemPositionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/16 17:03
      */
     @ApiOperation("修改")
@@ -97,7 +97,7 @@ public class SystemPositionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/16 17:03
      */
     @ApiOperation("查询岗位树列表")
@@ -108,7 +108,7 @@ public class SystemPositionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-24 22:46
      */
     @Trace(exclude = true)
@@ -122,7 +122,7 @@ public class SystemPositionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-24 11:55
      */
     @ApiOperation("查询岗位人员")

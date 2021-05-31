@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/05/16 20:18
  */
 @Api(tags = "字典数据")
@@ -37,7 +37,7 @@ public class SystemDictDataController extends BaseController {
     private SystemDictDataBiz systemDictDataBiz;
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/16 20:18
      */
     @DuplicateSubmit
@@ -49,7 +49,7 @@ public class SystemDictDataController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/16 20:18
      */
     @ApiOperation("删除")
@@ -61,7 +61,7 @@ public class SystemDictDataController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("批量删除")
@@ -78,7 +78,7 @@ public class SystemDictDataController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/16 20:18
      */
     @ApiOperation("修改")
@@ -90,7 +90,7 @@ public class SystemDictDataController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/16 20:18
      */
     @ApiOperation("分页查询")

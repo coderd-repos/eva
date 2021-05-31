@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/03/28 09:30
  */
 @Api(tags = "用户")
@@ -40,7 +40,7 @@ public class SystemUserController extends BaseController {
     private SystemUserBiz systemUserBiz;
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-03-29 22:36
      */
     @DuplicateSubmit
@@ -53,7 +53,7 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-03-31 20:25
      */
     @DuplicateSubmit
@@ -68,7 +68,7 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/28 09:30
      */
     @DuplicateSubmit
@@ -83,7 +83,7 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("删除")
@@ -95,7 +95,7 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("批量删除")
@@ -112,7 +112,7 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("修改")
@@ -126,7 +126,7 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("分页查询")

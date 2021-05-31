@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 全局拦截器配置
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/03/26 19:48
  */
 @Configuration

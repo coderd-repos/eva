@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * 全局异常处理
  * 技术参考：https://blog.csdn.net/typ1805/article/details/107283602
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-05-27 22:21
  */
 @Slf4j

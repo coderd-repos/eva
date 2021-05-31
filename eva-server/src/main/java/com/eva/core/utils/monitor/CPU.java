@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * CPU信息
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-04-13 19:59
  */
 @Data

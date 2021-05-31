@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/03/27 22:36
  */
 @Api(tags = "系统权限")
@@ -38,7 +38,7 @@ public class SystemPermissionController extends BaseController {
     private SystemPermissionBiz systemPermissionBiz;
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/27 22:36
      */
     @DuplicateSubmit
@@ -50,7 +50,7 @@ public class SystemPermissionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/27 22:36
      */
     @ApiOperation("删除")
@@ -62,7 +62,7 @@ public class SystemPermissionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("批量删除")
@@ -79,7 +79,7 @@ public class SystemPermissionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/27 22:36
      */
     @ApiOperation("修改")
@@ -91,7 +91,7 @@ public class SystemPermissionController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/27 22:36
      */
     @ApiOperation("分页查询")
@@ -102,7 +102,7 @@ public class SystemPermissionController extends BaseController {
     }
 
     /**
-     * @author Caesar Liu
+     * @author Eva.Caesar Liu
      * @date 2021-05-29 16:40
      */
     @Trace(exclude = true)

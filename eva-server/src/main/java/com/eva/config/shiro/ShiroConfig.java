@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * Shiro配置
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-03-30 23:10
  */
 @Configuration

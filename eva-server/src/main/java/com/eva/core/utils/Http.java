@@ -15,7 +15,7 @@ import java.util.zip.GZIPInputStream;
 
 /**
  * Http工具类
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-05-31 15:24
  */
 @Slf4j
@@ -48,6 +48,7 @@ class Http {
         return new HttpWrap(url, charset, httpURLConnection);
     }
 
+    @Getter
     public static class HttpWrap {
 
         private String url;

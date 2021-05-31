@@ -22,7 +22,7 @@ import java.util.UUID;
 
 /**
  * 图片验证码
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-05-20 19:17
  */
 @Service
@@ -49,7 +49,7 @@ public class CaptchaService {
 
     /**
      * 生成验证码图片
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-20 18:04
      */
     public Captcha genCaptcha () {
@@ -104,7 +104,7 @@ public class CaptchaService {
 
     /**
      * 校验验证码
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-20 22:09
      */
     public void check(String uuid, String code) {
@@ -119,7 +119,7 @@ public class CaptchaService {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-20 18:01
      */
     @Data

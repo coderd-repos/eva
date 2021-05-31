@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/05/30 22:54
  */
 @RestController
@@ -25,7 +25,7 @@ public class SystemLoginLogController extends BaseController {
 
     /**
      * 分页查询
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/05/30 22:54
      */
     @PostMapping("/page")

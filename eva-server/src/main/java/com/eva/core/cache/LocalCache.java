@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 单机本地缓存，项目初始阶段使用
  * - 超过指定大小可通过日志方式报警
  * - 延长超时时间
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2019/3/23 17:57
  */
 @Slf4j

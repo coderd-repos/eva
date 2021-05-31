@@ -8,7 +8,7 @@ import java.io.IOException;
 
 /**
  * 防重复提交实现接口
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-05-25 10:58
  */
 public abstract class DuplicateSubmitAdapter {
@@ -24,7 +24,7 @@ public abstract class DuplicateSubmitAdapter {
 
     /**
      * 验证是否重复
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-25 11:05
      */
     public Boolean isDuplicate(HttpServletRequest request) throws IOException {
@@ -33,7 +33,7 @@ public abstract class DuplicateSubmitAdapter {
 
     /**
      * 参数签名
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-25 11:39
      */
     public abstract String sign (HttpServletRequest request) throws IOException;

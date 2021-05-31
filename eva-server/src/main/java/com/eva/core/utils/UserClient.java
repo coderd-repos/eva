@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 请求工具类
  * 技术参考：丢失
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2018/10/10 00:41
  */
 public class UserClient {

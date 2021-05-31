@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 /**
  * Service实现
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/05/16 11:59
  */
 @Service
@@ -95,7 +95,7 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
 
     /**
      * 获取子部门ID
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-22 23:22
      */
     private void fillChildren(List<Integer> pool, List<Integer> parentIds) {

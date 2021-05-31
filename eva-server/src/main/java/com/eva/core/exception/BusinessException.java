@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * 业务异常对象
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-03-31 14:22
  */
 @Data

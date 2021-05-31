@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 跟踪拦截器配置
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-05-29 10:24
  */
 @Configuration

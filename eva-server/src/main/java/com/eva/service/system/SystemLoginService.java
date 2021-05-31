@@ -6,14 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 系统登录
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-05-28 00:05
  */
 public interface SystemLoginService {
 
     /**
      * 密码登录
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-28 00:05
      */
     String loginByPassword (LoginDTO dto, HttpServletRequest request);

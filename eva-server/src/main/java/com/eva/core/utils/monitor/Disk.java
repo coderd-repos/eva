@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * 磁盘信息
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-04-13 20:03
  */
 @Data

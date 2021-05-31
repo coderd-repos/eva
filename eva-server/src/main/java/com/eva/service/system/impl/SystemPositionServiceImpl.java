@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 /**
  * 岗位Service实现
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/05/16 17:03
  */
 @Service
@@ -104,7 +104,7 @@ public class SystemPositionServiceImpl implements SystemPositionService {
 
     /**
      * 获取子岗位ID
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-22 23:22
      */
     private void fillChildren(List<Integer> pool, List<Integer> parentIds) {

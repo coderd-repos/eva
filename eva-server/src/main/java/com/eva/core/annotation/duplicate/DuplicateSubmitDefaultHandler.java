@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * 默认防重复提交实现
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-05-25 11:01
  */
 @Slf4j
@@ -52,7 +52,7 @@ public class DuplicateSubmitDefaultHandler extends DuplicateSubmitAdapter {
 
     /**
      * 获取参数
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-25 14:18
      */
     private Map<String, Object> getParameters(HttpServletRequest request) throws IOException {

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/03/27 22:36
  */
 @Api(tags = "系统菜单")
@@ -32,7 +32,7 @@ public class SystemMenuController extends BaseController {
     private SystemMenuBiz systemMenuBiz;
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-03-30 22:22
      */
     @ApiOperation("菜单排序")
@@ -44,7 +44,7 @@ public class SystemMenuController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-03-29 15:31
      */
     @ApiOperation("查询菜单树")
@@ -54,7 +54,7 @@ public class SystemMenuController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/27 22:36
      */
     @ApiOperation("查询列表树")
@@ -65,7 +65,7 @@ public class SystemMenuController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/27 22:36
      */
     @DuplicateSubmit
@@ -77,7 +77,7 @@ public class SystemMenuController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/27 22:36
      */
     @ApiOperation("删除")
@@ -89,7 +89,7 @@ public class SystemMenuController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/28 09:30
      */
     @ApiOperation("批量删除")
@@ -106,7 +106,7 @@ public class SystemMenuController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021/03/27 22:36
      */
     @ApiOperation("修改")
@@ -118,7 +118,7 @@ public class SystemMenuController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-25 19:43
      */
     @ApiOperation("修改菜单状态")

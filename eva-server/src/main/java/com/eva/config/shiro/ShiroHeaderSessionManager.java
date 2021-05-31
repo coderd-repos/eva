@@ -19,7 +19,7 @@ import java.io.Serializable;
 /**
  * 自定义会话管理器
  * 技术参考：https://blog.csdn.net/weixin_30273931/article/details/96202820
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-05-28 14:04
  */
 @Slf4j

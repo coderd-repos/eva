@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021-05-21 22:10
  */
 @Api(tags = "系统功能")
@@ -36,7 +36,7 @@ public class SystemController extends BaseController {
     private SystemLoginService systemLoginService;
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-03-27 21:36
      */
     @Trace(exclude = true)
@@ -47,7 +47,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-03-27 21:36
      */
     @Trace(exclude = true)
@@ -60,7 +60,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-03-31 14:16
      */
     @Trace(withRequestParameters = false)
@@ -73,7 +73,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-03-28 17:04
      */
     @Trace(exclude = true)

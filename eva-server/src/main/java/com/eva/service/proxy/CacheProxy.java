@@ -12,7 +12,7 @@ import java.util.*;
 
 /**
  * 缓存代理类，便于缓存变更
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2019/3/23 20:31
  */
 @Slf4j
@@ -59,7 +59,7 @@ public class CacheProxy<K,V> implements Cache<K, V> {
 
     /**
      * 指定过期时长(秒)
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-28 19:44
      */
     public V put(K key, V value, int expire) throws CacheException {
@@ -73,7 +73,7 @@ public class CacheProxy<K,V> implements Cache<K, V> {
 
     /**
      * 指定过期时长(毫秒)
-     * @author Eva
+     * @author Eva.Caesar Liu
      * @date 2021-05-28 19:44
      */
     public V put(K key, V value, long expire) throws CacheException {
