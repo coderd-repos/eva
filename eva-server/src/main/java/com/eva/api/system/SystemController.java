@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author Eva
  * @date 2021-05-21 22:10
@@ -40,8 +42,8 @@ public class SystemController extends BaseController {
     @Trace(exclude = true)
     @ApiOperation("登录")
     @PostMapping("/login")
-    public ApiResponse<String> login (@Validated @RequestBody LoginDTO dto) {
-        return ApiResponse.success(systemLoginService.loginByPassword(dto));
+    public ApiResponse<String> login (@Validated @RequestBody LoginDTO dto, HttpServletRequest request) {
+        return ApiResponse.success(systemLoginService.loginByPassword(dto, request));
     }
 
     /**

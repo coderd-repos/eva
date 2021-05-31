@@ -41,8 +41,8 @@ public class SystemLoginLog {
     @ApiModelProperty(value = "登录平台")
     private String platform;
 
-    @ApiModelProperty(value = "平台版本")
-    private String platformVersion;
+    @ApiModelProperty(value = "系统版本")
+    private String systemVersion;
 
     @ApiModelProperty(value = "服务器IP")
     private String serverIp;

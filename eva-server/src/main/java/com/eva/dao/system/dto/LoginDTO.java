@@ -30,4 +30,7 @@ public class LoginDTO implements Serializable {
     @NotBlank(message = "验证码UUID不能为空")
     @ApiModelProperty(value = "验证码UUID")
     private String uuid;
+
+    @ApiModelProperty(value = "登录平台")
+    private String platform;
 }
