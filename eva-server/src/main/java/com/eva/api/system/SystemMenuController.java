@@ -47,8 +47,8 @@ public class SystemMenuController extends BaseController {
      * @author Eva
      * @date 2021-03-29 15:31
      */
-    @ApiOperation("获取菜单树")
-    @GetMapping("/tree")
+    @ApiOperation("查询菜单树")
+    @GetMapping("/treeNodes")
     public ApiResponse<List<SystemMenuNodeVO>> getTreeMenu () {
         return ApiResponse.success(systemMenuBiz.findTree(this.getLoginUser().getId()));
     }
@@ -58,7 +58,7 @@ public class SystemMenuController extends BaseController {
      * @date 2021/03/27 22:36
      */
     @ApiOperation("查询列表树")
-    @PostMapping("/tree")
+    @PostMapping("/treeList")
     @RequiresPermissions("system:menu:query")
     public ApiResponse<List<SystemMenuListVO>> findTree () {
         return ApiResponse.success(systemMenuBiz.findTree());
