@@ -27,9 +27,4 @@ public @interface DuplicateSubmit {
      */
     String message() default "请勿重复提交";
 
-    /**
-     * 在指定时间的时间内限制请求次数
-     */
-    int limit() default 0;
-
 }
