@@ -17,8 +17,8 @@
   },
   "template": {
     "id": null,
-    "versionId": "",
-    "draftId": 715
+    "versionId": 2959,
+    "draftId": ""
   },
   "ignores": [
     "coderd.json",

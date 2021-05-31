@@ -5,14 +5,14 @@
       <el-form-item label="登录用户名" prop="loginUsername">
         <el-input v-model="searchForm.loginUsername" placeholder="请输入登录用户名" @keypress.enter.native="search"></el-input>
       </el-form-item>
-      <el-form-item label="登录地址" prop="location">
-        <el-input v-model="searchForm.location" placeholder="请输入登录地址" @keypress.enter.native="search"></el-input>
+      <el-form-item label="登录IP" prop="ip">
+        <el-input v-model="searchForm.ip" placeholder="请输入登录IP" @keypress.enter.native="search"></el-input>
+      </el-form-item>
+      <el-form-item label="服务器IP" prop="serverIp">
+        <el-input v-model="searchForm.serverIp" placeholder="请输入服务器IP" @keypress.enter.native="search"></el-input>
       </el-form-item>
       <el-form-item label="是否登录成功" prop="success">
         <el-input v-model="searchForm.success" placeholder="请输入是否登录成功" @keypress.enter.native="search"></el-input>
-      </el-form-item>
-      <el-form-item label="失败原因" prop="reason">
-        <el-input v-model="searchForm.reason" placeholder="请输入失败原因" @keypress.enter.native="search"></el-input>
       </el-form-item>
       <el-form-item label="登录时间" prop="loginTime">
         <el-date-picker v-model="searchForm.loginTime" value-format="yyyy-MM-dd" placeholder="请输入登录时间" @change="search"/>
@@ -25,9 +25,9 @@
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <el-table
-        v-loading="isWorking.search"
-        :data="tableData.list"
-        stripe
+          v-loading="isWorking.search"
+          :data="tableData.list"
+          stripe
       >
         <el-table-column prop="loginUsername" label="登录用户名" min-width="100px"></el-table-column>
         <el-table-column prop="ip" label="登录IP" min-width="100px"></el-table-column>
@@ -35,16 +35,16 @@
         <el-table-column prop="clientInfo" label="客户端" min-width="100px"></el-table-column>
         <el-table-column prop="osInfo" label="操作系统" min-width="100px"></el-table-column>
         <el-table-column prop="platform" label="登录平台" min-width="100px"></el-table-column>
-        <el-table-column prop="platformVersion" label="平台版本" min-width="100px"></el-table-column>
+        <el-table-column prop="systemVersion" label="系统版本" min-width="100px"></el-table-column>
         <el-table-column prop="serverIp" label="服务器IP" min-width="100px"></el-table-column>
         <el-table-column prop="success" label="是否登录成功" min-width="100px"></el-table-column>
         <el-table-column prop="reason" label="失败原因" min-width="100px"></el-table-column>
         <el-table-column prop="loginTime" label="登录时间" min-width="100px"></el-table-column>
       </el-table>
       <pagination
-        @size-change="handleSizeChange"
-        @current-change="handlePageChange"
-        :pagination="tableData.pagination"
+          @size-change="handleSizeChange"
+          @current-change="handlePageChange"
+          :pagination="tableData.pagination"
       >
       </pagination>
     </template>
@@ -64,9 +64,9 @@ export default {
       // 搜索
       searchForm: {
         loginUsername: '',
-        location: '',
+        ip: '',
+        serverIp: '',
         success: '',
-        reason: '',
         loginTime: ''
       }
     }
@@ -74,7 +74,7 @@ export default {
   created () {
     this.config({
       module: '登录日志',
-      api: '/system/systemLoginLog',
+      api: '/system/loginLog',
       'field.id': 'id',
       'field.main': 'id'
     })
