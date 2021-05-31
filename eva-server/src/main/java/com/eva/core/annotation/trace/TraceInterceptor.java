@@ -116,7 +116,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             request.setAttribute(ATTRIBUTE_TRACE_ID, traceLog.getId());
             request.setAttribute(ATTRIBUTE_TRACE_TIME, now.getTime());
         } catch (Exception e) {
-            log.warn("Eva Trace throw an exception, you can get detail message by debug mode.");
+            log.warn("Eva @Trace throw an exception, you can get detail message by debug mode.");
             log.debug(e.getMessage(), e);
         }
         return Boolean.TRUE;

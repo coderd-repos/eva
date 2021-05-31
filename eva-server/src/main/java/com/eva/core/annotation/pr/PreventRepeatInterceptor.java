@@ -1,9 +1,8 @@
-package com.eva.core.annotation.prevent;
+package com.eva.core.annotation.pr;
 
 import com.alibaba.fastjson.JSON;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.ResponseStatus;
-import com.eva.service.proxy.CacheProxy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +26,6 @@ public class PreventRepeatInterceptor extends HandlerInterceptorAdapter {
 
     private static ApplicationContext applicationContext;
 
-    @Autowired
-    private CacheProxy<String, Object> cacheProxy;
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if (!(handler instanceof HandlerMethod)) {
@@ -38,26 +34,30 @@ public class PreventRepeatInterceptor extends HandlerInterceptorAdapter {
         try {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
-            PreventRepeat duplicateSubmit = method.getAnnotation(PreventRepeat.class);
+            PreventRepeat prAnnotation = method.getAnnotation(PreventRepeat.class);
             // 接口未添加防重复提交注解
-            if (duplicateSubmit == null) {
+            if (prAnnotation == null) {
                 return Boolean.TRUE;
             }
             // 获取验证对象和方法
-            Object handlerInstance = applicationContext.getBean(duplicateSubmit.value());
-            Method isDuplicateMethod = duplicateSubmit.value().getMethod(PreventRepeatAdapter.METHOD_IS_DUPLICATE, HttpServletRequest.class);
-            // 执行验证
-            if((Boolean)isDuplicateMethod.invoke(handlerInstance, request)) {
-                log.warn("Intercept a duplicate request，url：{}", request.getRequestURI());
+            PreventRepeatAdapter adapter = (PreventRepeatAdapter)applicationContext.getBean(prAnnotation.value());
+            // 验证暴力请求
+            if(prAnnotation.limit() > 0 && prAnnotation.lockTime() > 0 && adapter.massive(request, prAnnotation.limit(), prAnnotation.lockTime())) {
+                log.warn("Eva Intercept a massive request，url：{}", request.getRequestURI());
                 response.setHeader("content-type", "application/json;charset=UTF-8");
-                response.getWriter().write(JSON.toJSONString(ApiResponse.failed(ResponseStatus.DUPLICATE_SUBMIT.getCode(), duplicateSubmit.message())));
+                response.getWriter().write(JSON.toJSONString(ApiResponse.failed(ResponseStatus.MASSIVE_REQUEST.getCode(), prAnnotation.message())));
                 return Boolean.FALSE;
             }
-            // 写入requestKey
-            Method signMethod = duplicateSubmit.value().getMethod(PreventRepeatAdapter.METHOD_REQUEST_KEY, HttpServletRequest.class);
-            cacheProxy.put((String)signMethod.invoke(handlerInstance, request), System.currentTimeMillis(), duplicateSubmit.interval());
+            // 验证重复请求
+            if(prAnnotation.interval() > 0 && adapter.prevent(request, prAnnotation.interval())) {
+                log.warn("Eva Intercept a repeat request，url：{}", request.getRequestURI());
+                response.setHeader("content-type", "application/json;charset=UTF-8");
+                response.getWriter().write(JSON.toJSONString(ApiResponse.failed(ResponseStatus.REPEAT_REQUEST.getCode(), prAnnotation.message())));
+                return Boolean.FALSE;
+            }
         } catch (Exception e) {
-            log.warn("防重复验证发生了错误", e);
+            log.warn("Eva @PreventRepeat throw an exception, you can get detail message by debug mode");
+            log.debug(e.getMessage(), e);
         }
         return Boolean.TRUE;
     }

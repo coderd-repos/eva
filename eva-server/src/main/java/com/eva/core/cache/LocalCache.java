@@ -49,8 +49,13 @@ public final class LocalCache<K,V> {
      * @param key 缓存键
      * @param value 缓存值
      */
-    public void set(K key, V value) {
-        set(key, value, 30 * 60 * 1000);
+    public void put(K key, V value) {
+        Value<V> v = cache.get(key);
+        if (v != null) {
+            v.value = value;
+            return;
+        }
+        put(key, value, 30 * 60 * 1000);
     }
 
     /**
@@ -59,7 +64,7 @@ public final class LocalCache<K,V> {
      * @param value 缓存值
      * @param timeout 超时时间
      */
-    public void set(K key, V value, long timeout) {
+    public void put(K key, V value, long timeout) {
         if(key == null) throw new NullPointerException("key can not be null");
         // 清理旧数据
         long now = System.currentTimeMillis();
@@ -80,8 +85,9 @@ public final class LocalCache<K,V> {
 
         // 获取对象大小，超过一定大小打印警告
         int cacheSize = SerializationUtils.serialize(cache).length;
-        if(cacheSize > WARN_SIZE)
-            log.warn("本地缓存已超过{}G，当前缓存容量为：{}G", (double)Math.round((double)WARN_SIZE / GB_SIZE * 100)/100, (double)Math.round((double)cacheSize / GB_SIZE * 100)/100);
+        if(cacheSize > WARN_SIZE) {
+            log.warn("本地缓存已超过{}G，当前缓存容量为：{}G", (double) Math.round((double) WARN_SIZE / GB_SIZE * 100) / 100, (double) Math.round((double) cacheSize / GB_SIZE * 100) / 100);
+        }
     }
 
     /**

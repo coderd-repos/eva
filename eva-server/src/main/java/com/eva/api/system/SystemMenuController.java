@@ -2,7 +2,7 @@ package com.eva.api.system;
 
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemMenuBiz;
-import com.eva.core.annotation.prevent.PreventRepeat;
+import com.eva.core.annotation.pr.PreventRepeat;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.OperaType;
 import com.eva.dao.system.dto.UpdateSystemMenuSortDTO;

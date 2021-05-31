@@ -31,6 +31,8 @@ public class ShiroSessionDAO implements SessionDAO {
 
     private CacheProxy<Serializable, Session> cacheProxy;
 
+    private long expireTime = 1800000;
+
     @Autowired
     private ShiroTokenManager shiroTokenManager;
 
@@ -99,10 +101,10 @@ public class ShiroSessionDAO implements SessionDAO {
             log.error("session or session id is null");
             throw new UnknownSessionException("session or session id is null");
         }
-        cacheProxy.put(session.getId(), session);
+        cacheProxy.put(session.getId(), session, expireTime);
     }
 
-    public void setExpireTime (long expireTime) {
-        this.cacheProxy.setDefaultExpireTime(expireTime);
+    public void setExpireTime (int expireTime) {
+        this.expireTime = expireTime * 1000;
     }
 }

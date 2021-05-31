@@ -25,7 +25,7 @@ import java.util.Map;
 public class ShiroConfig {
 
     @Value("${cache.session.expire}")
-    private long sessionExpireTime;
+    private int sessionExpireTime;
 
     @Autowired
     private ShiroCredentialsMatcher shiroCredentialsMatcher;

@@ -21,8 +21,9 @@ public enum ResponseStatus {
     // 500开头表示未知的服务异常
     SERVER_ERROR(5000, "系统繁忙，请联系系统管理员"),
     // 510开头表示可能导致数据错误的异常
-    DUPLICATE_SUBMIT(5100, "请勿重复提交"),
-    NOT_ALLOWED(5101, "不允许的操作"),
+    REPEAT_REQUEST(5100, "请勿重复提交"),
+    MASSIVE_REQUEST(5101, "请求过于频繁"),
+    NOT_ALLOWED(5110, "不允许的操作"),
     ;
 
     private int code;

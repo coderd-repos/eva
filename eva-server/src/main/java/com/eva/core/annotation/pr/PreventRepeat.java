@@ -1,4 +1,4 @@
-package com.eva.core.annotation.prevent;
+package com.eva.core.annotation.pr;
 
 import java.lang.annotation.*;
 
@@ -20,7 +20,7 @@ public @interface PreventRepeat {
     /**
      * 间隔时间(ms)，小于此时间视为重复提交
      */
-    long interval() default 800;
+    int interval() default 800;
 
     /**
      * 错误消息
@@ -28,12 +28,12 @@ public @interface PreventRepeat {
     String message() default "请勿重复提交";
 
     /**
-     * 1分钟内限制请求次数（<=0时表示不限制）
+     * 1分钟内限制的请求次数（<=0时表示不限制）
      */
     int limit() default 0;
 
     /**
-     * 超出限制锁定时长(ms)
+     * 超出请求限制次数时锁定的时长(ms)
      */
     int lockTime() default 600000;
 

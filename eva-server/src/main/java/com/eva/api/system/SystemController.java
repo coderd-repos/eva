@@ -2,6 +2,7 @@ package com.eva.api.system;
 
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemUserBiz;
+import com.eva.core.annotation.pr.PreventRepeat;
 import com.eva.core.annotation.trace.Trace;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.LoginUserInfo;
@@ -39,6 +40,7 @@ public class SystemController extends BaseController {
      * @author Eva.Caesar Liu
      * @date 2021-03-27 21:36
      */
+    @PreventRepeat(limit = 10, lockTime = 5000)
     @Trace(exclude = true)
     @ApiOperation("登录")
     @PostMapping("/login")

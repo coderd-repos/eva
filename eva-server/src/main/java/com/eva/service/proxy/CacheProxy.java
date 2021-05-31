@@ -53,35 +53,37 @@ public class CacheProxy<K,V> implements Cache<K, V> {
         if (key == null) {
             log.warn("CacheProxy: put, key can not be null");
         }
-        localCache.set(getKey(key), value, defaultExpireTime * 1000);
+        localCache.put(getKey(key), value);
         return value;
     }
 
     /**
-     * 指定过期时长(秒)
-     * @author Eva.Caesar Liu
-     * @date 2021-05-28 19:44
+     * 指定过期时长
+     * @param key 缓存键
+     * @param value 缓存值
+     * @param expire 过期时间(s)
      */
     public V put(K key, V value, int expire) throws CacheException {
         log.trace("CacheProxy: put, key = [" + key + "]");
         if (key == null) {
             log.warn("CacheProxy: put, key can not be null");
         }
-        localCache.set(getKey(key), value, expire * 1000);
+        localCache.put(getKey(key), value, expire * 1000);
         return value;
     }
 
     /**
-     * 指定过期时长(毫秒)
-     * @author Eva.Caesar Liu
-     * @date 2021-05-28 19:44
+     * 指定过期时长
+     * @param key 缓存键
+     * @param value 缓存值
+     * @param expire 过期时间(ms)
      */
     public V put(K key, V value, long expire) throws CacheException {
         log.trace("CacheProxy: put, key = [" + key + "]");
         if (key == null) {
             log.warn("CacheProxy: put, key can not be null");
         }
-        localCache.set(getKey(key), value, expire);
+        localCache.put(getKey(key), value, expire);
         return value;
     }
 
