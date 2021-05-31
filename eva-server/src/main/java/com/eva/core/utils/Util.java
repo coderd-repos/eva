@@ -10,10 +10,11 @@ public final class Util {
     /**
      * 地区
      */
-    public static final Location location = new Location();
+    public static final Location LOCATION = new Location();
 
     /**
      * Http请求
      */
-    public static final Http http = new Http();
+    public static final Http HTTP = new Http();
+
 }

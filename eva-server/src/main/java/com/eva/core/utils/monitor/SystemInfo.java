@@ -1,4 +1,4 @@
-package com.eva.core.model.monitor;
+package com.eva.core.utils.monitor;
 
 import com.eva.core.utils.ServerUtil;
 import io.swagger.annotations.ApiModel;
@@ -55,7 +55,7 @@ public class SystemInfo implements Serializable {
     @ApiModelProperty(value = "JVM信息")
     private JVM jvm;
 
-    public SystemInfo() {
+    SystemInfo() {
         oshi.SystemInfo systemInfo = new oshi.SystemInfo();
         HardwareAbstractionLayer hardware = systemInfo.getHardware();
         systemInfo.getOperatingSystem().getSystemBootTime();

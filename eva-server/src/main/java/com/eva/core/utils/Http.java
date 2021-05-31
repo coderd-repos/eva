@@ -2,20 +2,16 @@ package com.eva.core.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.eva.core.model.ApiResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpMethod;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.zip.GZIPInputStream;
 
 /**
  * Http工具类
@@ -27,7 +23,7 @@ class Http {
 
     /**
      * 获取Http连接
-     * @param url url 请求地址
+     * @param url 请求地址
      *
      * @return HttpWrap
      */
@@ -35,6 +31,13 @@ class Http {
         return this.build(url, "UTF-8");
     }
 
+    /**
+     * 获取Http连接
+     * @param url 请求地址
+     * @param charset 编码，默认UTF-8
+     *
+     * @return HttpWrap
+     */
     public HttpWrap build(String url, String charset) throws IOException {
         if (url == null) {
             throw new NullPointerException("url can not be null");
@@ -45,7 +48,6 @@ class Http {
         return new HttpWrap(url, charset, httpURLConnection);
     }
 
-    @AllArgsConstructor
     public static class HttpWrap {
 
         private String url;
@@ -54,45 +56,84 @@ class Http {
 
         private HttpURLConnection connection;
 
+        private boolean gzip;
+
+        public HttpWrap (String url, String charset, HttpURLConnection connection) {
+            this.url = url;
+            this.charset = charset;
+            this.connection = connection;
+        }
+
+        /**
+         * 开启GZIP压缩
+         */
+        public HttpWrap gzip () {
+            this.gzip = Boolean.TRUE;
+            return this;
+        }
+
+        /**
+         * 设置请求属性
+         * @param key 属性
+         * @param value 属性值
+         *
+         * @return HttpWrap
+         */
         public HttpWrap setRequestProperty (String key, String value) {
             connection.setRequestProperty(key, value);
             return this;
         }
 
+        /**
+         * 设置连接超时时间
+         * @param timeout 连接超时时间
+         *
+         * @return HttpWrap
+         */
         public HttpWrap setConnectTimeout (int timeout) {
             connection.setConnectTimeout(timeout);
             return this;
         }
 
+        /**
+         * 设置读取超时时间
+         * @param timeout 读取超时时间
+         *
+         * @return HttpWrap
+         */
         public HttpWrap setReadTimeout (int timeout) {
             connection.setReadTimeout(timeout);
             return this;
         }
 
+        /**
+         * 发送GET请求
+         *
+         * @return HttpResult
+         */
         public HttpResult get () throws IOException {
             log.trace("Eva::Util::Http send http request by method GET, url=" + url);
             connection.setRequestMethod(HttpMethod.GET.toString());
-            return new HttpResult(connection.getInputStream(), charset);
+            return new HttpResult(connection.getInputStream(), charset, gzip);
         }
 
-        public HttpResult get (Map<String, String> paramsMap) throws IOException {
-            if (paramsMap == null || paramsMap.size() == 0) {
-                return get();
-            }
-            List<String> params = new ArrayList<>();
-            for (String paramName : paramsMap.keySet()) {
-                params.add(paramName + "=" + paramsMap.get(paramName));
-            }
-            url = url + "?" + StringUtils.join(params, "&");
-            return get();
-        }
-
+        /**
+         * 发送POST请求
+         *
+         * @return HttpResult
+         */
         public HttpResult post () throws IOException {
             log.trace("Eva::Util::Http send http request by method POST, url=" + url);
             connection.setRequestMethod(HttpMethod.POST.toString());
-            return new HttpResult(connection.getInputStream(), charset);
+            return new HttpResult(connection.getInputStream(), charset, gzip);
         }
 
+        /**
+         * 发送POST请求
+         * @param params 请求参数
+         *
+         * @return HttpResult
+         */
         public HttpResult post (String params) throws IOException {
             log.trace("Eva::Util::Http send http request by method POST, url=" + url);
             OutputStreamWriter streamWriter = null;
@@ -105,7 +146,7 @@ class Http {
                     streamWriter.write(params);
                     streamWriter.flush();
                 }
-                return new HttpResult(connection.getInputStream(), charset);
+                return new HttpResult(connection.getInputStream(), charset, gzip);
             } finally {
                 if (streamWriter != null) {
                     streamWriter.close();
@@ -113,11 +154,32 @@ class Http {
             }
         }
 
+        /**
+         * 发送POST请求，请求参数类型为JSON
+         * @param paramsMap 请求参数
+         *
+         * @return HttpResult
+         */
         public HttpResult postJSON(Map<String, Object> paramsMap) throws IOException {
+            setRequestProperty("Content-Type", "application/json");
             if (paramsMap == null || paramsMap.size() == 0) {
                 return post();
             }
-            return setRequestProperty("Content-Type", "application/json").post(JSON.toJSONString(paramsMap));
+            return post(JSON.toJSONString(paramsMap));
+        }
+
+        /**
+         * 发送POST请求，请求参数类型为JSON
+         * @param paramJSONObject 请求参数
+         *
+         * @return HttpResult
+         */
+        public HttpResult postJSON(JSONObject paramJSONObject) throws IOException {
+            setRequestProperty("Content-Type", "application/json");
+            if (paramJSONObject == null || paramJSONObject.size() == 0) {
+                return post();
+            }
+            return post(paramJSONObject.toJSONString());
         }
 
     }
@@ -130,51 +192,47 @@ class Http {
 
         private String charset;
 
+        private boolean gzip;
+
+        /**
+         * 转为字符串
+         */
+        public String toStringResult () throws IOException{
+            BufferedReader reader = null;
+            InputStream is = inputStream;
+            try {
+                if (gzip) {
+                    is = new GZIPInputStream(inputStream);
+                }
+                reader = new BufferedReader(new InputStreamReader(is, charset));
+                StringBuilder result = new StringBuilder();
+                String line;
+                while((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+                return result.toString();
+            } finally {
+                if (reader != null) {
+                    reader.close();
+                }
+                if (is != null) {
+                    is.close();
+                }
+            }
+        }
+
+        /**
+         * 转为JSONObject对象
+         */
         public JSONObject toJSONObject () throws IOException {
-            BufferedReader reader = null;
-            try {
-                reader = new BufferedReader(new InputStreamReader(inputStream, charset));
-                StringBuilder result = new StringBuilder();
-                String line;
-                while((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
-                return JSONObject.parseObject(result.toString());
-            } finally {
-                if (reader != null) {
-                    reader.close();
-                }
-            }
+            return JSONObject.parseObject(toStringResult());
         }
 
+        /**
+         * 转为目标Class对象
+         */
         public <T> T toClass (Class<T> clazz) throws IOException {
-            BufferedReader reader = null;
-            try {
-                reader = new BufferedReader(new InputStreamReader(inputStream, charset));
-                StringBuilder result = new StringBuilder();
-                String line;
-                while((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
-                return JSONObject.parseObject(result.toString(), clazz);
-            } finally {
-                if (reader != null) {
-                    reader.close();
-                }
-            }
+            return JSONObject.parseObject(toStringResult(), clazz);
         }
-    }
-
-    public static void main(String[] args) throws IOException{
-        Map<String, Object> paramsMap = new HashMap<String, Object>(){{
-            put("username", "");
-            put("password", "");
-        }};
-        System.out.println(
-            new Http()
-                .build("http://localhost:8080/system/login")
-                .postJSON(paramsMap)
-                .toClass(ApiResponse.class)
-        );
     }
 }

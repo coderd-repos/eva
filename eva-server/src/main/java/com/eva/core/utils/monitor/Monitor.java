@@ -1,4 +1,4 @@
-package com.eva.core.model.monitor;
+package com.eva.core.utils.monitor;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Monitor implements Serializable {
 
     @ApiModelProperty(value = "系统信息")
-    public static SystemInfo getSystemInfo () {
+    public SystemInfo getSystemInfo () {
         return new SystemInfo();
     }
 }

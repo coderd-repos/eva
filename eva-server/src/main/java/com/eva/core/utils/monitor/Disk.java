@@ -1,4 +1,4 @@
-package com.eva.core.model.monitor;
+package com.eva.core.utils.monitor;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
