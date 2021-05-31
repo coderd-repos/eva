@@ -407,4 +407,24 @@ CREATE TABLE `SYSTEM_TRACE_LOG` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 COMMENT='跟踪日志';
 
+-- ----------------------------
+-- Table structure for SYSTEM_LOGIN_LOG
+-- ----------------------------
+CREATE TABLE `SYSTEM_LOGIN_LOG` (
+  `ID` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `USER_ID` int DEFAULT NULL COMMENT '登录用户ID',
+  `LOGIN_USERNAME` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '登录用户名',
+  `IP` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '登录IP',
+  `LOCATION` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '登录地址',
+  `CLIENT_INFO` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '客户端',
+  `OS_INFO` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '操作系统',
+  `PLATFORM` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '登录平台',
+  `PLATFORM_VERSION` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '平台版本',
+  `SERVER_IP` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '服务器IP',
+  `SUCCESS` tinyint(1) NOT NULL COMMENT '是否登录成功',
+  `REASON` varchar(200) DEFAULT NULL COMMENT '失败原因',
+  `LOGIN_TIME` datetime NOT NULL COMMENT '登录时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='登录日志';
+
 SET FOREIGN_KEY_CHECKS = 1;
