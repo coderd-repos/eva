@@ -39,10 +39,10 @@ public class SystemLoginServiceImpl implements SystemLoginService {
         SystemLoginLog loginLog = new SystemLoginLog();
         loginLog.setLoginUsername(dto.getUsername());
         loginLog.setLoginTime(new Date());
-        loginLog.setPlatform(dto.getPlatform());
         loginLog.setSystemVersion(systemVersion);
         loginLog.setIp(Utils.User_Client.getIP(request));
         loginLog.setLocation(Utils.Location.getLocationString(loginLog.getIp()));
+        loginLog.setPlatform(Utils.User_Client.getPlatform(request));
         loginLog.setClientInfo(Utils.User_Client.getBrowser(request));
         loginLog.setOsInfo(Utils.User_Client.getOS(request));
         loginLog.setServerIp(Utils.Server.getIP());

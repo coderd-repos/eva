@@ -1,6 +1,7 @@
 package com.eva.core.annotation.trace;
 
 import com.alibaba.fastjson.JSON;
+import com.eva.core.constants.ExceptionLevel;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.LoginUserInfo;
 import com.eva.core.servlet.ServletDuplicateInputStream;
@@ -108,7 +109,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             traceLog.setServerIp(Utils.Server.getIP());
             traceLog.setIp(Utils.User_Client.getIP(request));
             traceLog.setSystemVersion(systemVersion);
-            traceLog.setPlatform(request.getHeader("x-platform") == null ? "PC" : request.getHeader("x-platform"));
+            traceLog.setPlatform(Utils.User_Client.getPlatform(request));
             traceLog.setClientInfo(Utils.User_Client.getBrowser(request));
             traceLog.setOsInfo(Utils.User_Client.getOS(request));
             systemTraceLogService.create(traceLog);
@@ -150,7 +151,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
             String requestResult = responseBody;
             if (apiResponse != null) {
                 // 排除exception信息
-                Throwable e = apiResponse.getException();
+                String e = apiResponse.getException();
                 apiResponse.setException(null);
                 requestResult = JSON.toJSONString(apiResponse);
                 apiResponse.setException(e);
@@ -169,30 +170,39 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
         }
         // 请求失败
         traceLog.setStatus(TraceStatus.FAILED.getCode());
-        Throwable e = ex;
-        if (e == null && apiResponse != null) {
-            e = apiResponse.getException();
+        String exceptionStack = null;
+        // 全局捕获到的未处理的异常
+        if (apiResponse != null && apiResponse.getException() != null) {
+            exceptionStack = apiResponse.getException();
+            traceLog.setExceptionLevel(ExceptionLevel.DANGER.getLevel());
         }
-        String error;
-        if (e != null) {
-            StackTraceElement[] trace = e.getStackTrace();
-            StringBuilder exceptionStack = new StringBuilder(e + "\n");
-            for (StackTraceElement traceElement : trace) {
-                exceptionStack.append("\tat ").append(traceElement).append("\n");
+        // 其它异常情况
+        if (exceptionStack == null) {
+            // 未捕获到的未处理的异常
+            if (ex != null){
+                StackTraceElement[] trace = ex.getStackTrace();
+                StringBuilder exception = new StringBuilder(ex + "\n");
+                for (StackTraceElement traceElement : trace) {
+                    exception.append("\tat ").append(traceElement).append("\n");
+                }
+                exceptionStack = exception.toString();
+                traceLog.setExceptionLevel(ExceptionLevel.DANGER.getLevel());
             }
-            traceLog.setExceptionLevel((byte)10);
-            error = exceptionStack.toString();
-        } else if (apiResponse != null){
-            traceLog.setExceptionLevel((byte)0);
-            error = apiResponse.getMessage();
-        } else {
-            traceLog.setExceptionLevel((byte)5);
-            error = "Eva can not trace for action " + request.getRequestURI();
+            // 业务异常
+            else if (apiResponse != null) {
+                traceLog.setExceptionLevel(ExceptionLevel.LOW.getLevel());
+                exceptionStack = apiResponse.getMessage();
+            }
+            // 响应格式非JSON的异常（在设计角度上，这类接口不应记录操作日志，此处做一个警告处理）
+            else {
+                traceLog.setExceptionLevel(ExceptionLevel.WARN.getLevel());
+                exceptionStack = "Eva can not trace for action " + request.getRequestURI();
+            }
         }
         traceLog.setExceptionStack(
-                error != null && error.length() > MAX_STORE_EXCEPTION_STACK_SIZE
-                        ? error.substring(0, MAX_STORE_EXCEPTION_STACK_SIZE) + MORE_DETAIL_STRING
-                        : error);
+                exceptionStack != null && exceptionStack.length() > MAX_STORE_EXCEPTION_STACK_SIZE
+                        ? exceptionStack.substring(0, MAX_STORE_EXCEPTION_STACK_SIZE) + MORE_DETAIL_STRING
+                        : exceptionStack);
 
         systemTraceLogService.updateById(traceLog);
     }
@@ -203,14 +213,16 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
     private String getModule (Object handler) {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
+        // 优先读取方法上的@Trace模块配置，如果无注解或无备注，则读取类上@Trace模块配置
         Trace trace = method.getAnnotation(Trace.class);
-        if (trace == null) {
+        if (trace == null || "".equals(trace.module())) {
             trace = method.getDeclaringClass().getAnnotation(Trace.class);
         }
         String module = "";
         if (trace != null && StringUtils.isNotBlank(trace.module())) {
             module = trace.module();
         }
+        // 从@Api注解中读取
         if (StringUtils.isBlank(module)) {
             Api api = method.getDeclaringClass().getAnnotation(Api.class);
             if (api != null) {
@@ -282,33 +294,40 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
      */
     private TraceType smartType (HttpServletRequest request) {
         // 批量删除
-        if (request.getRequestURI().matches(".+/delete/batch$")) {
+        if (request.getRequestURI().matches(smartPattern("delete/batch"))) {
             return TraceType.DELETE_BATCH;
         }
         // 删除
-        if (request.getRequestURI().matches(".+/delete.*")) {
+        if (request.getRequestURI().matches(smartPattern("delete"))) {
             return TraceType.DELETE;
         }
         // 新增
-        if (request.getRequestURI().matches(".+/create.*")) {
+        if (request.getRequestURI().matches(smartPattern("create"))) {
             return TraceType.CREATE;
         }
         // 修改
-        if (request.getRequestURI().matches(".+/update.*")) {
+        if (request.getRequestURI().matches(smartPattern("update"))) {
             return TraceType.UPDATE;
         }
         // 导入
-        if (request.getRequestURI().matches(".+/import.*")) {
+        if (request.getRequestURI().matches(smartPattern("import"))) {
             return TraceType.IMPORT;
         }
         // 导出
-        if (request.getRequestURI().matches(".+/export.*")) {
+        if (request.getRequestURI().matches(smartPattern("export"))) {
             return TraceType.EXPORT;
         }
         // 重置
-        if (request.getRequestURI().matches(".+/reset.*")) {
+        if (request.getRequestURI().matches(smartPattern("reset"))) {
             return TraceType.RESET;
         }
         return TraceType.UNKNOWN;
+    }
+
+    /**
+     * 获取自动适配正则
+     */
+    private String smartPattern (String keyword) {
+        return ".+/" + keyword + "[a-zA-Z0-9\\-\\_]*$";
     }
 }

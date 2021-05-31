@@ -7,6 +7,7 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * 接口返回对象
@@ -30,8 +31,8 @@ public class ApiResponse<T> implements Serializable {
     @ApiModelProperty(value = "数据")
     private T data;
 
-    @ApiModelProperty(value = "异常对象")
-    private Throwable exception;
+    @ApiModelProperty(value = "异常消息")
+    private String exception;
 
     public ApiResponse () {}
 
@@ -74,13 +75,25 @@ public class ApiResponse<T> implements Serializable {
      * 请求失败
      */
     public static <T> ApiResponse<T> failed(Integer code, String message) {
-        return new ApiResponse<>(code, Boolean.FALSE, message, null, null);
+        return ApiResponse.failed(code, message, null);
     }
 
     /**
      * 请求失败
      */
     public static <T> ApiResponse<T> failed(Integer code, String message, Throwable ex) {
-        return new ApiResponse<>(code, Boolean.FALSE, message, null, ex);
+        if (ex == null) {
+            return new ApiResponse<>(code, Boolean.FALSE, message, null, null);
+        }
+        // 处理异常栈，防止过多内容导致响应内容过大
+        StackTraceElement[] trace = ex.getStackTrace();
+        StringBuilder exceptionStack = new StringBuilder(ex + "\n");
+        for (StackTraceElement traceElement : trace) {
+            exceptionStack.append("\tat ").append(traceElement).append("\n");
+            if (exceptionStack.length() > 5000) {
+                break;
+            }
+        }
+        return new ApiResponse<>(code, Boolean.FALSE, message, null, exceptionStack.toString());
     }
 }

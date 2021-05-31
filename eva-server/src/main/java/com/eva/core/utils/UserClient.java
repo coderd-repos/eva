@@ -116,4 +116,14 @@ public class UserClient {
         }
         return "-1.-1.-1.-1";
     }
+
+    /**
+     * 获取用户操作平台
+     * @param request 请求对象
+     *
+     * @return String
+     */
+    public String getPlatform (HttpServletRequest request) {
+        return request.getHeader("eva-platform") == null ? "UNKNOWN" : request.getHeader("eva-platform");
+    }
 }

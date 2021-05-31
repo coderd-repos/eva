@@ -44,7 +44,7 @@ trace:
   # 开启智能跟踪模式
   smart: true
   # 排除跟踪的URL正则
-  exclude-patterns: .*/list[a-zA-Z0-9]*$, .*/tree[a-zA-Z0-9]*$, .*/page[a-zA-Z0-9]*$
+  exclude-patterns: .+/find[a-zA-Z0-9\-\_]*$, .+/query[a-zA-Z0-9\-\_]*$, .+/list[a-zA-Z0-9\-\_]*$, .+/tree[a-zA-Z0-9\-\_]*$, .+/page[a-zA-Z0-9\-\_]*$
 
 # Swagger配置
 swagger:

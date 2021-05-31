@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 业务异常处理
+     * 其它异常处理
      */
     @ExceptionHandler(Exception.class)
     public <T> ApiResponse<T> handleException (Exception e) {
