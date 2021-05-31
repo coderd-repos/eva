@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/system/monitor")
 public class SystemMonitorController extends BaseController {
 
-//    /**
-//     * @author Eva
-//     * @date 2021-04-13 22:42
-//     */
-//    @ApiOperation("获取系统信息")
-//    @GetMapping("/getSystemInfo")
-//    @RequiresPermissions("system:monitor:query")
-//    public ApiResponse<SystemInfo> getSystemInfo () {
-//        return ApiResponse.success(Monitor.getSystemInfo());
-//    }
+    /**
+     * @author Eva
+     * @date 2021-04-13 22:42
+     */
+    @ApiOperation("获取系统信息")
+    @GetMapping("/getSystemInfo")
+    @RequiresPermissions("system:monitor:query")
+    public ApiResponse<SystemInfo> getSystemInfo () {
+        return ApiResponse.success(Monitor.getSystemInfo());
+    }
 }

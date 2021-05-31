@@ -3,7 +3,7 @@ package com.eva.service.system.impl;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
-import com.eva.core.utils.WrapperUtil;
+import com.eva.core.utils.Utils;
 import com.eva.dao.system.SystemRolePermissionMapper;
 import com.eva.dao.system.model.SystemRolePermission;
 import com.eva.service.system.SystemRolePermissionService;
@@ -94,7 +94,7 @@ public class SystemRolePermissionServiceImpl implements SystemRolePermissionServ
     @Override
     public PageData<SystemRolePermission> findPage(PageWrap<SystemRolePermission> pageWrap) {
         IPage<SystemRolePermission> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemRolePermission> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
+        QueryWrapper<SystemRolePermission> queryWrapper = new QueryWrapper<>(Utils.MP.blankToNull(pageWrap.getModel()));
         for(PageWrap.SortData sortData: pageWrap.getSorts()) {
             if (sortData.getDirection().equalsIgnoreCase("DESC")) {
                 queryWrapper.orderByDesc(sortData.getProperty());

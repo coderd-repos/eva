@@ -7,14 +7,16 @@ import java.lang.reflect.Field;
  * @author Eva
  * @date 2021-05-16 01:39
  */
-public class WrapperUtil {
+public class MyBatisPlus {
 
     /**
      * 将空转为null，用于mybatis plus查询数据时将值为""的字段转为null，防止将空字符串作为条件。
      * @author Eva
      * @date 2021-05-16 01:37
+     *
+     * @return T
      */
-    public static <T> T blankToNull(T object) {
+    public <T> T blankToNull(T object) {
         if (object == null) {
             return null;
         }

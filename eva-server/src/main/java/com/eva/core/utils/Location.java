@@ -27,7 +27,7 @@ public class Location {
      */
     public Info getLocation (String ip) {
         try {
-            return Util.HTTP.build(String.format(GET_LOCATION_API, ip), Charset.forName("GBK").toString())
+            return Utils.HTTP.build(String.format(GET_LOCATION_API, ip), Charset.forName("GBK").toString())
                     .setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9")
                     .setRequestProperty("Accept-Encoding", "gzip, deflate")
                     .gzip()

@@ -5,8 +5,7 @@ import com.eva.core.model.ApiResponse;
 import com.eva.core.model.LoginUserInfo;
 import com.eva.core.servlet.ServletDuplicateInputStream;
 import com.eva.core.servlet.ServletDuplicateOutputStream;
-import com.eva.core.utils.RequestHeaderUtil;
-import com.eva.core.utils.ServerUtil;
+import com.eva.core.utils.Utils;
 import com.eva.dao.system.model.SystemTraceLog;
 import com.eva.service.system.SystemTraceLogService;
 import io.swagger.annotations.Api;
@@ -106,12 +105,12 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
                 );
             }
             // 辅助信息
-            traceLog.setServerIp(ServerUtil.getIpAddress());
-            traceLog.setIp(RequestHeaderUtil.getRequestIp(request));
+            traceLog.setServerIp(Utils.SERVER.getIP());
+            traceLog.setIp(Utils.USER_CLIENT.getIP(request));
             traceLog.setSystemVersion(systemVersion);
             traceLog.setPlatform(request.getHeader("x-platform") == null ? "PC" : request.getHeader("x-platform"));
-            traceLog.setClientInfo(RequestHeaderUtil.getClientInfo(request));
-            traceLog.setOsInfo(RequestHeaderUtil.getOsInfo(request));
+            traceLog.setClientInfo(Utils.USER_CLIENT.getBrowser(request));
+            traceLog.setOsInfo(Utils.USER_CLIENT.getOS(request));
             systemTraceLogService.create(traceLog);
             request.setAttribute(ATTRIBUTE_TRACE_ID, traceLog.getId());
             request.setAttribute(ATTRIBUTE_TRACE_TIME, now.getTime());

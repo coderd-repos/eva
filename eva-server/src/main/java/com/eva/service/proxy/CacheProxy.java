@@ -1,6 +1,6 @@
 package com.eva.service.proxy;
 
-import com.eva.core.utils.LocalCache;
+import com.eva.core.cache.LocalCache;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;

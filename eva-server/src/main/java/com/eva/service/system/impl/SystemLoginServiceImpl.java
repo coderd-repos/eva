@@ -3,9 +3,7 @@ package com.eva.service.system.impl;
 import com.eva.core.exception.BusinessException;
 import com.eva.core.model.LoginUserInfo;
 import com.eva.core.model.ResponseStatus;
-import com.eva.core.utils.RequestHeaderUtil;
-import com.eva.core.utils.ServerUtil;
-import com.eva.core.utils.Util;
+import com.eva.core.utils.Utils;
 import com.eva.dao.system.dto.LoginDTO;
 import com.eva.dao.system.model.SystemLoginLog;
 import com.eva.service.common.CaptchaService;
@@ -39,15 +37,15 @@ public class SystemLoginServiceImpl implements SystemLoginService {
     @Override
     public String loginByPassword(LoginDTO dto, HttpServletRequest request) {
         SystemLoginLog loginLog = new SystemLoginLog();
-        loginLog.setClientInfo(RequestHeaderUtil.getClientInfo(request));
-        loginLog.setOsInfo(RequestHeaderUtil.getOsInfo(request));
-        loginLog.setIp(RequestHeaderUtil.getRequestIp(request));
         loginLog.setLoginUsername(dto.getUsername());
         loginLog.setLoginTime(new Date());
         loginLog.setPlatform(dto.getPlatform());
         loginLog.setSystemVersion(systemVersion);
-        loginLog.setServerIp(ServerUtil.getIpAddress());
-        loginLog.setLocation(Util.LOCATION.getLocationString(loginLog.getIp()));
+        loginLog.setIp(Utils.USER_CLIENT.getIP(request));
+        loginLog.setLocation(Utils.LOCATION.getLocationString(loginLog.getIp()));
+        loginLog.setClientInfo(Utils.USER_CLIENT.getBrowser(request));
+        loginLog.setOsInfo(Utils.USER_CLIENT.getOS(request));
+        loginLog.setServerIp(Utils.SERVER.getIP());
         // 校验验证码
         try {
             captchaService.check(dto.getUuid(), dto.getCode());

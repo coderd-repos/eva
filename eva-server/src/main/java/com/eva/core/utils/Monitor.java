@@ -1,6 +1,7 @@
-package com.eva.core.utils.monitor;
+package com.eva.core.utils;
 
-import com.eva.core.utils.ServerUtil;
+import com.eva.core.utils.monitor.Memory;
+import com.sun.jna.platform.mac.DiskArbitration;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -14,16 +15,19 @@ import oshi.software.os.OperatingSystem;
 import java.io.Serializable;
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author Eva
- * @date 2021-04-13 20:34
+ * @date 2021-04-13 22:34
  */
 @Data
-@ApiModel("系统信息")
-public class SystemInfo implements Serializable {
+@ApiModel("监听信息")
+public class Monitor implements Serializable {
 
     @ApiModelProperty(value = "操作系统名称")
     private String osName;
@@ -50,12 +54,12 @@ public class SystemInfo implements Serializable {
     private CPU cpu;
 
     @ApiModelProperty(value = "磁盘列表")
-    private List<Disk> disks;
+    private List<DiskArbitration> disks;
 
     @ApiModelProperty(value = "JVM信息")
     private JVM jvm;
 
-    SystemInfo() {
+    public Monitor() {
         oshi.SystemInfo systemInfo = new oshi.SystemInfo();
         HardwareAbstractionLayer hardware = systemInfo.getHardware();
         systemInfo.getOperatingSystem().getSystemBootTime();
@@ -64,8 +68,8 @@ public class SystemInfo implements Serializable {
         this.setOsName(osMXBean.getName());
         this.setOsVersion(osMXBean.getVersion());
         this.setOsArch(osMXBean.getArch());
-        this.setIp(ServerUtil.getIpAddress());
-        this.setMac(ServerUtil.getMacAddress());
+        this.setIp(Utils.SERVER.getIP());
+        this.setMac(Utils.SERVER.getMAC());
         this.setCurrentTime(new Date(System.currentTimeMillis()));
         this.setMemory(hardware.getMemory());
         this.setCpu(hardware.getProcessor());
@@ -75,8 +79,6 @@ public class SystemInfo implements Serializable {
 
     /**
      * 设置内存信息
-     * @author Eva
-     * @date 2021-04-13 22:34
      */
     private void setMemory(GlobalMemory memory) {
         this.memory = new Memory();
@@ -86,8 +88,6 @@ public class SystemInfo implements Serializable {
 
     /**
      * 设置CPU信息
-     * @author Eva
-     * @date 2021-04-13 22:34
      * 技术参考：https://blog.csdn.net/u012796085/article/details/104068769
      */
     private void setCpu(CentralProcessor processor) {
@@ -117,8 +117,6 @@ public class SystemInfo implements Serializable {
 
     /**
      * 设置JVM信息
-     * @author Eva
-     * @date 2021-04-13 22:34
      */
     private void setJvm() {
         this.jvm = new JVM();
@@ -133,8 +131,6 @@ public class SystemInfo implements Serializable {
 
     /**
      * 设置磁盘信息
-     * @author Eva
-     * @date 2021-04-13 22:02
      */
     private void setDisks(OperatingSystem os) {
         try {
@@ -157,11 +153,8 @@ public class SystemInfo implements Serializable {
 
     /**
      * 转为兆
-     * @author Eva
-     * @date 2021-04-13 21:50
      */
     private double toM(long value) {
         return value * 1.0 / 1024 / 1024;
     }
-
 }

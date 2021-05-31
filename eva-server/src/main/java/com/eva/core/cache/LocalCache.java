@@ -1,4 +1,4 @@
-package com.eva.core.utils;
+package com.eva.core.cache;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -46,10 +46,8 @@ public final class LocalCache<K,V> {
 
     /**
      * 添加缓存，超时时间为30分钟
-     * @param key: 缓存的key
-     * @param value: 缓存值
-     * @author Eva
-     * @date 2019/3/23 18:26
+     * @param key 缓存键
+     * @param value 缓存值
      */
     public void set(K key, V value) {
         set(key, value, 30 * 60 * 1000);
@@ -57,11 +55,9 @@ public final class LocalCache<K,V> {
 
     /**
      * 添加缓存
-     * @param key: 缓存的key
-     * @param value: 缓存值
-     * @param timeout: 超时时间
-     * @author Eva
-     * @date 2019/3/23 18:26
+     * @param key 缓存键
+     * @param value 缓存值
+     * @param timeout 超时时间
      */
     public void set(K key, V value, long timeout) {
         if(key == null) throw new NullPointerException("key can not be null");
@@ -90,11 +86,7 @@ public final class LocalCache<K,V> {
 
     /**
      * 根据key获取缓存对象
-     * @param key
-     * @param <T>
-     * @return
-     * @author Eva
-     * @date 2019/3/23 18:26
+     * @param key 缓存键
      */
     public V get(K key) {
         if(key == null) return null;
@@ -112,10 +104,9 @@ public final class LocalCache<K,V> {
 
     /**
      * 根据key获取缓存对象
-     * @param key
-     * @return
-     * @author Eva
-     * @date 2019/3/23 18:39
+     * @param key 缓存键
+     *
+     * @return V
      */
     public V remove(K key) {
         if(key == null) return null;
@@ -129,8 +120,6 @@ public final class LocalCache<K,V> {
 
     /**
      * 清空缓存
-     * @author Eva
-     * @date 2021-05-28 01:10
      */
     public void clear () {
         cache.clear();
@@ -138,8 +127,6 @@ public final class LocalCache<K,V> {
 
     /**
      * 获取缓存数
-     * @author Eva
-     * @date 2021-05-28 01:11
      */
     public int size () {
         return cache.size();
@@ -147,8 +134,6 @@ public final class LocalCache<K,V> {
 
     /**
      * 获取缓存所有的key
-     * @author Eva
-     * @date 2021-05-28 01:12
      */
     public Set<K> keys () {
         return cache.keySet();
@@ -156,8 +141,6 @@ public final class LocalCache<K,V> {
 
     /**
      * 获取缓存值
-     * @author Eva
-     * @date 2021-05-28 01:15
      */
     public Collection<V> values () {
         Collection<Value<V>> values = cache.values();
@@ -172,8 +155,7 @@ public final class LocalCache<K,V> {
 
     /**
      * 重置缓存诞生时间
-     * @author Eva
-     * @date 2020-07-27 10:27
+     * @param key 缓存键
      */
     public void relive(String key) {
         if (key == null) return;

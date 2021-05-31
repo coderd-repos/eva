@@ -1,8 +1,8 @@
 package com.eva.service.system.impl;
 
-import com.eva.core.utils.WrapperUtil;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
+import com.eva.core.utils.Utils;
 import com.eva.dao.system.SystemLoginLogMapper;
 import com.eva.dao.system.model.SystemLoginLog;
 import com.eva.service.system.SystemLoginLogService;
@@ -84,7 +84,7 @@ public class SystemLoginLogServiceImpl implements SystemLoginLogService {
     @Override
     public PageData<SystemLoginLog> findPage(PageWrap<SystemLoginLog> pageWrap) {
         IPage<SystemLoginLog> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemLoginLog> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
+        QueryWrapper<SystemLoginLog> queryWrapper = new QueryWrapper<>(Utils.MP.blankToNull(pageWrap.getModel()));
         for(PageWrap.SortData sortData: pageWrap.getSorts()) {
             if (sortData.getDirection().equalsIgnoreCase("DESC")) {
                 queryWrapper.orderByDesc(sortData.getProperty());

@@ -3,7 +3,7 @@ package com.eva.service.system.impl;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
-import com.eva.core.utils.WrapperUtil;
+import com.eva.core.utils.Utils;
 import com.eva.dao.system.SystemRoleMenuMapper;
 import com.eva.dao.system.model.SystemRoleMenu;
 import com.eva.service.system.SystemRoleMenuService;
@@ -94,7 +94,7 @@ public class SystemRoleMenuServiceImpl implements SystemRoleMenuService {
     @Override
     public PageData<SystemRoleMenu> findPage(PageWrap<SystemRoleMenu> pageWrap) {
         IPage<SystemRoleMenu> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemRoleMenu> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
+        QueryWrapper<SystemRoleMenu> queryWrapper = new QueryWrapper<>(Utils.MP.blankToNull(pageWrap.getModel()));
         for(PageWrap.SortData sortData: pageWrap.getSorts()) {
             if (sortData.getDirection().equalsIgnoreCase("DESC")) {
                 queryWrapper.orderByDesc(sortData.getProperty());

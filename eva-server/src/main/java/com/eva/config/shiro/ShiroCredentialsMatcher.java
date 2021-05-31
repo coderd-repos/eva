@@ -1,6 +1,6 @@
 package com.eva.config.shiro;
 
-import com.eva.core.utils.SecureUtil;
+import com.eva.core.utils.Utils;
 import com.eva.dao.system.model.SystemUser;
 import com.eva.service.system.SystemUserService;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -34,7 +34,7 @@ public class ShiroCredentialsMatcher extends HashedCredentialsMatcher {
             return Boolean.FALSE;
         }
         // 加密密码
-        String pwd = SecureUtil.encryptPassword(new String(usernamePasswordToken.getPassword()), systemUser.getSalt());
+        String pwd = Utils.SECURE.encryptPassword(new String(usernamePasswordToken.getPassword()), systemUser.getSalt());
         // 比较密码
         return this.equals(pwd, systemUser.getPassword());
     }

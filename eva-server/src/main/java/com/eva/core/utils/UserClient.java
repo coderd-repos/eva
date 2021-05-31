@@ -6,18 +6,19 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 请求工具类
+ * 技术参考：丢失
  * @author Eva
  * @date 2018/10/10 00:41
  */
-public class RequestHeaderUtil {
+public class UserClient {
 
     /**
      * 获取系统信息
-     * @date 2017年9月11日 上午2:52:55
-     * @param request
-     * @return
+     * @param request 请求对象
+     *
+     * @return String
      */
-    public static String getOsInfo(HttpServletRequest request) {
+    public String getOS(HttpServletRequest request) {
         String browserDetails = request.getHeader("User-Agent");
         String userAgent = browserDetails;
 
@@ -42,11 +43,11 @@ public class RequestHeaderUtil {
 
     /**
      * 获取客户端信息
-     * @date 2017年9月11日 上午2:53:10
-     * @param request
-     * @return
+     * @param request 请求对象
+     *
+     * @return String
      */
-    public static String getClientInfo(HttpServletRequest request) {
+    public String getBrowser(HttpServletRequest request) {
         String browserDetails = request.getHeader("User-Agent");
         String userAgent = browserDetails;
         String user = userAgent.toLowerCase();
@@ -90,12 +91,12 @@ public class RequestHeaderUtil {
     }
 
     /**
-     * 获取请求IP(多个IP获取第一个IP)
-     * @date 2017年9月11日 上午2:53:16
-     * @param request
-     * @return
+     * 获取IP
+     * @param request 请求对象
+     *
+     * @return String
      */
-    public static String getRequestIp(HttpServletRequest request){
+    public String getIP(HttpServletRequest request){
         String ip = request.getHeader("x-forwarded-for");
         if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
             ip = request.getHeader("Proxy-Client-IP");

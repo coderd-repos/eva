@@ -3,7 +3,7 @@ package com.eva.biz.system.impl;
 import com.eva.biz.system.SystemUserBiz;
 import com.eva.core.exception.BusinessException;
 import com.eva.core.model.ResponseStatus;
-import com.eva.core.utils.SecureUtil;
+import com.eva.core.utils.Utils;
 import com.eva.dao.system.dto.CreateSystemUserDTO;
 import com.eva.dao.system.dto.CreateUserRoleDTO;
 import com.eva.dao.system.dto.ResetSystemUserPwdDTO;
@@ -71,13 +71,13 @@ public class SystemUserBizImpl implements SystemUserBiz {
             throw new BusinessException(ResponseStatus.DATA_EMPTY.getCode(), "用户不存在或已被删除");
         }
         // 验证原始密码
-        if (!user.getPassword().equals(SecureUtil.encryptPassword(dto.getOldPwd(), user.getSalt()))) {
+        if (!user.getPassword().equals(Utils.SECURE.encryptPassword(dto.getOldPwd(), user.getSalt()))) {
             throw new BusinessException(ResponseStatus.PWD_INCORRECT.getCode(), "原始密码不正确");
         }
         // 修改密码
         SystemUser newUser = new SystemUser();
         newUser.setId(dto.getUserId());
-        newUser.setPassword(SecureUtil.encryptPassword(dto.getNewPwd(), user.getSalt()));
+        newUser.setPassword(Utils.SECURE.encryptPassword(dto.getNewPwd(), user.getSalt()));
         systemUserService.updateById(newUser);
     }
 
@@ -91,7 +91,7 @@ public class SystemUserBizImpl implements SystemUserBiz {
         // 修改密码
         SystemUser updateUserDto = new SystemUser();
         updateUserDto.setId(dto.getId());
-        updateUserDto.setPassword(SecureUtil.encryptPassword(dto.getPassword(), systemUser.getSalt()));
+        updateUserDto.setPassword(Utils.SECURE.encryptPassword(dto.getPassword(), systemUser.getSalt()));
         systemUserService.updateById(updateUserDto);
     }
 
@@ -119,7 +119,7 @@ public class SystemUserBizImpl implements SystemUserBiz {
         // 生成密码盐
         String salt = RandomStringUtils.randomAlphabetic(6);
         // 生成密码
-        systemUser.setPassword(SecureUtil.encryptPassword(systemUser.getPassword(), salt));
+        systemUser.setPassword(Utils.SECURE.encryptPassword(systemUser.getPassword(), salt));
         systemUser.setSalt(salt);
         // 创建用户记录
         Integer userId = systemUserService.create(systemUser);

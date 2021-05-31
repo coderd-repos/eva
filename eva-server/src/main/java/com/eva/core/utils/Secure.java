@@ -7,14 +7,16 @@ import org.springframework.util.DigestUtils;
  * @author Eva
  * @date 2021-03-31 19:30
  */
-public class SecureUtil {
+public class Secure {
 
     /**
      * 加密密码
-     * @author Eva
-     * @date 2021-03-31 19:30
+     * @param password 密码
+     * @param salt 密码盐
+     *
+     * @return String
      */
-    public static String encryptPassword(String password, String salt) {
+    public String encryptPassword(String password, String salt) {
         return DigestUtils.md5DigestAsHex((password + salt).getBytes());
     }
 }

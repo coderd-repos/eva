@@ -3,7 +3,7 @@ package com.eva.service.system.impl;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
-import com.eva.core.utils.WrapperUtil;
+import com.eva.core.utils.Utils;
 import com.eva.dao.system.SystemUserRoleMapper;
 import com.eva.dao.system.model.SystemUserRole;
 import com.eva.service.system.SystemUserRoleService;
@@ -94,7 +94,7 @@ public class SystemUserRoleServiceImpl implements SystemUserRoleService {
     @Override
     public PageData<SystemUserRole> findPage(PageWrap<SystemUserRole> pageWrap) {
         IPage<SystemUserRole> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemUserRole> queryWrapper = new QueryWrapper<>(WrapperUtil.blankToNull(pageWrap.getModel()));
+        QueryWrapper<SystemUserRole> queryWrapper = new QueryWrapper<>(Utils.MP.blankToNull(pageWrap.getModel()));
         for(PageWrap.SortData sortData: pageWrap.getSorts()) {
             if (sortData.getDirection().equalsIgnoreCase("DESC")) {
                 queryWrapper.orderByDesc(sortData.getProperty());
