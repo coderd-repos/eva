@@ -49,11 +49,9 @@
         :data="tableData.list"
         stripe
         :default-sort="{prop: 'operaTime', order: 'descending'}"
-        @selection-change="handleSelectionChange"
-        @sort-change="handleSortChange"
         :row-class-name="tableRowClassName"
+        @sort-change="handleSortChange"
       >
-        <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="operaModule" label="业务模块" min-width="100px"></el-table-column>
         <el-table-column prop="operaRemark" label="操作说明" min-width="100px"></el-table-column>
         <el-table-column prop="requestMethod" label="请求方式" min-width="80px"></el-table-column>

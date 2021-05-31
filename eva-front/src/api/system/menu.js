@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 // 查询
 export function fetchTree (data) {
-  return request.post('/system/menu/tree', data)
+  return request.post('/system/menu/treeList', data)
 }
 
 // 新建
@@ -36,7 +36,7 @@ export function deleteByIdInBatch (ids) {
 
 // 查询菜单树
 export function fetchMenuTree () {
-  return request.get('/system/menu/tree')
+  return request.get('/system/menu/treeNodes')
 }
 
 // 排序
