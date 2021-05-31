@@ -10,27 +10,27 @@ public final class Utils {
     /**
      * 地区处理
      */
-    public static final Location LOCATION = new Location();
+    public static final Location Location = new Location();
 
     /**
      * Http请求处理
      */
-    public static final Http HTTP = new Http();
+    public static final Http Http = new Http();
 
     /**
      * 用户客户端信息
      */
-    public static final UserClient USER_CLIENT = new UserClient();
+    public static final UserClient User_Client = new UserClient();
 
     /**
      * 服务端信息
      */
-    public static final Server SERVER = new Server();
+    public static final Server Server = new Server();
 
     /**
      * 监听器
      */
-    public static final Monitor MONITOR = new Monitor();
+    public static final Monitor Monitor = new Monitor();
 
     /**
      * MyBatis Plus处理
@@ -40,6 +40,6 @@ public final class Utils {
     /**
      * 安全处理
      */
-    public static final Secure SECURE = new Secure();
+    public static final Secure Secure = new Secure();
 
 }

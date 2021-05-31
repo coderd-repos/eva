@@ -34,7 +34,7 @@ public class ShiroCredentialsMatcher extends HashedCredentialsMatcher {
             return Boolean.FALSE;
         }
         // 加密密码
-        String pwd = Utils.SECURE.encryptPassword(new String(usernamePasswordToken.getPassword()), systemUser.getSalt());
+        String pwd = Utils.Secure.encryptPassword(new String(usernamePasswordToken.getPassword()), systemUser.getSalt());
         // 比较密码
         return this.equals(pwd, systemUser.getPassword());
     }

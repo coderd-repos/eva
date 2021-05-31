@@ -31,7 +31,7 @@ public class ShiroHeaderSessionManager extends DefaultSessionManager implements 
     protected void onStart(Session session, SessionContext context) {
         super.onStart(session, context);
         if (!WebUtils.isHttp(context)) {
-            log.debug("SessionContext argument is not HTTP compatible or does not have an HTTP request/response pair. No session ID cookie will be set.");
+            log.debug("SessionContext argument is not Http compatible or does not have an Http request/response pair. No session ID cookie will be set.");
             return;
         }
         HttpServletRequest request = WebUtils.getHttpRequest(context);

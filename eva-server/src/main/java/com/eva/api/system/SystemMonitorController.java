@@ -3,6 +3,8 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.core.annotation.trace.Trace;
 import com.eva.core.model.ApiResponse;
+import com.eva.core.utils.Monitor;
+import com.eva.core.utils.Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -27,7 +29,7 @@ public class SystemMonitorController extends BaseController {
     @ApiOperation("获取系统信息")
     @GetMapping("/getSystemInfo")
     @RequiresPermissions("system:monitor:query")
-    public ApiResponse<SystemInfo> getSystemInfo () {
-        return ApiResponse.success(Monitor.getSystemInfo());
+    public ApiResponse<Monitor> getSystemInfo () {
+        return ApiResponse.success(Utils.Monitor.current());
     }
 }

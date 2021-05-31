@@ -41,11 +41,11 @@ public class SystemLoginServiceImpl implements SystemLoginService {
         loginLog.setLoginTime(new Date());
         loginLog.setPlatform(dto.getPlatform());
         loginLog.setSystemVersion(systemVersion);
-        loginLog.setIp(Utils.USER_CLIENT.getIP(request));
-        loginLog.setLocation(Utils.LOCATION.getLocationString(loginLog.getIp()));
-        loginLog.setClientInfo(Utils.USER_CLIENT.getBrowser(request));
-        loginLog.setOsInfo(Utils.USER_CLIENT.getOS(request));
-        loginLog.setServerIp(Utils.SERVER.getIP());
+        loginLog.setIp(Utils.User_Client.getIP(request));
+        loginLog.setLocation(Utils.Location.getLocationString(loginLog.getIp()));
+        loginLog.setClientInfo(Utils.User_Client.getBrowser(request));
+        loginLog.setOsInfo(Utils.User_Client.getOS(request));
+        loginLog.setServerIp(Utils.Server.getIP());
         // 校验验证码
         try {
             captchaService.check(dto.getUuid(), dto.getCode());

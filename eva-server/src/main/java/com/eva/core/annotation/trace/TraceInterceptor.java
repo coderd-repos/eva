@@ -105,12 +105,12 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
                 );
             }
             // 辅助信息
-            traceLog.setServerIp(Utils.SERVER.getIP());
-            traceLog.setIp(Utils.USER_CLIENT.getIP(request));
+            traceLog.setServerIp(Utils.Server.getIP());
+            traceLog.setIp(Utils.User_Client.getIP(request));
             traceLog.setSystemVersion(systemVersion);
             traceLog.setPlatform(request.getHeader("x-platform") == null ? "PC" : request.getHeader("x-platform"));
-            traceLog.setClientInfo(Utils.USER_CLIENT.getBrowser(request));
-            traceLog.setOsInfo(Utils.USER_CLIENT.getOS(request));
+            traceLog.setClientInfo(Utils.User_Client.getBrowser(request));
+            traceLog.setOsInfo(Utils.User_Client.getOS(request));
             systemTraceLogService.create(traceLog);
             request.setAttribute(ATTRIBUTE_TRACE_ID, traceLog.getId());
             request.setAttribute(ATTRIBUTE_TRACE_TIME, now.getTime());

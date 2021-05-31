@@ -1,6 +1,6 @@
 package com.eva.core.utils;
 
-import com.eva.core.utils.monitor.Memory;
+import com.eva.core.utils.monitor.*;
 import com.sun.jna.platform.mac.DiskArbitration;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -54,12 +54,15 @@ public class Monitor implements Serializable {
     private CPU cpu;
 
     @ApiModelProperty(value = "磁盘列表")
-    private List<DiskArbitration> disks;
+    private List<Disk> disks;
 
     @ApiModelProperty(value = "JVM信息")
     private JVM jvm;
 
-    public Monitor() {
+    /**
+     * 获取实时信息
+     */
+    public Monitor current() {
         oshi.SystemInfo systemInfo = new oshi.SystemInfo();
         HardwareAbstractionLayer hardware = systemInfo.getHardware();
         systemInfo.getOperatingSystem().getSystemBootTime();
@@ -68,13 +71,14 @@ public class Monitor implements Serializable {
         this.setOsName(osMXBean.getName());
         this.setOsVersion(osMXBean.getVersion());
         this.setOsArch(osMXBean.getArch());
-        this.setIp(Utils.SERVER.getIP());
-        this.setMac(Utils.SERVER.getMAC());
+        this.setIp(Utils.Server.getIP());
+        this.setMac(Utils.Server.getMAC());
         this.setCurrentTime(new Date(System.currentTimeMillis()));
         this.setMemory(hardware.getMemory());
         this.setCpu(hardware.getProcessor());
         this.setJvm();
         this.setDisks(systemInfo.getOperatingSystem());
+        return this;
     }
 
     /**
