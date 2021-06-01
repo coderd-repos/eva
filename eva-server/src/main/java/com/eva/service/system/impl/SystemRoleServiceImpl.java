@@ -99,7 +99,7 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     @Override
     public PageData<SystemRoleListVO> findPage(PageWrap<QuerySystemRoleDTO> pageWrap) {
         PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
-        List<SystemRoleListVO> roleList = systemRoleMapper.selectManageList(pageWrap.getModel());
+        List<SystemRoleListVO> roleList = systemRoleMapper.selectManageList(pageWrap.getModel(), pageWrap.getOrderByClause());
         for (SystemRoleListVO role : roleList) {
             role.setMenus(systemMenuService.findByRoleId(role.getId()));
             role.setPermissions(systemPermissionService.findByRoleId(role.getId()));

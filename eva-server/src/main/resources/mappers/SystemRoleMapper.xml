@@ -24,9 +24,14 @@
     LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = role.UPDATE_USER
     <where>
       role.DELETED = 0
-      AND role.`CODE` LIKE CONCAT('%', #{code}, '%')
-      AND role.`NAME` LIKE CONCAT('%', #{name}, '%')
+      <if test="dto.code != null and dto.code != ''">
+        AND role.`CODE` LIKE CONCAT('%', #{dto.code}, '%')
+      </if>
+      <if test="dto.name != null and dto.name != ''">
+        AND role.`NAME` LIKE CONCAT('%', #{dto.name}, '%')
+      </if>
     </where>
+    ${orderByClause}
   </select>
 
   <!-- 查询用户角色列表 -->

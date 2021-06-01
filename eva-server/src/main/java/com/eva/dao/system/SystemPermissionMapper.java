@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eva.dao.system.dto.QuerySystemPermissionDTO;
 import com.eva.dao.system.model.SystemPermission;
 import com.eva.dao.system.vo.SystemPermissionListVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -28,6 +29,6 @@ public interface SystemPermissionMapper extends BaseMapper<SystemPermission> {
      * @author Eva.Caesar Liu
      * @date 2021-03-31 15:15
      */
-    List<SystemPermissionListVO> selectManageList(QuerySystemPermissionDTO dto);
+    List<SystemPermissionListVO> selectManageList(@Param("dto") QuerySystemPermissionDTO dto, @Param("orderByClause") String orderByClause);
 
 }
