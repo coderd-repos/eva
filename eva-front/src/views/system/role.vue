@@ -45,7 +45,7 @@
           min-width="270"
           fixed="right"
         >
-          <template slot-scope="{row}">
+          <template v-if="row.code !== adminCode || isAdmin" slot-scope="{row}">
             <el-button type="text" @click="$refs.operaRoleWindow.open('编辑角色', row)" icon="el-icon-edit" v-permissions="['system:role:update']">编辑</el-button>
             <el-button type="text" @click="$refs.permissionConfigWindow.open(row)" v-permissions="['system:role:createRolePermission']">配置权限</el-button>
             <el-button type="text" @click="$refs.menuConfigWindow.open(row)" icon="el-icon-menu" v-permissions="['system:role:createRoleMenu']">授权菜单</el-button>

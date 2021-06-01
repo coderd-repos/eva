@@ -2,8 +2,18 @@
 import { mapState } from 'vuex'
 export default {
   name: 'BasePage',
+  data () {
+    return {
+      // 超级管理员角色code
+      adminCode: 'admin'
+    }
+  },
   computed: {
-    ...mapState(['userInfo'])
+    ...mapState(['userInfo']),
+    // 是否为超级管理员
+    isAdmin () {
+      return this.userInfo.roles.findIndex(code => code === this.adminCode) > -1
+    }
   },
   methods: {
     // 是否包含指定角色
