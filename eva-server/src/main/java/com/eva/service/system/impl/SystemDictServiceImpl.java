@@ -86,7 +86,7 @@ public class SystemDictServiceImpl implements SystemDictService {
     @Override
     public PageData<SystemDictListVO> findPage(PageWrap<QuerySystemDictDTO> pageWrap) {
         PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
-        return PageData.from(new PageInfo<>(systemDictMapper.selectManageList(pageWrap.getModel())));
+        return PageData.from(new PageInfo<>(systemDictMapper.selectManageList(pageWrap.getModel(), pageWrap.getOrderByClause())));
     }
 
     @Override
