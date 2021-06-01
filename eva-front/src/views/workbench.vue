@@ -1,7 +1,7 @@
 <template>
   <div class="workbench">
     <div class="wrap">
-      <h2>欢迎使用伊娃后台管理系统</h2>
+      <h2>欢迎使用伊娃后台管理系统(Beta/公测中)</h2>
       <p>您使用的此套开源项目模版没有任何版权问题，可学习可商用，请放心使用！</p>
       <p>伊娃致力于打造简洁、合理、高效的开发体验，为此我们将不断升级，感谢您的支持！</p>
       <img src="@/assets/images/qq.jpeg">
