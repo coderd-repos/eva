@@ -17,7 +17,7 @@ import java.nio.charset.Charset;
 public class Location {
 
     // 地区API
-    private static final String GET_LOCATION_API = "http://whois.pconline.com.cn/ipJson.jsp?json=true&ip={}";
+    private static final String GET_LOCATION_API = "http://whois.pconline.com.cn/ipJson.jsp?json=true&ip=%s";
 
     /**
      * 获取地区
