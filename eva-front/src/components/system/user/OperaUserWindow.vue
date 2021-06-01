@@ -44,7 +44,7 @@
         <el-input v-model="form.email" placeholder="请输入邮箱" v-trim maxlength="200"/>
       </el-form-item>
       <el-form-item label="生日" prop="birthday">
-        <el-date-picker v-model="form.birthday" placeholder="请选择用户生日"/>
+        <el-date-picker v-model="form.birthday" value-format="yyyy-MM-dd" placeholder="请选择用户生日"/>
       </el-form-item>
     </el-form>
   </GlobalWindow>
