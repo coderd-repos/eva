@@ -21,11 +21,13 @@
 </template>
 
 <script>
+import BasePage from '@/components/base/BasePage'
 import GlobalWindow from '@/components/common/GlobalWindow'
 import { createUserRole } from '@/api/system/user'
 import { fetchAll as fetchAllRoles } from '@/api/system/role'
 export default {
   name: 'RoleConfigWindow',
+  extends: BasePage,
   components: { GlobalWindow },
   data () {
     return {
@@ -49,6 +51,14 @@ export default {
           if (this.user.fixed) {
             for (const role of this.roles) {
               if (role.fixed) {
+                role.disabled = true
+              }
+            }
+          }
+          // 如果当前用户为非超级管理员用户，则不允许授权超级管理员角色
+          if (!this.isAdmin) {
+            for (const role of this.roles) {
+              if (role.code === this.adminCode) {
                 role.disabled = true
               }
             }
