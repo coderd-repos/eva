@@ -56,8 +56,7 @@
         @size-change="handleSizeChange"
         @current-change="handlePageChange"
         :pagination="tableData.pagination"
-      >
-      </pagination>
+      ></pagination>
     </template>
     <!-- 新建/修改 -->
     <OperaRoleWindow ref="operaRoleWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>

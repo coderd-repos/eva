@@ -96,8 +96,7 @@
         @size-change="handleSizeChange"
         @current-change="handlePageChange"
         :pagination="tableData.pagination"
-      >
-      </pagination>
+      ></pagination>
     </template>
     <!-- 新建/修改 -->
     <OperaUserWindow ref="operaUserWindow" @success="handlePageChange(tableData.pagination.pageIndex)"/>

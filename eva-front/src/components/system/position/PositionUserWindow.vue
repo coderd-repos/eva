@@ -65,8 +65,7 @@
           @size-change="handleSizeChange"
           @current-change="handlePageChange"
           :pagination="tableData.pagination"
-        >
-        </pagination>
+        ></pagination>
       </template>
     </TableLayout>
   </GlobalWindow>

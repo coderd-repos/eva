@@ -18,7 +18,15 @@
         </el-select>
       </el-form-item>
       <el-form-item label="登录时间" prop="loginTime">
-        <el-date-picker v-model="searchForm.loginTime" value-format="yyyy-MM-dd" placeholder="请输入登录时间" @change="search"/>
+        <el-date-picker
+          v-model="searchDateRange"
+          type="datetimerange"
+          range-separator="至"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          start-placeholder="开始时间"
+          end-placeholder="结束时间"
+          @change="handleSearchTimeChange"
+        ></el-date-picker>
       </el-form-item>
       <section>
         <el-button type="primary" @click="search">搜索</el-button>
@@ -54,8 +62,7 @@
           @size-change="handleSizeChange"
           @current-change="handlePageChange"
           :pagination="tableData.pagination"
-      >
-      </pagination>
+      ></pagination>
     </template>
   </TableLayout>
 </template>
@@ -70,23 +77,38 @@ export default {
   components: { TableLayout, Pagination },
   data () {
     return {
+      // 搜索时间范围
+      searchDateRange: [],
       // 搜索
       searchForm: {
         loginUsername: '',
         ip: '',
         serverIp: '',
         success: '',
-        loginTime: ''
+        startTime: null,
+        endTime: null
       }
     }
   },
   filters: {
     // 登录状态
     statusText (value) {
-      if (value === 1) {
+      if (value) {
         return '登录成功'
       }
       return '登录失败'
+    }
+  },
+  methods: {
+    // 时间搜索范围变化
+    handleSearchTimeChange (value) {
+      this.searchForm.startTime = null
+      this.searchForm.endTime = null
+      if (value != null) {
+        this.searchForm.startTime = value[0]
+        this.searchForm.endTime = value[1]
+      }
+      this.search()
     }
   },
   created () {

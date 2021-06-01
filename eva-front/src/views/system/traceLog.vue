@@ -34,8 +34,7 @@
           start-placeholder="开始时间"
           end-placeholder="结束时间"
           @change="handleSearchTimeChange"
-        >
-        </el-date-picker>
+        ></el-date-picker>
       </el-form-item>
       <section>
         <el-button type="primary" @click="search">搜索</el-button>
@@ -95,8 +94,7 @@
         @size-change="handleSizeChange"
         @current-change="handlePageChange"
         :pagination="tableData.pagination"
-      >
-      </pagination>
+      ></pagination>
     </template>
   </TableLayout>
 </template>

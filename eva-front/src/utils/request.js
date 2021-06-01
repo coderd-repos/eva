@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import pkg from '../../package'
 import { trim } from './util'
 axios.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8'
 const axiosInstance = axios.create({
@@ -19,6 +20,8 @@ axiosInstance.interceptors.request.use(config => {
       config.params = trim(config.params)
     }
   }
+  // 设置操作平台
+  config.headers['eva-platform'] = `pc-${pkg.version}`
   // 设置认证头
   const authToken = Cookies.get('eva-auth-token')
   if (authToken != null) {
@@ -42,7 +45,7 @@ axiosInstance.interceptors.response.use((response) => {
     return Promise.reject(response.data)
   }
   // 业务失败
-  if (response.data.code !== 200) {
+  if (!response.data.success) {
     return Promise.reject(response.data)
   }
   return response.data.data
