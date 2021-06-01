@@ -84,7 +84,7 @@
           width="270"
           fixed="right"
         >
-          <template v-if="row.roles.findIndex(r => r.code === adminCode) === -1 || isAdmin" slot-scope="{row}">
+          <template v-if="isAdmin || (row.id !== userInfo.id && row.roles.findIndex(r => r.code === adminCode) === -1)" slot-scope="{row}">
             <el-button type="text" icon="el-icon-edit" @click="$refs.operaUserWindow.open('编辑用户', row)" v-permissions="['system:user:update']">编辑</el-button>
             <el-button type="text" icon="el-icon-s-custom" @click="$refs.roleConfigWindow.open(row)" v-permissions="['system:user:createUserRole']">配置角色</el-button>
             <el-button type="text" @click="$refs.resetPwdWindow.open(row)" v-permissions="['system:user:resetPwd']">重置密码</el-button>
