@@ -30,7 +30,7 @@
         </el-table-column>
         <el-table-column prop="updateTime" label="更新时间" min-width="140px"></el-table-column>
         <el-table-column
-          v-if="containPermissions(['system:department:update', 'system:department:create', 'system:department:delete'])"
+          v-if="containPermissions(['system:department:update', 'system:department:create', 'system:department:delete', 'system:department:queryUsers'])"
           label="操作"
           min-width="310"
           fixed="right"
