@@ -1,5 +1,7 @@
 package com.eva.core.annotation.pr;
 
+import com.eva.core.constants.ResponseStatus;
+
 import java.lang.annotation.*;
 
 /**
@@ -25,12 +27,17 @@ public @interface PreventRepeat {
     /**
      * 错误消息
      */
-    String message() default "请勿重复提交";
+    String message() default "";
 
     /**
      * 1分钟内限制的请求次数（<=0时表示不限制）
      */
     int limit() default 0;
+
+    /**
+     * 被限制时的错误消息
+     */
+    String limitMessage() default "";
 
     /**
      * 超出请求限制次数时锁定的时长(ms)

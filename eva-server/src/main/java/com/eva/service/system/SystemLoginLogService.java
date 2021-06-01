@@ -2,6 +2,7 @@ package com.eva.service.system;
 
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
+import com.eva.dao.system.dto.QuerySystemLoginLogDTO;
 import com.eva.dao.system.model.SystemLoginLog;
 import java.util.List;
 
@@ -80,7 +81,7 @@ public interface SystemLoginLogService {
      * @author Eva.Caesar Liu
      * @date 2021/05/30 22:54
      */
-    PageData<SystemLoginLog> findPage(PageWrap<SystemLoginLog> pageWrap);
+    PageData<SystemLoginLog> findPage(PageWrap<QuerySystemLoginLogDTO> pageWrap);
 
     /**
      * 条件统计

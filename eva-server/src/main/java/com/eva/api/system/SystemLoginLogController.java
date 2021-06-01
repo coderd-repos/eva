@@ -3,6 +3,7 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.PageWrap;
+import com.eva.dao.system.dto.QuerySystemLoginLogDTO;
 import com.eva.dao.system.model.SystemLoginLog;
 import com.eva.service.system.SystemLoginLogService;
 import io.swagger.annotations.Api;
@@ -31,7 +32,7 @@ public class SystemLoginLogController extends BaseController {
     @PostMapping("/page")
     @ApiOperation("分页查询")
     @RequiresPermissions("system:loginLog:query")
-    public ApiResponse findPage (@RequestBody PageWrap<SystemLoginLog> pageWrap) {
+    public ApiResponse findPage (@RequestBody PageWrap<QuerySystemLoginLogDTO> pageWrap) {
         return ApiResponse.success(systemLoginLogService.findPage(pageWrap));
     }
 }

@@ -45,14 +45,22 @@ public class PreventRepeatInterceptor extends HandlerInterceptorAdapter {
             if(prAnnotation.limit() > 0 && prAnnotation.lockTime() > 0 && adapter.massive(request, prAnnotation.limit(), prAnnotation.lockTime())) {
                 log.warn("Eva Intercept a massive request，url：{}", request.getRequestURI());
                 response.setHeader("content-type", "application/json;charset=UTF-8");
-                response.getWriter().write(JSON.toJSONString(ApiResponse.failed(ResponseStatus.MASSIVE_REQUEST.getCode(), prAnnotation.message())));
+                ApiResponse apiResponse = ApiResponse.failed(ResponseStatus.MASSIVE_REQUEST);
+                if (!"".equals(prAnnotation.message())) {
+                    apiResponse.setMessage(prAnnotation.message());
+                }
+                response.getWriter().write(JSON.toJSONString(apiResponse));
                 return Boolean.FALSE;
             }
             // 验证重复请求
             if(prAnnotation.interval() > 0 && adapter.prevent(request, prAnnotation.interval())) {
                 log.warn("Eva Intercept a repeat request，url：{}", request.getRequestURI());
                 response.setHeader("content-type", "application/json;charset=UTF-8");
-                response.getWriter().write(JSON.toJSONString(ApiResponse.failed(ResponseStatus.REPEAT_REQUEST.getCode(), prAnnotation.message())));
+                ApiResponse apiResponse = ApiResponse.failed(ResponseStatus.REPEAT_REQUEST);
+                if (!"".equals(prAnnotation.limitMessage())) {
+                    apiResponse.setMessage(prAnnotation.limitMessage());
+                }
+                response.getWriter().write(JSON.toJSONString(apiResponse));
                 return Boolean.FALSE;
             }
         } catch (Exception e) {

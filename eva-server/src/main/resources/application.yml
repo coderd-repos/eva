@@ -34,7 +34,7 @@ mybatis-plus:
 cache:
   session:
     # 会话过期时长(s)
-    expire: 10
+    expire: 1800
   captcha:
     # 验证码过期时长(s)
     expire: 300

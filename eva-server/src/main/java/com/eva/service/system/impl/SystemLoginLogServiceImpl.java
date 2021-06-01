@@ -4,13 +4,16 @@ import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.core.utils.Utils;
 import com.eva.dao.system.SystemLoginLogMapper;
+import com.eva.dao.system.dto.QuerySystemLoginLogDTO;
 import com.eva.dao.system.model.SystemLoginLog;
+import com.eva.dao.system.model.SystemTraceLog;
 import com.eva.service.system.SystemLoginLogService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -82,9 +85,35 @@ public class SystemLoginLogServiceImpl implements SystemLoginLogService {
     }
   
     @Override
-    public PageData<SystemLoginLog> findPage(PageWrap<SystemLoginLog> pageWrap) {
+    public PageData<SystemLoginLog> findPage(PageWrap<QuerySystemLoginLogDTO> pageWrap) {
         IPage<SystemLoginLog> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemLoginLog> queryWrapper = new QueryWrapper<>(Utils.MP.blankToNull(pageWrap.getModel()));
+        QueryWrapper<SystemLoginLog> queryWrapper = new QueryWrapper<>();
+
+        // 登录用户名
+        if (StringUtils.isNotBlank(pageWrap.getModel().getLoginUsername())) {
+            queryWrapper.lambda().like(SystemLoginLog::getLoginUsername, pageWrap.getModel().getLoginUsername());
+        }
+        // 登录IP
+        if (StringUtils.isNotBlank(pageWrap.getModel().getIp())) {
+            queryWrapper.lambda().eq(SystemLoginLog::getIp, pageWrap.getModel().getIp());
+        }
+        // 服务器IP
+        if (StringUtils.isNotBlank(pageWrap.getModel().getServerIp())) {
+            queryWrapper.lambda().eq(SystemLoginLog::getServerIp, pageWrap.getModel().getServerIp());
+        }
+        // 登录状态
+        if (pageWrap.getModel().getSuccess() != null) {
+            queryWrapper.lambda().eq(SystemLoginLog::getSuccess, pageWrap.getModel().getSuccess());
+        }
+        // 登录开始时间
+        if (pageWrap.getModel().getStartTime() != null) {
+            queryWrapper.lambda().ge(SystemLoginLog::getLoginTime, pageWrap.getModel().getStartTime());
+        }
+        // 登录结束时间
+        if (pageWrap.getModel().getStartTime() != null) {
+            queryWrapper.lambda().lt(SystemLoginLog::getLoginTime, pageWrap.getModel().getEndTime());
+        }
+        // 字段排序
         for(PageWrap.SortData sortData: pageWrap.getSorts()) {
             if (sortData.getDirection().equalsIgnoreCase("DESC")) {
                 queryWrapper.orderByDesc(sortData.getProperty());

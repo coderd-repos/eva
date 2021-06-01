@@ -40,7 +40,7 @@ public class SystemController extends BaseController {
      * @author Eva.Caesar Liu
      * @date 2021-03-27 21:36
      */
-    @PreventRepeat(limit = 10, lockTime = 5000)
+    @PreventRepeat(limit = 10, lockTime = 10000)
     @Trace(exclude = true)
     @ApiOperation("登录")
     @PostMapping("/login")

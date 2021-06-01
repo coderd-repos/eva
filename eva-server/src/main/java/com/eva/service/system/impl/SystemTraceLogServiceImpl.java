@@ -107,6 +107,7 @@ public class SystemTraceLogServiceImpl implements SystemTraceLogService {
         if (pageWrap.getModel().getEndTime() != null) {
             queryWrapper.lambda().lt(SystemTraceLog::getOperaTime, pageWrap.getModel().getEndTime());
         }
+        // 字段排序
         for(PageWrap.SortData sortData: pageWrap.getSorts()) {
             if (sortData.getDirection().equalsIgnoreCase(PageWrap.DESC)) {
                 queryWrapper.orderByDesc(sortData.getProperty());
