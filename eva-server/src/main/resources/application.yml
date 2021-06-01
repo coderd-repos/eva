@@ -1,6 +1,7 @@
 # 项目信息配置
 project:
   name: 伊娃
+#  mode: demo
   version: 1.0.0
   env: development
 #  env: production
@@ -44,7 +45,7 @@ trace:
   # 开启智能跟踪模式
   smart: true
   # 排除跟踪的URL正则
-  exclude-patterns: .+/find[a-zA-Z0-9\-\_]*$, .+/query[a-zA-Z0-9\-\_]*$, .+/list[a-zA-Z0-9\-\_]*$, .+/tree[a-zA-Z0-9\-\_]*$, .+/page[a-zA-Z0-9\-\_]*$
+  exclude-patterns: .+/list[a-zA-Z0-9\-\_]*$, .+/tree[a-zA-Z0-9\-\_]*$, .+/page[a-zA-Z0-9\-\_]*$, .+/all[a-zA-Z0-9\-\_]*$
 
 # Swagger配置
 swagger:

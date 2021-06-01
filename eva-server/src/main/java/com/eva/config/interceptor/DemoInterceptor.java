@@ -46,7 +46,7 @@ public class DemoInterceptor implements HandlerInterceptor {
         this.add("/system/loginLog/page");
         this.add("/system/dict/page");
         this.add("/system/dictData/page");
-        this.add("/system/monitor/getOS");
+        this.add("/system/monitor/getSystemInfo");
     }};
 
     @Override
