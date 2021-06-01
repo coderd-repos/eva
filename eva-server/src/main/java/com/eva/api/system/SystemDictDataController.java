@@ -4,7 +4,7 @@ import com.eva.api.BaseController;
 import com.eva.biz.system.SystemDictDataBiz;
 import com.eva.core.annotation.pr.PreventRepeat;
 import com.eva.core.model.ApiResponse;
-import com.eva.core.model.OperaType;
+import com.eva.core.constants.OperaType;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.dto.QuerySystemDictDataDTO;

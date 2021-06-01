@@ -2,7 +2,7 @@ package com.eva.biz.system.impl;
 
 import com.eva.biz.system.SystemPositionBiz;
 import com.eva.core.exception.BusinessException;
-import com.eva.core.model.ResponseStatus;
+import com.eva.core.constants.ResponseStatus;
 import com.eva.dao.system.model.SystemPosition;
 import com.eva.dao.system.vo.SystemPositionListVO;
 import com.eva.service.system.SystemPositionService;

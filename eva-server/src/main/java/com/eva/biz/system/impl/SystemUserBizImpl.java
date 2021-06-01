@@ -2,7 +2,7 @@ package com.eva.biz.system.impl;
 
 import com.eva.biz.system.SystemUserBiz;
 import com.eva.core.exception.BusinessException;
-import com.eva.core.model.ResponseStatus;
+import com.eva.core.constants.ResponseStatus;
 import com.eva.core.utils.Utils;
 import com.eva.dao.system.dto.CreateSystemUserDTO;
 import com.eva.dao.system.dto.CreateUserRoleDTO;

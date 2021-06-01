@@ -2,9 +2,8 @@ package com.eva.biz.system.impl;
 
 import com.eva.biz.system.SystemPermissionBiz;
 import com.eva.core.exception.BusinessException;
-import com.eva.core.model.ResponseStatus;
+import com.eva.core.constants.ResponseStatus;
 import com.eva.dao.system.model.SystemPermission;
-import com.eva.dao.system.model.SystemRole;
 import com.eva.service.system.SystemPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

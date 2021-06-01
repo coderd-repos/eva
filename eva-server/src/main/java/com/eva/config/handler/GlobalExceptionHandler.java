@@ -2,7 +2,7 @@ package com.eva.config.handler;
 
 import com.eva.core.exception.BusinessException;
 import com.eva.core.model.ApiResponse;
-import com.eva.core.model.ResponseStatus;
+import com.eva.core.constants.ResponseStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.UnauthorizedException;

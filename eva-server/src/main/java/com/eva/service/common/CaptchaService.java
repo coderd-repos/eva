@@ -1,7 +1,7 @@
 package com.eva.service.common;
 
 import com.eva.core.exception.BusinessException;
-import com.eva.core.model.ResponseStatus;
+import com.eva.core.constants.ResponseStatus;
 import com.eva.service.proxy.CacheProxy;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;

@@ -2,7 +2,7 @@ package com.eva.biz.system.impl;
 
 import com.eva.biz.system.SystemRoleBiz;
 import com.eva.core.exception.BusinessException;
-import com.eva.core.model.ResponseStatus;
+import com.eva.core.constants.ResponseStatus;
 import com.eva.dao.system.dto.CreateRoleMenuDTO;
 import com.eva.dao.system.dto.CreateRolePermissionDTO;
 import com.eva.dao.system.model.SystemRole;

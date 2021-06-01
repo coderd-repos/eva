@@ -1,4 +1,4 @@
-package com.eva.core.model;
+package com.eva.core.constants;
 
 /**
  * 操作类型

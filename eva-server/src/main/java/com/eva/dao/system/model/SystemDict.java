@@ -1,6 +1,6 @@
 package com.eva.dao.system.model;
 
-import com.eva.core.model.OperaType;
+import com.eva.core.constants.OperaType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.baomidou.mybatisplus.annotation.IdType;

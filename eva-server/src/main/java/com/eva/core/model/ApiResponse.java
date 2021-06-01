@@ -1,5 +1,6 @@
 package com.eva.core.model;
 
+import com.eva.core.constants.ResponseStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -7,7 +8,6 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * 接口返回对象

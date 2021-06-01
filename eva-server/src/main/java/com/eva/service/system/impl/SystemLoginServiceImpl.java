@@ -2,7 +2,7 @@ package com.eva.service.system.impl;
 
 import com.eva.core.exception.BusinessException;
 import com.eva.core.model.LoginUserInfo;
-import com.eva.core.model.ResponseStatus;
+import com.eva.core.constants.ResponseStatus;
 import com.eva.core.utils.Utils;
 import com.eva.dao.system.dto.LoginDTO;
 import com.eva.dao.system.model.SystemLoginLog;

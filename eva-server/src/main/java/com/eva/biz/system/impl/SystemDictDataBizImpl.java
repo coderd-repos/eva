@@ -2,7 +2,7 @@ package com.eva.biz.system.impl;
 
 import com.eva.biz.system.SystemDictDataBiz;
 import com.eva.core.exception.BusinessException;
-import com.eva.core.model.ResponseStatus;
+import com.eva.core.constants.ResponseStatus;
 import com.eva.dao.system.model.SystemDictData;
 import com.eva.service.system.SystemDictDataService;
 import org.springframework.beans.factory.annotation.Autowired;

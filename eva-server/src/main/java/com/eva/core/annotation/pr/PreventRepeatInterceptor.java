@@ -2,7 +2,7 @@ package com.eva.core.annotation.pr;
 
 import com.alibaba.fastjson.JSON;
 import com.eva.core.model.ApiResponse;
-import com.eva.core.model.ResponseStatus;
+import com.eva.core.constants.ResponseStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;

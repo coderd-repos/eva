@@ -1,6 +1,6 @@
 package com.eva.core.exception;
 
-import com.eva.core.model.ResponseStatus;
+import com.eva.core.constants.ResponseStatus;
 import lombok.Data;
 
 /**
