@@ -20,19 +20,17 @@ public class UserClient {
      */
     public String getOS(HttpServletRequest request) {
         String browserDetails = request.getHeader("User-Agent");
-        String userAgent = browserDetails;
-
-        String os = "";
-
-        if (userAgent.toLowerCase().indexOf("windows") >= 0) {
+        String userAgent = browserDetails.toLowerCase();
+        String os;
+        if (userAgent.indexOf("windows") >= 0) {
             os = "Windows";
-        } else if (userAgent.toLowerCase().indexOf("mac") >= 0) {
+        } else if (userAgent.indexOf("mac") >= 0) {
             os = "Mac";
-        } else if (userAgent.toLowerCase().indexOf("x11") >= 0) {
+        } else if (userAgent.indexOf("x11") >= 0) {
             os = "Unix";
-        } else if (userAgent.toLowerCase().indexOf("android") >= 0) {
+        } else if (userAgent.indexOf("android") >= 0) {
             os = "Android";
-        } else if (userAgent.toLowerCase().indexOf("iphone") >= 0) {
+        } else if (userAgent.indexOf("iphone") >= 0) {
             os = "IPhone";
         } else {
             os = "UnKnown, More-Info: " + userAgent;
