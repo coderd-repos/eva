@@ -5,10 +5,10 @@ module.exports = {
   assetsDir: 'static',
   devServer: {
     host: '0.0.0.0',
-    port: 8081,
+    port: 10086,
     proxy: {
       [process.env.VUE_APP_API_PREFIX]: {
-        target: 'http://localhost:8082',
+        target: 'http://localhost:10010',
         changeOrigin: true,
         pathRewrite: {
           [`^${[process.env.VUE_APP_API_PREFIX]}`]: ''
