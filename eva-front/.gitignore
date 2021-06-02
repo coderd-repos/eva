@@ -1,4 +1,5 @@
 .DS_Store
+coderd.json
 node_modules
 /dist
 
