@@ -60,7 +60,7 @@ export default {
       })
         .then(() => {
           this.$nextTick(() => {
-            this.$router.push('/workbench')
+            this.$router.push('/index')
           })
         })
         .catch(e => {

@@ -37,6 +37,9 @@ export default {
         path = path.substring(0, path.length - 1)
       }
       const menuConfig = this.__getMenuConfig(path, 'url', this.menuData.list)
+      if (menuConfig == null) {
+        return null
+      }
       return menuConfig.index
     },
     // 默认展开的菜单index

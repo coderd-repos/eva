@@ -30,14 +30,7 @@ const mutations = {
   },
   // 重置菜单
   resetMenus: (state) => {
-    state.menuData.list = [
-      {
-        label: '工作台', // 菜单名称
-        index: 'workbench', // 菜单唯一标识
-        icon: 'el-icon-s-data', // 图标，从https://element.eleme.cn/#/zh-CN/component/icon获取
-        url: '/workbench' // 菜单路径
-      }
-    ]
+    state.menuData.list = []
   }
 }
 const actions = {}

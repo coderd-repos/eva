@@ -63,10 +63,10 @@ new Vue({
           storeMenus.push.apply(storeMenus, menus)
           // 添加路由
           this.__addRouters(menus)
-          // 404重定向到workbench
+          // 404
           router.addRoute({
             path: '*',
-            redirect: '/workbench'
+            redirect: '/404'
           })
         })
         .catch(e => {
