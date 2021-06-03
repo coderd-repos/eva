@@ -56,12 +56,4 @@ public class LoginUserInfo implements Serializable {
         loginUserInfo.setPermissions(pms);
         return loginUserInfo;
     }
-
-    @Data
-    public static class Permission {
-
-        private String code;
-
-        private String name;
-    }
 }
