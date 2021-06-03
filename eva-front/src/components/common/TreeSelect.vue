@@ -7,6 +7,7 @@
     :options="data"
     :clearable="clearable"
     :flat="flat"
+    :append-to-body="true"
     :multiple="multiple"
     no-children-text="无记录"
     no-options-text="无记录"
