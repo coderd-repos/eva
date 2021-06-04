@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -20,7 +19,6 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 图片验证码
@@ -48,9 +46,6 @@ public class CaptchaService {
 
     @Autowired
     private CacheProxy<String, String> cacheProxy;
-
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
 
     /**
      * 生成验证码图片
