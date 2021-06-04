@@ -50,7 +50,8 @@ public class SystemLoginServiceImpl implements SystemLoginService {
         try {
             captchaService.check(dto.getUuid(), dto.getCode());
         } catch (Exception e) {
-            loginLog.setReason(e.getMessage());
+            log.error(e.getMessage(), e);
+            loginLog.setReason(e.getMessage().length() > 200 ? (e.getMessage().substring(0, 190) + "...") : e.getMessage());
             loginLog.setSuccess(Boolean.FALSE);
             systemLoginLogService.create(loginLog);
             throw e;

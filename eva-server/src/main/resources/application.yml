@@ -24,6 +24,13 @@ spring:
     time-zone: GMT+8
     # 默认日期格式化
     date-format: yyyy-MM-dd HH:mm:ss
+  # Redis配置
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    database: 0
+    timeout: 30s
 
 # MyBatis配置
 mybatis-plus:

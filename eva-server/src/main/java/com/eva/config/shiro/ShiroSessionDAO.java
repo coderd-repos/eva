@@ -38,7 +38,7 @@ public class ShiroSessionDAO implements SessionDAO {
 
     @Autowired
     public ShiroSessionDAO (ApplicationContext applicationContext) {
-        cacheProxy = applicationContext.getBean(CacheProxy.class, KEY_PREFIX, 1800);
+        cacheProxy = applicationContext.getBean(CacheProxy.class, KEY_PREFIX);
     }
 
     @Override
