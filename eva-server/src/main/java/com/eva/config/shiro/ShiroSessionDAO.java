@@ -23,8 +23,6 @@ import java.util.*;
 @Component
 public class ShiroSessionDAO implements SessionDAO {
 
-    private static ThreadLocal<HashMap> sessionsInThread = new ThreadLocal<>();
-
     private static final String KEY_PREFIX = "shiro:session:";
 
     @Autowired
