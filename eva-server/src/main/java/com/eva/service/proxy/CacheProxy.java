@@ -1,14 +1,14 @@
 package com.eva.service.proxy;
 
-import com.eva.core.cache.LocalCache;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 缓存代理类，便于缓存变更
@@ -17,43 +17,25 @@ import java.util.*;
  */
 @Slf4j
 @Component
-public class CacheProxy<K,V> implements Cache<K, V> {
-
-    // key前缀
-    private String keyPrefix = "";
-
-    // 默认超时时间(s)
-    private long defaultExpireTime = 86400;
+public class CacheProxy<K,V> {
 
     @Autowired
-    private LocalCache<K,V> localCache;
+    private RedisTemplate<K, V> redisTemplate;
 
-    public CacheProxy () {
-        log.debug("CacheProxy: new, keyPrefix = [" + keyPrefix + "], defaultExpireTime = [" + defaultExpireTime + "]");
-    }
-
-    public CacheProxy (String keyPrefix, long defaultExpireTime) {
-        log.trace("CacheProxy: new, keyPrefix = [" + keyPrefix + "], defaultExpireTime = [" + defaultExpireTime + "]");
-        this.keyPrefix = keyPrefix;
-        this.defaultExpireTime = defaultExpireTime;
-    }
-
-    @Override
     public V get(K key) throws CacheException {
         log.trace("CacheProxy: get, key = [" + key + "]");
         if (key == null) {
             return null;
         }
-        return localCache.get(getKey(key));
+        return redisTemplate.opsForValue().get(key);
     }
 
-    @Override
     public V put(K key, V value) throws CacheException {
         log.trace("CacheProxy: put, key = [" + key + "]");
         if (key == null) {
             log.warn("CacheProxy: put, key can not be null");
         }
-        localCache.put(getKey(key), value);
+        redisTemplate.opsForValue().set(key, value);
         return value;
     }
 
@@ -64,11 +46,7 @@ public class CacheProxy<K,V> implements Cache<K, V> {
      * @param expire 过期时间(s)
      */
     public V put(K key, V value, int expire) throws CacheException {
-        log.trace("CacheProxy: put, key = [" + key + "]");
-        if (key == null) {
-            log.warn("CacheProxy: put, key can not be null");
-        }
-        localCache.put(getKey(key), value, expire * 1000);
+        this.put(key, value, expire * 1000L);
         return value;
     }
 
@@ -83,26 +61,24 @@ public class CacheProxy<K,V> implements Cache<K, V> {
         if (key == null) {
             log.warn("CacheProxy: put, key can not be null");
         }
-        localCache.put(getKey(key), value, expire);
+        redisTemplate.opsForValue().set(key, value, expire, TimeUnit.MILLISECONDS);
         return value;
     }
 
-    @Override
     public void clear() throws CacheException {
         log.trace("CacheProxy: clear");
-        localCache.clear();
+        Set<K> keys = this.keys();
+        redisTemplate.delete(keys);
     }
 
-    @Override
     public int size() {
         log.trace("CacheProxy: size");
-        return localCache.size();
+        return this.keys().size();
     }
 
-    @Override
     public Set<K> keys() {
         log.trace("CacheProxy: keys");
-        Set<K> keys = localCache.keys();
+        Set<K> keys = redisTemplate.keys(null);
         if (CollectionUtils.isEmpty(keys)) {
             return Collections.emptySet();
         }
@@ -110,60 +86,29 @@ public class CacheProxy<K,V> implements Cache<K, V> {
     }
 
     public Set<K> keys(String keyPattern) {
-        if (keyPattern == null || "".equals(keyPattern)) {
-            return keys();
-        }
-        Set<K> keys = this.keys();
-        if (CollectionUtils.isEmpty(keys)) {
-            return Collections.emptySet();
-        }
-        Set<K> filterKeys = new HashSet<>();
-        Iterator<K> iter = keys.iterator();
-        while(iter.hasNext()) {
-            K key = iter.next();
-            if (key instanceof String && ((String) key).matches(keyPattern)) {
-                filterKeys.add(key);
-            }
-        }
-        return filterKeys;
+        return redisTemplate.keys((K)keyPattern);
     }
 
-    @Override
     public Collection<V> values() {
         log.trace("CacheProxy: values");
-        Collection<V> values = localCache.values();
-        if (CollectionUtils.isEmpty(values)) {
-            return Collections.emptyList();
+        Collection<V> values = new ArrayList<>();
+        Set<K> keys = this.keys();
+        if (CollectionUtils.isEmpty(keys)) {
+            return values;
+        }
+        for (K k : keys) {
+            values.add(redisTemplate.opsForValue().get(k));
         }
         return values;
     }
 
-    @Override
     public V remove(K key) throws CacheException {
         log.trace("CacheProxy: remove, key = [" + key + "]");
         if (key == null) {
             return null;
         }
-        return localCache.remove(getKey(key));
-    }
-
-    private K getKey (K key) {
-        return (K)(key instanceof String ? this.keyPrefix + key : key);
-    }
-
-    public String getKeyPrefix() {
-        return keyPrefix;
-    }
-
-    public void setKeyPrefix(String keyPrefix) {
-        this.keyPrefix = keyPrefix;
-    }
-
-    public long getDefaultExpireTime() {
-        return defaultExpireTime;
-    }
-
-    public void setDefaultExpireTime(long defaultExpireTime) {
-        this.defaultExpireTime = defaultExpireTime;
+        V value = this.get(key);
+        redisTemplate.delete(key);
+        return value;
     }
 }

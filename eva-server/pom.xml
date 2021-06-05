@@ -23,7 +23,7 @@
     <java.version>1.8</java.version>
     <swagger.version>2.9.2</swagger.version>
     <swagger.bootstrap-ui.version>1.9.6</swagger.bootstrap-ui.version>
-    <fastjson.version>1.2.70</fastjson.version>
+    <fastjson.version>1.2.76</fastjson.version>
     <druid.version>1.2.0</druid.version>
     <mybatis.plus.version>3.4.2</mybatis.plus.version>
     <apache.shiro.version>1.7.0</apache.shiro.version>
@@ -36,6 +36,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <!-- Redis -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
     </dependency>
     <!-- Shiro -->
     <dependency>

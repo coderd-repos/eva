@@ -1,6 +1,5 @@
 package com.eva.config.shiro;
 
-import com.eva.service.proxy.CacheProxy;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.session.Session;
@@ -8,14 +7,13 @@ import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.SimpleSession;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.*;
 
 /**
- * 自定义Shiro SessionDAO，对接代理缓存，将会话信息存入缓存中
+ * 自定义Shiro SessionDAO，将会话信息存入缓存中
  * 技术参考：shiro-redis
  * @author Eva.Caesar Liu
  * @date 2021-05-28 00:24
@@ -25,21 +23,15 @@ import java.util.*;
 @Component
 public class ShiroSessionDAO implements SessionDAO {
 
-    private static ThreadLocal<HashMap> sessionsInThread = new ThreadLocal<>();
-
     private static final String KEY_PREFIX = "shiro:session:";
 
-    private CacheProxy<Serializable, Session> cacheProxy;
+    @Autowired
+    private ShiroCache shiroCache;
 
-    private long expireTime = 1800000;
+    private int expireTime = 1800;
 
     @Autowired
     private ShiroTokenManager shiroTokenManager;
-
-    @Autowired
-    public ShiroSessionDAO (ApplicationContext applicationContext) {
-        cacheProxy = applicationContext.getBean(CacheProxy.class, KEY_PREFIX, 1800);
-    }
 
     @Override
     public Serializable create(Session session) {
@@ -64,7 +56,7 @@ public class ShiroSessionDAO implements SessionDAO {
             shiroTokenManager.check((String) sessionId);
         }
         log.debug("read session from cache");
-        Session session = cacheProxy.get(sessionId);
+        Session session = getSessionFromCache(sessionId);
         if (session == null) {
             throw new UnknownSessionException("There is no session with id [" + sessionId + "]");
         }
@@ -79,18 +71,18 @@ public class ShiroSessionDAO implements SessionDAO {
     @Override
     public void delete(Session session) {
         if (session != null && session.getId() != null) {
-            cacheProxy.remove(session.getId());
+            shiroCache.remove(KEY_PREFIX + session.getId());
         }
     }
 
     @Override
     public Collection<Session> getActiveSessions() {
         Set<Session> sessions = new HashSet<>();
-        Set<Serializable> keys = cacheProxy.keys(KEY_PREFIX + "*");
+        Set<Object> keys = shiroCache.keys();
         if (keys != null && keys.size() > 0) {
             Iterator iter = keys.iterator();
             while(iter.hasNext()) {
-                sessions.add(cacheProxy.get((String)iter.next()));
+                sessions.add((Session) shiroCache.get(iter.next()));
             }
         }
         return sessions;
@@ -101,10 +93,19 @@ public class ShiroSessionDAO implements SessionDAO {
             log.error("session or session id is null");
             throw new UnknownSessionException("session or session id is null");
         }
-        cacheProxy.put(session.getId(), session, expireTime);
+        shiroCache.put(KEY_PREFIX + session.getId(), (SimpleSession)session, expireTime);
+    }
+
+    private Session getSessionFromCache (Serializable sessionId) {
+        Serializable object = shiroCache.get(KEY_PREFIX + sessionId);
+        Session session = null;
+        if (object != null) {
+            session = (Session)shiroCache.get(KEY_PREFIX + sessionId);
+        }
+        return session;
     }
 
     public void setExpireTime (int expireTime) {
-        this.expireTime = expireTime * 1000;
+        this.expireTime = expireTime;
     }
 }
