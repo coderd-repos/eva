@@ -11,7 +11,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Redis 值序列化
+ * Redis 值序列化器
  * 技术参考：Jackson2JsonRedisSerializer
  * @author Eva.Caesar Liu
  * @date 2021-06-04 16:27
@@ -24,8 +24,6 @@ class RedisValueDefaultSerializer<T> implements RedisSerializer<T> {
 
     {
         parserConfig.setAutoTypeSupport(true);
-        JSON.DEFAULT_GENERATE_FEATURE = SerializerFeature.config(
-                JSON.DEFAULT_GENERATE_FEATURE, SerializerFeature.SkipTransientField, false);
     }
 
     private final Class<T> type;
@@ -38,14 +36,22 @@ class RedisValueDefaultSerializer<T> implements RedisSerializer<T> {
         if (bytes == null || bytes.length == 0) {
             return null;
         }
-        return JSON.parseObject(new String(bytes, DEFAULT_CHARSET), type, parserConfig);
+        try {
+            return JSON.parseObject(new String(bytes, DEFAULT_CHARSET), type, parserConfig);
+        } catch (Exception e) {
+            throw new SerializationException("Could not serialize value of redis: " + e.getMessage(), e);
+        }
     }
 
-    public byte[] serialize(@Nullable Object v) throws SerializationException {
-        if (v == null) {
+    public byte[] serialize(@Nullable Object value) throws SerializationException {
+        if (value == null) {
             return new byte[0];
         }
-        return JSON.toJSONBytes(v, SerializerFeature.WriteClassName);
+        try {
+            return JSON.toJSONBytes(value, SerializerFeature.WriteClassName, SerializerFeature.PrettyFormat);
+        } catch (Exception e) {
+            throw new SerializationException("Could not serialize value of redis: " + e.getMessage(), e);
+        }
     }
 
 }

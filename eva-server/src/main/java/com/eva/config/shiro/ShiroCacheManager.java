@@ -31,7 +31,7 @@ public class ShiroCacheManager implements CacheManager {
         log.debug("get cache, name=" + name);
         Cache cache = this.caches.get(name);
         if (cache == null) {
-            cache = applicationContext.getBean(CacheProxy.class, "shiro:cache:");
+            cache = applicationContext.getBean(ShiroCache.class, "shiro:cache:");
             this.caches.put(name, cache);
         }
         return cache;

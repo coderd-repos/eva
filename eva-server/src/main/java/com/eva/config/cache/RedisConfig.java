@@ -20,10 +20,10 @@ public class RedisConfig {
     public RedisTemplate<Serializable, Serializable> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<Serializable, Serializable> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
-        RedisValueDefaultSerializer<Object> serializer = new RedisValueDefaultSerializer<>(Object.class);
         // 默认序列化方式
         redisTemplate.setDefaultSerializer(new StringRedisSerializer());
         // 值序列化方式
+        RedisValueDefaultSerializer<Object> serializer = new RedisValueDefaultSerializer<>(Object.class);
         redisTemplate.setValueSerializer(serializer);
         redisTemplate.setHashValueSerializer(serializer);
         redisTemplate.afterPropertiesSet();
