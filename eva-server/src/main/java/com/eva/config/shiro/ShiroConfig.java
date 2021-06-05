@@ -1,7 +1,6 @@
 package com.eva.config.shiro;
 
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -67,9 +66,8 @@ public class ShiroConfig {
 
     @Bean
     public SessionManager sessionManager() {
-        ShiroHeaderSessionManager sessionManager = new ShiroHeaderSessionManager();
+        ShiroSessionManager sessionManager = new ShiroSessionManager();
         sessionManager.setSessionDAO(shiroSessionDAO);
-//        sessionManager.setSessionFactory(new ShiroSessionFactory());
         return sessionManager;
     }
 

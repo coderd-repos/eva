@@ -23,7 +23,7 @@ import java.io.Serializable;
  * @date 2021-05-28 14:04
  */
 @Slf4j
-public class ShiroHeaderSessionManager extends DefaultSessionManager implements WebSessionManager {
+public class ShiroSessionManager extends DefaultSessionManager implements WebSessionManager {
 
     private static final String AUTH_TOKEN = "eva-auth-token";
 

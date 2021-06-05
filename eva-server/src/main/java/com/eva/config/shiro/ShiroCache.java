@@ -71,20 +71,17 @@ public class ShiroCache implements Cache<Object, Serializable> {
 
     @Override
     public void clear() throws CacheException {
-        log.trace("CacheProxy: clear");
         Set<Object> keys = this.keys();
         redisTemplate.delete(keys);
     }
 
     @Override
     public int size() {
-        log.trace("CacheProxy: size");
         return this.keys().size();
     }
 
     @Override
     public Set<Object> keys() {
-        log.trace("CacheProxy: keys");
         Set<Object> keys = redisTemplate.keys(keyPrefix + "*");
         if (CollectionUtils.isEmpty(keys)) {
             return Collections.emptySet();
