@@ -26,11 +26,12 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   # Redis配置
   redis:
-    host: localhost
-    port: 6379
     password:
     database: 0
     timeout: 30s
+    sentinel:
+      master: mymaster
+      nodes: 127.0.0.1:27000,127.0.0.1:27001,127.0.0.1:27002
 
 # MyBatis配置
 mybatis-plus:
