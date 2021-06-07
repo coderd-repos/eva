@@ -2,7 +2,7 @@
   <GlobalWindow
     :visible.sync="visible"
     :confirm-working="isWorking"
-    width="576px"
+    width="582px"
     title="配置角色权限"
     @confirm="confirm"
   >

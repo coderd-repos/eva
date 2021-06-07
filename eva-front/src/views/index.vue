@@ -5,8 +5,12 @@
       <p>您使用的此套开源项目模版没有任何版权问题，可学习可商用，请放心使用！</p>
       <p>伊娃致力于打造简洁、合理、高效的开发体验，为此我们将不断升级，感谢您的支持！</p>
       <div class="start-up"><a href="http://cg.lazy-monkey.com/template/group/308/default" target="_blank">立即免费定制代码</a></div>
-      <img src="@/assets/images/qq.jpeg">
-      <p>你可以扫码加入群聊以获得技术支持</p>
+      <ul>
+        <li>
+          <img src="@/assets/images/qq.jpeg">
+          <p>你可以扫码加入群聊以获得技术支持</p>
+        </li>
+      </ul>
       <div class="award">
         <h4>买台好点儿的服务器吧</h4>
         <img src="@/assets/images/alipay.jpeg">

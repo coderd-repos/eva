@@ -95,6 +95,7 @@ $input-height: 32px;
     top: 40px;
     bottom: 0;
     width: 100%;
+    overflow: hidden;
     // 内容
     .window__body {
       height: 100%;
