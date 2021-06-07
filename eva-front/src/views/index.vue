@@ -1,16 +1,22 @@
 <template>
   <div class="home">
     <div class="wrap">
-      <h2>欢迎使用伊娃后台管理系统</h2>
-      <p>您使用的此套开源项目模版没有任何版权问题，可学习可商用，请放心使用！</p>
+      <h2>欢迎来带伊娃极速开发框架</h2>
+      <p>您使用的此套开源框架没有任何版权问题，可学习可商用，请放心使用！</p>
       <p>伊娃致力于打造简洁、合理、高效的开发体验，为此我们将不断升级，感谢您的支持！</p>
-      <div class="start-up"><a href="http://cg.lazy-monkey.com/template/group/308/default" target="_blank">立即免费定制代码</a></div>
-      <ul>
-        <li>
-          <img src="@/assets/images/qq.jpeg">
-          <p>你可以扫码加入群聊以获得技术支持</p>
-        </li>
-      </ul>
+      <p style="margin-top: 20px;">项目创立不久，但已跟目前主流的开源框架不相上下，甚至不少部分已超越。</p>
+      <p>我们有绝对能力在不久后成为极速开发框架的不二选择。欢迎star。
+        <a href="https://gitee.com/coderd-repos/eva" target="_blank">GITEE</a>
+        <a href="https://github.com/coderd-repos/eva" target="_blank">GITHUB</a>
+      </p>
+      <p style="margin-top: 12px;color: #333;">提示：star破 100 出移动端版</p>
+      <p style="margin-top: 12px;color: #333;">提示：star破 1000 出微服务版</p>
+      <div class="guide">
+        <a href="http://eva.adjust-rd.com" target="_blank">前往官网</a>
+        <a href="http://eva.adjust-rd.com/server/start.html" target="_blank">开始使用</a>
+      </div>
+      <img src="@/assets/images/qq.png">
+      <p>你可以扫码加入群聊以获得技术支持</p>
       <div class="award">
         <h4>买台好点儿的服务器吧</h4>
         <img src="@/assets/images/alipay.jpeg">
@@ -51,6 +57,19 @@ export default {
   }
   .start-up {
     margin-top: 8px;
+  }
+  .guide {
+    margin: 30px 0 40px 0;
+    display: flex;
+    justify-content: center;
+    a {
+      margin-right: 12px;
+      padding: 12px 40px;
+      border-radius: 30px;
+      background: $primary-color;
+      color: #fff;
+      text-decoration: none;
+    }
   }
   em,a {
     font-style: normal;
