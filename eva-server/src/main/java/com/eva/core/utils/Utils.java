@@ -42,4 +42,9 @@ public final class Utils {
      */
     public static final Secure Secure = new Secure();
 
+    /**
+     * 日期处理
+     */
+    public static final Date Date = new Date();
+
 }
