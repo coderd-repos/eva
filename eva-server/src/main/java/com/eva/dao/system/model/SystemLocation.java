@@ -10,6 +10,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * 地区表
@@ -19,7 +20,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @ApiModel("地区表")
 @TableName("SYSTEM_LOCATION")
-public class SystemLocation {
+public class SystemLocation implements Serializable {
 
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "ID", example = "1")

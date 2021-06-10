@@ -128,7 +128,7 @@ CREATE TABLE `SYSTEM_PERMISSION` (
   `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
   `DELETED` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已删除',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT='系统权限';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='系统权限';
 
 -- ----------------------------
 -- Records of SYSTEM_PERMISSION
@@ -175,8 +175,6 @@ INSERT INTO `SYSTEM_PERMISSION` VALUES (38, 'system:loginLog:query', '查询登�
 INSERT INTO `SYSTEM_PERMISSION` VALUES (39, 'system:location:create', '新建地区表', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_PERMISSION` VALUES (40, 'system:location:update', '修改地区表', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_PERMISSION` VALUES (41, 'system:location:query', '查询地区表', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-
-
 COMMIT;
 
 -- ----------------------------
