@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     handleInput (values) {
+      this.$emit('input', values)
       this.$emit('update:province-id', values[0])
       this.$emit('update:city-id', values[1])
       this.$emit('update:area-id', values[2])

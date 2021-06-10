@@ -7,31 +7,31 @@
   >
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="地区名称" prop="name" required>
-        <el-input v-model="form.name" placeholder="请输入地区名称" v-trim/>
+        <el-input v-model="form.name" maxlength="50" placeholder="请输入地区名称" v-trim/>
       </el-form-item>
       <el-form-item label="地区简称" prop="shortName" required>
-        <el-input v-model="form.shortName" placeholder="请输入地区简称" v-trim/>
+        <el-input v-model="form.shortName" maxlength="50" placeholder="请输入地区简称" v-trim/>
       </el-form-item>
       <el-form-item label="地区全称" prop="fullName" required>
-        <el-input v-model="form.fullName" placeholder="请输入地区全称" v-trim/>
+        <el-input v-model="form.fullName" maxlength="100" placeholder="请输入地区全称" v-trim/>
       </el-form-item>
       <el-form-item label="地区拼音" prop="pinyin" required>
-        <el-input v-model="form.pinyin" placeholder="请输入地区名称拼音" v-trim/>
+        <el-input v-model="form.pinyin" maxlength="100" placeholder="请输入地区名称拼音" v-trim/>
       </el-form-item>
       <el-form-item label="区号" prop="areaCode">
-        <el-input v-model="form.areaCode" placeholder="请输入地区区号" v-trim/>
+        <el-input v-model="form.areaCode" maxlength="20" placeholder="请输入地区区号" v-trim/>
       </el-form-item>
       <el-form-item label="邮编" prop="postalCode">
-        <el-input v-model="form.postalCode" placeholder="请输入地区邮编" v-trim/>
+        <el-input v-model="form.postalCode" maxlength="20" placeholder="请输入地区邮编" v-trim/>
       </el-form-item>
       <el-form-item label="首字母" prop="firstLetter" required>
-        <el-input v-model="form.firstLetter" placeholder="请输入地区名称首字母" v-trim/>
+        <el-input v-model="form.firstLetter" maxlength="1" placeholder="请输入地区名称首字母" v-trim/>
       </el-form-item>
       <el-form-item label="经度" prop="lng">
-        <el-input v-model="form.lng" placeholder="请输入地区经度" v-trim/>
+        <el-input v-model="form.lng" maxlength="50" placeholder="请输入地区经度" v-trim/>
       </el-form-item>
       <el-form-item label="纬度" prop="lat">
-        <el-input v-model="form.lat" placeholder="请输入地区纬度" v-trim/>
+        <el-input v-model="form.lat" maxlength="50" placeholder="请输入地区纬度" v-trim/>
       </el-form-item>
     </el-form>
   </GlobalWindow>

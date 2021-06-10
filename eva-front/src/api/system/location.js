@@ -22,6 +22,11 @@ export function updateById (data) {
   return request.post('/system/location/updateById', data)
 }
 
+// 修改状态
+export function updateStatus (data) {
+  return request.post('/system/location/updateStatus', data)
+}
+
 // 删除
 export function deleteById (id) {
   return request.get(`/system/location/delete/${id}`)
