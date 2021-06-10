@@ -1,29 +1,24 @@
 package com.eva.config.shiro;
 
+import com.eva.service.proxy.CacheProxy;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
-import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Shiro缓存
- * 技术参考：shiro-redis
- * @author Caesar Liu
- * @date 2021-06-05 12:59
+ * @author Eva.Caesar Liu
+ * @date 2021/06/10 11:26
  */
 @Scope(value = "prototype")
 @Slf4j
@@ -32,8 +27,8 @@ public class ShiroCache implements Cache<Object, Serializable> {
 
     private String keyPrefix = "";
 
-    @Resource(name="sessionRedisTemplate")
-    private RedisTemplate<Object, Serializable> redisTemplate;
+    @Autowired
+    private CacheProxy<Object, Serializable> cacheProxy;
 
     public ShiroCache () {
         log.debug("ShiroCache: new, keyPrefix = [" + keyPrefix + "]");
@@ -49,7 +44,7 @@ public class ShiroCache implements Cache<Object, Serializable> {
         if (key == null) {
             return null;
         }
-        return redisTemplate.opsForValue().get(getKey(key));
+        return cacheProxy.get(getKey(key));
     }
 
     @Override
@@ -57,7 +52,7 @@ public class ShiroCache implements Cache<Object, Serializable> {
         if (key == null) {
             return null;
         }
-        redisTemplate.opsForValue().set(getKey(key), value);
+        cacheProxy.put(getKey(key), value);
         return value;
     }
 
@@ -65,14 +60,14 @@ public class ShiroCache implements Cache<Object, Serializable> {
         if (key == null) {
             return null;
         }
-        redisTemplate.opsForValue().set(getKey(key), value, timeout, TimeUnit.SECONDS);
+        cacheProxy.put(getKey(key), value, timeout);
         return value;
     }
 
     @Override
     public void clear() throws CacheException {
         Set<Object> keys = this.keys();
-        redisTemplate.delete(keys);
+        cacheProxy.remove(keys);
     }
 
     @Override
@@ -82,7 +77,7 @@ public class ShiroCache implements Cache<Object, Serializable> {
 
     @Override
     public Set<Object> keys() {
-        Set<Object> keys = redisTemplate.keys(keyPrefix + "*");
+        Set<Object> keys = cacheProxy.keys(keyPrefix + "*");
         if (CollectionUtils.isEmpty(keys)) {
             return Collections.emptySet();
         }
@@ -97,7 +92,7 @@ public class ShiroCache implements Cache<Object, Serializable> {
             return values;
         }
         for (Object k : keys) {
-            values.add(redisTemplate.opsForValue().get(k));
+            values.add(cacheProxy.get(k));
         }
         return values;
     }
@@ -108,61 +103,11 @@ public class ShiroCache implements Cache<Object, Serializable> {
             return null;
         }
         Serializable value = this.get(getKey(key));
-        redisTemplate.delete(getKey(key));
+        cacheProxy.remove(getKey(key));
         return value;
     }
 
     private Object getKey (Object key) {
-        if (key instanceof PrincipalCollection) {
-            return this.keyPrefix + getRedisKeyFromPrincipalIdField((PrincipalCollection)key);
-        }
         return (key instanceof String ? (this.keyPrefix + key) : key);
-    }
-
-    /**
-     * 获取redis cache key
-     */
-    private String getRedisKeyFromPrincipalIdField(PrincipalCollection key) {
-        Object principalObject = key.getPrimaryPrincipal();
-        if (principalObject instanceof String) {
-            return principalObject.toString();
-        } else {
-            Method pincipalIdGetter = this.getPrincipalIdGetter(principalObject);
-            return this.getIdObj(principalObject, pincipalIdGetter);
-        }
-    }
-
-    private Method getPrincipalIdGetter(Object principalObject) {
-        Method pincipalIdGetter;
-        String principalIdMethodName = this.getPrincipalIdMethodName();
-
-        try {
-            pincipalIdGetter = principalObject.getClass().getMethod(principalIdMethodName);
-            return pincipalIdGetter;
-        } catch (NoSuchMethodException e) {
-            throw new SerializationException(e.getMessage(), e);
-        }
-    }
-
-    private String getIdObj(Object principalObject, Method pincipalIdGetter) {
-        try {
-            Object idObj = pincipalIdGetter.invoke(principalObject);
-            String redisKey = idObj.toString();
-            return redisKey;
-        } catch (Exception e) {
-            throw new SerializationException(e.getMessage(), e);
-        }
-    }
-
-    private String getPrincipalIdMethodName() {
-        return "getId";
-    }
-
-    public String getKeyPrefix() {
-        return keyPrefix;
-    }
-
-    public void setKeyPrefix(String keyPrefix) {
-        this.keyPrefix = keyPrefix;
     }
 }

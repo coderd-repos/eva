@@ -10,12 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import javax.servlet.Filter;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,7 +19,7 @@ import java.util.Map;
 /**
  * Shiro配置
  * @author Eva.Caesar Liu
- * @date 2021-03-30 23:10
+ * @date 2021/06/10 11:26
  */
 @Configuration
 public class ShiroConfig {
@@ -42,20 +38,6 @@ public class ShiroConfig {
 
     @Autowired
     private ShiroRealm shiroRealm;
-
-    @Bean("sessionRedisTemplate")
-    public RedisTemplate<Object, Serializable> sessionRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        RedisTemplate<Object, Serializable> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(redisConnectionFactory);
-        // 默认序列化方式
-        redisTemplate.setDefaultSerializer(new StringRedisSerializer());
-        // 值序列化方式
-        ShiroSessionSerializer serializer = new ShiroSessionSerializer();
-        redisTemplate.setValueSerializer(serializer);
-        redisTemplate.setHashValueSerializer(serializer);
-        redisTemplate.afterPropertiesSet();
-        return redisTemplate;
-    }
 
     @Bean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {

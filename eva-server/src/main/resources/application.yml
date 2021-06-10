@@ -24,14 +24,6 @@ spring:
     time-zone: GMT+8
     # 默认日期格式化
     date-format: yyyy-MM-dd HH:mm:ss
-  # Redis配置
-  redis:
-    password:
-    database: 0
-    timeout: 30s
-    sentinel:
-      master: mymaster
-      nodes: 127.0.0.1:27000,127.0.0.1:27001,127.0.0.1:27002
 
 # MyBatis配置
 mybatis-plus:
@@ -66,7 +58,7 @@ swagger:
 
 # 日志配置
 logback:
-  level: INFO
+  level: DEBUG
   appender: ${project.env}
 # dao层的日志设置为debug，方便查看sql
 logging:
