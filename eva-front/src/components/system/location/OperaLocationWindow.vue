@@ -18,8 +18,8 @@
       <el-form-item label="地区拼音" prop="pinyin" required>
         <el-input v-model="form.pinyin" placeholder="请输入地区名称拼音" v-trim/>
       </el-form-item>
-      <el-form-item label="长途区号" prop="areaCode">
-        <el-input v-model="form.areaCode" placeholder="请输入地区长途区号" v-trim/>
+      <el-form-item label="区号" prop="areaCode">
+        <el-input v-model="form.areaCode" placeholder="请输入地区区号" v-trim/>
       </el-form-item>
       <el-form-item label="邮编" prop="postalCode">
         <el-input v-model="form.postalCode" placeholder="请输入地区邮编" v-trim/>

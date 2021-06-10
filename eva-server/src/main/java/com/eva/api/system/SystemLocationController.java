@@ -3,6 +3,7 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.core.annotation.pr.PreventRepeat;
 import com.eva.core.annotation.trace.Trace;
+import com.eva.core.constants.OperaType;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.model.SystemLocation;
@@ -11,10 +12,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;    
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/06/10 17:09
  */
 @RestController
@@ -29,22 +31,22 @@ public class SystemLocationController extends BaseController {
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:location:create")
-    public ApiResponse create(@RequestBody SystemLocation location) {
+    public ApiResponse create(@Validated(OperaType.Create.class) @RequestBody SystemLocation location) {
         return ApiResponse.success(locationService.create(location));
     }
 
     @ApiOperation("根据ID修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:location:update")
-    public ApiResponse updateById(@RequestBody SystemLocation location) {
+    public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemLocation location) {
         locationService.updateById(location);
         return ApiResponse.success(null);
     }
 
-    @ApiOperation("根据ID修改")
+    @ApiOperation("修改禁用状态")
     @PostMapping("/updateStatus")
     @RequiresPermissions("system:location:update")
-    public ApiResponse updateStatus(@RequestBody SystemLocation location) {
+    public ApiResponse updateStatus(@Validated(OperaType.UpdateStatus.class) @RequestBody SystemLocation location) {
         locationService.updateById(location);
         return ApiResponse.success(null);
     }

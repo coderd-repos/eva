@@ -49,7 +49,7 @@ CREATE TABLE `SYSTEM_DICT` (
   `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
   `DELETED` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='字典';
 
 -- ----------------------------
 -- Table structure for SYSTEM_DICT_DATA
@@ -68,7 +68,7 @@ CREATE TABLE `SYSTEM_DICT_DATA` (
   `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
   `DELETED` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典数据';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='字典数据';
 
 -- ----------------------------
 -- Table structure for SYSTEM_MENU
@@ -90,7 +90,7 @@ CREATE TABLE `SYSTEM_MENU` (
   `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
   `DELETED` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已删除',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COMMENT='系统菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='系统菜单';
 
 -- ----------------------------
 -- Records of SYSTEM_MENU
@@ -109,7 +109,7 @@ INSERT INTO `SYSTEM_MENU` VALUES (10, 2, '服务监测', '/system/monitor', '系
 INSERT INTO `SYSTEM_MENU` VALUES (11, 2, '日志管理', '', '系统初始化创建', 'eva-icon-log', 0, 8, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_MENU` VALUES (12, 11, '操作日志', '/system/traceLog', '系统初始化创建', 'eva-icon-log-opera', 0, 0, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_MENU` VALUES (13, 11, '登录日志', '/system/loginLog', '系统初始化创建', 'eva-icon-log-login', 0, 1, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_MENU` VALUES (14, 2, '地区管理', '/system/location', '系统初始化创建', 'eva-icon-log-login', 0, 9, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (14, 2, '地区管理', '/system/location', '系统初始化创建', 'el-icon-location', 0, 9, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -128,7 +128,7 @@ CREATE TABLE `SYSTEM_PERMISSION` (
   `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
   `DELETED` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已删除',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COMMENT='系统权限';
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT='系统权限';
 
 -- ----------------------------
 -- Records of SYSTEM_PERMISSION
@@ -173,9 +173,8 @@ INSERT INTO `SYSTEM_PERMISSION` VALUES (36, 'system:dict:query', '查询字典',
 INSERT INTO `SYSTEM_PERMISSION` VALUES (37, 'system:traceLog:query', '查询操作日志', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_PERMISSION` VALUES (38, 'system:loginLog:query', '查询登录日志', '系统初始化创建', 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_PERMISSION` VALUES (39, 'system:location:create', '新建地区表', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (40, 'system:location:delete', '删除地区表', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (41, 'system:location:update', '修改地区表', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_PERMISSION` VALUES (42, 'system:location:query', '查询地区表', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (40, 'system:location:update', '修改地区表', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_PERMISSION` VALUES (41, 'system:location:query', '查询地区表', '系统初始化创建', 0, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 
 
 COMMIT;
@@ -227,7 +226,7 @@ CREATE TABLE `SYSTEM_ROLE` (
   `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
   `DELETED` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已删除',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='系统角色';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='系统角色';
 
 -- ----------------------------
 -- Records of SYSTEM_ROLE
@@ -251,7 +250,7 @@ CREATE TABLE `SYSTEM_ROLE_MENU` (
   `UPDATE_TIME` datetime DEFAULT NULL,
   `DELETED` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已删除',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色菜单关联';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='角色菜单关联';
 
 -- ----------------------------
 -- Records of SYSTEM_ROLE_MENU
@@ -295,7 +294,7 @@ CREATE TABLE `SYSTEM_ROLE_PERMISSION` (
   `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
   `DELETED` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已删除',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色权限关联';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='角色权限关联';
 
 -- ----------------------------
 -- Records of SYSTEM_ROLE_PERMISSION
@@ -343,7 +342,6 @@ INSERT INTO `SYSTEM_ROLE_PERMISSION` VALUES (38, 1, 38, 1, CURRENT_TIMESTAMP, NU
 INSERT INTO `SYSTEM_ROLE_PERMISSION` VALUES (55, 1, 39, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_ROLE_PERMISSION` VALUES (56, 1, 40, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_ROLE_PERMISSION` VALUES (57, 1, 41, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
-INSERT INTO `SYSTEM_ROLE_PERMISSION` VALUES (58, 1, 42, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 -- 管理员权限
 INSERT INTO `SYSTEM_ROLE_PERMISSION` VALUES (39, 16, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_ROLE_PERMISSION` VALUES (40, 17, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
@@ -386,7 +384,7 @@ CREATE TABLE `SYSTEM_USER` (
   `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
   `DELETED` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已删除',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COMMENT='系统用户';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='系统用户';
 
 -- ----------------------------
 -- Records of SYSTEM_USER
@@ -410,7 +408,7 @@ CREATE TABLE `SYSTEM_USER_ROLE` (
   `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
   `DELETED` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已删除',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='用户角色关联';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='用户角色关联';
 
 -- ----------------------------
 -- Records of SYSTEM_USER_ROLE
@@ -450,7 +448,7 @@ CREATE TABLE `SYSTEM_TRACE_LOG` (
   `CLIENT_INFO` varchar(500) DEFAULT NULL COMMENT '客户端信息',
   `OS_INFO` varchar(500) DEFAULT NULL COMMENT '系统信息',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 COMMENT='跟踪日志';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='跟踪日志';
 
 -- ----------------------------
 -- Table structure for SYSTEM_LOGIN_LOG
@@ -472,5 +470,68 @@ CREATE TABLE `SYSTEM_LOGIN_LOG` (
   `LOGIN_TIME` datetime NOT NULL COMMENT '登录时间',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='登录日志';
+
+-- ----------------------------
+-- Table structure for SYSTEM_LOCATION
+-- ----------------------------
+DROP TABLE IF EXISTS `SYSTEM_LOCATION`;
+CREATE TABLE `SYSTEM_LOCATION` (
+  `ID` int NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `PARENT_ID` int DEFAULT NULL COMMENT '父ID',
+  `SHORT_NAME` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '简称',
+  `NAME` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称',
+  `FULL_NAME` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '全称',
+  `LEVEL` tinyint NOT NULL COMMENT '层级 1省 2市 3区县',
+  `PINYIN` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '拼音',
+  `AREA_CODE` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '区号',
+  `POSTAL_CODE` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '邮编',
+  `FIRST_LETTER` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '首字母',
+  `LNG` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '经度',
+  `LAT` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '纬度',
+  `DISABLED` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否禁用',
+  PRIMARY KEY (`ID`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=4000 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='地区';
+
+-- ----------------------------
+-- Records of SYSTEM_LOCATION
+-- ----------------------------
+BEGIN;
+INSERT INTO `SYSTEM_LOCATION` VALUES (1, 0, '北京', '北京', '中国,北京', 1, 'beijing', '', '', 'B', '116.405285', '39.904989', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (2, 1, '北京', '北京市', '中国,北京,北京市', 2, 'beijing', '010', '100000', 'B', '116.405285', '39.904989', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (3, 2, '东城', '东城区', '中国,北京,北京市,东城区', 3, 'dongcheng', '010', '100010', 'D', '116.41005', '39.93157', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (4, 2, '西城', '西城区', '中国,北京,北京市,西城区', 3, 'xicheng', '010', '100032', 'X', '116.36003', '39.9305', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (5, 2, '朝阳', '朝阳区', '中国,北京,北京市,朝阳区', 3, 'chaoyang', '010', '100020', 'C', '116.48548', '39.9484', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (6, 2, '丰台', '丰台区', '中国,北京,北京市,丰台区', 3, 'fengtai', '010', '100071', 'F', '116.28625', '39.8585', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (7, 2, '石景山', '石景山区', '中国,北京,北京市,石景山区', 3, 'shijingshan', '010', '100043', 'S', '116.2229', '39.90564', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (8, 2, '海淀', '海淀区', '中国,北京,北京市,海淀区', 3, 'haidian', '010', '100089', 'H', '116.29812', '39.95931', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (9, 2, '门头沟', '门头沟区', '中国,北京,北京市,门头沟区', 3, 'mentougou', '010', '102300', 'M', '116.10137', '39.94043', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (10, 2, '房山', '房山区', '中国,北京,北京市,房山区', 3, 'fangshan', '010', '102488', 'F', '116.14257', '39.74786', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (11, 2, '通州', '通州区', '中国,北京,北京市,通州区', 3, 'tongzhou', '010', '101149', 'T', '116.65716', '39.90966', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (12, 2, '顺义', '顺义区', '中国,北京,北京市,顺义区', 3, 'shunyi', '010', '101300', 'S', '116.65417', '40.1302', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (13, 2, '昌平', '昌平区', '中国,北京,北京市,昌平区', 3, 'changping', '010', '102200', 'C', '116.2312', '40.22072', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (14, 2, '大兴', '大兴区', '中国,北京,北京市,大兴区', 3, 'daxing', '010', '102600', 'D', '116.34149', '39.72668', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (15, 2, '怀柔', '怀柔区', '中国,北京,北京市,怀柔区', 3, 'huairou', '010', '101400', 'H', '116.63168', '40.31602', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (16, 2, '平谷', '平谷区', '中国,北京,北京市,平谷区', 3, 'pinggu', '010', '101200', 'P', '117.12133', '40.14056', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (17, 2, '密云', '密云县', '中国,北京,北京市,密云县', 3, 'miyun', '010', '101500', 'M', '116.84295', '40.37618', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (18, 2, '延庆', '延庆县', '中国,北京,北京市,延庆县', 3, 'yanqing', '010', '102100', 'Y', '115.97494', '40.45672', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (19, 0, '天津', '天津', '中国,天津', 1, 'tianjin', '', '', 'T', '117.190182', '39.125596', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (20, 19, '天津', '天津市', '中国,天津,天津市', 2, 'tianjin', '022', '300000', 'T', '117.190182', '39.125596', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (21, 20, '和平', '和平区', '中国,天津,天津市,和平区', 3, 'heping', '022', '300041', 'H', '117.21456', '39.11718', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (22, 20, '河东', '河东区', '中国,天津,天津市,河东区', 3, 'hedong', '022', '300171', 'H', '117.22562', '39.12318', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (23, 20, '河西', '河西区', '中国,天津,天津市,河西区', 3, 'hexi', '022', '300202', 'H', '117.22327', '39.10959', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (24, 20, '南开', '南开区', '中国,天津,天津市,南开区', 3, 'nankai', '022', '300110', 'N', '117.15074', '39.13821', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (25, 20, '河北', '河北区', '中国,天津,天津市,河北区', 3, 'hebei', '022', '300143', 'H', '117.19697', '39.14816', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (26, 20, '红桥', '红桥区', '中国,天津,天津市,红桥区', 3, 'hongqiao', '022', '300131', 'H', '117.15145', '39.16715', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (27, 20, '东丽', '东丽区', '中国,天津,天津市,东丽区', 3, 'dongli', '022', '300300', 'D', '117.31436', '39.0863', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (28, 20, '西青', '西青区', '中国,天津,天津市,西青区', 3, 'xiqing', '022', '300380', 'X', '117.00927', '39.14123', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (29, 20, '津南', '津南区', '中国,天津,天津市,津南区', 3, 'jinnan', '022', '300350', 'J', '117.38537', '38.99139', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (30, 20, '北辰', '北辰区', '中国,天津,天津市,北辰区', 3, 'beichen', '022', '300400', 'B', '117.13217', '39.22131', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (31, 20, '武清', '武清区', '中国,天津,天津市,武清区', 3, 'wuqing', '022', '301700', 'W', '117.04443', '39.38415', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (32, 20, '宝坻', '宝坻区', '中国,天津,天津市,宝坻区', 3, 'baodi', '022', '301800', 'B', '117.3103', '39.71761', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (33, 20, '滨海新区', '滨海新区', '中国,天津,天津市,滨海新区', 3, 'binhaixinqu', '022', '300451', 'B', '117.70162', '39.02668', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (34, 20, '宁河', '宁河县', '中国,天津,天津市,宁河县', 3, 'ninghe', '022', '301500', 'N', '117.8255', '39.33048', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (35, 20, '静海', '静海县', '中国,天津,天津市,静海县', 3, 'jinghai', '022', '301600', 'J', '116.97436', '38.94582', 0);
+INSERT INTO `SYSTEM_LOCATION` VALUES (36, 20, '蓟县', '蓟县', '中国,天津,天津市,蓟县', 3, 'jixian', '022', '301900', 'J', '117.40799', '40.04567', 0);
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

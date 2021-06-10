@@ -1,5 +1,6 @@
 package com.eva.dao.system.model;
 
+import com.eva.core.constants.OperaType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -7,9 +8,12 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * 地区表
- * @author Eva
+ * @author Eva.Caesar Liu
  * @date 2021/06/10 17:09
  */
 @Data
@@ -19,6 +23,7 @@ public class SystemLocation {
 
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "ID", example = "1")
+    @NotNull(message = "主键不能为空", groups = {OperaType.Update.class, OperaType.UpdateStatus.class})
     private Integer id;
 
     @ApiModelProperty(value = "父id", example = "1")
@@ -28,6 +33,7 @@ public class SystemLocation {
     private String shortName;
 
     @ApiModelProperty(value = "名称")
+    @NotBlank(message = "地区名称不能为空", groups = {OperaType.Create.class, OperaType.Update.class})
     private String name;
 
     @ApiModelProperty(value = "全称")
@@ -55,6 +61,7 @@ public class SystemLocation {
     private String lat;
 
     @ApiModelProperty(value = "是否禁用")
+    @NotNull(message = "禁用状态不能为空", groups = OperaType.UpdateStatus.class)
     private Boolean disabled;
 
 }
