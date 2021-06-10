@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="wrap">
-      <h2>欢迎来带伊娃极速开发框架</h2>
+      <h2>欢迎来到伊娃极速开发框架</h2>
       <p>您使用的此套开源框架没有任何版权问题，可学习可商用，请放心使用！</p>
       <p>伊娃致力于打造简洁、合理、高效的开发体验，为此我们将不断升级，感谢您的支持！</p>
       <p style="margin-top: 20px;">项目创立不久，但已跟目前主流的开源框架不相上下，甚至不少部分已超越。</p>
@@ -94,7 +94,7 @@ export default {
     img {
       width: 160px;
       margin-bottom: 20px;
-      opacity: 0.6;
+      opacity: 0.8;
       transition: opacity ease .3s;
       &:hover {
         opacity: 1;
