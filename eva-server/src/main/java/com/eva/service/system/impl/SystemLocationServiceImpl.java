@@ -3,9 +3,9 @@ package com.eva.service.system.impl;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.core.utils.Utils;
-import com.eva.dao.system.LocationMapper;
-import com.eva.dao.system.model.Location;
-import com.eva.service.system.LocationService;
+import com.eva.dao.system.SystemLocationMapper;
+import com.eva.dao.system.model.SystemLocation;
+import com.eva.service.system.SystemLocationService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
@@ -23,13 +23,13 @@ import java.util.List;
  * @date 2021/06/10 17:09
  */
 @Service
-public class LocationServiceImpl implements LocationService {
+public class SystemLocationServiceImpl implements SystemLocationService {
 
     @Autowired
-    private LocationMapper locationMapper;
+    private SystemLocationMapper locationMapper;
 
     @Override
-    public Integer create(Location location) {
+    public Integer create(SystemLocation location) {
         locationMapper.insert(location);
         return location.getId();
     }
@@ -40,8 +40,8 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public void delete(Location location) {
-        UpdateWrapper<Location> deleteWrapper = new UpdateWrapper<>(location);
+    public void delete(SystemLocation location) {
+        UpdateWrapper<SystemLocation> deleteWrapper = new UpdateWrapper<>(location);
         locationMapper.delete(deleteWrapper);
     }
 
@@ -54,56 +54,56 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public void updateById(Location location) {
+    public void updateById(SystemLocation location) {
         locationMapper.updateById(location);
     }
 
     @Override
-    public void updateByIdInBatch(List<Location> locations) {
+    public void updateByIdInBatch(List<SystemLocation> locations) {
         if (CollectionUtils.isEmpty(locations)) {
             return;
         }
-        for (Location location: locations) {
+        for (SystemLocation location: locations) {
             this.updateById(location);
         }
     }
 
     @Override
-    public Location findById(Integer id) {
+    public SystemLocation findById(Integer id) {
         return locationMapper.selectById(id);
     }
 
     @Override
-    public Location findOne(Location location) {
-        Wrapper<Location> wrapper = new QueryWrapper<>(location);
+    public SystemLocation findOne(SystemLocation location) {
+        Wrapper<SystemLocation> wrapper = new QueryWrapper<>(location);
         return locationMapper.selectOne(wrapper);
     }
 
     @Override
-    public List<Location> findList(Location location) {
-        Wrapper<Location> wrapper = new QueryWrapper<>(location);
+    public List<SystemLocation> findList(SystemLocation location) {
+        Wrapper<SystemLocation> wrapper = new QueryWrapper<>(location);
         return locationMapper.selectList(wrapper);
     }
   
     @Override
-    public PageData<Location> findPage(PageWrap<Location> pageWrap) {
-        IPage<Location> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<Location> queryWrapper = new QueryWrapper<>();
+    public PageData<SystemLocation> findPage(PageWrap<SystemLocation> pageWrap) {
+        IPage<SystemLocation> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
+        QueryWrapper<SystemLocation> queryWrapper = new QueryWrapper<>();
         Utils.MP.blankToNull(pageWrap.getModel());
         if (pageWrap.getModel().getParentId() != null) {
-            queryWrapper.lambda().eq(Location::getParentId, pageWrap.getModel().getParentId());
+            queryWrapper.lambda().eq(SystemLocation::getParentId, pageWrap.getModel().getParentId());
         }
         if (pageWrap.getModel().getLevel() != null) {
-            queryWrapper.lambda().eq(Location::getLevel, pageWrap.getModel().getLevel());
+            queryWrapper.lambda().eq(SystemLocation::getLevel, pageWrap.getModel().getLevel());
         }
         if (pageWrap.getModel().getName() != null) {
-            queryWrapper.lambda().like(Location::getName, pageWrap.getModel().getName());
+            queryWrapper.lambda().like(SystemLocation::getName, pageWrap.getModel().getName());
         }
         if (pageWrap.getModel().getAreaCode() != null) {
-            queryWrapper.lambda().like(Location::getAreaCode, pageWrap.getModel().getAreaCode());
+            queryWrapper.lambda().like(SystemLocation::getAreaCode, pageWrap.getModel().getAreaCode());
         }
         if (pageWrap.getModel().getPostalCode() != null) {
-            queryWrapper.lambda().like(Location::getPostalCode, pageWrap.getModel().getPostalCode());
+            queryWrapper.lambda().like(SystemLocation::getPostalCode, pageWrap.getModel().getPostalCode());
         }
         for(PageWrap.SortData sortData: pageWrap.getSorts()) {
             if (sortData.getDirection().equalsIgnoreCase(PageWrap.DESC)) {
@@ -116,8 +116,8 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public long count(Location location) {
-        Wrapper<Location> wrapper = new QueryWrapper<>(location);
+    public long count(SystemLocation location) {
+        Wrapper<SystemLocation> wrapper = new QueryWrapper<>(location);
         return locationMapper.selectCount(wrapper);
     }
 }

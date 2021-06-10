@@ -2,10 +2,11 @@ package com.eva.api.system;
 
 import com.eva.api.BaseController;
 import com.eva.core.annotation.pr.PreventRepeat;
+import com.eva.core.annotation.trace.Trace;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.PageWrap;
-import com.eva.dao.system.model.Location;
-import com.eva.service.system.LocationService;
+import com.eva.dao.system.model.SystemLocation;
+import com.eva.service.system.SystemLocationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;    
@@ -19,31 +20,31 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/system/location")
 @Api(tags = "地区表")
-public class LocationController extends BaseController {
+public class SystemLocationController extends BaseController {
 
     @Autowired
-    private LocationService locationService;
+    private SystemLocationService locationService;
 
     @PreventRepeat
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:location:create")
-    public ApiResponse create(@RequestBody Location location) {
+    public ApiResponse create(@RequestBody SystemLocation location) {
         return ApiResponse.success(locationService.create(location));
-    }
-
-    @ApiOperation("根据ID删除")
-    @GetMapping("/delete/{id}")
-    @RequiresPermissions("system:location:delete")
-    public ApiResponse deleteById(@PathVariable Integer id) {
-        locationService.deleteById(id);
-        return ApiResponse.success(null);
     }
 
     @ApiOperation("根据ID修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:location:update")
-    public ApiResponse updateById(@RequestBody Location location) {
+    public ApiResponse updateById(@RequestBody SystemLocation location) {
+        locationService.updateById(location);
+        return ApiResponse.success(null);
+    }
+
+    @ApiOperation("根据ID修改")
+    @PostMapping("/updateStatus")
+    @RequiresPermissions("system:location:update")
+    public ApiResponse updateStatus(@RequestBody SystemLocation location) {
         locationService.updateById(location);
         return ApiResponse.success(null);
     }
@@ -51,20 +52,21 @@ public class LocationController extends BaseController {
     @ApiOperation("分页查询")
     @PostMapping("/page")
     @RequiresPermissions("system:location:query")
-    public ApiResponse findPage (@RequestBody PageWrap<Location> pageWrap) {
+    public ApiResponse findPage (@RequestBody PageWrap<SystemLocation> pageWrap) {
         return ApiResponse.success(locationService.findPage(pageWrap));
     }
 
+    @Trace(exclude = true)
     @ApiOperation("根据父ID查询")
     @GetMapping("/children/{parentId}")
-    @RequiresPermissions("system:location:query")
     public ApiResponse findPage (@PathVariable Integer parentId) {
-        Location queryDto = new Location();
+        SystemLocation queryDto = new SystemLocation();
         if (parentId == -1) {
             queryDto.setLevel((byte)1);
         } else {
             queryDto.setParentId(parentId);
         }
+        queryDto.setDisabled(Boolean.FALSE);
         return ApiResponse.success(locationService.findList(queryDto));
     }
 }

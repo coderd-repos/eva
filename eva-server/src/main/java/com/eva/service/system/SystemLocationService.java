@@ -2,7 +2,7 @@ package com.eva.service.system;
 
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
-import com.eva.dao.system.model.Location;
+import com.eva.dao.system.model.SystemLocation;
 import java.util.List;
 
 /**
@@ -10,7 +10,7 @@ import java.util.List;
  * @author Eva
  * @date 2021/06/10 17:09
  */
-public interface LocationService {
+public interface SystemLocationService {
 
     /**
      * 创建
@@ -18,7 +18,7 @@ public interface LocationService {
      * @param location 实体对象
      * @return Integer
      */
-    Integer create(Location location);
+    Integer create(SystemLocation location);
 
     /**
      * 主键删除
@@ -32,7 +32,7 @@ public interface LocationService {
      *
      * @param location 实体对象
      */
-    void delete(Location location);
+    void delete(SystemLocation location);
 
     /**
      * 批量主键删除
@@ -46,14 +46,14 @@ public interface LocationService {
      *
      * @param location 实体对象
      */
-    void updateById(Location location);
+    void updateById(SystemLocation location);
 
     /**
      * 批量主键更新
      *
      * @param locations 实体集
      */
-    void updateByIdInBatch(List<Location> locations);
+    void updateByIdInBatch(List<SystemLocation> locations);
 
     /**
      * 主键查询
@@ -61,7 +61,7 @@ public interface LocationService {
      * @param id 主键
      * @return Location
      */
-    Location findById(Integer id);
+    SystemLocation findById(Integer id);
 
     /**
      * 条件查询单条记录
@@ -69,7 +69,7 @@ public interface LocationService {
      * @param location 实体对象
      * @return Location
      */
-    Location findOne(Location location);
+    SystemLocation findOne(SystemLocation location);
 
     /**
      * 条件查询
@@ -77,7 +77,7 @@ public interface LocationService {
      * @param location 实体对象
      * @return List<Location>
      */
-    List<Location> findList(Location location);
+    List<SystemLocation> findList(SystemLocation location);
   
     /**
      * 分页查询
@@ -85,7 +85,7 @@ public interface LocationService {
      * @param pageWrap 分页对象
      * @return PageData<Location>
      */
-    PageData<Location> findPage(PageWrap<Location> pageWrap);
+    PageData<SystemLocation> findPage(PageWrap<SystemLocation> pageWrap);
 
     /**
      * 条件统计
@@ -93,5 +93,5 @@ public interface LocationService {
      * @param location 实体对象
      * @return long
      */
-    long count(Location location);
+    long count(SystemLocation location);
 }

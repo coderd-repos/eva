@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 @ApiModel("地区表")
 @TableName("SYSTEM_LOCATION")
-public class Location {
+public class SystemLocation {
 
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "ID", example = "1")
@@ -39,7 +39,7 @@ public class Location {
     @ApiModelProperty(value = "拼音")
     private String pinyin;
 
-    @ApiModelProperty(value = "长途区号")
+    @ApiModelProperty(value = "区号")
     private String areaCode;
 
     @ApiModelProperty(value = "邮编")
@@ -53,5 +53,8 @@ public class Location {
 
     @ApiModelProperty(value = "纬度")
     private String lat;
+
+    @ApiModelProperty(value = "是否禁用")
+    private Boolean disabled;
 
 }
