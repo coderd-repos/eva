@@ -1,20 +1,20 @@
 <template>
   <div class="home">
     <div class="wrap">
-      <h2>欢迎来到伊娃极速开发框架</h2>
-      <p>您使用的此套开源框架没有任何版权问题，可学习可商用，请放心使用！</p>
-      <p>伊娃致力于打造简洁、合理、高效的开发体验，为此我们将不断升级，感谢您的支持！</p>
-      <p style="margin-top: 20px;">项目创立不久，但已跟目前主流的开源框架不相上下，甚至不少部分已超越。</p>
-      <p>我们有绝对能力在不久后成为极速开发框架的不二选择。欢迎star。
-        <a href="https://gitee.com/coderd-repos/eva" target="_blank">GITEE</a>
-        <a href="https://github.com/coderd-repos/eva" target="_blank">GITHUB</a>
-      </p>
-      <p style="margin-top: 12px;color: #333;">提示：star破 100 出移动端版</p>
-      <p style="margin-top: 12px;color: #333;">提示：star破 1000 出微服务版</p>
+      <h2>这是一套可定制化的极速开发框架</h2>
+      <h3>可定制化技术栈，可定制化功能模块！</h3>
+      <h2>提供极度舒适的"特殊服务"</h2>
+      <h3>文档 & 视频教程全免费，无版权，可学习，可商用！</h3>
+      <h3>内置模块发现BUG手摸手给你修</h3>
+      <h3>内存式缓存 -> Redis高可用随时升级</h3>
+      <h3>强大的可视化 + 命令行代码生成</h3>
+      <h3>你若挠头，我便掉发！7*16小时为你解疑答惑</h3>
+      <h3></h3>
       <div class="guide">
         <a href="http://eva.adjust-rd.com" target="_blank">前往官网</a>
-        <a href="http://eva.adjust-rd.com/server/start.html" target="_blank">开始使用</a>
+        <a href="http://cg.lazy-monkey.com/template/group/308/default" target="_blank">开始定制</a>
       </div>
+      <p>抓紧加群，一起唠嗑！</p>
       <img src="@/assets/images/qq.png">
       <p>你可以扫码加入群聊以获得技术支持</p>
       <div class="award">
@@ -41,7 +41,7 @@ export default {
   text-align: center;
   color: #777;
   .wrap {
-    margin-top: 80px;
+    padding-top: 20px;
     img {
       width: 240px;
     }
@@ -49,7 +49,13 @@ export default {
   h2 {
     font-size: 32px;
     color: #555;
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 12px;
+  }
+  h3 {
+    color: #555;
+    line-height: 30px;
+    font-size: 20px;
   }
   p {
     line-height: 24px;

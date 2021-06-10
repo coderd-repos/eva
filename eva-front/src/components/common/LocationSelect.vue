@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { fetchByParentId } from '../../api/system/location'
+import { fetchByParentId } from '@/api/system/location'
 
 export default {
   name: 'LocationSelect',
