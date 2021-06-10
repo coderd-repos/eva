@@ -1,5 +1,12 @@
 <template>
-  <el-cascader :props="props" @change="$emit('change')" :clearable="clearable" @input="$emit('input', $event[$event.length - 1])"></el-cascader>
+  <el-cascader
+    :props="props"
+    :placeholder="placeholder"
+    :value="value"
+    :clearable="clearable"
+    @change="$emit('change')"
+    @input="handleInput"
+  ></el-cascader>
 </template>
 
 <script>
@@ -9,6 +16,9 @@ export default {
   name: 'LocationSelect',
   props: {
     value: {},
+    placeholder: {
+      default: '请选择地区'
+    },
     level: {
       default: 3
     },
@@ -38,6 +48,13 @@ export default {
             })
         }
       }
+    }
+  },
+  methods: {
+    handleInput (values) {
+      this.$emit('update:province-id', values[0])
+      this.$emit('update:city-id', values[1])
+      this.$emit('update:area-id', values[2])
     }
   }
 }
