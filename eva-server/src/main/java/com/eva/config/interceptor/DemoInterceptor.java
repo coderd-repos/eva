@@ -47,12 +47,16 @@ public class DemoInterceptor implements HandlerInterceptor {
         this.add("/system/dict/page");
         this.add("/system/dictData/page");
         this.add("/system/monitor/getSystemInfo");
+        this.add("/system/location/page");
+        this.add("/system/location/children");
     }};
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        if (publicUris.contains(request.getRequestURI())) {
-            return Boolean.TRUE;
+        for (String url : publicUris) {
+            if (request.getRequestURI().startsWith(url)) {
+                return Boolean.TRUE;
+            }
         }
         response.setHeader("content-type", "application/json;charset=UTF-8");
         try {

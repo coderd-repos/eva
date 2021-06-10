@@ -54,4 +54,17 @@ public class LocationController extends BaseController {
     public ApiResponse findPage (@RequestBody PageWrap<Location> pageWrap) {
         return ApiResponse.success(locationService.findPage(pageWrap));
     }
+
+    @ApiOperation("根据父ID查询")
+    @GetMapping("/children/{parentId}")
+    @RequiresPermissions("system:location:query")
+    public ApiResponse findPage (@PathVariable Integer parentId) {
+        Location queryDto = new Location();
+        if (parentId == -1) {
+            queryDto.setLevel((byte)1);
+        } else {
+            queryDto.setParentId(parentId);
+        }
+        return ApiResponse.success(locationService.findList(queryDto));
+    }
 }
