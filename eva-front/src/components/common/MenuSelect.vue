@@ -4,6 +4,7 @@
     :value="value"
     :data="data"
     :clearable="clearable"
+    :append-to-body="appendToBody"
     :inline="inline"
     @input="$emit('input', $event)"
   />
@@ -25,6 +26,9 @@ export default {
     },
     // 是否可清空
     clearable: {
+      default: false
+    },
+    appendToBody: {
       default: false
     },
     // 需被排除的部门ID

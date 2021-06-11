@@ -7,7 +7,7 @@
     :options="data"
     :clearable="clearable"
     :flat="flat"
-    :append-to-body="true"
+    :append-to-body="appendToBody"
     :multiple="multiple"
     no-children-text="无记录"
     no-options-text="无记录"
@@ -42,6 +42,9 @@ export default {
     data: {
       type: Array,
       required: true
+    },
+    appendToBody: {
+      default: false
     }
   },
   components: { VueTreeSelect }
@@ -52,7 +55,10 @@ export default {
   .inline {
     width: 178px;
   }
+</style>
+<style lang="scss">
   .vue-treeselect {
+    font-size: 14px;
     line-height: 30px;
     /deep/ .vue-treeselect__control {
       height: 32px;

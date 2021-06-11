@@ -4,6 +4,7 @@
     :value="value"
     :data="data"
     :clearable="clearable"
+    :append-to-body="appendToBody"
     :inline="inline"
     @input="$emit('input', $event)"
   />
@@ -27,6 +28,9 @@ export default {
     clearable: {
       default: false
     },
+    appendToBody: {
+      default: false
+    },
     // 需被排除的部门ID
     excludeId: {}
   },
@@ -47,6 +51,7 @@ export default {
         .then(records => {
           this.data = []
           this.__fillData(this.data, records)
+          console.log('this.data', this.data)
         })
         .catch(e => {
           this.$tip.apiFailed(e)
