@@ -13,6 +13,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,6 +79,16 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
     @Override
     public List<SystemDepartmentListVO> findList() {
         return systemDepartmentMapper.selectManageList();
+    }
+
+    @Override
+    public List<SystemDepartment> findByIds(List<Integer> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return Collections.emptyList();
+        }
+        QueryWrapper<SystemDepartment> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().in(SystemDepartment::getId, ids).eq(SystemDepartment::getDeleted, Boolean.FALSE);
+        return systemDepartmentMapper.selectList(queryWrapper);
     }
 
     @Override

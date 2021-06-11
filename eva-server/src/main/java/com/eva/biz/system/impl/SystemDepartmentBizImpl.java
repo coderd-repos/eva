@@ -5,6 +5,7 @@ import com.eva.core.exception.BusinessException;
 import com.eva.core.constants.ResponseStatus;
 import com.eva.dao.system.model.SystemDepartment;
 import com.eva.dao.system.vo.SystemDepartmentListVO;
+import com.eva.service.aware.DepartmentDataPermissionAware;
 import com.eva.service.system.SystemDepartmentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class SystemDepartmentBizImpl implements SystemDepartmentBiz {
 
     @Autowired
     private SystemDepartmentService systemDepartmentService;
+
+    @Autowired
+    private DepartmentDataPermissionAware departmentDataPermissionAware;
 
     @Override
     public Integer create(SystemDepartment department) {
@@ -49,22 +53,23 @@ public class SystemDepartmentBizImpl implements SystemDepartmentBiz {
 
     @Override
     public List<SystemDepartmentListVO> findTree() {
-        List<SystemDepartmentListVO> departments = systemDepartmentService.findList();
-        List<SystemDepartmentListVO> rootDepartments = new ArrayList<>();
-        // 添加根菜单
-        for (SystemDepartmentListVO department : departments) {
-            if (department.getParentId() == null) {
-                SystemDepartmentListVO rootMenu = new SystemDepartmentListVO();
-                BeanUtils.copyProperties(department, rootMenu, "children");
-                rootMenu.setChildren(new ArrayList<>());
-                rootDepartments.add(rootMenu);
-            }
-        }
-        departments.removeIf(department -> department.getParentId() == null);
-        for (SystemDepartmentListVO child : rootDepartments) {
-            this.fillChildren(child, departments);
-        }
-        return rootDepartments;
+        return departmentDataPermissionAware.execute("DEPARTMENT");
+//        List<SystemDepartmentListVO> departments = systemDepartmentService.findList();
+//        List<SystemDepartmentListVO> rootDepartments = new ArrayList<>();
+//        // 添加根菜单
+//        for (SystemDepartmentListVO department : departments) {
+//            if (department.getParentId() == null) {
+//                SystemDepartmentListVO rootMenu = new SystemDepartmentListVO();
+//                BeanUtils.copyProperties(department, rootMenu, "children");
+//                rootMenu.setChildren(new ArrayList<>());
+//                rootDepartments.add(rootMenu);
+//            }
+//        }
+//        departments.removeIf(department -> department.getParentId() == null);
+//        for (SystemDepartmentListVO child : rootDepartments) {
+//            this.fillChildren(child, departments);
+//        }
+//        return rootDepartments;
     }
 
     @Override
@@ -90,25 +95,25 @@ public class SystemDepartmentBizImpl implements SystemDepartmentBiz {
      * @author Eva.Caesar Liu
      * @date 2021-03-29 16:09
      */
-    private void fillChildren(SystemDepartmentListVO parentMenu, List<SystemDepartmentListVO> departments) {
+    private void fillChildren(SystemDepartmentListVO parent, List<SystemDepartmentListVO> departments) {
         if (departments.size() == 0) {
             return;
         }
         List<Integer> handledIds = new ArrayList<>();
         for (SystemDepartmentListVO department : departments) {
-            if (department.getParentId().equals(parentMenu.getId())) {
+            if (parent.getId().equals(department.getParentId())) {
                 SystemDepartmentListVO child = new SystemDepartmentListVO();
                 BeanUtils.copyProperties(department, child, "children");
                 child.setChildren(new ArrayList<>());
-                parentMenu.getChildren().add(child);
+                parent.getChildren().add(child);
                 handledIds.add(department.getId());
             }
         }
         departments.removeIf(menu -> handledIds.contains(menu.getId()));
-        parentMenu.setHasChildren(Boolean.TRUE);
-        if (parentMenu.getChildren().size() > 0) {
-            parentMenu.setHasChildren(Boolean.FALSE);
-            for (SystemDepartmentListVO child : parentMenu.getChildren()) {
+        parent.setHasChildren(Boolean.TRUE);
+        if (parent.getChildren().size() > 0) {
+            parent.setHasChildren(Boolean.FALSE);
+            for (SystemDepartmentListVO child : parent.getChildren()) {
                 this.fillChildren(child, departments);
             }
         }

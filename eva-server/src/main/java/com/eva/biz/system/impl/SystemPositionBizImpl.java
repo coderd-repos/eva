@@ -88,25 +88,25 @@ public class SystemPositionBizImpl implements SystemPositionBiz {
      * @author Eva.Caesar Liu
      * @date 2021-03-29 16:09
      */
-    private void fillChildren(SystemPositionListVO parentMenu, List<SystemPositionListVO> departments) {
+    private void fillChildren(SystemPositionListVO parent, List<SystemPositionListVO> departments) {
         if (departments.size() == 0) {
             return;
         }
         List<Integer> handledIds = new ArrayList<>();
         for (SystemPositionListVO department : departments) {
-            if (department.getParentId().equals(parentMenu.getId())) {
+            if (parent.getId().equals(department.getParentId())) {
                 SystemPositionListVO child = new SystemPositionListVO();
                 BeanUtils.copyProperties(department, child, "children");
                 child.setChildren(new ArrayList<>());
-                parentMenu.getChildren().add(child);
+                parent.getChildren().add(child);
                 handledIds.add(department.getId());
             }
         }
         departments.removeIf(menu -> handledIds.contains(menu.getId()));
-        parentMenu.setHasChildren(Boolean.TRUE);
-        if (parentMenu.getChildren().size() > 0) {
-            parentMenu.setHasChildren(Boolean.FALSE);
-            for (SystemPositionListVO child : parentMenu.getChildren()) {
+        parent.setHasChildren(Boolean.TRUE);
+        if (parent.getChildren().size() > 0) {
+            parent.setHasChildren(Boolean.FALSE);
+            for (SystemPositionListVO child : parent.getChildren()) {
                 this.fillChildren(child, departments);
             }
         }

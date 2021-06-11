@@ -28,14 +28,4 @@ public class ServletRewriteFilter implements Filter {
         ServletResponse responseWrapper = new ServletDuplicateResponseWrapper(httpServletResponse);
         filterChain.doFilter(requestWrapper, responseWrapper);
     }
-
-    @Override
-    public void init(FilterConfig filterConfig) {
-
-    }
-
-    @Override
-    public void destroy() {
-
-    }
 }

@@ -69,6 +69,13 @@ public interface SystemDepartmentService {
     List<SystemDepartmentListVO> findList();
 
     /**
+     * 根据ID集查询
+     * @author Caesar Liu
+     * @date 2021-06-11 20:57
+     */
+    List<SystemDepartment> findByIds(List<Integer> ids);
+
+    /**
      * 条件统计
      * @author Eva.Caesar Liu
      * @date 2021/05/16 11:59

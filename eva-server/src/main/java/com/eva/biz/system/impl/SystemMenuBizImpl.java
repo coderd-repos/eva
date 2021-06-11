@@ -175,7 +175,7 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
         }
         List<Integer> handledIds = new ArrayList<>();
         for (SystemMenu menu : menus) {
-            if (menu.getParentId().equals(parentMenu.getId())) {
+            if (parentMenu.getId().equals(menu.getParentId())) {
                 SystemMenuListVO child = new SystemMenuListVO();
                 BeanUtils.copyProperties(menu, child, "children");
                 child.setChildren(new ArrayList<>());
@@ -198,13 +198,13 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
      * @author Eva.Caesar Liu
      * @date 2021-03-29 16:09
      */
-    private void fillChildren(SystemMenuNodeVO parentNode, List<SystemMenu> menus) {
+    private void fillChildren(SystemMenuNodeVO parent, List<SystemMenu> menus) {
         if (menus.size() == 0) {
             return;
         }
         List<Integer> handledIds = new ArrayList<>();
         for (SystemMenu menu : menus) {
-            if (menu.getParentId().equals(parentNode.getId())) {
+            if (parent.getId().equals(menu.getParentId())) {
                 SystemMenuNodeVO child = new SystemMenuNodeVO();
                 child.setId(menu.getId());
                 child.setLabel(menu.getName());
@@ -212,12 +212,12 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
                 child.setIcon(menu.getIcon());
                 child.setIndex("menu_" + menu.getId());
                 child.setChildren(new ArrayList<>());
-                parentNode.getChildren().add(child);
+                parent.getChildren().add(child);
                 handledIds.add(menu.getId());
             }
         }
         menus.removeIf(menu -> handledIds.contains(menu.getId()));
-        for (SystemMenuNodeVO child : parentNode.getChildren()) {
+        for (SystemMenuNodeVO child : parent.getChildren()) {
             this.fillChildren(child, menus);
         }
     }
