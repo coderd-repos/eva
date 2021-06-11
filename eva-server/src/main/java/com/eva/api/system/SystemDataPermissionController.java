@@ -2,7 +2,9 @@ package com.eva.api.system;
 
 import com.eva.api.BaseController;
 import com.eva.core.annotation.pr.PreventRepeat;
+import com.eva.core.constants.DataPermissionConstants;
 import com.eva.core.model.ApiResponse;
+import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.model.SystemDataPermission;
 import com.eva.service.system.SystemDataPermissionService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Eva.Caesar Liu
@@ -21,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/dataPermission")
-@Api(tags = "数据权限配置")
+@Api(tags = "系统数据权限配置")
 public class SystemDataPermissionController extends BaseController {
 
     @Autowired
@@ -67,7 +70,19 @@ public class SystemDataPermissionController extends BaseController {
     @ApiOperation("分页查询")
     @PostMapping("/page")
     @RequiresPermissions("system:datapermission:query")
-    public ApiResponse findPage (@RequestBody PageWrap<SystemDataPermission> pageWrap) {
+    public ApiResponse<PageData<SystemDataPermission>> findPage (@RequestBody PageWrap<SystemDataPermission> pageWrap) {
         return ApiResponse.success(systemDataPermissionService.findPage(pageWrap));
+    }
+
+    @ApiOperation("查询数据权限类型")
+    @GetMapping("/types")
+    public ApiResponse<List<Map<String, Object>>> findTypes () {
+        return ApiResponse.success(DataPermissionConstants.Type.valueList());
+    }
+
+    @ApiOperation("查询数据权限模块")
+    @GetMapping("/modules")
+    public ApiResponse<List<Map<String, Object>>> findModules () {
+        return ApiResponse.success(DataPermissionConstants.Module.valueList());
     }
 }

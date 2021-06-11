@@ -1,7 +1,7 @@
 package com.eva.service.aware;
 
 import com.eva.core.aware.DataPermissionAware;
-import com.eva.core.constants.DataPermissionType;
+import com.eva.core.constants.DataPermissionConstants;
 import com.eva.core.model.LoginUserInfo;
 import com.eva.dao.system.model.SystemDataPermission;
 import com.eva.service.system.SystemDataPermissionService;
@@ -11,41 +11,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
- * 默认数据权限
+ * 默认数据权限控制
  * @author Eva.Caesar Liu
  * @date 2021-06-11 20:22
  */
 @Slf4j
 @Component
-public class DefaultDataPermissionAware<T> implements DataPermissionAware<T> {
+public abstract class DefaultDataPermissionAware<T> implements DataPermissionAware<T> {
 
     @Autowired
     private SystemDataPermissionService systemDataPermissionService;
 
-    @Override
-    public List<T> all() {
-        return Collections.emptyList();
-    }
+    public abstract List<T> all();
 
-    @Override
-    public List<T> custom(String customData) {
-        return Collections.emptyList();
-    }
+    public abstract List<T> custom(String customData);
 
-    @Override
-    public List<T> user(Integer userId) {
-        return Collections.emptyList();
-    }
+    public abstract List<T> user(Integer userId);
 
-    @Override
-    public List<T> userRelation(Integer userId) {
-        return Collections.emptyList();
-    }
+    public abstract List<T> userRelation(Integer userId);
 
     /**
      * 执行数据权限
@@ -64,22 +50,22 @@ public class DefaultDataPermissionAware<T> implements DataPermissionAware<T> {
         }
         // 按角色的数据权限优先级返回数据
         for (SystemDataPermission dataPermission : dataPermissions) {
-            if (dataPermission.getType().equals(DataPermissionType.ALL.getCode())) {
+            if (dataPermission.getType().equals(DataPermissionConstants.Type.ALL.getCode())) {
                 return this.all();
             }
         }
         for (SystemDataPermission dataPermission : dataPermissions) {
-            if (dataPermission.getType().equals(DataPermissionType.CUSTOM.getCode())) {
+            if (dataPermission.getType().equals(DataPermissionConstants.Type.CUSTOM.getCode())) {
                 return this.custom(dataPermission.getCustomData());
             }
         }
         for (SystemDataPermission dataPermission : dataPermissions) {
-            if (dataPermission.getType().equals(DataPermissionType.USER_RELATION.getCode())) {
+            if (dataPermission.getType().equals(DataPermissionConstants.Type.USER_RELATION.getCode())) {
                 return this.userRelation(loginUserInfo.getId());
             }
         }
         for (SystemDataPermission dataPermission : dataPermissions) {
-            if (dataPermission.getType().equals(DataPermissionType.USER.getCode())) {
+            if (dataPermission.getType().equals(DataPermissionConstants.Type.USER.getCode())) {
                 return this.user(loginUserInfo.getId());
             }
         }

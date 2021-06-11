@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 部门数据权限
+ * 部门数据权限控制
  * @author Eva.Caesar Liu
  * @date 2021-06-11 21:16
  */
@@ -65,7 +65,7 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
         if (userDepartment == null) {
             return Collections.emptyList();
         }
-        // 查询用户部门以下部门
+        // 查询用户所在部门以下部门
         List<SystemDepartmentListVO> departmentListVo = new ArrayList<>();
         List<SystemDepartment> systemDepartments = systemDepartmentService.findByIds(systemDepartmentService.findChildren(userDepartment.getId()));
         for (SystemDepartment systemDepartment : systemDepartments) {
@@ -78,7 +78,7 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
     }
 
     /**
-     * 获取根节点
+     * 获取根部门
      */
     private List<SystemDepartmentListVO> getRootList(List<SystemDepartmentListVO> departments) {
         List<SystemDepartmentListVO> rootDepartments = new ArrayList<>();

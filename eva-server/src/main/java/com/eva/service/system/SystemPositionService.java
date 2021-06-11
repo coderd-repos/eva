@@ -55,6 +55,13 @@ public interface SystemPositionService {
     SystemPosition findById(Integer id);
 
     /**
+     * 根据ID集查询
+     * @author Caesar Liu
+     * @date 2021-06-11 23:50
+     */
+    List<SystemPosition> findByIds(List<Integer> ids);;
+
+    /**
      * 条件查询单条记录
      * @author Eva.Caesar Liu
      * @date 2021/05/16 17:03

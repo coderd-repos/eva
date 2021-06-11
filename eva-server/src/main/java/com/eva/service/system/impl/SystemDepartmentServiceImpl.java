@@ -71,6 +71,16 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
     }
 
     @Override
+    public List<SystemDepartment> findByIds(List<Integer> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return Collections.emptyList();
+        }
+        QueryWrapper<SystemDepartment> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().in(SystemDepartment::getId, ids).eq(SystemDepartment::getDeleted, Boolean.FALSE);
+        return systemDepartmentMapper.selectList(queryWrapper);
+    }
+
+    @Override
     public SystemDepartment findOne(SystemDepartment systemDepartment) {
         Wrapper<SystemDepartment> wrapper = new QueryWrapper<>(systemDepartment);
         return systemDepartmentMapper.selectOne(wrapper);
@@ -79,16 +89,6 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
     @Override
     public List<SystemDepartmentListVO> findList() {
         return systemDepartmentMapper.selectManageList();
-    }
-
-    @Override
-    public List<SystemDepartment> findByIds(List<Integer> ids) {
-        if (CollectionUtils.isEmpty(ids)) {
-            return Collections.emptyList();
-        }
-        QueryWrapper<SystemDepartment> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().in(SystemDepartment::getId, ids).eq(SystemDepartment::getDeleted, Boolean.FALSE);
-        return systemDepartmentMapper.selectList(queryWrapper);
     }
 
     @Override

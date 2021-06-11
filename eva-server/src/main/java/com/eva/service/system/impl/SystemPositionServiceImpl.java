@@ -1,11 +1,9 @@
 package com.eva.service.system.impl;
 
 import com.eva.dao.system.SystemPositionMapper;
-import com.eva.dao.system.model.SystemDepartment;
 import com.eva.dao.system.model.SystemPosition;
 import com.eva.dao.system.vo.SystemPositionListVO;
 import com.eva.service.system.SystemPositionService;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,6 +67,16 @@ public class SystemPositionServiceImpl implements SystemPositionService {
     @Override
     public SystemPosition findById(Integer id) {
         return systemPositionMapper.selectById(id);
+    }
+
+    @Override
+    public List<SystemPosition> findByIds(List<Integer> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return Collections.emptyList();
+        }
+        QueryWrapper<SystemPosition> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().in(SystemPosition::getId, ids).eq(SystemPosition::getDeleted, Boolean.FALSE);
+        return systemPositionMapper.selectList(queryWrapper);
     }
 
     @Override
