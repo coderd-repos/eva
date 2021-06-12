@@ -2,6 +2,8 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import pkg from '../../package'
 import { trim } from './util'
+import cache from '../plugins/cache'
+
 axios.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8'
 const axiosInstance = axios.create({
   baseURL: process.env.VUE_APP_API_PREFIX,
@@ -57,5 +59,58 @@ axiosInstance.interceptors.response.use((response) => {
   }
   return Promise.reject(error)
 })
+
+// 缓存请求结果
+const buildCachePromise = (cacheKey, method, args, cacheImpl) => {
+  return {
+    __cacheImpl: cache[cacheImpl],
+    __arguments: args,
+    __result_promise: null,
+    // 开启缓存
+    cache () {
+      const data = this.__cacheImpl.getJSON(cacheKey)
+      if (data != null) {
+        this.__result_promise = Promise.resolve(data)
+      }
+      if (this.__result_promise != null) {
+        return this.__result_promise
+      }
+      return this
+    },
+    then () {
+      return this.__access('then', arguments)
+    },
+    catch () {
+      return this.__access('catch', arguments)
+    },
+    finally () {
+      return this.__access('finally', arguments)
+    },
+    __access (methodName, args) {
+      if (this.__result_promise != null) {
+        return this.__result_promise
+      }
+      this.__result_promise = axiosInstance[method].apply(axiosInstance, this.__arguments)
+      this.__result_promise.then(data => {
+        this.__cacheImpl.setJSON(cacheKey, data)
+        return data
+      })
+      return this.__result_promise[methodName].apply(this.__result_promise, args)
+    }
+  }
+}
+const methods = ['get', 'post', 'delete', 'put', 'head', 'options', 'patch', 'request']
+axiosInstance.cache = function (cacheKey, isLocal = false) {
+  if (cacheKey == null) {
+    throw Error('Request cache key can not be null.')
+  }
+  const cacheAxiosInstance = {}
+  for (const method of methods) {
+    cacheAxiosInstance[method] = function () {
+      return buildCachePromise(cacheKey, method, arguments, isLocal ? 'local' : 'session')
+    }
+  }
+  return cacheAxiosInstance
+}
 
 export default axiosInstance

@@ -3,14 +3,10 @@
     <!-- 搜索表单 -->
     <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="100px" inline>
       <el-form-item label="业务模块" prop="businessCode">
-        <el-select v-model="searchForm.businessCode" placeholder="请选择业务模块" clearable @change="search">
-          <el-option v-for="module in modules" :key="module.businessCode" :value="module.businessCode" :label="module.moduleName"/>
-        </el-select>
+        <DataPermModuleSelect v-model="searchForm.businessCode" clearable @change="search"/>
       </el-form-item>
       <el-form-item label="权限类型" prop="type">
-        <el-select v-model="searchForm.type" placeholder="请选择权限类型" clearable @change="search">
-          <el-option v-for="type in types" :key="type.code" :value="type.code" :label="type.remark"/>
-        </el-select>
+        <DataPermTypeSelect v-model="searchForm.type" clearable @change="search"/>
       </el-form-item>
       <section>
         <el-button type="primary" @click="search">搜索</el-button>
@@ -71,11 +67,13 @@
 import BaseTable from '@/components/base/BaseTable'
 import TableLayout from '@/layouts/TableLayout'
 import Pagination from '@/components/common/Pagination'
-import OperaDataPermissionWindow from '@/components/system/OperaDataPermissionWindow'
+import OperaDataPermissionWindow from '@/components/system/datapermission/OperaDataPermissionWindow'
+import DataPermTypeSelect from '@/components/system/datapermission/DataPermTypeSelect'
+import DataPermModuleSelect from '@/components/system/datapermission/DataPermModuleSelect'
 export default {
   name: 'DataPermission',
   extends: BaseTable,
-  components: { TableLayout, Pagination, OperaDataPermissionWindow },
+  components: { DataPermModuleSelect, DataPermTypeSelect, TableLayout, Pagination, OperaDataPermissionWindow },
   data () {
     return {
       // 数据权限模块
@@ -119,13 +117,15 @@ export default {
     // 初始化数据权限模块
     await this.api.fetchModules()
       .then(data => {
-        console.log('data', data)
         this.modules = data
       })
-    // 初始化数据权限类型
+    // 初始化数据权限模块
     await this.api.fetchTypes()
       .then(data => {
         this.types = data
+      })
+      .catch(e => {
+        console.log(e)
       })
     // 执行搜索
     this.search()

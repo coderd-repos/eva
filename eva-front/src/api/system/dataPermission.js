@@ -9,12 +9,12 @@ export function fetchList (data) {
 
 // 查询数据权限模块
 export function fetchModules () {
-  return request.get('/system/dataPermission/modules')
+  return request.cache('DATA_PERMISSION_MODULES').get('/system/dataPermission/modules')
 }
 
 // 查询数据权限类型
 export function fetchTypes () {
-  return request.get('/system/dataPermission/types')
+  return request.cache('DATA_PERMISSION_TYPES').get('/system/dataPermission/types')
 }
 
 // 创建
