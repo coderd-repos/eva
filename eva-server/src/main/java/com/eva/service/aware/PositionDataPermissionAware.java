@@ -44,24 +44,24 @@ public class PositionDataPermissionAware extends DefaultDataPermissionAware<Syst
     }
 
     @Override
-    public List<SystemPositionListVO> userRelation(Integer userId) {
-        return this.getRootList(getUserChildren(userId, Boolean.TRUE));
-    }
-
-    @Override
     public List<SystemPositionListVO> userChildren(Integer userId) {
-        return this.getRootList(getUserChildren(userId, Boolean.FALSE));
+        return this.getRootList(getUserChildren(userId));
     }
 
     @Override
     public List<SystemPositionListVO> userChild(Integer userId) {
-        List<SystemPositionListVO> children = getUserChildren(userId, Boolean.TRUE);
-        for (SystemPositionListVO child : children) {
-            if (CollectionUtils.isEmpty(child.getChildren())) {
+        List<SystemPositionListVO> children = this.getRootList(getUserChildren(userId));
+        for (SystemPositionListVO root : children) {
+            if (CollectionUtils.isEmpty(root.getChildren())) {
                 continue;
             }
-            child.setHasChildren(Boolean.TRUE);
-            child.setChildren(null);
+            for (SystemPositionListVO child : root.getChildren()) {
+                if (CollectionUtils.isEmpty(child.getChildren())) {
+                    continue;
+                }
+                child.setHasChildren(Boolean.TRUE);
+                child.setChildren(null);
+            }
         }
         return children;
     }
@@ -105,9 +105,9 @@ public class PositionDataPermissionAware extends DefaultDataPermissionAware<Syst
     }
 
     /**
-     * 获取用户岗位的子岗位
+     * 获取用户岗位及其子孙岗位
      */
-    private List<SystemPositionListVO> getUserChildren(Integer userId, boolean containUserPosition) {
+    private List<SystemPositionListVO> getUserChildren(Integer userId) {
         List<SystemPositionListVO> userPositions = this.getUserPositions(userId);
         if (CollectionUtils.isEmpty(userPositions)) {
             return Collections.emptyList();
@@ -124,7 +124,7 @@ public class PositionDataPermissionAware extends DefaultDataPermissionAware<Syst
                 BeanUtils.copyProperties(underPosition, vo);
                 positionListVos.add(vo);
             }
-            if(containUserPosition && positionListVos.stream().noneMatch(item -> item.getId().equals(userPosition.getId()))) {
+            if(positionListVos.stream().noneMatch(item -> item.getId().equals(userPosition.getId()))) {
                 positionListVos.add(userPosition);
             }
         }

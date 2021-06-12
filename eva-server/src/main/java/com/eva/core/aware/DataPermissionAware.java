@@ -30,18 +30,10 @@ public interface DataPermissionAware<T> {
      *
      * @return List<T>
      */
-    List<T> userRelation (Integer userId);
-
-    /**
-     * 用户所属及其孙数据
-     * @param userId 用户ID
-     *
-     * @return List<T>
-     */
     List<T> userChildren (Integer userId);
 
     /**
-     * 用户所属及其子数据
+     * 用户所属及其子节点
      * @param userId 用户ID
      *
      * @return List<T>

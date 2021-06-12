@@ -52,11 +52,6 @@ public abstract class DefaultDataPermissionAware<T> implements DataPermissionAwa
             }
         }
         for (SystemDataPermission dataPermission : dataPermissions) {
-            if (dataPermission.getType().equals(DataPermissionConstants.Type.USER_RELATION.getCode())) {
-                return this.userRelation(loginUserInfo.getId());
-            }
-        }
-        for (SystemDataPermission dataPermission : dataPermissions) {
             if (dataPermission.getType().equals(DataPermissionConstants.Type.USER_CHILDREN.getCode())) {
                 return this.userChildren(loginUserInfo.getId());
             }

@@ -51,24 +51,24 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
     }
 
     @Override
-    public List<SystemDepartmentListVO> userRelation(Integer userId) {
-        return this.getRootList(getUserChildren(userId, Boolean.TRUE));
-    }
-
-    @Override
     public List<SystemDepartmentListVO> userChildren(Integer userId) {
-        return this.getRootList(getUserChildren(userId, Boolean.FALSE));
+        return this.getRootList(getUserChildren(userId));
     }
 
     @Override
     public List<SystemDepartmentListVO> userChild(Integer userId) {
-        List<SystemDepartmentListVO> children = getUserChildren(userId, Boolean.TRUE);
-        for (SystemDepartmentListVO child : children) {
-            if (CollectionUtils.isEmpty(child.getChildren())) {
+        List<SystemDepartmentListVO> children = this.getRootList(getUserChildren(userId));
+        for (SystemDepartmentListVO root : children) {
+            if (CollectionUtils.isEmpty(root.getChildren())) {
                 continue;
             }
-            child.setHasChildren(Boolean.TRUE);
-            child.setChildren(null);
+            for (SystemDepartmentListVO child : root.getChildren()) {
+                if (CollectionUtils.isEmpty(child.getChildren())) {
+                    continue;
+                }
+                child.setHasChildren(Boolean.TRUE);
+                child.setChildren(null);
+            }
         }
         return children;
     }
@@ -136,7 +136,7 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
     /**
      * 获取用户子孙部门
      */
-    private List<SystemDepartmentListVO> getUserChildren (Integer userId, Boolean containUserDepartment) {
+    private List<SystemDepartmentListVO> getUserChildren (Integer userId) {
         SystemDepartmentListVO userDepartment = this.getUserDepartment(userId);
         if (userDepartment == null) {
             return Collections.emptyList();
@@ -149,9 +149,7 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
             BeanUtils.copyProperties(systemDepartment, vo);
             departmentListVo.add(vo);
         }
-        if (containUserDepartment) {
-            departmentListVo.add(userDepartment);
-        }
+        departmentListVo.add(userDepartment);
         return departmentListVo;
     }
 

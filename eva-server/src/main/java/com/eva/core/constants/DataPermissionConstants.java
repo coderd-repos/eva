@@ -48,10 +48,9 @@ public interface DataPermissionConstants {
     enum Type {
         ALL((byte)0, "全部"),
         CUSTOM((byte)1, "自定义"),
-        USER_RELATION((byte)2, "用户所属及其子孙节点"),
-        USER_CHILDREN((byte)3, "用户所属的子孙节点"),
-        USER_CHILD((byte)4, "用户所属的子节点"),
-        USER((byte)5, "仅用户所属"),
+        USER_CHILDREN((byte)2, "用户所属及其子孙节点"),
+        USER_CHILD((byte)3, "用户所属及其子节点"),
+        USER((byte)4, "仅用户所属"),
         ;
 
         private byte code;
