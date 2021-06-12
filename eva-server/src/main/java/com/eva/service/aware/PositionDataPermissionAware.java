@@ -5,6 +5,7 @@ import com.eva.dao.system.model.SystemPositionUser;
 import com.eva.dao.system.vo.SystemPositionListVO;
 import com.eva.service.system.SystemPositionService;
 import com.eva.service.system.SystemPositionUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,6 +36,9 @@ public class PositionDataPermissionAware extends DefaultDataPermissionAware<Syst
 
     @Override
     public List<SystemPositionListVO> custom(String customData) {
+        if (StringUtils.isBlank(customData)) {
+            return Collections.emptyList();
+        }
         List<Integer> ids = new ArrayList<>();
         String[] stringIds = customData.split(",");
         for(String stringId : stringIds) {

@@ -1,18 +1,22 @@
 package com.eva.api.system;
 
 import com.eva.api.BaseController;
+import com.eva.biz.system.SystemDataPermissionBiz;
 import com.eva.core.annotation.pr.PreventRepeat;
 import com.eva.core.constants.DataPermissionConstants;
+import com.eva.core.constants.OperaType;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.model.SystemDataPermission;
+import com.eva.dao.system.model.SystemMenu;
 import com.eva.dao.system.vo.SystemDataPermissionListVO;
 import com.eva.service.system.SystemDataPermissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;    
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -31,12 +35,15 @@ public class SystemDataPermissionController extends BaseController {
     @Autowired
     private SystemDataPermissionService systemDataPermissionService;
 
+    @Autowired
+    private SystemDataPermissionBiz systemDataPermissionBiz;
+
     @PreventRepeat
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:datapermission:create")
-    public ApiResponse create(@RequestBody SystemDataPermission systemDataPermission) {
-        return ApiResponse.success(systemDataPermissionService.create(systemDataPermission));
+    public ApiResponse create(@Validated(OperaType.Create.class) @RequestBody SystemDataPermission systemDataPermission) {
+        return ApiResponse.success(systemDataPermissionBiz.create(systemDataPermission));
     }
 
     @ApiOperation("根据ID删除")
@@ -63,8 +70,16 @@ public class SystemDataPermissionController extends BaseController {
     @ApiOperation("根据ID修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:datapermission:update")
-    public ApiResponse updateById(@RequestBody SystemDataPermission systemDataPermission) {
-        systemDataPermissionService.updateById(systemDataPermission);
+    public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemDataPermission systemDataPermission) {
+        systemDataPermissionBiz.update(systemDataPermission);
+        return ApiResponse.success(null);
+    }
+
+    @ApiOperation("修改菜单状态")
+    @PostMapping("/updateStatus")
+    @RequiresPermissions("system:datapermission:update")
+    public ApiResponse updateStatus(@Validated(OperaType.UpdateStatus.class) @RequestBody SystemDataPermission systemDataPermission) {
+        systemDataPermissionBiz.updateStatus(systemDataPermission);
         return ApiResponse.success(null);
     }
 

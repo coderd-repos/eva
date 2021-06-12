@@ -5,6 +5,8 @@ import com.eva.dao.system.model.SystemDepartmentUser;
 import com.eva.dao.system.vo.SystemDepartmentListVO;
 import com.eva.service.system.SystemDepartmentService;
 import com.eva.service.system.SystemDepartmentUserService;
+import com.github.pagehelper.PageHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,6 +37,9 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
 
     @Override
     public List<SystemDepartmentListVO> custom(String customData) {
+        if (StringUtils.isBlank(customData)) {
+            return Collections.emptyList();
+        }
         List<Integer> ids = new ArrayList<>();
         String[] stringIds = customData.split(",");
         for(String stringId : stringIds) {

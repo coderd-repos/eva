@@ -21,7 +21,7 @@
   </resultMap>
   <select id="selectManageList" resultMap="SystemDataPermissionListVO">
     SELECT
-      sdp.`ID`, sdp.`BUSINESS_CODE`, sdp.`ROLE_ID`, sdp.`TYPE`, sdp.`CUSTOM_DATA`, sdp.`DISABLED`, sdp.`REMARK`, sdp.`CREATE_TIME`, sdp.`UPDATE_TIME`,
+      sdp.`ID`, sdp.`BUSINESS_CODE`, sdp.`ROLE_ID`, sdp.`TYPE`, sdp.`CUSTOM_DATA`, sdp.`DISABLED`, sdp.`REMARK`, sdp.DISABLED, sdp.`CREATE_TIME`, sdp.`UPDATE_TIME`,
       role.`ID` AS ROLE_ID, role.`CODE` AS ROLE_CODE, role.`NAME` AS ROLE_NAME,
       create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
       update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME

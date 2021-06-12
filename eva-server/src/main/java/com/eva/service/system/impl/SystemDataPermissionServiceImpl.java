@@ -43,7 +43,10 @@ public class SystemDataPermissionServiceImpl implements SystemDataPermissionServ
 
     @Override
     public void deleteById(Integer id) {
-        systemDataPermissionMapper.deleteById(id);
+        SystemDataPermission dataPermission = new SystemDataPermission();
+        dataPermission.setId(id);
+        dataPermission.setDeleted(Boolean.TRUE);
+        this.updateById(dataPermission);
     }
 
     @Override
