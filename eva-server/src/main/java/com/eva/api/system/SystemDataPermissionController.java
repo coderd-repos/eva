@@ -7,6 +7,7 @@ import com.eva.core.model.ApiResponse;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.model.SystemDataPermission;
+import com.eva.dao.system.vo.SystemDataPermissionListVO;
 import com.eva.service.system.SystemDataPermissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -70,7 +71,7 @@ public class SystemDataPermissionController extends BaseController {
     @ApiOperation("分页查询")
     @PostMapping("/page")
     @RequiresPermissions("system:datapermission:query")
-    public ApiResponse<PageData<SystemDataPermission>> findPage (@RequestBody PageWrap<SystemDataPermission> pageWrap) {
+    public ApiResponse<PageData<SystemDataPermissionListVO>> findPage (@RequestBody PageWrap<SystemDataPermission> pageWrap) {
         return ApiResponse.success(systemDataPermissionService.findPage(pageWrap));
     }
 

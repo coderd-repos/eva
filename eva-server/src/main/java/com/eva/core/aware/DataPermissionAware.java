@@ -25,12 +25,20 @@ public interface DataPermissionAware<T> {
     List<T> custom (String customData);
 
     /**
-     * 仅用户所属
+     * 用户所属及其子孙节点
      * @param userId 用户ID
      *
      * @return List<T>
      */
-    List<T> user (Integer userId);
+    List<T> userRelation (Integer userId);
+
+    /**
+     * 用户所属及其孙数据
+     * @param userId 用户ID
+     *
+     * @return List<T>
+     */
+    List<T> userChildren (Integer userId);
 
     /**
      * 用户所属及其子数据
@@ -38,5 +46,13 @@ public interface DataPermissionAware<T> {
      *
      * @return List<T>
      */
-    List<T> userRelation (Integer userId);
+    List<T> userChild (Integer userId);
+
+    /**
+     * 仅用户所属
+     * @param userId 用户ID
+     *
+     * @return List<T>
+     */
+    List<T> user (Integer userId);
 }

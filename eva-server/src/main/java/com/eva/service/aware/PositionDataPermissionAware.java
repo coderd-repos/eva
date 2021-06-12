@@ -8,9 +8,9 @@ import com.eva.service.system.SystemPositionUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,41 +40,39 @@ public class PositionDataPermissionAware extends DefaultDataPermissionAware<Syst
         for(String stringId : stringIds) {
             ids.add(Integer.valueOf(stringId));
         }
-        List<SystemPositionListVO> positionListVo = new ArrayList<>();
-        List<SystemPosition> systemDepartments = systemPositionService.findByIds(ids);
-        for (SystemPosition systemDepartment : systemDepartments) {
-            SystemPositionListVO vo = new SystemPositionListVO();
-            BeanUtils.copyProperties(systemDepartment, vo);
-            positionListVo.add(vo);
-        }
-        return this.getRootList(positionListVo);
-    }
-
-    @Override
-    public List<SystemPositionListVO> user(Integer userId) {
-        SystemPositionListVO userPosition = this.getUserPosition(userId);
-        if (userPosition == null) {
-            return Collections.emptyList();
-        }
-        return Arrays.asList(userPosition);
+        return this.getRootList(toSystemPositionListVOs(systemPositionService.findByIds(ids)));
     }
 
     @Override
     public List<SystemPositionListVO> userRelation(Integer userId) {
-        SystemPositionListVO userPosition = this.getUserPosition(userId);
-        if (userPosition == null) {
+        return this.getRootList(getUserChildren(userId, Boolean.TRUE));
+    }
+
+    @Override
+    public List<SystemPositionListVO> userChildren(Integer userId) {
+        return this.getRootList(getUserChildren(userId, Boolean.FALSE));
+    }
+
+    @Override
+    public List<SystemPositionListVO> userChild(Integer userId) {
+        List<SystemPositionListVO> children = getUserChildren(userId, Boolean.TRUE);
+        for (SystemPositionListVO child : children) {
+            if (CollectionUtils.isEmpty(child.getChildren())) {
+                continue;
+            }
+            child.setHasChildren(Boolean.TRUE);
+            child.setChildren(null);
+        }
+        return children;
+    }
+
+    @Override
+    public List<SystemPositionListVO> user(Integer userId) {
+        List<SystemPositionListVO> userPositions = this.getUserPositions(userId);
+        if (CollectionUtils.isEmpty(userPositions)) {
             return Collections.emptyList();
         }
-        // 查询用户所在岗位以下岗位
-        List<SystemPositionListVO> positionListVo = new ArrayList<>();
-        List<SystemPosition> systemPositions = systemPositionService.findByIds(systemPositionService.findChildren(userPosition.getId()));
-        for (SystemPosition systemDepartment : systemPositions) {
-            SystemPositionListVO vo = new SystemPositionListVO();
-            BeanUtils.copyProperties(systemDepartment, vo);
-            positionListVo.add(vo);
-        }
-        positionListVo.add(0, userPosition);
-        return this.getRootList(positionListVo);
+        return this.getRootList(userPositions);
     }
 
     /**
@@ -96,8 +94,8 @@ public class PositionDataPermissionAware extends DefaultDataPermissionAware<Syst
             }
         }
         // 移除根岗位
-        for (SystemPositionListVO rootDepartment : rootPositions) {
-            positions.removeIf(position -> position.getId().equals(rootDepartment.getId()));
+        for (SystemPositionListVO rootPosition : rootPositions) {
+            positions.removeIf(position -> position.getId().equals(rootPosition.getId()));
         }
         // 填充子岗位
         for (SystemPositionListVO child : rootPositions) {
@@ -107,20 +105,61 @@ public class PositionDataPermissionAware extends DefaultDataPermissionAware<Syst
     }
 
     /**
+     * 获取用户岗位的子岗位
+     */
+    private List<SystemPositionListVO> getUserChildren(Integer userId, boolean containUserPosition) {
+        List<SystemPositionListVO> userPositions = this.getUserPositions(userId);
+        if (CollectionUtils.isEmpty(userPositions)) {
+            return Collections.emptyList();
+        }
+        // 查询用户所在岗位以下岗位
+        List<SystemPositionListVO> positionListVos = new ArrayList<>();
+        for (SystemPositionListVO userPosition : userPositions) {
+            List<SystemPosition> underPositions = systemPositionService.findByIds(systemPositionService.findChildren(userPosition.getId()));
+            for (SystemPosition underPosition : underPositions) {
+                if(positionListVos.stream().anyMatch(item -> item.getId().equals(underPosition.getId()))) {
+                    continue;
+                }
+                SystemPositionListVO vo = new SystemPositionListVO();
+                BeanUtils.copyProperties(underPosition, vo);
+                positionListVos.add(vo);
+            }
+            if(containUserPosition && positionListVos.stream().noneMatch(item -> item.getId().equals(userPosition.getId()))) {
+                positionListVos.add(userPosition);
+            }
+        }
+        return positionListVos;
+    }
+
+    /**
      * 获取用户岗位
      */
-    private SystemPositionListVO getUserPosition(Integer userId) {
+    private List<SystemPositionListVO> getUserPositions(Integer userId) {
         SystemPositionUser queryDto = new SystemPositionUser();
         queryDto.setUserId(userId);
         queryDto.setDeleted(Boolean.FALSE);
-        SystemPositionUser positionUser = systemPositionUserService.findOne(queryDto);
-        if (positionUser == null) {
+        List<SystemPositionUser> positionUsers = systemPositionUserService.findList(queryDto);
+        if (CollectionUtils.isEmpty(positionUsers)) {
             return null;
         }
-        SystemPosition systemPosition = systemPositionService.findById(positionUser.getPositionId());
-        SystemPositionListVO positionListVO = new SystemPositionListVO();
-        BeanUtils.copyProperties(systemPosition, positionListVO);
-        return positionListVO;
+        List<Integer> ids = new ArrayList<>();
+        for (SystemPositionUser positionUser : positionUsers) {
+            ids.add(positionUser.getPositionId());
+        }
+        return toSystemPositionListVOs(systemPositionService.findByIds(ids));
+    }
+
+    /**
+     * 转为ListVO对象集合
+     */
+    private List<SystemPositionListVO> toSystemPositionListVOs (List<SystemPosition> systemPositions) {
+        List<SystemPositionListVO> positionListVOs = new ArrayList<>();
+        for (SystemPosition systemPosition : systemPositions) {
+            SystemPositionListVO positionListVO = new SystemPositionListVO();
+            BeanUtils.copyProperties(systemPosition, positionListVO);
+            positionListVOs.add(positionListVO);
+        }
+        return positionListVOs;
     }
 
     /**

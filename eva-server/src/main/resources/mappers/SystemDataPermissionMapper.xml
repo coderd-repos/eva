@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eva.dao.system.SystemDataPermissionMapper">
+
+  <!-- 查询部门列表 -->
+  <resultMap id="SystemDataPermissionListVO" type="com.eva.dao.system.vo.SystemDataPermissionListVO" autoMapping="true">
+    <id column="ID" property="id"/>
+    <association property="role" javaType="com.eva.dao.system.model.SystemRole">
+      <result column="ROLE_ID" property="id"/>
+      <result column="ROLE_CODE" property="code"/>
+      <result column="ROLE_NAME" property="name"/>
+    </association>
+    <association property="createUserInfo" javaType="com.eva.dao.system.model.SystemUser">
+      <result column="CREATE_USER_ID" property="id"/>
+      <result column="CREATE_USER_NAME" property="username"/>
+    </association>
+    <association property="updateUserInfo" javaType="com.eva.dao.system.model.SystemUser">
+      <result column="UPDATE_USER_ID" property="id"/>
+      <result column="UPDATE_USER_NAME" property="username"/>
+    </association>
+  </resultMap>
+  <select id="selectManageList" resultMap="SystemDataPermissionListVO">
+    SELECT
+      sdp.`ID`, sdp.`BUSINESS_CODE`, sdp.`ROLE_ID`, sdp.`TYPE`, sdp.`CUSTOM_DATA`, sdp.`DISABLED`, sdp.`REMARK`, sdp.`CREATE_TIME`, sdp.`UPDATE_TIME`,
+      role.`ID` AS ROLE_ID, role.`CODE` AS ROLE_CODE, role.`NAME` AS ROLE_NAME,
+      create_user.ID CREATE_USER_ID, create_user.`USERNAME` CREATE_USER_NAME,
+      update_user.ID UPDETE_USER_ID, update_user.`USERNAME` UPDATE_USER_NAME
+    FROM SYSTEM_DATA_PERMISSION sdp
+    INNER JOIN `SYSTEM_ROLE` role ON role.ID = sdp.ROLE_ID
+    LEFT JOIN `SYSTEM_USER` create_user ON create_user.ID = sdp.CREATE_USER
+    LEFT JOIN `SYSTEM_USER` update_user ON update_user.ID = sdp.UPDATE_USER
+    <where>
+      sdp.DELETED = 0
+      <if test="dto.businessCode != null and dto.businessCode != ''">
+        AND sdp.`BUSINESS_CODE` = #{dto.businessCode}
+      </if>
+      <if test="dto.type != null">
+        AND sdp.`TYPE` = #{dto.type}
+      </if>
+    </where>
+    ${orderByClause}
+  </select>
+
+</mapper>

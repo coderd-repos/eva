@@ -25,14 +25,6 @@ public abstract class DefaultDataPermissionAware<T> implements DataPermissionAwa
     @Autowired
     private SystemDataPermissionService systemDataPermissionService;
 
-    public abstract List<T> all();
-
-    public abstract List<T> custom(String customData);
-
-    public abstract List<T> user(Integer userId);
-
-    public abstract List<T> userRelation(Integer userId);
-
     /**
      * 执行数据权限
      * @param businessCode 业务编码
@@ -62,6 +54,16 @@ public abstract class DefaultDataPermissionAware<T> implements DataPermissionAwa
         for (SystemDataPermission dataPermission : dataPermissions) {
             if (dataPermission.getType().equals(DataPermissionConstants.Type.USER_RELATION.getCode())) {
                 return this.userRelation(loginUserInfo.getId());
+            }
+        }
+        for (SystemDataPermission dataPermission : dataPermissions) {
+            if (dataPermission.getType().equals(DataPermissionConstants.Type.USER_CHILDREN.getCode())) {
+                return this.userChildren(loginUserInfo.getId());
+            }
+        }
+        for (SystemDataPermission dataPermission : dataPermissions) {
+            if (dataPermission.getType().equals(DataPermissionConstants.Type.USER_CHILD.getCode())) {
+                return this.userChild(loginUserInfo.getId());
             }
         }
         for (SystemDataPermission dataPermission : dataPermissions) {

@@ -8,9 +8,9 @@ import com.eva.service.system.SystemDepartmentUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,36 +51,46 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
     }
 
     @Override
+    public List<SystemDepartmentListVO> userRelation(Integer userId) {
+        return this.getRootList(getUserChildren(userId, Boolean.TRUE));
+    }
+
+    @Override
+    public List<SystemDepartmentListVO> userChildren(Integer userId) {
+        return this.getRootList(getUserChildren(userId, Boolean.FALSE));
+    }
+
+    @Override
+    public List<SystemDepartmentListVO> userChild(Integer userId) {
+        List<SystemDepartmentListVO> children = getUserChildren(userId, Boolean.TRUE);
+        for (SystemDepartmentListVO child : children) {
+            if (CollectionUtils.isEmpty(child.getChildren())) {
+                continue;
+            }
+            child.setHasChildren(Boolean.TRUE);
+            child.setChildren(null);
+        }
+        return children;
+    }
+
+    @Override
     public List<SystemDepartmentListVO> user(Integer userId) {
         SystemDepartmentListVO userDepartment = this.getUserDepartment(userId);
         if (userDepartment == null) {
             return Collections.emptyList();
         }
-        return Arrays.asList(userDepartment);
-    }
-
-    @Override
-    public List<SystemDepartmentListVO> userRelation(Integer userId) {
-        SystemDepartmentListVO userDepartment = this.getUserDepartment(userId);
-        if (userDepartment == null) {
-            return Collections.emptyList();
-        }
-        // 查询用户所在部门以下部门
-        List<SystemDepartmentListVO> departmentListVo = new ArrayList<>();
-        List<SystemDepartment> systemDepartments = systemDepartmentService.findByIds(systemDepartmentService.findChildren(userDepartment.getId()));
-        for (SystemDepartment systemDepartment : systemDepartments) {
-            SystemDepartmentListVO vo = new SystemDepartmentListVO();
-            BeanUtils.copyProperties(systemDepartment, vo);
-            departmentListVo.add(vo);
-        }
-        departmentListVo.add(0, userDepartment);
-        return this.getRootList(departmentListVo);
+        return new ArrayList<SystemDepartmentListVO>(){{
+            this.add(userDepartment);
+        }};
     }
 
     /**
      * 获取根部门
      */
     private List<SystemDepartmentListVO> getRootList(List<SystemDepartmentListVO> departments) {
+        if (CollectionUtils.isEmpty(departments)) {
+            return Collections.emptyList();
+        }
         List<SystemDepartmentListVO> rootDepartments = new ArrayList<>();
         // 添加根部门
         for (SystemDepartmentListVO currentDepartment : departments) {
@@ -121,6 +131,28 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
         SystemDepartmentListVO departmentListVO = new SystemDepartmentListVO();
         BeanUtils.copyProperties(systemDepartment, departmentListVO);
         return departmentListVO;
+    }
+
+    /**
+     * 获取用户子孙部门
+     */
+    private List<SystemDepartmentListVO> getUserChildren (Integer userId, Boolean containUserDepartment) {
+        SystemDepartmentListVO userDepartment = this.getUserDepartment(userId);
+        if (userDepartment == null) {
+            return Collections.emptyList();
+        }
+        // 查询用户所在部门以下部门
+        List<SystemDepartmentListVO> departmentListVo = new ArrayList<>();
+        List<SystemDepartment> systemDepartments = systemDepartmentService.findByIds(systemDepartmentService.findChildren(userDepartment.getId()));
+        for (SystemDepartment systemDepartment : systemDepartments) {
+            SystemDepartmentListVO vo = new SystemDepartmentListVO();
+            BeanUtils.copyProperties(systemDepartment, vo);
+            departmentListVo.add(vo);
+        }
+        if (containUserDepartment) {
+            departmentListVo.add(userDepartment);
+        }
+        return departmentListVo;
     }
 
     /**

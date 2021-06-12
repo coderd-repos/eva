@@ -3,6 +3,8 @@ package com.eva.service.system;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.model.SystemDataPermission;
+import com.eva.dao.system.vo.SystemDataPermissionListVO;
+
 import java.util.List;
 
 /**
@@ -85,7 +87,7 @@ public interface SystemDataPermissionService {
      * @param pageWrap 分页对象
      * @return PageData<SystemDataPermission>
      */
-    PageData<SystemDataPermission> findPage(PageWrap<SystemDataPermission> pageWrap);
+    PageData<SystemDataPermissionListVO> findPage(PageWrap<SystemDataPermission> pageWrap);
 
     /**
      * 查询数据权限

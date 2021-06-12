@@ -2,18 +2,17 @@ package com.eva.service.system.impl;
 
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
-import com.eva.core.utils.Utils;
 import com.eva.dao.system.SystemDataPermissionMapper;
 import com.eva.dao.system.SystemRoleMapper;
 import com.eva.dao.system.model.SystemDataPermission;
 import com.eva.dao.system.model.SystemRole;
+import com.eva.dao.system.vo.SystemDataPermissionListVO;
 import com.eva.service.system.SystemDataPermissionService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eva.service.system.SystemRoleService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -94,24 +93,9 @@ public class SystemDataPermissionServiceImpl implements SystemDataPermissionServ
     }
   
     @Override
-    public PageData<SystemDataPermission> findPage(PageWrap<SystemDataPermission> pageWrap) {
-        IPage<SystemDataPermission> page = new Page<>(pageWrap.getPage(), pageWrap.getCapacity());
-        QueryWrapper<SystemDataPermission> queryWrapper = new QueryWrapper<>();
-        Utils.MP.blankToNull(pageWrap.getModel());
-        if (pageWrap.getModel().getBusinessCode() != null) {
-            queryWrapper.lambda().like(SystemDataPermission::getBusinessCode, pageWrap.getModel().getBusinessCode());
-        }
-        if (pageWrap.getModel().getType() != null) {
-            queryWrapper.lambda().eq(SystemDataPermission::getType, pageWrap.getModel().getType());
-        }
-        for(PageWrap.SortData sortData: pageWrap.getSorts()) {
-            if (sortData.getDirection().equalsIgnoreCase(PageWrap.DESC)) {
-                queryWrapper.orderByDesc(sortData.getProperty());
-            } else {
-                queryWrapper.orderByAsc(sortData.getProperty());
-            }
-        }
-        return PageData.from(systemDataPermissionMapper.selectPage(page, queryWrapper));
+    public PageData<SystemDataPermissionListVO> findPage(PageWrap<SystemDataPermission> pageWrap) {
+        PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
+        return PageData.from(new PageInfo<>(systemDataPermissionMapper.selectManageList(pageWrap.getModel(), pageWrap.getOrderByClause())));
     }
 
     @Override
