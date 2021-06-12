@@ -110,6 +110,7 @@ INSERT INTO `SYSTEM_MENU` VALUES (11, 2, '日志管理', '', '系统初始化创
 INSERT INTO `SYSTEM_MENU` VALUES (12, 11, '操作日志', '/system/traceLog', '系统初始化创建', 'eva-icon-log-opera', 0, 0, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_MENU` VALUES (13, 11, '登录日志', '/system/loginLog', '系统初始化创建', 'eva-icon-log-login', 0, 1, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 INSERT INTO `SYSTEM_MENU` VALUES (14, 2, '地区管理', '/system/location', '系统初始化创建', 'el-icon-location', 0, 9, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
+INSERT INTO `SYSTEM_MENU` VALUES (15, 2, '数据权限', '/system/location', '系统初始化创建', 'el-icon-location', 0, 10, 1, 1, CURRENT_TIMESTAMP, NULL, NULL, 0);
 COMMIT;
 
 -- ----------------------------
