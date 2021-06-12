@@ -10,6 +10,11 @@
       <h3>强大的可视化 + 命令行代码生成</h3>
       <h3>你若挠头，我便掉发！7*16小时为你解疑答惑</h3>
       <h3></h3>
+      <div class="star">
+        为了项目可持续发展，项目仓库已变更，欢迎star
+        <a href="https://gitee.com/coderd-repos/eva" target="_blank">GITEE</a>
+        <a href="https://github.com/coderd-repos/eva" target="_blank">GITHUB</a>
+      </div>
       <div class="guide">
         <a href="http://eva.adjust-rd.com" target="_blank">前往官网</a>
         <a href="http://cg.lazy-monkey.com/template/group/308/default" target="_blank">开始定制</a>
@@ -61,8 +66,8 @@ export default {
     line-height: 24px;
     margin: 0;
   }
-  .start-up {
-    margin-top: 8px;
+  .star {
+    margin-top: 12px;
   }
   .guide {
     margin: 30px 0 40px 0;
