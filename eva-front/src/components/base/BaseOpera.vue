@@ -27,6 +27,7 @@ export default {
       extParams['field.id'] && (this.configData['field.id'] = extParams['field.id'])
     },
     /**
+     * 打开窗口
      * @title 窗口标题
      * @target 编辑的对象
      */

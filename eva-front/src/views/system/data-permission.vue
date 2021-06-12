@@ -16,7 +16,7 @@
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:datapermission:create', 'system:datapermission:delete']">
-        <li><el-button type="primary" @click="$refs.operaDataPermissionWindow.open('新建数据权限配置')" icon="el-icon-plus" v-permissions="['system:datapermission:create']">新建</el-button></li>
+        <li><el-button type="primary" @click="$refs.operaDataPermissionWindow.open('新建数据权限')" icon="el-icon-plus" v-permissions="['system:datapermission:create']">新建</el-button></li>
         <li><el-button @click="deleteByIdInBatch" icon="el-icon-delete" v-permissions="['system:datapermission:delete']">删除</el-button></li>
       </ul>
       <el-table
@@ -29,16 +29,22 @@
         <el-table-column prop="businessCode" label="业务模块" min-width="100px">
           <template slot-scope="{row}">{{row.businessCode | moduleText(modules)}}</template>
         </el-table-column>
-        <el-table-column prop="roleId" label="角色ID" min-width="100px"></el-table-column>
-        <el-table-column prop="type" label="权限类型" min-width="100px">
+        <el-table-column prop="roleId" label="角色" min-width="100px">
+          <template slot-scope="{row}">{{row.role.name}}</template>
+        </el-table-column>
+        <el-table-column prop="type" label="权限类型" min-width="140px">
           <template slot-scope="{row}">{{row.type | typeText(types)}}</template>
         </el-table-column>
         <el-table-column prop="disabled" label="是否禁用" min-width="100px"></el-table-column>
         <el-table-column prop="remark" label="备注" min-width="100px"></el-table-column>
-        <el-table-column prop="createUser" label="创建人" min-width="100px"></el-table-column>
-        <el-table-column prop="createTime" label="创建时间" min-width="100px"></el-table-column>
-        <el-table-column prop="updateUser" label="修改人" min-width="100px"></el-table-column>
-        <el-table-column prop="updateTime" label="修改时间" min-width="100px"></el-table-column>
+        <el-table-column prop="createUser" label="创建人" min-width="100px">
+          <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
+        </el-table-column>
+        <el-table-column prop="createTime" label="创建时间" min-width="140px"></el-table-column>
+        <el-table-column prop="updateUser" label="修改人" min-width="100px">
+          <template slot-scope="{row}">{{row.updateUserInfo == null ? '' : row.updateUserInfo.username}}</template>
+        </el-table-column>
+        <el-table-column prop="updateTime" label="修改时间" min-width="140px"></el-table-column>
         <el-table-column
           v-if="containPermissions(['system:datapermission:update', 'system:datapermission:delete'])"
           label="操作"
@@ -46,7 +52,7 @@
           fixed="right"
         >
           <template slot-scope="{row}">
-            <el-button type="text" @click="$refs.operaDataPermissionWindow.open('编辑数据权限配置', row)" icon="el-icon-edit" v-permissions="['system:datapermission:update']">编辑</el-button>
+            <el-button type="text" @click="$refs.operaDataPermissionWindow.open('编辑数据权限', row)" icon="el-icon-edit" v-permissions="['system:datapermission:update']">编辑</el-button>
             <el-button type="text" @click="deleteById(row)" icon="el-icon-delete" v-permissions="['system:datapermission:delete']">删除</el-button>
           </template>
         </el-table-column>
@@ -109,10 +115,10 @@ export default {
   },
   async created () {
     this.config({
-      module: '数据权限配置',
+      module: '数据权限',
       api: '/system/dataPermission',
       'field.id': 'id',
-      'field.main': 'id'
+      'field.main': 'role.name'
     })
     // 初始化数据权限模块
     await this.api.fetchModules()

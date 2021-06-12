@@ -6,6 +6,8 @@
     :clearable="clearable"
     :append-to-body="appendToBody"
     :inline="inline"
+    :multiple="multiple"
+    :flat="multiple"
     @input="$emit('input', $event)"
   />
 </template>
@@ -20,6 +22,9 @@ export default {
     value: {},
     inline: {
       default: true
+    },
+    multiple: {
+      default: false
     },
     placeholder: {
       default: '请选择部门'
