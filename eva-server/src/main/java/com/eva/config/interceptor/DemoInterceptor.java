@@ -49,6 +49,11 @@ public class DemoInterceptor implements HandlerInterceptor {
         this.add("/system/monitor/getSystemInfo");
         this.add("/system/location/page");
         this.add("/system/location/children");
+        this.add("/system/location/children");
+        this.add("/system/dataPermission/page");
+        this.add("/system/dataPermission/types");
+        this.add("/system/dataPermission/modules");
+        this.add("/system/dataPermission/updateStatus");
     }};
 
     @Override

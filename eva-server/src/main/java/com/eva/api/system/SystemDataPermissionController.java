@@ -3,13 +3,13 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemDataPermissionBiz;
 import com.eva.core.annotation.pr.PreventRepeat;
+import com.eva.core.annotation.trace.Trace;
 import com.eva.core.constants.DataPermissionConstants;
 import com.eva.core.constants.OperaType;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.model.SystemDataPermission;
-import com.eva.dao.system.model.SystemMenu;
 import com.eva.dao.system.vo.SystemDataPermissionListVO;
 import com.eva.service.system.SystemDataPermissionService;
 import io.swagger.annotations.Api;
@@ -67,7 +67,7 @@ public class SystemDataPermissionController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    @ApiOperation("根据ID修改")
+    @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:datapermission:update")
     public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemDataPermission systemDataPermission) {
@@ -75,7 +75,7 @@ public class SystemDataPermissionController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    @ApiOperation("修改菜单状态")
+    @ApiOperation("修改状态")
     @PostMapping("/updateStatus")
     @RequiresPermissions("system:datapermission:update")
     public ApiResponse updateStatus(@Validated(OperaType.UpdateStatus.class) @RequestBody SystemDataPermission systemDataPermission) {
@@ -90,12 +90,14 @@ public class SystemDataPermissionController extends BaseController {
         return ApiResponse.success(systemDataPermissionService.findPage(pageWrap));
     }
 
+    @Trace(exclude = true)
     @ApiOperation("查询数据权限类型")
     @GetMapping("/types")
     public ApiResponse<List<Map<String, Object>>> findTypes () {
         return ApiResponse.success(DataPermissionConstants.Type.valueList());
     }
 
+    @Trace(exclude = true)
     @ApiOperation("查询数据权限模块")
     @GetMapping("/modules")
     public ApiResponse<List<Map<String, Object>>> findModules () {

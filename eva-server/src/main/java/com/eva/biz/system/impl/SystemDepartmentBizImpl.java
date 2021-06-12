@@ -8,13 +8,11 @@ import com.eva.dao.system.model.SystemDepartment;
 import com.eva.dao.system.vo.SystemDepartmentListVO;
 import com.eva.service.aware.DepartmentDataPermissionAware;
 import com.eva.service.system.SystemDepartmentService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
