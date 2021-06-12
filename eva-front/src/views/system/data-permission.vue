@@ -35,7 +35,11 @@
         <el-table-column prop="type" label="权限类型" min-width="140px">
           <template slot-scope="{row}">{{row.type | typeText(types)}}</template>
         </el-table-column>
-        <el-table-column prop="disabled" label="是否禁用" min-width="100px"></el-table-column>
+        <el-table-column prop="disabled" label="是否启用" min-width="100px">
+          <template slot-scope="{row}">
+            <el-switch v-model="row.disabled" :active-value="false" :inactive-value="true" @change="switchDisabled(row)"/>
+          </template>
+        </el-table-column>
         <el-table-column prop="remark" label="备注" min-width="100px"></el-table-column>
         <el-table-column prop="createUser" label="创建人" min-width="100px">
           <template slot-scope="{row}">{{row.createUserInfo == null ? '' : row.createUserInfo.username}}</template>
@@ -76,6 +80,17 @@ import Pagination from '@/components/common/Pagination'
 import OperaDataPermissionWindow from '@/components/system/datapermission/OperaDataPermissionWindow'
 import DataPermTypeSelect from '@/components/system/datapermission/DataPermTypeSelect'
 import DataPermModuleSelect from '@/components/system/datapermission/DataPermModuleSelect'
+
+// 获取模块名称
+const __getModuleName = function (businessCode, modules) {
+  for (const module of modules) {
+    if (module.businessCode === businessCode) {
+      return module.moduleName
+    }
+  }
+  return '未知'
+}
+
 export default {
   name: 'DataPermission',
   extends: BaseTable,
@@ -103,22 +118,63 @@ export default {
       }
       return '未知'
     },
-    // 数据权限类型文案
+    // 数据权限模块文案
     moduleText (value, modules) {
-      for (const module of modules) {
-        if (module.businessCode === value) {
-          return module.moduleName
-        }
+      return __getModuleName(value, modules)
+    }
+  },
+  methods: {
+    // 启用/禁用菜单
+    switchDisabled (row) {
+      if (!row.disabled) {
+        this.__updateStatus(row)
+        return
       }
-      return '未知'
+      this.$dialog.disableConfirm(`确认禁用 ${__getModuleName(row.businessCode, this.modules)}/${row.role.name} 数据权限吗？`)
+        .then(() => {
+          this.__updateStatus(row)
+        }).catch(() => {
+          row.disabled = !row.disabled
+        })
+    },
+    // 删除行
+    deleteById (row) {
+      this.$dialog.deleteConfirm(`确认删除【${__getModuleName(row.businessCode, this.modules)}/${row.role.name}】数据权限吗？`)
+        .then(() => {
+          this.isWorking.delete = true
+          this.api.deleteById(row.id)
+            .then(() => {
+              this.$tip.apiSuccess('删除成功')
+              this.__afterDelete()
+            })
+            .catch(e => {
+              this.$tip.apiFailed(e)
+            })
+            .finally(() => {
+              this.isWorking.delete = false
+            })
+        })
+        .catch(() => {})
+    },
+    // 修改状态
+    __updateStatus (row) {
+      this.api.updateStatus({
+        id: row.id,
+        disabled: row.disabled
+      })
+        .then(() => {
+          this.$tip.apiSuccess('修改成功')
+        })
+        .catch(e => {
+          row.disabled = !row.disabled
+          this.$tip.apiFailed(e)
+        })
     }
   },
   async created () {
     this.config({
       module: '数据权限',
-      api: '/system/dataPermission',
-      'field.id': 'id',
-      'field.main': 'role.name'
+      api: '/system/dataPermission'
     })
     // 初始化数据权限模块
     await this.api.fetchModules()

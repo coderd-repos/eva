@@ -7,16 +7,16 @@
   >
     <el-form :model="form" ref="form" :rules="rules">
       <el-form-item label="业务模块" prop="businessCode" required>
-        <DataPermModuleSelect v-model="form.businessCode" :inline="false" @change="handleBusinessChange"/>
+        <DataPermModuleSelect v-model="form.businessCode" :disabled="form.id != null" :inline="false" @change="handleBusinessChange"/>
       </el-form-item>
       <el-form-item label="角色" prop="roleId" required>
-        <RoleSelect v-model="form.roleId" :inline="false"/>
+        <RoleSelect v-model="form.roleId" :disabled="form.id != null" :inline="false"/>
       </el-form-item>
       <el-form-item label="权限类型" prop="type" required>
         <DataPermTypeSelect v-model="form.type" :inline="false" @change="handleTypeChange"/>
       </el-form-item>
-      <el-form-item v-show="showCustomData" label="自定义数据" prop="customData" required>
-        <CustomSelect v-model="customData" :business-code="form.businessCode" @change="handleCustomDataChange"/>
+      <el-form-item v-show="showCustomData" label="自定义数据" prop="customData">
+        <CustomSelect v-if="visible" v-model="customData" :business-code="form.businessCode" @change="handleCustomDataChange"/>
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input type="textarea" v-model="form.remark" placeholder="请输入备注" v-trim :rows="3" maxlength="500"/>
@@ -61,9 +61,6 @@ export default {
         ],
         type: [
           { required: true, message: '请选择权限类型' }
-        ],
-        customData: [
-          { required: true, message: '请选择自定义数据' }
         ]
       }
     }

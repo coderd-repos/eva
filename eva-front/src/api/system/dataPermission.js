@@ -27,6 +27,11 @@ export function updateById (data) {
   return request.post('/system/dataPermission/updateById', data)
 }
 
+// 修改状态
+export function updateStatus (data) {
+  return request.post('/system/dataPermission/updateStatus', data)
+}
+
 // 删除
 export function deleteById (id) {
   return request.get(`/system/dataPermission/delete/${id}`)

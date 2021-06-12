@@ -56,7 +56,6 @@ export default {
         .then(records => {
           this.data = []
           this.__fillData(this.data, records)
-          console.log('this.data', this.data)
         })
         .catch(e => {
           this.$tip.apiFailed(e)

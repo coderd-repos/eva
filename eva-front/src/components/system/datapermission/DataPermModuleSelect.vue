@@ -5,6 +5,7 @@
     :value="value"
     :placeholder="placeholder"
     :clearable="clearable"
+    :disabled="disabled"
     @change="$emit('change', $event)"
     @input="$emit('input', $event)"
   >
@@ -24,6 +25,7 @@ export default {
     inline: {
       default: true
     },
+    disabled: {},
     clearable: {
       default: false
     }

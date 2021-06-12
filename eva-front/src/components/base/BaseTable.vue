@@ -128,6 +128,7 @@ export default {
               this.isWorking.delete = false
             })
         })
+        .catch(() => {})
     },
     /**
      * 批量删除
@@ -166,6 +167,7 @@ export default {
               this.isWorking.delete = false
             })
         })
+        .catch(() => {})
     },
     // 删除处理
     __afterDelete (deleteCount = 1) {
