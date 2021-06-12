@@ -41,6 +41,11 @@
         <el-button @click="reset">重置</el-button>
       </section>
     </el-form>
+    <div slot="space" class="status-bar">
+      <label class="status-normal">正常</label>
+      <label class="status-warn">警告异常(需排查)</label>
+      <label class="status-danger">系统异常(需修复)</label>
+    </div>
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <el-table
@@ -197,6 +202,37 @@ export default {
 </script>
 
 <style scoped lang="scss">
+// 状态栏
+.status-bar {
+  padding: 0 16px;
+  [class^=status-] {
+    font-size: 13px;
+    margin-right: 12px;
+    line-height: 40px;
+    &::before {
+      position: relative;
+      top: 2px;
+      display: inline-block;
+      content: '';
+      width: 12px;
+      height: 12px;
+      border: 1px solid #ccc;
+      background: #fff;
+      margin-right: 6px;
+    }
+  }
+  .status-warn::before {
+    background-color: oldlace;
+    border-color: orange;
+  }
+  .status-danger::before {
+    background-color: #fdf0f0;
+    border-color: indianred;
+  }
+}
+/deep/ .table-content {
+  margin-top: 0;
+}
 // 警告级日志
 /deep/ .warning-log td {
   background-color: oldlace !important;
