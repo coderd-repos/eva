@@ -100,7 +100,7 @@ export default {
     },
     // 权限类型切换
     handleTypeChange () {
-      if (this.form.type === 1 && this.form.businessCode != null && this.form.businessCode !== '') {
+      if ((this.form.type === 11 || this.form.type === 21) && this.form.businessCode != null && this.form.businessCode !== '') {
         this.showCustomData = true
       } else {
         this.showCustomData = false

@@ -13,8 +13,8 @@ export default {
     }
   },
   computed: {
+    // vuetreeselect值类型匹配（解决编辑时无法删除已有值的BUG）
     values () {
-      // vuetreeselect值类型匹配（解决编辑时无法删除已有值的BUG）
       if (this.businessCode === 'DEPARTMENT' || this.businessCode === 'POSITION') {
         const values = []
         for (const id of this.value) {
