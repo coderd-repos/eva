@@ -34,6 +34,9 @@
       <if test="dto.businessCode != null and dto.businessCode != ''">
         AND sdp.`BUSINESS_CODE` = #{dto.businessCode}
       </if>
+      <if test="dto.roleId != null">
+        AND role.`ID` = #{dto.roleId}
+      </if>
       <if test="dto.type != null">
         AND sdp.`TYPE` = #{dto.type}
       </if>
