@@ -1,5 +1,7 @@
 package com.eva.service.system.impl;
 
+import com.eva.dao.system.vo.SystemDepartmentListVO;
+import com.eva.service.aware.DepartmentDataPermissionAware;
 import com.eva.service.system.SystemPositionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +43,9 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Autowired
     private SystemPositionService systemPositionService;
+
+    @Autowired
+    private DepartmentDataPermissionAware departmentDataPermissionAware;
 
     @Override
     public Integer create(SystemUser systemUser) {
@@ -94,15 +100,15 @@ public class SystemUserServiceImpl implements SystemUserService {
         Wrapper<SystemUser> wrapper = new QueryWrapper<>(systemUser);
         return systemUserMapper.selectList(wrapper);
     }
-  
+
     @Override
     public PageData<SystemUserListVO> findPage(PageWrap<QuerySystemUserDTO> pageWrap) {
         PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
         // 根部门条件处理（需查询根部门下所有部门的用户）
         if (pageWrap.getModel().getRootDeptId() != null) {
-            List<Integer> departmentIds = systemDepartmentService.findChildren(pageWrap.getModel().getRootDeptId());
-            departmentIds.add(pageWrap.getModel().getRootDeptId());
-            pageWrap.getModel().setDepartmentIds(departmentIds);
+            pageWrap.getModel().setDepartmentIds(getAllowedDeptIds(pageWrap.getModel().getRootDeptId()));
+        } else {
+            pageWrap.getModel().setDepartmentIds(getAllowedDeptIds(null));
         }
         // 执行查询
         List<SystemUserListVO> userList = systemUserMapper.selectManageList(pageWrap.getModel(), pageWrap.getOrderByClause());
@@ -119,5 +125,36 @@ public class SystemUserServiceImpl implements SystemUserService {
     public long count(SystemUser systemUser) {
         Wrapper<SystemUser> wrapper = new QueryWrapper<>(systemUser);
         return systemUserMapper.selectCount(wrapper);
+    }
+
+    /**
+     * 获取用户权限内允许查询的部门ID
+     */
+    private List<Integer> getAllowedDeptIds(Integer rootDeptId) {
+        List<SystemDepartmentListVO> allowedDepartments = departmentDataPermissionAware.execute();
+        List<Integer> allowedDeptIds = new ArrayList<>();
+        for (SystemDepartmentListVO listVO : allowedDepartments) {
+            injectIds(allowedDeptIds, listVO);
+        }
+        if (rootDeptId == null) {
+            return allowedDeptIds;
+        }
+        List<Integer> departmentIds = systemDepartmentService.findChildren(rootDeptId);
+        departmentIds.add(rootDeptId);
+        departmentIds.removeIf(deptId -> !allowedDeptIds.contains(deptId));
+        return departmentIds;
+    }
+
+    /**
+     * 递归注入用户权限内的部门ID
+     */
+    private void injectIds (List<Integer> pool, SystemDepartmentListVO listVO) {
+        pool.add(listVO.getId());
+        if (CollectionUtils.isEmpty(listVO.getChildren())) {
+            return;
+        }
+        for (SystemDepartmentListVO child : listVO.getChildren()) {
+            injectIds(pool, child);
+        }
     }
 }

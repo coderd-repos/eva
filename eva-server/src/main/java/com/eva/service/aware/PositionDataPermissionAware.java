@@ -68,7 +68,7 @@ public class PositionDataPermissionAware extends DefaultDataPermissionAware<Syst
      * @return List<SystemPositionListVO>
      */
     @DataPermissionMapping(value = DataPermissionConstants.Type.POSITION_CHILDREN, priority = 2, injectUser = true)
-    public List<SystemPositionListVO> userChildren(Integer userId) {
+    public List<SystemPositionListVO> children(Integer userId) {
         return this.getRootList(getUserChildren(userId));
     }
 
@@ -79,7 +79,7 @@ public class PositionDataPermissionAware extends DefaultDataPermissionAware<Syst
      * @return List<SystemPositionListVO>
      */
     @DataPermissionMapping(value = DataPermissionConstants.Type.POSITION_CHILD, priority = 3, injectUser = true)
-    public List<SystemPositionListVO> userChild(Integer userId) {
+    public List<SystemPositionListVO> child(Integer userId) {
         List<SystemPositionListVO> children = this.getRootList(getUserChildren(userId));
         for (SystemPositionListVO root : children) {
             if (CollectionUtils.isEmpty(root.getChildren())) {
@@ -103,7 +103,7 @@ public class PositionDataPermissionAware extends DefaultDataPermissionAware<Syst
      * @return List<SystemPositionListVO>
      */
     @DataPermissionMapping(value = DataPermissionConstants.Type.POSITION, priority = 4, injectUser = true)
-    public List<SystemPositionListVO> user(Integer userId) {
+    public List<SystemPositionListVO> onlyUser(Integer userId) {
         List<SystemPositionListVO> userPositions = this.getUserPositions(userId);
         if (CollectionUtils.isEmpty(userPositions)) {
             return Collections.emptyList();

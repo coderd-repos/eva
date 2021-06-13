@@ -22,7 +22,7 @@ import java.util.*;
  */
 @Slf4j
 @Component
-public abstract class DefaultDataPermissionAware<T> extends BaseDataPermissionAware implements DataPermissionAware<T> {
+public abstract class DefaultDataPermissionAware<T> implements DataPermissionAware<T> {
 
     @Autowired
     private SystemDataPermissionService systemDataPermissionService;
@@ -48,7 +48,18 @@ public abstract class DefaultDataPermissionAware<T> extends BaseDataPermissionAw
                     return this.all();
                 }
             }
-            Map<Integer, Method> sortedMethods = this.getMethods();
+            Method[] methods = this.getClass().getDeclaredMethods();
+            Map<Integer, Method> sortedMethods = new TreeMap<>();
+            for (Method method : methods) {
+                DataPermissionMapping mapping = method.getAnnotation(DataPermissionMapping.class);
+                if (mapping == null || mapping.value().equals(DataPermissionConstants.Type.ALL)) {
+                    continue;
+                }
+                if (sortedMethods.get(mapping.priority()) != null) {
+                    throw new AnnotationConfigurationException("Data permission contains the same priority.");
+                }
+                sortedMethods.put(mapping.priority(), method);
+            }
             for (Map.Entry<Integer, Method> entry : sortedMethods.entrySet()) {
                 Method method = entry.getValue();
                 DataPermissionMapping mapping = method.getAnnotation(DataPermissionMapping.class);

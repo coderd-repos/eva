@@ -1,9 +1,6 @@
 package com.eva.biz.system;
 
-import com.eva.core.model.PageData;
-import com.eva.core.model.PageWrap;
 import com.eva.dao.system.dto.*;
-import com.eva.dao.system.vo.SystemUserListVO;
 
 import java.util.List;
 
@@ -13,14 +10,6 @@ import java.util.List;
  * @date 2021-03-29 22:24
  */
 public interface SystemUserBiz {
-
-    /**
-     * 分页查询
-     * @param pageWrap 分页参数
-     *
-     * @return PageData<SystemUserListVO>
-     */
-    PageData<SystemUserListVO> findPage (PageWrap<QuerySystemUserDTO> pageWrap);
 
     /**
      * 删除

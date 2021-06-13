@@ -75,7 +75,7 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
      * @return List<SystemDepartmentListVO>
      */
     @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT_CHILDREN, priority = 2, injectUser = true)
-    public List<SystemDepartmentListVO> userChildren(Integer userId) {
+    public List<SystemDepartmentListVO> children(Integer userId) {
         return this.getRootList(getUserChildren(userId));
     }
 
@@ -86,7 +86,7 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
      * @return List<SystemDepartmentListVO>
      */
     @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT_CHILD, priority = 3, injectUser = true)
-    public List<SystemDepartmentListVO> userChild(Integer userId) {
+    public List<SystemDepartmentListVO> child(Integer userId) {
         List<SystemDepartmentListVO> children = this.getRootList(getUserChildren(userId));
         for (SystemDepartmentListVO root : children) {
             if (CollectionUtils.isEmpty(root.getChildren())) {
@@ -110,7 +110,7 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
      * @return List<SystemDepartmentListVO>
      */
     @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT, priority = 4, injectUser = true)
-    public List<SystemDepartmentListVO> user(Integer userId) {
+    public List<SystemDepartmentListVO> onlyUser(Integer userId) {
         SystemDepartmentListVO userDepartment = this.getUserDepartment(userId);
         if (userDepartment == null) {
             return Collections.emptyList();
