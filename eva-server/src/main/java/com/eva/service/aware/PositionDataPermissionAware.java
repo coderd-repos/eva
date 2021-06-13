@@ -1,5 +1,8 @@
 package com.eva.service.aware;
 
+import com.eva.core.aware.DataPermissionMapping;
+import com.eva.core.aware.DefaultDataPermissionAware;
+import com.eva.core.constants.DataPermissionConstants;
 import com.eva.dao.system.model.SystemPosition;
 import com.eva.dao.system.model.SystemPositionUser;
 import com.eva.dao.system.vo.SystemPositionListVO;
@@ -35,6 +38,17 @@ public class PositionDataPermissionAware extends DefaultDataPermissionAware<Syst
     }
 
     @Override
+    public DataPermissionConstants.Module getModule() {
+        return DataPermissionConstants.Module.POSITION;
+    }
+
+    /**
+     * 自定义
+     * @param customData 自定义数据ID集
+     *
+     * @return List<SystemPositionListVO>
+     */
+    @DataPermissionMapping(value = DataPermissionConstants.Type.POSITION_CUSTOM, priority = 1, injectCustomData = true)
     public List<SystemPositionListVO> custom(String customData) {
         if (StringUtils.isBlank(customData)) {
             return Collections.emptyList();
@@ -47,12 +61,24 @@ public class PositionDataPermissionAware extends DefaultDataPermissionAware<Syst
         return this.getRootList(toSystemPositionListVOs(systemPositionService.findByIds(ids)));
     }
 
-    @Override
+    /**
+     * 用户所属岗位及其子孙岗位
+     * @param userId 用户ID
+     *
+     * @return List<SystemPositionListVO>
+     */
+    @DataPermissionMapping(value = DataPermissionConstants.Type.POSITION_CHILDREN, priority = 2, injectUser = true)
     public List<SystemPositionListVO> userChildren(Integer userId) {
         return this.getRootList(getUserChildren(userId));
     }
 
-    @Override
+    /**
+     * 用户所属岗位及其子岗位
+     * @param userId 用户ID
+     *
+     * @return List<SystemPositionListVO>
+     */
+    @DataPermissionMapping(value = DataPermissionConstants.Type.POSITION_CHILD, priority = 3, injectUser = true)
     public List<SystemPositionListVO> userChild(Integer userId) {
         List<SystemPositionListVO> children = this.getRootList(getUserChildren(userId));
         for (SystemPositionListVO root : children) {
@@ -70,7 +96,13 @@ public class PositionDataPermissionAware extends DefaultDataPermissionAware<Syst
         return children;
     }
 
-    @Override
+    /**
+     * 仅用户所属岗位
+     * @param userId 用户ID
+     *
+     * @return List<SystemPositionListVO>
+     */
+    @DataPermissionMapping(value = DataPermissionConstants.Type.POSITION, priority = 4, injectUser = true)
     public List<SystemPositionListVO> user(Integer userId) {
         List<SystemPositionListVO> userPositions = this.getUserPositions(userId);
         if (CollectionUtils.isEmpty(userPositions)) {

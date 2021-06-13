@@ -38,7 +38,7 @@ public class SystemDataPermission implements Serializable {
 
     @ApiModelProperty(value = "权限类型（0全部，1自定义，2仅用户所属，3用户所属及其子数据）", example = "1")
     @NotNull(message = "权限类型不能为空", groups = {OperaType.Create.class, OperaType.Update.class})
-    private Byte type;
+    private Short type;
 
     @ApiModelProperty(value = "自定义数据")
     private String customData;

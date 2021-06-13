@@ -1,7 +1,6 @@
 package com.eva.biz.system.impl;
 
 import com.eva.biz.system.SystemPositionBiz;
-import com.eva.core.constants.DataPermissionConstants;
 import com.eva.core.exception.BusinessException;
 import com.eva.core.constants.ResponseStatus;
 import com.eva.dao.system.model.SystemPosition;
@@ -50,7 +49,7 @@ public class SystemPositionBizImpl implements SystemPositionBiz {
 
     @Override
     public List<SystemPositionListVO> findTree() {
-        return positionDataPermissionAware.execute(DataPermissionConstants.Module.POSITION.getBusinessCode());
+        return positionDataPermissionAware.execute();
     }
 
     @Override

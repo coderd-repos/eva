@@ -20,18 +20,18 @@ public class SystemDataPermissionBizImpl implements SystemDataPermissionBiz {
         // 验证是否已存在配置
         this.check(systemDataPermission, "该业务模块与角色存在有效的数据权限，请勿重复配置");
         // 清空自定义数据
-        if (DataPermissionConstants.Type.CUSTOM.getCode() != systemDataPermission.getType()) {
-            systemDataPermission.setCustomData("");
-        }
+//        if (DataPermissionConstants.Type.CUSTOM.getCode() != systemDataPermission.getType()) {
+//            systemDataPermission.setCustomData("");
+//        }
         return systemDataPermissionService.create(systemDataPermission);
     }
 
     @Override
     public void update(SystemDataPermission systemDataPermission) {
         // 清空自定义数据
-        if (DataPermissionConstants.Type.CUSTOM.getCode() != systemDataPermission.getType()) {
-            systemDataPermission.setCustomData("");
-        }
+//        if (DataPermissionConstants.Type.CUSTOM.getCode() != systemDataPermission.getType()) {
+//            systemDataPermission.setCustomData("");
+//        }
         systemDataPermissionService.updateById(systemDataPermission);
     }
 

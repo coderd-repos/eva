@@ -1,11 +1,13 @@
 package com.eva.service.aware;
 
+import com.eva.core.aware.DataPermissionMapping;
+import com.eva.core.aware.DefaultDataPermissionAware;
+import com.eva.core.constants.DataPermissionConstants;
 import com.eva.dao.system.model.SystemDepartment;
 import com.eva.dao.system.model.SystemDepartmentUser;
 import com.eva.dao.system.vo.SystemDepartmentListVO;
 import com.eva.service.system.SystemDepartmentService;
 import com.eva.service.system.SystemDepartmentUserService;
-import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,17 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
     }
 
     @Override
+    public DataPermissionConstants.Module getModule() {
+        return DataPermissionConstants.Module.DEPARTMENT;
+    }
+
+    /**
+     * 自定义
+     * @param customData 自定义数据ID集
+     *
+     * @return List<SystemDepartmentListVO>
+     */
+    @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT_CUSTOM, priority = 1, injectCustomData = true)
     public List<SystemDepartmentListVO> custom(String customData) {
         if (StringUtils.isBlank(customData)) {
             return Collections.emptyList();
@@ -55,12 +68,24 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
         return this.getRootList(departmentListVo);
     }
 
-    @Override
+    /**
+     * 用户所属部门及其子孙部门
+     * @param userId 用户ID
+     *
+     * @return List<SystemDepartmentListVO>
+     */
+    @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT_CHILDREN, priority = 2, injectUser = true)
     public List<SystemDepartmentListVO> userChildren(Integer userId) {
         return this.getRootList(getUserChildren(userId));
     }
 
-    @Override
+    /**
+     * 用户所属部门及其子部门
+     * @param userId 用户ID
+     *
+     * @return List<SystemDepartmentListVO>
+     */
+    @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT_CHILD, priority = 3, injectUser = true)
     public List<SystemDepartmentListVO> userChild(Integer userId) {
         List<SystemDepartmentListVO> children = this.getRootList(getUserChildren(userId));
         for (SystemDepartmentListVO root : children) {
@@ -78,7 +103,13 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
         return children;
     }
 
-    @Override
+    /**
+     * 仅用户所属部门
+     * @param userId 用户ID
+     *
+     * @return List<SystemDepartmentListVO>
+     */
+    @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT, priority = 4, injectUser = true)
     public List<SystemDepartmentListVO> user(Integer userId) {
         SystemDepartmentListVO userDepartment = this.getUserDepartment(userId);
         if (userDepartment == null) {

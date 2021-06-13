@@ -3,15 +3,16 @@ package com.eva.biz.system.impl;
 import com.eva.biz.system.SystemUserBiz;
 import com.eva.core.exception.BusinessException;
 import com.eva.core.constants.ResponseStatus;
+import com.eva.core.model.PageData;
+import com.eva.core.model.PageWrap;
 import com.eva.core.utils.Utils;
-import com.eva.dao.system.dto.CreateSystemUserDTO;
-import com.eva.dao.system.dto.CreateUserRoleDTO;
-import com.eva.dao.system.dto.ResetSystemUserPwdDTO;
-import com.eva.dao.system.dto.UpdatePwdDto;
+import com.eva.dao.system.dto.*;
 import com.eva.dao.system.model.SystemDepartmentUser;
 import com.eva.dao.system.model.SystemPositionUser;
 import com.eva.dao.system.model.SystemUser;
 import com.eva.dao.system.model.SystemUserRole;
+import com.eva.dao.system.vo.SystemUserListVO;
+import com.eva.service.aware.UserDataPermissionAware;
 import com.eva.service.system.SystemDepartmentUserService;
 import com.eva.service.system.SystemPositionUserService;
 import com.eva.service.system.SystemUserRoleService;
@@ -40,6 +41,14 @@ public class SystemUserBizImpl implements SystemUserBiz {
 
     @Autowired
     private SystemPositionUserService systemPositionUserService;
+
+    @Autowired
+    private UserDataPermissionAware userDataPermissionAware;
+
+    @Override
+    public PageData<SystemUserListVO> findPage(PageWrap<QuerySystemUserDTO> pageWrap) {
+        return userDataPermissionAware.execute(pageWrap);
+    }
 
     @Override
     public void deleteById(Integer id) {

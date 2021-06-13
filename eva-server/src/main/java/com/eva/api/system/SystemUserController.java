@@ -133,6 +133,6 @@ public class SystemUserController extends BaseController {
     @PostMapping("/page")
     @RequiresPermissions("system:user:query")
     public ApiResponse<PageData<SystemUserListVO>> findPage (@RequestBody PageWrap<QuerySystemUserDTO> pageWrap) {
-        return ApiResponse.success(systemUserService.findPage(pageWrap));
+        return ApiResponse.success(systemUserBiz.findPage(pageWrap));
     }
 }

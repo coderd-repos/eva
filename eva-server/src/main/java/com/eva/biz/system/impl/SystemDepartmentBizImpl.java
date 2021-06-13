@@ -1,7 +1,6 @@
 package com.eva.biz.system.impl;
 
 import com.eva.biz.system.SystemDepartmentBiz;
-import com.eva.core.constants.DataPermissionConstants;
 import com.eva.core.exception.BusinessException;
 import com.eva.core.constants.ResponseStatus;
 import com.eva.dao.system.model.SystemDepartment;
@@ -52,7 +51,7 @@ public class SystemDepartmentBizImpl implements SystemDepartmentBiz {
 
     @Override
     public List<SystemDepartmentListVO> findTree() {
-        return departmentDataPermissionAware.execute(DataPermissionConstants.Module.DEPARTMENT.getBusinessCode());
+        return departmentDataPermissionAware.execute();
     }
 
     @Override
