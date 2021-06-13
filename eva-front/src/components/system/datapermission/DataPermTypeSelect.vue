@@ -9,7 +9,7 @@
     @change="$emit('change', $event)"
     @input="$emit('input', $event)"
   >
-    <el-option v-for="type in types" :key="type.code" :value="type.code" :label="type.remark"/>
+    <el-option v-for="type in filterTypes" :key="type.code" :value="type.code" :label="type.remark"/>
   </el-select>
 </template>
 
@@ -19,6 +19,8 @@ export default {
   name: 'DataPermTypeSelect',
   props: {
     value: {},
+    // 模块名称
+    module: {},
     placeholder: {
       default: '请选择权限类型'
     },
@@ -33,6 +35,20 @@ export default {
   data () {
     return {
       types: []
+    }
+  },
+  computed: {
+    filterTypes () {
+      if (this.module == null || this.module === '') {
+        return []
+      }
+      const types = []
+      for (const type of this.types) {
+        if (type.modules.length === 0 || type.modules.indexOf(this.module) !== -1) {
+          types.push(type)
+        }
+      }
+      return types
     }
   },
   created () {

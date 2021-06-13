@@ -13,7 +13,7 @@
         <RoleSelect v-model="form.roleId" :disabled="form.id != null" :inline="false"/>
       </el-form-item>
       <el-form-item label="权限类型" prop="type" required>
-        <DataPermTypeSelect v-model="form.type" :inline="false" @change="handleTypeChange"/>
+        <DataPermTypeSelect v-model="form.type" :module="form.businessCode" :inline="false" @change="handleTypeChange"/>
       </el-form-item>
       <el-form-item v-show="showCustomData" label="自定义数据" prop="customData">
         <CustomSelect v-if="visible" v-model="customData" :business-code="form.businessCode" @change="handleCustomDataChange"/>
