@@ -8,9 +8,6 @@
       <el-form-item label="角色" prop="roleId">
         <RoleSelect v-model="searchForm.roleId" clearable @change="search"/>
       </el-form-item>
-      <el-form-item label="权限类型" prop="type">
-        <DataPermTypeSelect v-model="searchForm.type" clearable @change="search"/>
-      </el-form-item>
       <section>
         <el-button type="primary" @click="search">搜索</el-button>
         <el-button @click="reset">重置</el-button>
@@ -98,7 +95,7 @@ const __getModuleName = function (businessCode, modules) {
 export default {
   name: 'DataPermission',
   extends: BaseTable,
-  components: { RoleSelect, DataPermModuleSelect, DataPermTypeSelect, TableLayout, Pagination, OperaDataPermissionWindow },
+  components: { RoleSelect, DataPermModuleSelect, TableLayout, Pagination, OperaDataPermissionWindow },
   data () {
     return {
       // 数据权限模块
