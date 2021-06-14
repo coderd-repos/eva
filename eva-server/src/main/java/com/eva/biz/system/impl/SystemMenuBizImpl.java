@@ -169,25 +169,25 @@ public class SystemMenuBizImpl implements SystemMenuBiz {
      * @author Eva.Caesar Liu
      * @date 2021-03-29 16:09
      */
-    private void fillChildren(SystemMenuListVO parentMenu, List<SystemMenuListVO> menus) {
+    private void fillChildren(SystemMenuListVO parent, List<SystemMenuListVO> menus) {
         if (menus.size() == 0) {
             return;
         }
         List<Integer> handledIds = new ArrayList<>();
         for (SystemMenu menu : menus) {
-            if (parentMenu.getId().equals(menu.getParentId())) {
+            if (parent.getId().equals(menu.getParentId())) {
                 SystemMenuListVO child = new SystemMenuListVO();
                 BeanUtils.copyProperties(menu, child, "children");
                 child.setChildren(new ArrayList<>());
-                parentMenu.getChildren().add(child);
+                parent.getChildren().add(child);
                 handledIds.add(menu.getId());
             }
         }
         menus.removeIf(menu -> handledIds.contains(menu.getId()));
-        parentMenu.setHasChildren(Boolean.TRUE);
-        if (parentMenu.getChildren().size() > 0) {
-            parentMenu.setHasChildren(Boolean.FALSE);
-            for (SystemMenuListVO child : parentMenu.getChildren()) {
+        parent.setHasChildren(Boolean.TRUE);
+        if (parent.getChildren().size() > 0) {
+            parent.setHasChildren(Boolean.FALSE);
+            for (SystemMenuListVO child : parent.getChildren()) {
                 this.fillChildren(child, menus);
             }
         }

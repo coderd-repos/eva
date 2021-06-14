@@ -59,7 +59,7 @@ public interface SystemPositionService {
      * @author Caesar Liu
      * @date 2021-06-11 23:50
      */
-    List<SystemPosition> findByIds(List<Integer> ids);;
+    List<SystemPosition> findByIds(List<Integer> ids);
 
     /**
      * 条件查询单条记录

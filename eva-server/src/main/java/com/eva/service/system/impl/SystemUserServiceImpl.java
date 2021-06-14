@@ -136,6 +136,10 @@ public class SystemUserServiceImpl implements SystemUserService {
         for (SystemDepartmentListVO listVO : allowedDepartments) {
             injectIds(allowedDeptIds, listVO);
         }
+        if (allowedDeptIds.size() == 0) {
+            allowedDeptIds.add(-1);
+            return allowedDeptIds;
+        }
         if (rootDeptId == null) {
             return allowedDeptIds;
         }
