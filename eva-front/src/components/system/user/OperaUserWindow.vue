@@ -28,7 +28,7 @@
       <el-form-item v-if="form.id == null" label="初始密码" prop="password" required>
         <el-input v-model="form.password" type="password" placeholder="请输入初始密码" maxlength="30" show-password/>
       </el-form-item>
-      <el-form-item label="所属部门" prop="departmentId">
+      <el-form-item label="所属部门" prop="departmentId" required>
         <DepartmentSelect v-model="form.departmentId" placeholder="请选择用户所属部门" :inline="false" clearable/>
       </el-form-item>
       <el-form-item label="岗位" prop="positionId">
@@ -88,6 +88,9 @@ export default {
         ],
         password: [
           { required: true, message: '请输入密码' }
+        ],
+        departmentId: [
+          { required: true, message: '请选择部门' }
         ],
         avatar: [
           { required: true, message: '请选择用户头像' }

@@ -78,7 +78,6 @@ import BaseTable from '@/components/base/BaseTable'
 import TableLayout from '@/layouts/TableLayout'
 import Pagination from '@/components/common/Pagination'
 import OperaDataPermissionWindow from '@/components/system/datapermission/OperaDataPermissionWindow'
-import DataPermTypeSelect from '@/components/system/datapermission/DataPermTypeSelect'
 import DataPermModuleSelect from '@/components/system/datapermission/DataPermModuleSelect'
 import RoleSelect from '../../components/system/role/RoleSelect'
 

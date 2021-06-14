@@ -1,29 +1,27 @@
 <template>
   <TableLayout :permissions="['system:user:query']">
     <!-- 搜索表单 -->
-    <SearchFormCollapse slot="search-form">
-      <el-form ref="searchForm" :model="searchForm" label-width="80px" inline>
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="searchForm.username" v-trim placeholder="请输入用户名" @keypress.enter.native="search"/>
-        </el-form-item>
-        <el-form-item label="姓名" prop="realname">
-          <el-input v-model="searchForm.realname" v-trim placeholder="请输入姓名" @keypress.enter.native="search"/>
-        </el-form-item>
-        <el-form-item label="手机号码" prop="mobile">
-          <el-input v-model="searchForm.mobile" v-trim placeholder="请输入手机号码" @keypress.enter.native="search"/>
-        </el-form-item>
-        <el-form-item label="所属部门" prop="rootDeptId">
-          <DepartmentSelect v-model="searchForm.rootDeptId" placeholder="请选择所属部门" clearable :append-to-body="true"/>
-        </el-form-item>
-        <el-form-item label="岗位" prop="positionId">
-          <PositionSelect v-model="searchForm.positionId" placeholder="请选择岗位" clearable :append-to-body="true"/>
-        </el-form-item>
-        <section>
-          <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
-          <el-button @click="reset">重置</el-button>
-        </section>
-      </el-form>
-    </SearchFormCollapse>
+    <el-form ref="searchForm" slot="search-form" :model="searchForm" label-width="80px" inline>
+      <el-form-item label="用户名" prop="username">
+        <el-input v-model="searchForm.username" v-trim placeholder="请输入用户名" @keypress.enter.native="search"/>
+      </el-form-item>
+      <el-form-item label="姓名" prop="realname">
+        <el-input v-model="searchForm.realname" v-trim placeholder="请输入姓名" @keypress.enter.native="search"/>
+      </el-form-item>
+      <el-form-item label="手机号码" prop="mobile">
+        <el-input v-model="searchForm.mobile" v-trim placeholder="请输入手机号码" @keypress.enter.native="search"/>
+      </el-form-item>
+      <el-form-item label="所属部门" prop="rootDeptId">
+        <DepartmentSelect v-model="searchForm.rootDeptId" placeholder="请选择所属部门" clearable/>
+      </el-form-item>
+      <el-form-item label="岗位" prop="positionId">
+        <PositionSelect v-model="searchForm.positionId" placeholder="请选择岗位" clearable/>
+      </el-form-item>
+      <section>
+        <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+        <el-button @click="reset">重置</el-button>
+      </section>
+    </el-form>
     <!-- 表格和分页 -->
     <template v-slot:table-wrap>
       <ul class="toolbar" v-permissions="['system:user:create', 'system:user:delete']">
