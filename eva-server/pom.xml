@@ -29,6 +29,7 @@
     <apache.shiro.version>1.7.0</apache.shiro.version>
     <oshi.version>5.7.0</oshi.version>
     <jna.version>5.7.0</jna.version>
+    <poi.version>3.9</poi.version>
   </properties>
 
   <dependencies>
@@ -98,6 +99,17 @@
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
       <version>${fastjson.version}</version>
+    </dependency>
+    <!-- Excel导入/导出依赖包 -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>${poi.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>${poi.version}</version>
     </dependency>
     <!-- 获取系统信息依赖包 -->
     <dependency>

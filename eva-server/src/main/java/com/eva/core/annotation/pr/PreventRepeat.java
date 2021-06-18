@@ -1,7 +1,5 @@
 package com.eva.core.annotation.pr;
 
-import com.eva.core.constants.ResponseStatus;
-
 import java.lang.annotation.*;
 
 /**
