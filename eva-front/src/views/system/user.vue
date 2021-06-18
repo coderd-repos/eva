@@ -116,12 +116,11 @@ import RoleConfigWindow from '@/components/system/user/RoleConfigWindow'
 import ResetPwdWindow from '@/components/system/user/ResetPwdWindow'
 import DepartmentSelect from '@/components/common/DepartmentSelect'
 import PositionSelect from '@/components/common/PositionSelect'
-import SearchFormCollapse from '../../components/common/SearchFormCollapse'
 
 export default {
   name: 'SystemUser',
   extends: BaseTable,
-  components: { SearchFormCollapse, PositionSelect, DepartmentSelect, ResetPwdWindow, RoleConfigWindow, OperaUserWindow, TableLayout, Pagination },
+  components: { PositionSelect, DepartmentSelect, ResetPwdWindow, RoleConfigWindow, OperaUserWindow, TableLayout, Pagination },
   data () {
     return {
       // 搜索

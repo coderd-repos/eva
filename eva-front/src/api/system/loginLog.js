@@ -6,3 +6,10 @@ export function fetchList (data) {
     trim: true
   })
 }
+
+// 导出
+export function exportList (data) {
+  return request.post('/system/loginLog/export', data, {
+    trim: true
+  })
+}
