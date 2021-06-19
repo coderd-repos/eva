@@ -30,7 +30,7 @@
       </el-form-item>
       <section>
         <el-button type="primary" @click="search">搜索</el-button>
-        <el-button type="primary" @click="exportList">导出</el-button>
+        <el-button type="primary" @click="exportExcel">导出</el-button>
         <el-button @click="reset">重置</el-button>
       </section>
     </el-form>
@@ -72,8 +72,6 @@
 import BaseTable from '@/components/base/BaseTable'
 import TableLayout from '@/layouts/TableLayout'
 import Pagination from '@/components/common/Pagination'
-import { exportList } from '@/api/system/loginLog'
-import fileDownload from 'js-file-download'
 
 export default {
   name: 'SystemLoginLog',
@@ -113,18 +111,6 @@ export default {
         this.searchForm.endTime = value[1]
       }
       this.search()
-    },
-    exportList () {
-      exportList({
-        page: this.tableData.pagination.pageIndex,
-        capacity: this.tableData.pagination.pageSize,
-        model: this.searchForm,
-        sorts: this.tableData.sorts
-      })
-        .then(res => {
-          fileDownload(res.data, res.fileName)
-        })
-        .catch()
     }
   },
   created () {

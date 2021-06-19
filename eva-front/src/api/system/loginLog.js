@@ -7,9 +7,9 @@ export function fetchList (data) {
   })
 }
 
-// 导出
-export function exportList (data) {
-  return request.post('/system/loginLog/export', data, {
+// 导出Excel
+export function exportExcel (data) {
+  return request.post('/system/loginLog/exportExcel', data, {
     export: true,
     trim: true
   })

@@ -8,6 +8,16 @@ export default {
   },
   // 接口调用失败
   apiFailed (err) {
+    // 下载接口返回的是ArrayBuffer，此时需要解析为JSON并提示错误消息。
+    if (err instanceof ArrayBuffer) {
+      const blob = new Blob([err])
+      const fileReader = new FileReader()
+      fileReader.readAsText(blob, 'utf-8')
+      fileReader.onload = function () {
+        Message.error(JSON.parse(fileReader.result).message)
+      }
+      return
+    }
     Message.error(err.message)
   }
 }

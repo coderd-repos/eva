@@ -40,16 +40,14 @@ axiosInstance.interceptors.request.use(config => {
 
 // 新建响应拦截器
 axiosInstance.interceptors.response.use((response) => {
+  console.log(response)
   // 请求失败
   if (response.status !== 200) {
     return Promise.reject(new Error('服务器繁忙，请稍后再试'))
   }
   // 下载接口处理
   if (response.headers['eva-opera-type'] === 'download') {
-    return Promise.resolve({
-      fileName: decodeURI(response.headers['eva-download-filename']),
-      data: response.data
-    })
+    return Promise.resolve(response)
   }
   // 未登录
   if (response.data.code === 401) {

@@ -59,6 +59,21 @@ export default {
     search () {
       this.handlePageChange(1)
     },
+    // 导出Excel
+    exportExcel () {
+      this.api.exportExcel({
+        page: this.tableData.pagination.pageIndex,
+        capacity: 1000000,
+        model: this.searchForm,
+        sorts: this.tableData.sorts
+      })
+        .then(response => {
+          this.download(response)
+        })
+        .catch(e => {
+          this.$tip.apiFailed(e)
+        })
+    },
     // 搜索框重置
     reset () {
       this.$refs.searchForm.resetFields()
