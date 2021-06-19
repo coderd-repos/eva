@@ -39,14 +39,10 @@ public class SystemLoginLogController extends BaseController {
         return ApiResponse.success(systemLoginLogService.findPage(pageWrap));
     }
 
-    @PostMapping("/export")
-    @ApiOperation("导出")
+    @PostMapping("/exportExcel")
+    @ApiOperation("导出Excel")
+    @RequiresPermissions("system:loginLog:query")
     public void export (@RequestBody PageWrap<QuerySystemLoginLogDTO> pageWrap, HttpServletResponse response) {
-        PageData<SystemLoginLog> pageData = systemLoginLogService.findPage(pageWrap);
-        try {
-            ExcelExporter.build(SystemLoginLog.class).export(pageData.getRecords(), "登录日志", "MySheet", response);
-        } catch (Exception e) {
-            throw new BusinessException(ResponseStatus.SERVER_ERROR, e);
-        }
+        ExcelExporter.build(SystemLoginLog.class).export(systemLoginLogService.findPage(pageWrap).getRecords(), "登录日志", response);
     }
 }

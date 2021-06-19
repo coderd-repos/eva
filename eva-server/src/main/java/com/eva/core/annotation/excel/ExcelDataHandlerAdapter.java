@@ -13,5 +13,5 @@ public interface ExcelDataHandlerAdapter {
      *
      * @return String
      */
-    String format (Object... args);
+    Object format (Object... args);
 }

@@ -29,7 +29,7 @@
     <apache.shiro.version>1.7.0</apache.shiro.version>
     <oshi.version>5.7.0</oshi.version>
     <jna.version>5.7.0</jna.version>
-    <poi.version>3.9</poi.version>
+    <poi.version>5.0.0</poi.version>
   </properties>
 
   <dependencies>

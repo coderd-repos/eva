@@ -1,5 +1,8 @@
 package com.eva.core.annotation.excel;
 
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+
 import java.lang.annotation.*;
 
 /**
@@ -18,29 +21,34 @@ public @interface ExcelColumn {
     String name();
 
     /**
-     * 列宽
+     * 列宽（单位为字符），-1自动计算
      */
-    int width() default 20;
+    int width() default -1;
 
     /**
-     * 排序，值越小越靠前
+     * 排序，值越小越靠前，-1按字段反射顺序排序
      */
     int index() default -1;
 
     /**
      * 对齐方式
      */
-    Align align() default Align.LEFT;
+    HorizontalAlignment align() default HorizontalAlignment.LEFT;
 
     /**
      * 字体颜色
      */
-    String fontColor () default "";
+    IndexedColors color () default IndexedColors.BLACK;
 
     /**
-     * 字体大小
+     * 粗体
      */
-    String fontSize () default "";
+    boolean bold () default false;
+
+    /**
+     * 斜体
+     */
+    boolean italic () default false;
 
     /**
      * 值映射，如0=女;1=男
@@ -65,33 +73,11 @@ public @interface ExcelColumn {
     /**
      * 自定义数据处理器
      */
-    Class<ExcelDataHandlerAdapter> handler() default ExcelDataHandlerAdapter.class;
+    Class handler() default ExcelDataHandlerAdapter.class;
 
     /**
      * 自定义数据处理器参数
      */
     String[] args() default {};
-
-    /**
-     * 对齐方式
-     */
-    enum Align {
-
-        /**
-         * 靠左
-         */
-        LEFT,
-
-        /**
-         * 居中
-         */
-        CENTER,
-
-        /**
-         * 靠右
-         */
-        RIGHT,
-        ;
-    }
 
 }

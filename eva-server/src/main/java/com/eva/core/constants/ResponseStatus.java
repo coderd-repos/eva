@@ -20,6 +20,7 @@ public enum ResponseStatus {
     ACCOUNT_INCORRECT(4005, "账号或密码不正确"),
     // 500开头表示未知的服务异常
     SERVER_ERROR(5000, "系统繁忙，请联系系统管理员"),
+    EXPORT_EXCEL_ERROR(5010, "导出Excel失败，请联系系统管理员"),
     // 510开头表示可能导致数据错误的异常
     REPEAT_REQUEST(5100, "请勿重复提交"),
     MASSIVE_REQUEST(5101, "请求过于频繁"),
