@@ -4,7 +4,7 @@ import com.eva.dao.system.model.SystemDataPermission;
 
 /**
  * 系统数据权限业务处理
- * @author Caesar Liu
+ * @author Eva.Caesar Liu
  * @date 2021-06-12 21:35
  */
 public interface SystemDataPermissionBiz {
