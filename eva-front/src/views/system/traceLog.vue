@@ -38,6 +38,7 @@
       </el-form-item>
       <section>
         <el-button type="primary" @click="search">搜索</el-button>
+        <el-button type="primary" @click="exportExcel">导出</el-button>
         <el-button @click="reset">重置</el-button>
       </section>
     </el-form>

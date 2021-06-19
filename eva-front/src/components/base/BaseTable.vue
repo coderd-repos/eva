@@ -61,18 +61,23 @@ export default {
     },
     // 导出Excel
     exportExcel () {
-      this.api.exportExcel({
-        page: this.tableData.pagination.pageIndex,
-        capacity: 1000000,
-        model: this.searchForm,
-        sorts: this.tableData.sorts
-      })
-        .then(response => {
-          this.download(response)
+      this.__checkApi()
+      this.$dialog.exportConfirm('确认导出吗？')
+        .then(() => {
+          this.api.exportExcel({
+            page: this.tableData.pagination.pageIndex,
+            capacity: 1000000,
+            model: this.searchForm,
+            sorts: this.tableData.sorts
+          })
+            .then(response => {
+              this.download(response)
+            })
+            .catch(e => {
+              this.$tip.apiFailed(e)
+            })
         })
-        .catch(e => {
-          this.$tip.apiFailed(e)
-        })
+        .catch(() => {})
     },
     // 搜索框重置
     reset () {

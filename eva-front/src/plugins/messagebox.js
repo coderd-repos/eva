@@ -17,5 +17,13 @@ export default {
       cancelButtonText: '取消',
       type: 'warning'
     })
+  },
+  // 导出二次确认
+  exportConfirm (message) {
+    return MessageBox.confirm(message, '导出提醒', {
+      confirmButtonText: '确认导出',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
   }
 }

@@ -6,3 +6,11 @@ export function fetchList (data) {
     trim: true
   })
 }
+
+// 导出Excel
+export function exportExcel (data) {
+  return request.post('/system/traceLog/exportExcel', data, {
+    export: true,
+    trim: true
+  })
+}

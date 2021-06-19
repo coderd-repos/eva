@@ -8,7 +8,7 @@ export default {
   },
   // 接口调用失败
   apiFailed (err) {
-    // 下载接口返回的是ArrayBuffer，此时需要解析为JSON并提示错误消息。
+    // 下载接口返回的是ArrayBuffer，此时需要解析为JSON并提示错误消息。（下载接口出现业务失败的情况，例如无权限等）
     if (err instanceof ArrayBuffer) {
       const blob = new Blob([err])
       const fileReader = new FileReader()
