@@ -22,6 +22,10 @@ axiosInstance.interceptors.request.use(config => {
       config.params = trim(config.params)
     }
   }
+  // 导出处理
+  if (config.export === true) {
+    config.responseType = 'arraybuffer'
+  }
   // 设置操作平台
   config.headers['eva-platform'] = `pc-${pkg.version}`
   // 设置认证头
@@ -38,7 +42,14 @@ axiosInstance.interceptors.request.use(config => {
 axiosInstance.interceptors.response.use((response) => {
   // 请求失败
   if (response.status !== 200) {
-    return Promise.reject(response.data)
+    return Promise.reject(new Error('服务器繁忙，请稍后再试'))
+  }
+  // 下载接口处理
+  if (response.headers['eva-opera-type'] === 'download') {
+    return Promise.resolve({
+      fileName: decodeURI(response.headers['eva-download-filename']),
+      data: response.data
+    })
   }
   // 未登录
   if (response.data.code === 401) {

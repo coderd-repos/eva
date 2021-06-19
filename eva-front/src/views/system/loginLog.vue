@@ -73,6 +73,7 @@ import BaseTable from '@/components/base/BaseTable'
 import TableLayout from '@/layouts/TableLayout'
 import Pagination from '@/components/common/Pagination'
 import { exportList } from '@/api/system/loginLog'
+import fileDownload from 'js-file-download'
 
 export default {
   name: 'SystemLoginLog',
@@ -120,7 +121,9 @@ export default {
         model: this.searchForm,
         sorts: this.tableData.sorts
       })
-        .then()
+        .then(res => {
+          fileDownload(res.data, res.fileName)
+        })
         .catch()
     }
   },
