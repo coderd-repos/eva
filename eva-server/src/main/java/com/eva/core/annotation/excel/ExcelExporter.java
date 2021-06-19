@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -73,10 +75,12 @@ public class ExcelExporter<T> {
      * 导出
      */
     public void export (List<T> data, String fileName, String sheetName, HttpServletResponse response) throws Exception {
-        response.setHeader("Content-Disposition","attachment;filename=" + fileName);
+        String encodeFileName = URLEncoder.encode(fileName, Charset.forName("UTF-8").toString()) + ".xlsx";
+        response.setHeader("Content-Disposition","attachment;filename=" + encodeFileName);
         response.setContentType("application/octet-stream");
-        FileOutputStream fos = new FileOutputStream(new File("/Users/caesar/Downloads/tmp/1.xlsx"));
-        this.export(data, sheetName, fos);
+        response.setHeader("eva-opera-type", "download");
+        response.setHeader("eva-download-filename", encodeFileName);
+        this.export(data, sheetName, response.getOutputStream());
     }
 
     /**

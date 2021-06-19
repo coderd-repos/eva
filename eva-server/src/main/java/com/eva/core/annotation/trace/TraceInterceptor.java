@@ -140,17 +140,32 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
         SystemTraceLog traceLog = new SystemTraceLog();
         traceLog.setId(Integer.valueOf(traceId.toString()));
         traceLog.setOperaSpendTime(Integer.valueOf("" + (System.currentTimeMillis() - Long.valueOf(traceTime.toString()))));
-        // 记录响应内容
+        // 记录操作日志状态
+        String operaType = response.getHeader("eva-opera-type");
+        // - 下载接口处理，无需记录响应内容
+        if ("download".equals(operaType)) {
+            handleDownloadResponse(traceLog, ex);
+            return;
+        }
+        // - 返回json的接口处理
+        handleJsonResponse(traceLog, request, response, handler, ex);
+    }
+
+    /**
+     * JSON响应处理
+     */
+    private void handleJsonResponse(SystemTraceLog traceLog, HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws IOException {
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        Method method = handlerMethod.getMethod();
+        Trace methodTrace = method.getAnnotation(Trace.class);
+        Trace classTrace = method.getDeclaringClass().getAnnotation(Trace.class);
         String responseBody = ((ServletDuplicateOutputStream) response.getOutputStream()).getContent();
         ApiResponse apiResponse = null;
         try {
             apiResponse = JSON.parseObject(responseBody, ApiResponse.class);
         } catch (Exception e) {
         }
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Method method = handlerMethod.getMethod();
-        Trace methodTrace = method.getAnnotation(Trace.class);
-        Trace classTrace = method.getDeclaringClass().getAnnotation(Trace.class);
+        // 记录响应结果
         if (methodTrace == null || methodTrace.withRequestResult() || (classTrace != null && classTrace.withRequestResult())) {
             String requestResult = responseBody;
             if (apiResponse != null) {
@@ -183,7 +198,7 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
         // 其它异常情况
         if (exceptionStack == null) {
             // 未捕获到的未处理的异常
-            if (ex != null){
+            if (ex != null) {
                 StackTraceElement[] trace = ex.getStackTrace();
                 StringBuilder exception = new StringBuilder(ex + "\n");
                 for (StackTraceElement traceElement : trace) {
@@ -207,7 +222,29 @@ public class TraceInterceptor extends HandlerInterceptorAdapter {
                 exceptionStack != null && exceptionStack.length() > MAX_STORE_EXCEPTION_STACK_SIZE
                         ? exceptionStack.substring(0, MAX_STORE_EXCEPTION_STACK_SIZE) + MORE_DETAIL_STRING
                         : exceptionStack);
+        systemTraceLogService.updateById(traceLog);
+    }
 
+    /**
+     * 下载响应处理
+     */
+    private void handleDownloadResponse (SystemTraceLog traceLog, Exception ex) {
+        if (ex == null) {
+            traceLog.setStatus(TraceStatus.SUCCESS.getCode());
+            systemTraceLogService.updateById(traceLog);
+            return;
+        }
+        // 出现异常
+        traceLog.setStatus(TraceStatus.FAILED.getCode());
+        StackTraceElement[] trace = ex.getStackTrace();
+        StringBuilder exception = new StringBuilder(ex + "\n");
+        for (StackTraceElement traceElement : trace) {
+            exception.append("\tat ").append(traceElement).append("\n");
+        }
+        traceLog.setExceptionStack(exception.length() > MAX_STORE_EXCEPTION_STACK_SIZE
+                ? exception.substring(0, MAX_STORE_EXCEPTION_STACK_SIZE) + MORE_DETAIL_STRING
+                : exception.toString());
+        traceLog.setExceptionLevel(ExceptionLevel.DANGER.getLevel());
         systemTraceLogService.updateById(traceLog);
     }
 

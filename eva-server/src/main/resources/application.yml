@@ -8,7 +8,7 @@ project:
 
 # WEB服务器配置
 server:
-  port: 10010
+  port: 10011
 
 spring:
   # 数据源配置
