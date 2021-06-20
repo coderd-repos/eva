@@ -21,7 +21,9 @@ export default {
         // 搜索中
         search: false,
         // 删除中
-        delete: false
+        delete: false,
+        // 导出中
+        export: false
       },
       // 表格数据
       tableData: {
@@ -64,6 +66,7 @@ export default {
       this.__checkApi()
       this.$dialog.exportConfirm('确认导出吗？')
         .then(() => {
+          this.isWorking.export = true
           this.api.exportExcel({
             page: this.tableData.pagination.pageIndex,
             capacity: 1000000,
@@ -75,6 +78,9 @@ export default {
             })
             .catch(e => {
               this.$tip.apiFailed(e)
+            })
+            .finally(() => {
+              this.isWorking.export = false
             })
         })
         .catch(() => {})
