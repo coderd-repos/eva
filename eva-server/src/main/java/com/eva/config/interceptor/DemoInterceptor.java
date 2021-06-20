@@ -43,7 +43,9 @@ public class DemoInterceptor implements HandlerInterceptor {
         this.add("/system/position/tree");
         this.add("/system/position/users");
         this.add("/system/traceLog/page");
+        this.add("/system/traceLog/export");
         this.add("/system/loginLog/page");
+        this.add("/system/loginLog/export");
         this.add("/system/dict/page");
         this.add("/system/dictData/page");
         this.add("/system/monitor/getSystemInfo");

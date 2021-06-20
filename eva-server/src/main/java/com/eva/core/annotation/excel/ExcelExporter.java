@@ -153,7 +153,13 @@ public class ExcelExporter<T> {
     private void configDataCell (SXSSFWorkbook workbook, Cell cell, ExcelColumn columnConfig) {
         CellStyle style = workbook.createCellStyle();
         style.setAlignment(columnConfig.align());
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        // 设置背景
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setFillForegroundColor(columnConfig.dataBackgroundColor().getIndex());
+        // 字体
         Font font = workbook.createFont();
+        font.setFontHeightInPoints(columnConfig.fontSize());
         // 字体颜色
         font.setColor(columnConfig.color().getIndex());
         // 粗体
@@ -172,6 +178,14 @@ public class ExcelExporter<T> {
     private void configHeaderCell (SXSSFWorkbook workbook, Cell cell, ExcelColumn columnConfig) {
         CellStyle style = workbook.createCellStyle();
         style.setAlignment(columnConfig.align());
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        // 设置背景
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setFillForegroundColor(columnConfig.backgroundColor().getIndex());
+        // 字体
+        Font font = workbook.createFont();
+        font.setFontHeightInPoints(columnConfig.fontSize());
+        style.setFont(font);
         // 设置边框
         configCellBorder(style);
         cell.setCellStyle(style);

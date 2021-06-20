@@ -36,9 +36,24 @@ public @interface ExcelColumn {
     HorizontalAlignment align() default HorizontalAlignment.LEFT;
 
     /**
+     * 列背景色
+     */
+    IndexedColors backgroundColor() default IndexedColors.GREY_25_PERCENT;
+
+    /**
+     * 列数据单元格背景色
+     */
+    IndexedColors dataBackgroundColor() default IndexedColors.WHITE;
+
+    /**
      * 字体颜色
      */
     IndexedColors color () default IndexedColors.BLACK;
+
+    /**
+     * 字体大小（像素）
+     */
+    short fontSize () default 12;
 
     /**
      * 粗体
