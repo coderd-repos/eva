@@ -91,8 +91,10 @@ public interface SystemDataPermissionService {
 
     /**
      * 查询数据权限
-     * @author Eva.Caesar Liu
-     * @date 2021-06-11 21:45
+     *
+     * @param businessCode 业务模块编码
+     * @param roles 角色编码
+     * @return List<SystemDataPermission>
      */
     List<SystemDataPermission> findDataPermission(String businessCode, List<String> roles);
 

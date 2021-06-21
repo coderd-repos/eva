@@ -2,23 +2,18 @@ package com.eva.api.system;
 
 import com.eva.api.BaseController;
 import com.eva.core.annotation.excel.ExcelExporter;
-import com.eva.core.constants.ResponseStatus;
-import com.eva.core.exception.BusinessException;
 import com.eva.core.model.ApiResponse;
-import com.eva.core.model.PageData;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.dto.QuerySystemLoginLogDTO;
 import com.eva.dao.system.model.SystemLoginLog;
 import com.eva.service.system.SystemLoginLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * @author Eva.Caesar Liu

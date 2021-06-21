@@ -2,11 +2,9 @@ package com.eva.api.system;
 
 import com.eva.api.BaseController;
 import com.eva.core.annotation.excel.ExcelExporter;
-import com.eva.core.annotation.trace.Trace;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.model.PageWrap;
 import com.eva.dao.system.dto.QuerySystemTraceLogDTO;
-import com.eva.dao.system.model.SystemLoginLog;
 import com.eva.dao.system.model.SystemTraceLog;
 import com.eva.service.system.SystemTraceLogService;
 import io.swagger.annotations.Api;
