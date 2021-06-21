@@ -23,8 +23,8 @@ axiosInstance.interceptors.request.use(config => {
     }
   }
   // 导出处理
-  if (config.export === true) {
-    config.responseType = 'arraybuffer'
+  if (config.download === true) {
+    config.responseType = 'blob'
   }
   // 设置操作平台
   config.headers['eva-platform'] = `pc-${pkg.version}`

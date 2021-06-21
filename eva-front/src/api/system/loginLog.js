@@ -10,7 +10,7 @@ export function fetchList (data) {
 // 导出Excel
 export function exportExcel (data) {
   return request.post('/system/loginLog/exportExcel', data, {
-    export: true,
+    download: true,
     trim: true
   })
 }
