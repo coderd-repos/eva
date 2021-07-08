@@ -18,14 +18,14 @@
           <el-option value="1" label="成功"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="异常等级" prop="status">
+      <el-form-item label="异常等级" prop="exceptionLevel">
         <el-select v-model="searchForm.exceptionLevel" clearable @change="search">
           <el-option value="10" label="高"/>
           <el-option value="5" label="中"/>
           <el-option value="0" label="低"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="操作时间范围" prop="operaModule">
+      <el-form-item label="操作时间范围">
         <el-date-picker
           v-model="searchDateRange"
           type="datetimerange"
@@ -159,6 +159,14 @@ export default {
     }
   },
   methods: {
+    // 搜索框重置
+    reset () {
+      this.$refs.searchForm.resetFields()
+      this.searchDateRange = []
+      this.searchForm.startTime = null
+      this.searchForm.endTime = null
+      this.search()
+    },
     // 标记行class
     tableRowClassName ({ row }) {
       if (row.exceptionLevel === 5 || row.status === -1) {
