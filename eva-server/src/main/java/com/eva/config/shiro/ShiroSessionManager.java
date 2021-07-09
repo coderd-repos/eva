@@ -52,6 +52,14 @@ public class ShiroSessionManager extends DefaultSessionManager implements WebSes
                 return null;
             }
             HttpServletRequest request = (HttpServletRequest) servletRequest;
+            // 从cookie中获取认证
+            javax.servlet.http.Cookie[] cookies = request.getCookies();
+            for (javax.servlet.http.Cookie cookie : cookies) {
+                if (AUTH_TOKEN.equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+            // 从header中获取认证
             return request.getHeader(AUTH_TOKEN);
         }
         return sessionId;
