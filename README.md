@@ -4,8 +4,6 @@
 
 **由于是可定制化的代码，而github或gitee无法做到获取动态代码，所以获取代码时请前往[Eva模版](http://coderd.adjustrd.com/template/308/default)生成，想要了解更多内容，请前往[官网](http://eva.adjustrd.com/)**
 
-更多内容请前往[官网](http://eva.adjustrd.com/)查看。
-
 # 在线体验
 
 [立即前往伊娃系统](http://119.3.126.64:10086/)
