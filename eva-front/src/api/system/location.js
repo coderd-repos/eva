@@ -9,7 +9,7 @@ export function fetchList (data) {
 
 // 根据父节点查询
 export function fetchByParentId (parentId) {
-  return request.get(`/system/location/children/${parentId}`)
+  return request.cache(`location_${parentId}_children`).get(`/system/location/children/${parentId}`)
 }
 
 // 创建

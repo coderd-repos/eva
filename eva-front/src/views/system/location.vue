@@ -6,7 +6,7 @@
         <el-input v-model="searchForm.name" placeholder="请输入名称" @keypress.enter.native="search"></el-input>
       </el-form-item>
       <el-form-item label="地区范围" prop="parentId">
-        <LocationSelect v-model="parentIds" :city-id.sync="searchForm.parentId" placeholder="请选择地区范围" :level="2" clearable @change="search"/>
+        <LocationSelect :city-id.sync="searchForm.parentId" placeholder="请选择地区范围" :level="2" clearable @change="search"/>
       </el-form-item>
       <el-form-item label="地区层级" prop="level">
         <el-select v-model="searchForm.level" placeholder="请选择地区层级" clearable @change="search">
@@ -94,7 +94,6 @@ export default {
   components: { LocationSelect, TableLayout, Pagination, OperaLocationWindow },
   data () {
     return {
-      parentIds: [],
       // 搜索
       searchForm: {
         parentId: null,
@@ -120,12 +119,6 @@ export default {
     }
   },
   methods: {
-    // 重置
-    reset () {
-      this.$refs.searchForm.resetFields()
-      this.parentIds = []
-      this.search()
-    },
     // 启用/禁用
     switchDisabled (row) {
       if (!row.disabled) {
