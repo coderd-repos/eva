@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * 默认Token管理器
  * @author Eva.Caesar Liu
- * @date 2021-05-28 11:14
+ * @date 2021/07/13 22:37
  */
 @Component
 public class ShiroTokenManager {

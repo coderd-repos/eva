@@ -11,7 +11,7 @@
       <el-form-item label="手机号码" prop="mobile">
         <el-input v-model="searchForm.mobile" v-trim placeholder="请输入手机号码" @keypress.enter.native="search"/>
       </el-form-item>
-      <el-form-item label="所属部门" prop="rootDeptId">
+            <el-form-item label="所属部门" prop="rootDeptId">
         <DepartmentSelect v-model="searchForm.rootDeptId" placeholder="请选择所属部门" clearable/>
       </el-form-item>
       <el-form-item label="岗位" prop="positionId">
@@ -127,9 +127,9 @@ export default {
       searchForm: {
         username: '', // 名字
         realname: '', // 姓名
-        mobile: '', // 手机号码
         rootDeptId: null, // 部门ID
-        positionId: null // 岗位ID
+        positionId: null, // 岗位ID
+        mobile: '' // 手机号码
       }
     }
   },

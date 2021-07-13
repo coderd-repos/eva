@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 登录用户信息
  * @author Eva.Caesar Liu
- * @date 2021-03-28 15:28
+ * @date 2021/07/13 22:37
  */
 @Data
 public class LoginUserInfo implements Serializable {

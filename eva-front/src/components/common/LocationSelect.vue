@@ -1,12 +1,12 @@
 <template>
   <el-cascader
-      v-if="visible"
-      :props="props"
-      :placeholder="placeholder"
-      v-model="value"
-      :clearable="clearable"
-      @change="$emit('change')"
-      @input="handleInput"
+    v-if="visible"
+    :props="props"
+    :placeholder="placeholder"
+    v-model="value"
+    :clearable="clearable"
+    @change="$emit('change')"
+    @input="handleInput"
   ></el-cascader>
 </template>
 

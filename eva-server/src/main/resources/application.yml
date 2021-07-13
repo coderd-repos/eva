@@ -1,7 +1,6 @@
 # 项目信息配置
 project:
   name: 伊娃
-#  mode: demo
   version: 1.0.0
   env: development
 #  env: production
@@ -24,13 +23,6 @@ spring:
     time-zone: GMT+8
     # 默认日期格式化
     date-format: yyyy-MM-dd HH:mm:ss
-  # Servlet配置
-  servlet:
-    multipart:
-      # 最大请求参数大小
-      max-request-size: 20MB
-      # 最大文件参数大小
-      max-file-size: 20MB
 
 # MyBatis配置
 mybatis-plus:
@@ -38,7 +30,7 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
 
-# 缓存设置
+# 缓存内容设置
 cache:
   session:
     # 会话过期时长(s)
@@ -53,11 +45,6 @@ trace:
   smart: true
   # 排除跟踪的URL正则
   exclude-patterns: .+/list[a-zA-Z0-9\-\_]*$, .+/tree[a-zA-Z0-9\-\_]*$, .+/page[a-zA-Z0-9\-\_]*$, .+/all[a-zA-Z0-9\-\_]*$, /swagger-resources.*
-
-# 对象存储
-oss:
-  # 文件访问前缀
-  access-prefix: /resource
 
 # Swagger配置
 swagger:

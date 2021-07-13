@@ -80,6 +80,7 @@ public class SystemRoleBizImpl implements SystemRoleBiz {
     }
 
     @Override
+    @Transactional
     public void createRolePermission(CreateRolePermissionDTO dto) {
         // 删除关联权限
         SystemRolePermission deleteDto = new SystemRolePermission();
@@ -95,6 +96,7 @@ public class SystemRoleBizImpl implements SystemRoleBiz {
     }
 
     @Override
+    @Transactional
     public void createRoleMenu(CreateRoleMenuDTO dto) {
         // 删除关联权限
         SystemRoleMenu deleteDto = new SystemRoleMenu();

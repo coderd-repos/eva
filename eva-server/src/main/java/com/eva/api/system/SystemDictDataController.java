@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * @author Eva.Caesar Liu
- * @date 2021/05/16 20:18
+ * @date 2021/07/13 22:37
  */
 @Api(tags = "字典数据")
 @RestController
@@ -36,10 +36,6 @@ public class SystemDictDataController extends BaseController {
     @Autowired
     private SystemDictDataBiz systemDictDataBiz;
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/05/16 20:18
-     */
     @PreventRepeat
     @ApiOperation("新建")
     @PostMapping("/create")
@@ -48,10 +44,6 @@ public class SystemDictDataController extends BaseController {
         return ApiResponse.success(systemDictDataBiz.create(systemDictData));
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/05/16 20:18
-     */
     @ApiOperation("删除")
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:dict:update")
@@ -60,10 +52,6 @@ public class SystemDictDataController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/28 09:30
-     */
     @ApiOperation("批量删除")
     @GetMapping("/delete/batch")
     @RequiresPermissions("system:dict:delete")
@@ -77,10 +65,6 @@ public class SystemDictDataController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/05/16 20:18
-     */
     @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:dict:update")
@@ -89,10 +73,6 @@ public class SystemDictDataController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/05/16 20:18
-     */
     @ApiOperation("分页查询")
     @PostMapping("/page")
     @RequiresPermissions("system:dict:update")

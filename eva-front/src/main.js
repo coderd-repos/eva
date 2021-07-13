@@ -49,7 +49,7 @@ new Vue({
     },
     // 初始化路由
     async initRoutes () {
-      if (this.loading) {
+      if (this.loading || this.userInfo == null) {
         return
       }
       this.loading = true
@@ -66,7 +66,7 @@ new Vue({
           // 404
           router.addRoute({
             path: '*',
-            redirect: '/404'
+            redirect: '/not-found'
           })
         })
         .catch(e => {
@@ -107,6 +107,9 @@ new Vue({
     }
   },
   async created () {
+    if (this.userInfo == null) {
+      return
+    }
     await this.initRoutes()
       .catch(() => {})
   },

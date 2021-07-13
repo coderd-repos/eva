@@ -7,11 +7,13 @@ import com.eva.dao.system.model.SystemPosition;
 import com.eva.dao.system.vo.SystemPositionListVO;
 import com.eva.service.aware.PositionDataPermissionAware;
 import com.eva.service.system.SystemPositionService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service

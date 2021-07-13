@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * 数据权限常量
  * @author Eva.Caesar Liu
- * @date 2021-06-11 23:27
+ * @date 2021/07/13 22:37
  */
 public interface DataPermissionConstants {
 

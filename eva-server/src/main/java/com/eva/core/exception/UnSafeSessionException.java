@@ -3,7 +3,7 @@ package com.eva.core.exception;
 /**
  * 不安全的会话异常
  * @author Eva.Caesar Liu
- * @date 2021-05-28 11:46
+ * @date 2021/07/13 22:37
  */
 public class UnSafeSessionException extends RuntimeException {
 

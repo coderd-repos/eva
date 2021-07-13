@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * 岗位接口
  * @author Eva.Caesar Liu
- * @date 2021/05/16 17:03
+ * @date 2021/07/13 22:37
  */
 @Api(tags = "岗位")
 @RestController
@@ -43,10 +43,6 @@ public class SystemPositionController extends BaseController {
     @Autowired
     private SystemUserService systemUserService;
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/05/16 17:03
-     */
     @PreventRepeat
     @ApiOperation("新建")
     @PostMapping("/create")
@@ -55,10 +51,6 @@ public class SystemPositionController extends BaseController {
         return ApiResponse.success(systemPositionBiz.create(systemPosition));
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/05/16 17:03
-     */
     @ApiOperation("删除")
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:position:delete")
@@ -67,10 +59,6 @@ public class SystemPositionController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/28 09:30
-     */
     @ApiOperation("批量删除")
     @GetMapping("/delete/batch")
     @RequiresPermissions("system:position:delete")
@@ -84,10 +72,6 @@ public class SystemPositionController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/05/16 17:03
-     */
     @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:position:update")
@@ -96,10 +80,6 @@ public class SystemPositionController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/05/16 17:03
-     */
     @ApiOperation("查询岗位树列表")
     @PostMapping("/tree")
     @RequiresPermissions("system:position:query")
@@ -107,11 +87,6 @@ public class SystemPositionController extends BaseController {
         return ApiResponse.success(systemPositionBiz.findTree());
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021-05-24 22:46
-     */
-    @Trace(exclude = true)
     @ApiOperation("查询岗位列表")
     @PostMapping("/all")
     @RequiresPermissions("system:position:query")
@@ -121,10 +96,7 @@ public class SystemPositionController extends BaseController {
         return ApiResponse.success(systemPositionService.findList(systemPosition));
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021-05-24 11:55
-     */
+    @Trace(exclude = true)
     @ApiOperation("查询岗位人员")
     @PostMapping("/users")
     @RequiresPermissions("system:position:queryUsers")

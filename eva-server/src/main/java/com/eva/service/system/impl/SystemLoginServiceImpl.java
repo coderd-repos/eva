@@ -67,7 +67,7 @@ public class SystemLoginServiceImpl implements SystemLoginService {
             return (String)subject.getSession().getId();
         } catch (AuthenticationException e) {
             log.error(ResponseStatus.ACCOUNT_INCORRECT.getMessage(), e);
-            loginLog.setReason(ResponseStatus.ACCOUNT_INCORRECT.getMessage());
+            loginLog.setReason(e.getMessage().length() > 200 ? (e.getMessage().substring(0, 190) + "...") : e.getMessage());
             loginLog.setSuccess(Boolean.FALSE);
             systemLoginLogService.create(loginLog);
             throw new BusinessException(ResponseStatus.ACCOUNT_INCORRECT);

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * 系统菜单Service实现
  * @author Eva.Caesar Liu
- * @date 2021/05/15 19:41
+ * @date 2021/07/13 22:37
  */
 @Service
 public class SystemMenuServiceImpl implements SystemMenuService {
@@ -123,7 +123,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     /**
      * 获取子部门ID
      * @author Eva.Caesar Liu
-     * @date 2021-05-22 23:22
+     * @date 2021/07/13 22:37
      */
     private void fillChildren(List<Integer> pool, List<Integer> parentIds) {
         QueryWrapper<SystemMenu> queryWrapper = new QueryWrapper<>();

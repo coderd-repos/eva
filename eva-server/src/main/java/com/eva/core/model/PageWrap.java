@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 分页请求参数
  * @author Eva.Caesar Liu
- * @date 2021/05/15 18:44
+ * @date 2021/07/13 22:37
  */
 @Data
 @ApiModel("分页请求参数")
@@ -38,7 +38,7 @@ public class PageWrap<M> implements Serializable {
     /**
      * 处理异常排序对象
      * @author Eva.Caesar Liu
-     * @date 2021/05/15 18:44
+     * @date 2021/07/13 22:37
      */
     public List<SortData> getSorts () {
         List<SortData> sorts = new ArrayList<>();
@@ -60,7 +60,7 @@ public class PageWrap<M> implements Serializable {
     /**
      * 处理异常页码
      * @author Eva.Caesar Liu
-     * @date 2021/05/15 18:44
+     * @date 2021/07/13 22:37
      */
     public int getPage () {
         return page <= 0 ? 1 : page;
@@ -69,7 +69,7 @@ public class PageWrap<M> implements Serializable {
     /**
      * 处理异常页容量
      * @author Eva.Caesar Liu
-     * @date 2021/05/15 18:44
+     * @date 2021/07/13 22:37
      */
     public int getCapacity () {
         return capacity <= 0 ? 10 : capacity;
@@ -78,7 +78,7 @@ public class PageWrap<M> implements Serializable {
     /**
      * 获取排序字符串
      * @author Eva.Caesar Liu
-     * @date 2021/05/15 18:44
+     * @date 2021/07/13 22:37
      */
     @ApiModelProperty(hidden = true)
     public String getOrderByClause () {
@@ -103,7 +103,7 @@ public class PageWrap<M> implements Serializable {
     /**
      * 排序对象
      * @author Eva.Caesar Liu
-     * @date 2021/05/15 18:44
+     * @date 2021/07/13 22:37
      */
     @Data
     @ApiModel("排序对象")

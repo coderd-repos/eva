@@ -11,7 +11,7 @@ public interface SystemDepartmentMapper extends BaseMapper<SystemDepartment> {
     /**
      * 查询部门
      * @author Eva.Caesar Liu
-     * @date 2021-05-16 15:40
+     * @date 2021/07/13 22:37
      */
     List<SystemDepartmentListVO> selectManageList();
 }

@@ -3,7 +3,6 @@ package com.eva.api.system;
 import com.eva.api.BaseController;
 import com.eva.biz.system.SystemPermissionBiz;
 import com.eva.core.annotation.pr.PreventRepeat;
-import com.eva.core.annotation.trace.Trace;
 import com.eva.core.model.ApiResponse;
 import com.eva.core.constants.OperaType;
 import com.eva.core.model.PageData;
@@ -24,7 +23,7 @@ import java.util.List;
 
 /**
  * @author Eva.Caesar Liu
- * @date 2021/03/27 22:36
+ * @date 2021/07/13 22:37
  */
 @Api(tags = "系统权限")
 @RestController
@@ -37,10 +36,6 @@ public class SystemPermissionController extends BaseController {
     @Autowired
     private SystemPermissionBiz systemPermissionBiz;
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/27 22:36
-     */
     @PreventRepeat
     @ApiOperation("新建")
     @PostMapping("/create")
@@ -49,10 +44,6 @@ public class SystemPermissionController extends BaseController {
         return ApiResponse.success(systemPermissionBiz.create(systemPermission));
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/27 22:36
-     */
     @ApiOperation("删除")
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:permission:delete")
@@ -61,10 +52,6 @@ public class SystemPermissionController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/28 09:30
-     */
     @ApiOperation("批量删除")
     @GetMapping("/delete/batch")
     @RequiresPermissions("system:permission:delete")
@@ -78,10 +65,6 @@ public class SystemPermissionController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/27 22:36
-     */
     @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:permission:update")
@@ -90,10 +73,6 @@ public class SystemPermissionController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/27 22:36
-     */
     @ApiOperation("分页查询")
     @PostMapping("/page")
     @RequiresPermissions("system:permission:query")
@@ -101,11 +80,6 @@ public class SystemPermissionController extends BaseController {
         return ApiResponse.success(systemPermissionService.findPage(pageWrap));
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021-05-29 16:40
-     */
-    @Trace(exclude = true)
     @ApiOperation("查询所有")
     @GetMapping("/all")
     @RequiresPermissions("system:permission:query")

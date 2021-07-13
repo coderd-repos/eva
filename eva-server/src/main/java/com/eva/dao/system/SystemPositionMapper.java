@@ -11,14 +11,14 @@ public interface SystemPositionMapper extends BaseMapper<SystemPosition> {
     /**
      * 查询管理列表
      * @author Eva.Caesar Liu
-     * @date 2021-05-16 17:18
+     * @date 2021/07/13 22:37
      */
     List<SystemPositionListVO> selectManageList();
 
     /**
      * 查询用户岗位列表
      * @author Eva.Caesar Liu
-     * @date 2021-05-24 23:30
+     * @date 2021/07/13 22:37
      */
     List<SystemPosition> selectByUserId(Integer userId);
 }

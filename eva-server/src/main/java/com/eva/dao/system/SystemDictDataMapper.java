@@ -12,7 +12,7 @@ public interface SystemDictDataMapper extends BaseMapper<SystemDictData> {
     /**
      * 查询字典数据管理列表
      * @author Eva.Caesar Liu
-     * @date 2021-05-16 20:48
+     * @date 2021/07/13 22:37
      */
     List<SystemDictDataListVO> selectManageList(QuerySystemDictDataDTO dto);
 

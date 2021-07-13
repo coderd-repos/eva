@@ -4,12 +4,12 @@ import AppLayout from '@/layouts/AppLayout'
 import { getUserInfo } from '@/api/system/common'
 const Login = () => import('@/views/login')
 const ErrorNoPermissions = () => import('@/views/no-permissions')
-const Error404 = () => import('@/views/404')
+const Error404 = () => import('@/views/not-found')
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-  mode: 'hash',
+  mode: 'history',
   routes: [
     // 登录
     {
@@ -25,8 +25,8 @@ const router = new VueRouter({
     },
     // 404
     {
-      name: '404',
-      path: '/404',
+      name: 'not-found',
+      path: '/not-found',
       component: Error404
     },
     // 首页重定向
@@ -44,8 +44,8 @@ const router = new VueRouter({
   ]
 })
 router.beforeEach((to, from, next) => {
-  // 无权访问页面可直接访问
-  if (to.name === 'no-permissions') {
+  // 无权访问&404页面可直接访问
+  if (to.name === 'no-permissions' || to.name === 'not-found') {
     next()
     return
   }

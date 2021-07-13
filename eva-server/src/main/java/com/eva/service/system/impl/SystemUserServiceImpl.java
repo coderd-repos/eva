@@ -1,8 +1,5 @@
 package com.eva.service.system.impl;
 
-import com.eva.dao.system.vo.SystemDepartmentListVO;
-import com.eva.service.aware.DepartmentDataPermissionAware;
-import com.eva.service.system.SystemPositionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.eva.core.model.PageData;
@@ -12,8 +9,11 @@ import com.eva.dao.system.dto.QuerySystemUserDTO;
 import com.eva.dao.system.model.SystemUser;
 import com.eva.dao.system.vo.SystemUserListVO;
 import com.eva.service.system.SystemDepartmentService;
+import com.eva.service.system.SystemPositionService;
 import com.eva.service.system.SystemRoleService;
 import com.eva.service.system.SystemUserService;
+import com.eva.dao.system.vo.SystemDepartmentListVO;
+import com.eva.service.aware.DepartmentDataPermissionAware;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * 系统用户Service实现
  * @author Eva.Caesar Liu
- * @date 2021/05/15 19:41
+ * @date 2021/07/13 22:37
  */
 @Service
 public class SystemUserServiceImpl implements SystemUserService {
@@ -100,10 +100,9 @@ public class SystemUserServiceImpl implements SystemUserService {
         Wrapper<SystemUser> wrapper = new QueryWrapper<>(systemUser);
         return systemUserMapper.selectList(wrapper);
     }
-
+  
     @Override
     public PageData<SystemUserListVO> findPage(PageWrap<QuerySystemUserDTO> pageWrap) {
-        PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
         // 根部门条件处理（需查询根部门下所有部门的用户）
         if (pageWrap.getModel().getRootDeptId() != null) {
             pageWrap.getModel().setDepartmentIds(getAllowedDeptIds(pageWrap.getModel().getRootDeptId()));
@@ -111,6 +110,7 @@ public class SystemUserServiceImpl implements SystemUserService {
             pageWrap.getModel().setDepartmentIds(getAllowedDeptIds(null));
         }
         // 执行查询
+        PageHelper.startPage(pageWrap.getPage(), pageWrap.getCapacity());
         List<SystemUserListVO> userList = systemUserMapper.selectManageList(pageWrap.getModel(), pageWrap.getOrderByClause());
         for (SystemUserListVO user : userList) {
             // 查询用户角色列表
@@ -136,6 +136,7 @@ public class SystemUserServiceImpl implements SystemUserService {
         for (SystemDepartmentListVO listVO : allowedDepartments) {
             injectIds(allowedDeptIds, listVO);
         }
+        // 没有允许的部门
         if (allowedDeptIds.size() == 0) {
             allowedDeptIds.add(-1);
             return allowedDeptIds;

@@ -110,6 +110,7 @@ import Pagination from '@/components/common/Pagination'
 import TableLayout from '@/layouts/TableLayout'
 import BaseTable from '@/components/base/BaseTable'
 import ColumnDetail from '../../components/common/ColumnDetail'
+
 export default {
   name: 'SystemTraceLog',
   extends: BaseTable,

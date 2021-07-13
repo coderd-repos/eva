@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * 响应状态定义
  * @author Eva.Caesar Liu
- * @date 2021-05-27 01:33
+ * @date 2021/07/13 22:37
  */
 @Getter
 @AllArgsConstructor

@@ -23,15 +23,13 @@
     <java.version>1.8</java.version>
     <swagger.version>2.9.2</swagger.version>
     <swagger.bootstrap-ui.version>1.9.6</swagger.bootstrap-ui.version>
-    <fastjson.version>1.2.76</fastjson.version>
+    <fastjson.version>1.2.70</fastjson.version>
     <druid.version>1.2.0</druid.version>
     <mybatis.plus.version>3.4.2</mybatis.plus.version>
     <apache.shiro.version>1.7.0</apache.shiro.version>
     <oshi.version>5.7.0</oshi.version>
     <jna.version>5.7.0</jna.version>
     <poi.version>5.0.0</poi.version>
-    <qiniu.version>7.8.0</qiniu.version>
-    <aliyun.oss.version>3.5.0</aliyun.oss.version>
   </properties>
 
   <dependencies>
@@ -58,18 +56,6 @@
       <artifactId>pagehelper-spring-boot-starter</artifactId>
       <version>1.2.13</version>
     </dependency>
-    <!-- 阿里OSS -->
-    <dependency>
-      <groupId>com.aliyun.oss</groupId>
-      <artifactId>aliyun-sdk-oss</artifactId>
-      <version>${aliyun.oss.version}</version>
-    </dependency>
-    <!-- 七牛云 -->
-    <dependency>
-      <groupId>com.qiniu</groupId>
-      <artifactId>qiniu-java-sdk</artifactId>
-      <version>${qiniu.version}</version>
-    </dependency>
     <!-- 连接池 -->
     <dependency>
       <groupId>com.alibaba</groupId>
@@ -87,7 +73,7 @@
       <artifactId>springfox-swagger2</artifactId>
       <version>${swagger.version}</version>
     </dependency>
-    <!-- swagger-bootstrap-ui  -->
+    <!-- swagger-bootstrap-ui -->
     <dependency>
       <groupId>com.github.xiaoymin</groupId>
       <artifactId>swagger-bootstrap-ui</artifactId>

@@ -1,6 +1,5 @@
 package com.eva.config.shiro;
 
-import com.eva.service.proxy.CacheProxy;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
@@ -14,9 +13,8 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * 自定义Shiro CacheManager
- * 技术参考：shiro-redis
  * @author Eva.Caesar Liu
- * @date 2021-05-28 01:01
+ * @date 2021/07/13 22:37
  */
 @Slf4j
 @Component

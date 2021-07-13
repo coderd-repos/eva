@@ -2,7 +2,7 @@
   <div class="menu" :class="{collapse: menuData.collapse}">
     <div class="logo">
       <div><img src="/logo.png"></div>
-      <h1 :class="{hidden: menuData.collapse}">伊娃后台管理系统</h1>
+      <h1 :class="{hidden: menuData.collapse}">eva</h1>
     </div>
     <scrollbar>
       <el-menu

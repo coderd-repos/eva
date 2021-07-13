@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 验证码
  * @author Eva.Caesar Liu
- * @date 2021-05-20 17:55
+ * @date 2021/07/13 22:37
  */
-@Api(tags = "验证码接口")
+@Api(tags = "图片验证码接口")
 @Trace(exclude = true)
 @RestController
 @RequestMapping("/common")
@@ -27,9 +26,9 @@ public class CaptchaController extends BaseController {
 
     /**
      * @author Eva.Caesar Liu
-     * @date 2021-05-23 17:11
+     * @date 2021/07/13 22:37
      */
-    @ApiOperation("获取验证码")
+    @ApiOperation("获取图片验证码")
     @GetMapping("/captcha")
     public ApiResponse<CaptchaService.Captcha> getCaptcha() {
         return ApiResponse.success(captchaService.genCaptcha());

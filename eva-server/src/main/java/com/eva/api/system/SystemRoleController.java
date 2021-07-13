@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * @author Eva.Caesar Liu
- * @date 2021/03/27 22:36
+ * @date 2021/07/13 22:37
  */
 @Api(tags = "系统角色")
 @RestController
@@ -38,10 +38,6 @@ public class SystemRoleController extends BaseController {
     @Autowired
     private SystemRoleBiz systemRoleBiz;
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021-03-30 15:47
-     */
     @PreventRepeat
     @ApiOperation("配置角色菜单")
     @PostMapping("/createRoleMenu")
@@ -51,10 +47,6 @@ public class SystemRoleController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021-03-29 22:36
-     */
     @PreventRepeat
     @ApiOperation("配置角色权限")
     @PostMapping("/createRolePermission")
@@ -64,10 +56,6 @@ public class SystemRoleController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/27 22:36
-     */
     @PreventRepeat
     @ApiOperation("新建")
     @PostMapping("/create")
@@ -76,10 +64,6 @@ public class SystemRoleController extends BaseController {
         return ApiResponse.success(systemRoleBiz.create(systemRole));
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/27 22:36
-     */
     @ApiOperation("删除")
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:role:delete")
@@ -88,10 +72,6 @@ public class SystemRoleController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/28 09:30
-     */
     @ApiOperation("批量删除")
     @GetMapping("/delete/batch")
     @RequiresPermissions("system:role:delete")
@@ -105,10 +85,6 @@ public class SystemRoleController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/27 22:36
-     */
     @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:role:update")
@@ -117,10 +93,6 @@ public class SystemRoleController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/27 22:36
-     */
     @ApiOperation("分页查询")
     @PostMapping("/page")
     @RequiresPermissions("system:role:query")
@@ -128,10 +100,6 @@ public class SystemRoleController extends BaseController {
         return ApiResponse.success(systemRoleService.findPage(pageWrap));
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/27 22:36
-     */
     @ApiOperation("查询所有")
     @GetMapping("/all")
     @RequiresPermissions("system:role:query")

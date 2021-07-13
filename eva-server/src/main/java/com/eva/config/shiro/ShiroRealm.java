@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * 自定义Realm，处理认证和权限
  * @author Eva.Caesar Liu
- * @date 2021-03-28 14:58
+ * @date 2021/07/13 22:37
  */
 @Component
 public class ShiroRealm extends AuthorizingRealm {
@@ -44,7 +44,7 @@ public class ShiroRealm extends AuthorizingRealm {
     /**
      * 权限处理
      * @author Eva.Caesar Liu
-     * @date 2021-03-27 18:56
+     * @date 2021/07/13 22:37
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -59,7 +59,7 @@ public class ShiroRealm extends AuthorizingRealm {
     /**
      * 认证处理
      * @author Eva.Caesar Liu
-     * @date 2021-03-27 18:57
+     * @date 2021/07/13 22:37
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {

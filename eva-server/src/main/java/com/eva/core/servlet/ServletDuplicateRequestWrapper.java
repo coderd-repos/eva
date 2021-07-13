@@ -9,9 +9,8 @@ import java.io.*;
 
 /**
  * 增加请求流副本
- * 技术参考：https://blog.csdn.net/AlbenXie/article/details/114868245
  * @author Eva.Caesar Liu
- * @date 2021-05-25 16:13
+ * @date 2021/07/13 22:37
  */
 @Getter
 public class ServletDuplicateRequestWrapper extends HttpServletRequestWrapper {

@@ -23,7 +23,7 @@ import java.util.UUID;
 /**
  * 图片验证码
  * @author Eva.Caesar Liu
- * @date 2021-05-20 19:17
+ * @date 2021/07/13 22:37
  */
 @Service
 public class CaptchaService {
@@ -50,7 +50,7 @@ public class CaptchaService {
     /**
      * 生成验证码图片
      * @author Eva.Caesar Liu
-     * @date 2021-05-20 18:04
+     * @date 2021/07/13 22:37
      */
     public Captcha genCaptcha () {
         // 定义图像buffer
@@ -105,7 +105,7 @@ public class CaptchaService {
     /**
      * 校验验证码
      * @author Eva.Caesar Liu
-     * @date 2021-05-20 22:09
+     * @date 2021/07/13 22:37
      */
     public void check(String uuid, String code) {
         String cacheCode = cacheProxy.get(uuid);
@@ -120,7 +120,7 @@ public class CaptchaService {
 
     /**
      * @author Eva.Caesar Liu
-     * @date 2021-05-20 18:01
+     * @date 2021/07/13 22:37
      */
     @Data
     @ApiModel("验证码对象")

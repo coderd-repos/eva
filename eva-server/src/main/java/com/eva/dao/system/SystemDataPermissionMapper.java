@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author Eva.Caesar Liu
- * @date 2021/06/11 20:28
+ * @date 2021/07/13 22:37
  */
 public interface SystemDataPermissionMapper extends BaseMapper<SystemDataPermission> {
 

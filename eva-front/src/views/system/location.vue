@@ -63,8 +63,8 @@
         >
           <template slot-scope="{row}">
             <el-button type="text" @click="$refs.operaLocationWindow.open('编辑地区', row)" icon="el-icon-edit" v-permissions="['system:location:update']">编辑</el-button>
-            <el-button type="text" v-if="row.level === 1" @click="$refs.operaLocationWindow.open('新增市', null, row)" icon="el-icon-edit" v-permissions="['system:location:update']">新增市</el-button>
-            <el-button type="text" v-if="row.level === 2" @click="$refs.operaLocationWindow.open('新增区/县', null, row)" icon="el-icon-edit" v-permissions="['system:location:update']">新增区/县</el-button>
+            <el-button type="text" v-if="row.level === 1" @click="$refs.operaLocationWindow.open('新增市', null, row)" icon="el-icon-edit" v-permissions="['system:location:create']">新增市</el-button>
+            <el-button type="text" v-if="row.level === 2" @click="$refs.operaLocationWindow.open('新增区/县', null, row)" icon="el-icon-edit" v-permissions="['system:location:create']">新增区/县</el-button>
           </template>
         </el-table-column>
       </el-table>

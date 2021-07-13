@@ -39,7 +39,7 @@
           <el-table-column prop="realname" label="姓名" min-width="100px" fixed="left"></el-table-column>
           <el-table-column prop="username" label="用户名" min-width="100px"></el-table-column>
           <el-table-column prop="empNo" label="工号" min-width="80px"></el-table-column>
-          <el-table-column prop="department" label="部门" min-width="120px">
+                    <el-table-column prop="department" label="部门" min-width="120px">
             <template slot-scope="{row}">{{row.department == null ? '' : row.department.name}}</template>
           </el-table-column>
           <el-table-column prop="position" label="岗位" min-width="120px" class-name="table-column-strings">

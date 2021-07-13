@@ -1,3 +1,6 @@
+框架：Eva v2.0
+Eva官网：http://eva.adjust-rd.com
+
 # 项目目录说明
 - src/assets：静态资源目录
 - src/components：自定义组件目录

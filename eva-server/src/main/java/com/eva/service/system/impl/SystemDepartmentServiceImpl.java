@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 /**
  * Service实现
  * @author Eva.Caesar Liu
- * @date 2021/05/16 11:59
+ * @date 2021/07/13 22:37
  */
 @Service
 public class SystemDepartmentServiceImpl implements SystemDepartmentService {
@@ -107,7 +107,7 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
     /**
      * 获取子部门ID
      * @author Eva.Caesar Liu
-     * @date 2021-05-22 23:22
+     * @date 2021/07/13 22:37
      */
     private void fillChildren(List<Integer> pool, List<Integer> parentIds) {
         QueryWrapper<SystemDepartment> queryWrapper = new QueryWrapper<>();

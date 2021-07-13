@@ -35,10 +35,10 @@
         AND sdp.`BUSINESS_CODE` = #{dto.businessCode}
       </if>
       <if test="dto.roleId != null">
-        AND role.`ID` = #{dto.roleId}
+        AND role.`ID` =  #{dto.roleId}
       </if>
       <if test="dto.type != null">
-        AND sdp.`TYPE` = #{dto.type}
+        AND sdp.`TYPE` =  #{dto.type}
       </if>
     </where>
     ${orderByClause}

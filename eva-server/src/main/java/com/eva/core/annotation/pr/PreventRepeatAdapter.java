@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * 防重复提交实现接口
  * @author Eva.Caesar Liu
- * @date 2021-05-25 10:58
+ * @date 2021/07/13 22:37
  */
 public abstract class PreventRepeatAdapter {
 

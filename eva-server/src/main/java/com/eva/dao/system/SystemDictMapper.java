@@ -13,7 +13,7 @@ public interface SystemDictMapper extends BaseMapper<SystemDict> {
     /**
      * 查询字典管理列表
      * @author Eva.Caesar Liu
-     * @date 2021-05-16 20:10
+     * @date 2021/07/13 22:37
      */
     List<SystemDictListVO> selectManageList(@Param("dto") QuerySystemDictDTO dto, @Param("orderByClause") String orderByClause);
 }

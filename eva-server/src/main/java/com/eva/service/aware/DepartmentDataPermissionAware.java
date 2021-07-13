@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * 部门数据权限控制
  * @author Eva.Caesar Liu
- * @date 2021-06-11 21:16
+ * @date 2021/07/13 22:37
  */
 @Component
 public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<SystemDepartmentListVO> {
@@ -33,22 +33,32 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
     private SystemDepartmentUserService systemDepartmentUserService;
 
     @Override
+    public DataPermissionConstants.Module module() {
+        return DataPermissionConstants.Module.DEPARTMENT;
+    }
+
+    @Override
+    public List<SystemDepartmentListVO> defaultData(Integer userId) {
+        return onlyUser(userId);
+    }
+
+    /**
+     * 全部数据
+     *
+     * @return List<SystemDepartmentListVO>
+     */
+    @DataPermissionMapping(value = DataPermissionConstants.Type.ALL, priority = 1)
     public List<SystemDepartmentListVO> all() {
         return this.getRootList(systemDepartmentService.findList());
     }
 
-    @Override
-    public DataPermissionConstants.Module getModule() {
-        return DataPermissionConstants.Module.DEPARTMENT;
-    }
-
     /**
      * 自定义
-     * @param customData 自定义数据ID集
      *
+     * @param customData 自定义数据ID集
      * @return List<SystemDepartmentListVO>
      */
-    @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT_CUSTOM, priority = 1, injectCustomData = true)
+    @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT_CUSTOM, priority = 2, injectCustomData = true)
     public List<SystemDepartmentListVO> custom(String customData) {
         if (StringUtils.isBlank(customData)) {
             return Collections.emptyList();
@@ -70,22 +80,22 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
 
     /**
      * 用户所属部门及其子孙部门
-     * @param userId 用户ID
      *
+     * @param userId 用户ID
      * @return List<SystemDepartmentListVO>
      */
-    @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT_CHILDREN, priority = 2, injectUser = true)
+    @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT_CHILDREN, priority = 3, injectUser = true)
     public List<SystemDepartmentListVO> children(Integer userId) {
         return this.getRootList(getUserChildren(userId));
     }
 
     /**
      * 用户所属部门及其子部门
-     * @param userId 用户ID
      *
+     * @param userId 用户ID
      * @return List<SystemDepartmentListVO>
      */
-    @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT_CHILD, priority = 3, injectUser = true)
+    @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT_CHILD, priority = 4, injectUser = true)
     public List<SystemDepartmentListVO> child(Integer userId) {
         List<SystemDepartmentListVO> children = this.getRootList(getUserChildren(userId));
         for (SystemDepartmentListVO root : children) {
@@ -105,11 +115,11 @@ public class DepartmentDataPermissionAware extends DefaultDataPermissionAware<Sy
 
     /**
      * 仅用户所属部门
-     * @param userId 用户ID
      *
+     * @param userId 用户ID
      * @return List<SystemDepartmentListVO>
      */
-    @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT, priority = 4, injectUser = true)
+    @DataPermissionMapping(value = DataPermissionConstants.Type.DEPARTMENT, priority = 5, injectUser = true)
     public List<SystemDepartmentListVO> onlyUser(Integer userId) {
         SystemDepartmentListVO userDepartment = this.getUserDepartment(userId);
         if (userDepartment == null) {

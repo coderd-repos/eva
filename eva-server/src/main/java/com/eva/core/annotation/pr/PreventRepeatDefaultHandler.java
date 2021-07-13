@@ -1,18 +1,21 @@
 package com.eva.core.annotation.pr;
 
+import com.eva.core.servlet.ServletDuplicateInputStream;
 import com.eva.core.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * 默认防重复提交实现
  * @author Eva.Caesar Liu
- * @date 2021-05-25 11:01
+ * @date 2021/07/13 22:37
  */
 @Slf4j
 @Component
@@ -34,7 +37,7 @@ public class PreventRepeatDefaultHandler extends PreventRepeatAdapter {
     /**
      * 获取参数
      * @author Eva.Caesar Liu
-     * @date 2021-05-25 14:18
+     * @date 2021/07/13 22:37
      */
     private Map<String, Object> getParameters(HttpServletRequest request) {
         HashMap<String, Object> paramMap = new HashMap<>();

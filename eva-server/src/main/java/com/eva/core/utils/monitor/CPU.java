@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * CPU信息
  * @author Eva.Caesar Liu
- * @date 2021-04-13 19:59
+ * @date 2021/07/13 22:37
  */
 @Data
 @ApiModel("CPU信息")

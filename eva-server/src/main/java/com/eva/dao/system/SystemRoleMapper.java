@@ -13,14 +13,14 @@ public interface SystemRoleMapper extends BaseMapper<SystemRole> {
     /**
      * 查询角色列表
      * @author Eva.Caesar Liu
-     * @date 2021-03-30 11:56
+     * @date 2021/07/13 22:37
      */
     List<SystemRoleListVO> selectManageList(@Param("dto") QuerySystemRoleDTO dto, @Param("orderByClause") String orderByClause);
 
     /**
      * 根据用户ID查询
      * @author Eva.Caesar Liu
-     * @date 2021-03-31 21:04
+     * @date 2021/07/13 22:37
      */
     List<SystemRole> selectByUserId(Integer userId);
 

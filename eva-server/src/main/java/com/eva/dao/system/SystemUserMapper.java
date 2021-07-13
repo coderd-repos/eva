@@ -13,7 +13,7 @@ public interface SystemUserMapper extends BaseMapper<SystemUser> {
     /**
      * 查询用户列表
      * @author Eva.Caesar Liu
-     * @date 2021-03-29 22:52
+     * @date 2021/07/13 22:37
      */
     List<SystemUserListVO> selectManageList(@Param("dto") QuerySystemUserDTO dto, @Param("orderByClause") String orderByClause);
 

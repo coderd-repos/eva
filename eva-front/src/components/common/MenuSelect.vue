@@ -3,8 +3,8 @@
     :placeholder="placeholder"
     :value="value"
     :data="data"
-    :clearable="clearable"
     :append-to-body="appendToBody"
+    :clearable="clearable"
     :inline="inline"
     @input="$emit('input', $event)"
   />

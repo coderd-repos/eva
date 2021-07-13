@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * @author Eva.Caesar Liu
- * @date 2021/05/16 11:59
+ * @date 2021/07/13 22:37
  */
 @Api(tags = "部门")
 @RestController
@@ -38,10 +38,6 @@ public class SystemDepartmentController extends BaseController {
     @Autowired
     private SystemUserService systemUserService;
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/05/16 11:59
-     */
     @PreventRepeat
     @ApiOperation("新建")
     @PostMapping("/create")
@@ -50,10 +46,6 @@ public class SystemDepartmentController extends BaseController {
         return ApiResponse.success(systemDepartmentBiz.create(systemDepartment));
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/05/16 11:59
-     */
     @ApiOperation("删除")
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:department:delete")
@@ -62,10 +54,6 @@ public class SystemDepartmentController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/28 09:30
-     */
     @ApiOperation("批量删除")
     @GetMapping("/delete/batch")
     @PreventRepeat
@@ -80,10 +68,6 @@ public class SystemDepartmentController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/05/16 11:59
-     */
     @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:department:update")
@@ -92,10 +76,6 @@ public class SystemDepartmentController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/05/16 11:59
-     */
     @ApiOperation("查询部门列表")
     @PostMapping("/tree")
     @RequiresPermissions("system:department:query")
@@ -103,10 +83,6 @@ public class SystemDepartmentController extends BaseController {
         return ApiResponse.success(systemDepartmentBiz.findTree());
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021-05-24 11:55
-     */
     @Trace(exclude = true)
     @ApiOperation("查询部门人员")
     @PostMapping("/users")

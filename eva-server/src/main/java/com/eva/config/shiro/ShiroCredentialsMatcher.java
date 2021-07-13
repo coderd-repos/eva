@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 /**
  * Shiro密码比对处理
  * @author Eva.Caesar Liu
- * @date 2021-03-31 18:03
+ * @date 2021/07/13 22:37
  */
 @Component
 public class ShiroCredentialsMatcher extends HashedCredentialsMatcher {

@@ -11,35 +11,35 @@ public interface SystemPositionBiz {
     /**
      * 新建
      * @author Eva.Caesar Liu
-     * @date 2021-05-22 14:14
+     * @date 2021/07/13 22:37
      */
     Integer create(SystemPosition systemPosition);
 
     /**
      * 编辑
      * @author Eva.Caesar Liu
-     * @date 2021-05-22 14:14
+     * @date 2021/07/13 22:37
      */
     void updateById(SystemPosition systemPosition);
 
     /**
      * 查询岗位列表树
      * @author Eva.Caesar Liu
-     * @date 2021-05-16 15:29
+     * @date 2021/07/13 22:37
      */
     List<SystemPositionListVO> findTree();
 
     /**
      * 删除
      * @author Eva.Caesar Liu
-     * @date 2021-05-24 22:00
+     * @date 2021/07/13 22:37
      */
     void deleteById(Integer id);
 
     /**
      * 批量删除
      * @author Eva.Caesar Liu
-     * @date 2021-05-24 22:00
+     * @date 2021/07/13 22:37
      */
     void deleteByIdInBatch(List<Integer> ids);
 }

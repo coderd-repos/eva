@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * @author Eva.Caesar Liu
- * @date 2021/03/28 09:30
+ * @date 2021/07/13 22:37
  */
 @Api(tags = "用户")
 @RestController
@@ -39,10 +39,6 @@ public class SystemUserController extends BaseController {
     @Autowired
     private SystemUserBiz systemUserBiz;
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021-03-29 22:36
-     */
     @PreventRepeat
     @ApiOperation("配置用户角色")
     @PostMapping("/createUserRole")
@@ -52,12 +48,8 @@ public class SystemUserController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021-03-31 20:25
-     */
-    @PreventRepeat
     @Trace(withRequestParameters = false)
+    @PreventRepeat
     @ApiOperation("重置用户密码")
     @PostMapping("/resetPwd")
     @RequiresPermissions("system:user:resetPwd")
@@ -67,12 +59,8 @@ public class SystemUserController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/28 09:30
-     */
-    @PreventRepeat
     @Trace(withRequestParameters = false)
+    @PreventRepeat
     @ApiOperation("新建")
     @PostMapping("/create")
     @RequiresPermissions("system:user:create")
@@ -82,10 +70,6 @@ public class SystemUserController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/28 09:30
-     */
     @ApiOperation("删除")
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:user:delete")
@@ -94,10 +78,6 @@ public class SystemUserController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/28 09:30
-     */
     @ApiOperation("批量删除")
     @GetMapping("/delete/batch")
     @RequiresPermissions("system:user:delete")
@@ -111,12 +91,8 @@ public class SystemUserController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/28 09:30
-     */
-    @ApiOperation("修改")
     @Trace(withRequestParameters = false)
+    @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:user:update")
     public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody CreateSystemUserDTO systemUser) {
@@ -125,10 +101,6 @@ public class SystemUserController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/28 09:30
-     */
     @ApiOperation("分页查询")
     @PostMapping("/page")
     @RequiresPermissions("system:user:query")

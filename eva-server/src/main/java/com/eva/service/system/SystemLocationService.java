@@ -6,9 +6,9 @@ import com.eva.dao.system.model.SystemLocation;
 import java.util.List;
 
 /**
- * 地区表Service定义
+ * 地区Service定义
  * @author Eva.Caesar Liu
- * @date 2021/06/10 17:09
+ * @date 2021/07/13 22:37
  */
 public interface SystemLocationService {
 

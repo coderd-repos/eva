@@ -2,29 +2,31 @@ package com.eva.core.model;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * 分页对象
  * @author Eva.Caesar Liu
- * @date 2021/05/15 18:44
+ * @date 2021/07/13 22:37
  */
 @Data
+@ApiModel("分页对象")
 public class PageData<T> implements Serializable {
 
-    // 目标页
+    @ApiModelProperty("目标页")
     private long page;
 
-    // 一页多少行
+    @ApiModelProperty("页容量")
     private long capacity;
 
-    // 总记录数
+    @ApiModelProperty("总记录数")
     private long total;
 
-    // 当前的数据
+    @ApiModelProperty("当前页的数据")
     private List<T> records;
 
     public PageData(long page, long capacity) {
@@ -35,7 +37,7 @@ public class PageData<T> implements Serializable {
     /**
      * 根据MyBatis Plus分页对象组装
      * @author Eva.Caesar Liu
-     * @date 2021-05-16 13:53
+     * @date 2021/07/13 22:37
      */
     public static <T> PageData<T> from(IPage<T> pageInfo) {
         PageData<T> pageData = new PageData<T>(pageInfo.getCurrent(), pageInfo.getSize());
@@ -47,7 +49,7 @@ public class PageData<T> implements Serializable {
     /**
      * 根据MyBatis原生分页对象组装
      * @author Eva.Caesar Liu
-     * @date 2021-05-16 13:54
+     * @date 2021/07/13 22:37
      */
     public static <T> PageData<T> from(PageInfo<T> pageInfo) {
         PageData<T> pageData = new PageData<>(pageInfo.getPageNum(), pageInfo.getPageSize());
@@ -59,17 +61,17 @@ public class PageData<T> implements Serializable {
     /**
      * 处理异常页容量
      * @author Eva.Caesar Liu
-     * @date 2021/05/15 18:44
+     * @date 2021/07/13 22:37
      */
     public long getCapacity () {
         return capacity <= 0 ? 10 : capacity;
     }
 
     /**
-     * 计算总页码
      * @author Eva.Caesar Liu
-     * @date 2021/05/15 18:44
+     * @date 2021/07/13 22:37
      */
+    @ApiModelProperty("总页数")
     public long getPageCount(){
         if(this.getTotal() % this.getCapacity() == 0){
             long pc = this.getTotal()/this.getCapacity();

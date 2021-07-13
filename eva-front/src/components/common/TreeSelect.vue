@@ -55,10 +55,7 @@ export default {
   .inline {
     width: 178px;
   }
-</style>
-<style lang="scss">
   .vue-treeselect {
-    font-size: 14px;
     line-height: 30px;
     /deep/ .vue-treeselect__control {
       height: 32px;

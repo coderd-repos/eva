@@ -1,29 +1,21 @@
 <template>
   <div class="home">
     <div class="wrap">
-      <h2>这是一套可定制化的极速开发框架</h2>
-      <h3>可定制化技术栈，可定制化功能模块！</h3>
-      <h2>提供极度舒适的"特殊服务"</h2>
-      <h3>文档 & 视频教程全免费，无版权，可学习，可商用！</h3>
-      <h3>内置模块发现BUG手摸手给你修</h3>
-      <h3>内存式缓存 -> Redis高可用随时升级</h3>
-      <h3>强大的可视化 + 命令行代码生成</h3>
-      <h3>你若挠头，我便掉发！7*16小时为你解疑答惑</h3>
-      <h3></h3>
-      <div class="star">
-        为了项目可持续发展，项目仓库已变更，欢迎star
+      <h2>欢迎使用伊娃极速开发框架</h2>
+      <p>您使用的此套开源框架没有任何版权问题，可学习可商用，请放心使用！</p>
+      <p>伊娃致力于打造简洁、合理、高效的开发体验，为此我们将不断升级，感谢您的支持！</p>
+      <p style="margin-top: 12px;">
         <a href="https://gitee.com/coderd-repos/eva" target="_blank">GITEE</a>
         <a href="https://github.com/coderd-repos/eva" target="_blank">GITHUB</a>
-      </div>
+      </p>
       <div class="guide">
-        <a href="http://eva.adjust-rd.com" target="_blank">前往官网</a>
-        <a href="http://cg.lazy-monkey.com/template/group/308/default" target="_blank">开始定制</a>
+        <a href="http://eva.adjustrd.com" target="_blank">前往官网</a>
+        <a href="http://coderd.adjustrd.com/template/308/default" target="_blank">前往CodeRd</a>
       </div>
-      <p>抓紧加群，一起唠嗑！</p>
       <img src="@/assets/images/qq.png">
       <p>你可以扫码加入群聊以获得技术支持</p>
       <div class="award">
-        <h4>买台好点儿的服务器吧</h4>
+        <h4>激励作者做得更好</h4>
         <img src="@/assets/images/alipay.jpeg">
         <img src="@/assets/images/wxpay.jpeg">
       </div>
@@ -33,7 +25,7 @@
 
 <script>
 export default {
-  name: 'Workbench',
+  name: 'Index',
   data () {
     return {}
   }
@@ -46,7 +38,7 @@ export default {
   text-align: center;
   color: #777;
   .wrap {
-    padding-top: 20px;
+    margin-top: 80px;
     img {
       width: 240px;
     }
@@ -54,20 +46,14 @@ export default {
   h2 {
     font-size: 32px;
     color: #555;
-    margin-top: 20px;
-    margin-bottom: 12px;
-  }
-  h3 {
-    color: #555;
-    line-height: 30px;
-    font-size: 20px;
+    margin-bottom: 20px;
   }
   p {
     line-height: 24px;
     margin: 0;
   }
-  .star {
-    margin-top: 12px;
+  .start-up {
+    margin-top: 8px;
   }
   .guide {
     margin: 30px 0 40px 0;
@@ -105,11 +91,7 @@ export default {
     img {
       width: 160px;
       margin-bottom: 20px;
-      opacity: 0.8;
       transition: opacity ease .3s;
-      &:hover {
-        opacity: 1;
-      }
     }
   }
 }

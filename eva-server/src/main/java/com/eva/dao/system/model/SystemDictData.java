@@ -15,7 +15,7 @@ import java.util.Date;
 /**
  * 字典数据
  * @author Eva.Caesar Liu
- * @date 2021/05/16 20:18
+ * @date 2021/07/13 22:37
  */
 @Data
 @ApiModel("字典数据")

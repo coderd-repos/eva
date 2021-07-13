@@ -19,7 +19,7 @@ import java.util.*;
  * - INSERT语句默认填充创建人和创建时间字段
  * - UPDATE语句默认填充更新人和更新时间字段
  * @author Eva.Caesar Liu
- * @date 2021/5/21 18:30
+ * @date 2021/07/13 22:37
  */
 @Slf4j
 @Component
@@ -115,7 +115,7 @@ public class MyBatisInterceptor implements Interceptor {
     /**
      * 获取登录用户信息
      * @author Eva.Caesar Liu
-     * @date 2021-05-16 16:22
+     * @date 2021/07/13 22:37
      */
     private LoginUserInfo getLoginUser () {
         return (LoginUserInfo) SecurityUtils.getSubject().getPrincipal();

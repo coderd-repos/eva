@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * @author Eva.Caesar Liu
- * @date 2021/03/27 22:36
+ * @date 2021/07/13 22:37
  */
 @Api(tags = "系统菜单")
 @RestController
@@ -31,10 +31,6 @@ public class SystemMenuController extends BaseController {
     @Autowired
     private SystemMenuBiz systemMenuBiz;
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021-03-30 22:22
-     */
     @ApiOperation("菜单排序")
     @PostMapping("/updateSort")
     @RequiresPermissions("system:menu:sort")
@@ -43,20 +39,12 @@ public class SystemMenuController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021-03-29 15:31
-     */
     @ApiOperation("查询菜单树")
     @GetMapping("/treeNodes")
     public ApiResponse<List<SystemMenuNodeVO>> getTreeMenu () {
         return ApiResponse.success(systemMenuBiz.findTree(this.getLoginUser().getId()));
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/27 22:36
-     */
     @ApiOperation("查询列表树")
     @PostMapping("/treeList")
     @RequiresPermissions("system:menu:query")
@@ -64,10 +52,6 @@ public class SystemMenuController extends BaseController {
         return ApiResponse.success(systemMenuBiz.findTree());
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/27 22:36
-     */
     @PreventRepeat
     @ApiOperation("新建")
     @PostMapping("/create")
@@ -76,10 +60,6 @@ public class SystemMenuController extends BaseController {
         return ApiResponse.success(systemMenuBiz.create(systemMenu));
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/27 22:36
-     */
     @ApiOperation("删除")
     @GetMapping("/delete/{id}")
     @RequiresPermissions("system:menu:delete")
@@ -88,10 +68,6 @@ public class SystemMenuController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/28 09:30
-     */
     @ApiOperation("批量删除")
     @GetMapping("/delete/batch")
     @RequiresPermissions("system:menu:delete")
@@ -105,10 +81,6 @@ public class SystemMenuController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021/03/27 22:36
-     */
     @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:menu:update")
@@ -117,10 +89,6 @@ public class SystemMenuController extends BaseController {
         return ApiResponse.success(null);
     }
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021-05-25 19:43
-     */
     @ApiOperation("修改菜单状态")
     @PostMapping("/updateStatus")
     @RequiresPermissions("system:menu:update")

@@ -131,7 +131,7 @@ public class SystemUserBizImpl implements SystemUserBiz {
             systemDepartmentUser.setOperaUser(systemUser.getCreateUser());
             systemDepartmentUser.setOperaTime(new Date());
             systemDepartmentUserService.create(systemDepartmentUser);
-        }
+        }    
         // 设置岗位
         if (systemUser.getPositionIds() != null && systemUser.getPositionIds().size() > 0) {
             for (Integer positionId : systemUser.getPositionIds()) {
@@ -196,6 +196,7 @@ public class SystemUserBizImpl implements SystemUserBiz {
     }
 
     @Override
+    @Transactional
     public void createUserRole(CreateUserRoleDTO dto) {
         // 删除关联角色
         SystemUserRole deleteDto = new SystemUserRole();

@@ -45,7 +45,7 @@
           <el-table-column prop="department" label="部门" min-width="120px">
             <template slot-scope="{row}">{{row.department == null ? '' : row.department.name}}</template>
           </el-table-column>
-          <el-table-column prop="position" label="岗位" min-width="120px" class-name="table-column-strings">
+                    <el-table-column prop="position" label="岗位" min-width="120px" class-name="table-column-strings">
             <template slot-scope="{row}">
               <ul>
                 <li v-for="position in row.positions" :key="position.id">{{position.name}}</li>

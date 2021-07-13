@@ -13,12 +13,12 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * 地区表
+ * 地区
  * @author Eva.Caesar Liu
- * @date 2021/06/10 17:09
+ * @date 2021/07/13 22:37
  */
 @Data
-@ApiModel("地区表")
+@ApiModel("地区")
 @TableName("SYSTEM_LOCATION")
 public class SystemLocation implements Serializable {
 

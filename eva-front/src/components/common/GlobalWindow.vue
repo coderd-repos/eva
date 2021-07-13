@@ -17,8 +17,10 @@
       <slot></slot>
     </div>
     <div v-if="withFooter" class="window__footer">
-      <el-button @click="confirm" :loading="confirmWorking" type="primary">确定</el-button>
-      <el-button @click="close">取消</el-button>
+      <slot name="footer">
+        <el-button @click="confirm" :loading="confirmWorking" type="primary">确定</el-button>
+        <el-button @click="close">取消</el-button>
+      </slot>
     </div>
   </el-drawer>
 </template>
@@ -46,7 +48,7 @@ export default {
       type: String,
       default: ''
     },
-    // 是否展示Dialog
+    // 是否展示
     visible: {
       type: Boolean,
       required: true
@@ -104,6 +106,10 @@ $input-height: 32px;
       // 标签
       .el-form-item__label {
         float: none;
+      }
+      // 元素宽度为100%
+      .el-form-item__content > *{
+        width: 100%;
       }
     }
     // 尾部

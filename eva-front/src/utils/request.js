@@ -31,7 +31,7 @@ axiosInstance.interceptors.request.use(config => {
   // 设置认证头
   const authToken = Cookies.get('eva-auth-token')
   if (authToken != null) {
-    config.headers['eva-auth-token'] = Cookies.get('eva-auth-token')
+    config.headers['eva-auth-token'] = authToken
   }
   return config
 }, function (error) {

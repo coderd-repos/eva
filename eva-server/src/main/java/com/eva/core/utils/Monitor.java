@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author Eva.Caesar Liu
- * @date 2021-04-13 22:34
+ * @date 2021/07/13 22:37
  */
 @Data
 @ApiModel("监听信息")
@@ -92,7 +92,6 @@ public class Monitor implements Serializable {
 
     /**
      * 设置CPU信息
-     * 技术参考：https://blog.csdn.net/u012796085/article/details/104068769
      */
     private void setCpu(CentralProcessor processor) {
         this.cpu = new CPU();

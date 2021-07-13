@@ -8,10 +8,9 @@ import java.nio.charset.Charset;
 
 /**
  * 地区工具类
- * 技术参考：https://blog.csdn.net/jam_fanatic/article/details/82822878
  * 第三方服务：http://whois.pconline.com.cn/
  * @author Eva.Caesar Liu
- * @date 2021-05-31 14:51
+ * @date 2021/07/13 22:37
  */
 @Slf4j
 public class Location {

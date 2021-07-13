@@ -11,21 +11,21 @@ public interface SystemMenuMapper extends BaseMapper<SystemMenu> {
     /**
      * 查询列表
      * @author Eva.Caesar Liu
-     * @date 2021-03-30 20:16
+     * @date 2021/07/13 22:37
      */
     List<SystemMenuListVO> selectManageList();
 
     /**
      * 根据用户ID查询
      * @author Eva.Caesar Liu
-     * @date 2021-03-30 16:22
+     * @date 2021/07/13 22:37
      */
     List<SystemMenu> selectByUserId(Integer userId);
 
     /**
      * 根据角色ID查询
      * @author Eva.Caesar Liu
-     * @date 2021-03-31 20:40
+     * @date 2021/07/13 22:37
      */
     List<SystemMenu> selectByRoleId(Integer roleId);
 

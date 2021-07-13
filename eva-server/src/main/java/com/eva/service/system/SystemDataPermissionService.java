@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 数据权限配置Service定义
  * @author Eva.Caesar Liu
- * @date 2021/06/11 20:28
+ * @date 2021/07/13 22:37
  */
 public interface SystemDataPermissionService {
 

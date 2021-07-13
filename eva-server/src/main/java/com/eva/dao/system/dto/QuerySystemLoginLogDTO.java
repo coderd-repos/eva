@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * 查询登录日志参数
  * @author Eva.Caesar Liu
- * @date 2021-06-01 11:30
+ * @date 2021/07/13 22:37
  */
 @Data
 public class QuerySystemLoginLogDTO extends SystemLoginLog {

@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * 数据权限配置Service实现
  * @author Eva.Caesar Liu
- * @date 2021/06/11 20:28
+ * @date 2021/07/13 22:37
  */
 @Service
 public class SystemDataPermissionServiceImpl implements SystemDataPermissionService {
@@ -110,7 +110,7 @@ public class SystemDataPermissionServiceImpl implements SystemDataPermissionServ
         QueryWrapper<SystemRole> queryRoleWrapper = new QueryWrapper<>();
         queryRoleWrapper.lambda().in(SystemRole::getCode, roles).eq(SystemRole::getDeleted, Boolean.FALSE);
         List<SystemRole> systemRoles = systemRoleMapper.selectList(queryRoleWrapper);
-        if (CollectionUtils.isEmpty(roles)) {
+        if (CollectionUtils.isEmpty(systemRoles)) {
             return Collections.emptyList();
         }
         List<Integer> roleIds = new ArrayList<>();

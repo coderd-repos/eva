@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Eva.Caesar Liu
- * @date 2021-04-13 23:25
+ * @date 2021/07/13 22:37
  */
 @Api(tags = "系统监听")
 @Trace(exclude = true)
@@ -22,10 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/system/monitor")
 public class SystemMonitorController extends BaseController {
 
-    /**
-     * @author Eva.Caesar Liu
-     * @date 2021-04-13 22:42
-     */
     @ApiOperation("获取系统信息")
     @GetMapping("/getSystemInfo")
     @RequiresPermissions("system:monitor:query")

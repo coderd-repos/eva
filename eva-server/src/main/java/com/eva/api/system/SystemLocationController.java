@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Eva.Caesar Liu
- * @date 2021/06/10 17:09
+ * @date 2021/07/13 22:37
  */
 @RestController
 @RequestMapping("/system/location")
-@Api(tags = "地区表")
+@Api(tags = "地区")
 public class SystemLocationController extends BaseController {
 
     @Autowired
@@ -35,7 +35,7 @@ public class SystemLocationController extends BaseController {
         return ApiResponse.success(locationService.create(location));
     }
 
-    @ApiOperation("根据ID修改")
+    @ApiOperation("修改")
     @PostMapping("/updateById")
     @RequiresPermissions("system:location:update")
     public ApiResponse updateById(@Validated(OperaType.Update.class) @RequestBody SystemLocation location) {
@@ -59,7 +59,7 @@ public class SystemLocationController extends BaseController {
     }
 
     @Trace(exclude = true)
-    @ApiOperation("根据父ID查询")
+    @ApiOperation("查询子地区")
     @GetMapping("/children/{parentId}")
     public ApiResponse findPage (@PathVariable Integer parentId) {
         SystemLocation queryDto = new SystemLocation();

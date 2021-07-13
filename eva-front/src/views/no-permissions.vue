@@ -14,7 +14,7 @@ import NotAllow from '../components/common/NotAllow'
 import { mapMutations } from 'vuex'
 import { logout } from '@/api/system/common'
 export default {
-  name: 'no-permissions.vue',
+  name: 'NoPermissions',
   components: { NotAllow },
   methods: {
     ...mapMutations(['setUserInfo']),

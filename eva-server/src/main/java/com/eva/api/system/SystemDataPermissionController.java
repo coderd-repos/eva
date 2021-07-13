@@ -25,11 +25,11 @@ import java.util.Map;
 
 /**
  * @author Eva.Caesar Liu
- * @date 2021/06/11 20:28
+ * @date 2021/07/13 22:37
  */
 @RestController
 @RequestMapping("/system/dataPermission")
-@Api(tags = "系统数据权限配置")
+@Api(tags = "系统数据权限")
 public class SystemDataPermissionController extends BaseController {
 
     @Autowired

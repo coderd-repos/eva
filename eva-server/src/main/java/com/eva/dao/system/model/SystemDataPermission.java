@@ -16,7 +16,7 @@ import java.util.Date;
 /**
  * 数据权限配置
  * @author Eva.Caesar Liu
- * @date 2021/06/11 20:28
+ * @date 2021/07/13 22:37
  */
 @Data
 @ApiModel("数据权限配置")

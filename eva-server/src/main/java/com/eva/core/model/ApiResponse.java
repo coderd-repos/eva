@@ -12,7 +12,7 @@ import java.io.Serializable;
 /**
  * 接口返回对象
  * @author Eva.Caesar Liu
- * @date 2021/03/26 19:48
+ * @date 2021/07/13 22:37
  */
 @ApiModel("响应对象")
 @Data

@@ -18,9 +18,8 @@ import java.io.Serializable;
 
 /**
  * 自定义会话管理器
- * 技术参考：https://blog.csdn.net/weixin_30273931/article/details/96202820
  * @author Eva.Caesar Liu
- * @date 2021-05-28 14:04
+ * @date 2021/07/13 22:37
  */
 @Slf4j
 public class ShiroSessionManager extends DefaultSessionManager implements WebSessionManager {
