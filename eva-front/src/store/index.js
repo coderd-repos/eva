@@ -5,6 +5,8 @@ Vue.use(Vuex)
 const state = {
   // 登录用户信息
   userInfo: null,
+  // 首页
+  homePage: null,
   // 菜单
   menuData: {
     // 菜单列表
@@ -27,6 +29,10 @@ const mutations = {
   // 设置已登录的用户信息
   setUserInfo: (state, data) => {
     state.userInfo = data
+  },
+  // 设置首页路由信息
+  setHomePage (state, homePage) {
+    state.homePage = homePage
   },
   // 重置菜单
   resetMenus: (state) => {

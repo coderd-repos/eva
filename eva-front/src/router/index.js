@@ -29,11 +29,6 @@ const router = new VueRouter({
       path: '/not-found',
       component: Error404
     },
-    // 首页重定向
-    {
-      path: '/',
-      redirect: '/index'
-    },
     // 内容页（动态加载）
     {
       name: 'layout',

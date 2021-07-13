@@ -27,7 +27,7 @@ new Vue({
   router,
   store,
   computed: {
-    ...mapState(['userInfo'])
+    ...mapState(['userInfo', 'homePage'])
   },
   watch: {
     async userInfo () {
@@ -38,7 +38,7 @@ new Vue({
     }
   },
   methods: {
-    ...mapMutations(['switchCollapseMenu']),
+    ...mapMutations(['switchCollapseMenu', 'setHomePage']),
     // 初始化本地配置
     initLocalConfig () {
       // 菜单状态配置
@@ -57,17 +57,29 @@ new Vue({
       this.$store.commit('resetMenus')
       // 获取菜单
       const storeMenus = this.$store.state.menuData.list
+      if (storeMenus.length > 0 && this.homePage == null) {
+        this.setHomePage(storeMenus[0])
+      }
       await fetchMenuTree()
         .then(menus => {
           // 添加菜单
           storeMenus.push.apply(storeMenus, menus)
           // 添加路由
-          this.__addRouters(menus)
+          this.__addRouters(storeMenus)
           // 404
           router.addRoute({
             path: '*',
             redirect: '/not-found'
           })
+          // 首页
+          router.addRoute({
+            path: '/',
+            redirect: this.homePage.url
+          })
+          // 路由加载完成后，如果访问的是/，跳转至动态识别的首页
+          if (this.$route.path === '/') {
+            this.$router.push(this.homePage.url)
+          }
         })
         .catch(e => {
           throw e
@@ -92,6 +104,9 @@ new Vue({
         if (rs.findIndex(r => r.path === route.url) > -1) {
           this.__addRouters(route.children, parentsDump)
           continue
+        }
+        if (this.homePage == null) {
+          this.setHomePage(route)
         }
         router.addRoute('layout', {
           path: route.url,
